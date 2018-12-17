@@ -37,7 +37,7 @@
     <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form>
+                <form action="<?php echo base_url();?>auth/login" method="post">
                     <div class="login-form-head">
                     <a href="index.html"><img src="assets/images/icon/logo3.png" width="150px" alt="logo"></a>
                         <p>Hola! Inicia sesion y comienza a manejar tu negocio como todo un profesional</p>
@@ -45,12 +45,12 @@
                     <div class="login-form-body">
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="email" id="exampleInputEmail1">
+                            <input type="email" id="exampleInputEmail1" name="correo">
                             <i class="ti-email"></i>
                         </div>
                         <div class="form-gp">
                             <label for="exampleInputPassword1">Contraseña</label>
-                            <input type="password" id="exampleInputPassword1">
+                            <input type="password" id="exampleInputPassword1" name="pass">
                             <i class="ti-lock"></i>
                         </div>
                         <div class="row mb-4 rmber-area">
