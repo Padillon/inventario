@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Usuarios_model extends CI_Model {
 
-public function login($correo, $password){
-		$this->db->where("correo", $correo);
+public function login($username, $password){
+		$this->db->where("username", $username);
 		$this->db->where("password", $password);
 
 		$resultados = $this->db->get("usuarios");
@@ -11,7 +11,7 @@ public function login($correo, $password){
 			return $resultados->row();
 		}
 		else{
-			return false;
+			return false; 
 		}
     }
 }
