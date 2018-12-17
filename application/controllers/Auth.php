@@ -3,11 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
 
-	public function __contruct(){
-        parent::__contruct();
-        $this->load->model("Usuarios_model");
-    }
-
+	public function __construct(){
+		parent::__construct();
+		$this->load->model("Usuarios_model");
+	}
     public function index()
 	{
 		$this->load->view('admin/login.php');
@@ -16,7 +15,7 @@ class Auth extends CI_Controller {
     public function login()
 	{
         $correo = $this->input->post("correo");
-        $contraseña = $this->input->post("contraseña");
+        $contraseña = $this->input->post("pass");
 		$res = $this->Usuarios_model->login($correo, sha1($contraseña));
 
 		if (!$res) {
@@ -30,8 +29,13 @@ class Auth extends CI_Controller {
 				'login' => TRUE
 			);
 			$this->session->set_userdata($data);
-			redirect(base_url()."dashboard");
+			redirect(base_url()."Dashboard");
 		}
+    }
+    public function logout(){
+		$this->session->sess_destroy();
+		redirect(base_url());
 	}
-	}
+}
+	
 
