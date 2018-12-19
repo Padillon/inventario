@@ -1,19 +1,44 @@
-<div class="content-wrapper">
-    <section class="content-header">
-        <h1>
-        Categorias
-        <small>Listado</small>
-        </h1>
-    </section>
 
-    <section class="content">
-        <div class="box box-solid">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href="#" class="btn btn-primary btn-flat"><span class="fa fa-plus"></span>Agregar Categoria</a>
+
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- page container area start -->
+   
+       <!-- main content area start -->
+        <div class="main-content">
+           
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Categorias</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="index.html">Home</a></li>
+                                <li><span>Mantenimiento</span></li>
+                            </ul>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
+            <!-- page title area end -->
+            <div class="main-content-inner">
+                
+                   
+                    
+            
+            </div>
         </div>
-    </section>
+        <!-- main content area end -->
+       
+    
+    <!-- page container area end -->
+
+    

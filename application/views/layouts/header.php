@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>pricing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url();?>assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/themify-icons.css">
@@ -24,6 +24,7 @@
     <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
+<body>
  <div class="main-content">
             <!-- header area start -->
             <div class="header-area">
@@ -35,23 +36,22 @@
                             <span></span>
                             <span></span>
                         </div>
-                        <div  class="row align-items-right">
-                        <div class="col-sm-8 clearfix">
-                                <div class="user-profile pull-right">
-                                    <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
-                                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Message</a>
-                                        <a class="dropdown-item" href="#">Settings</a>
-                                        <a class="dropdown-item" href="#">Log Out</a>
-                                    </div>
-                                </div>
-                        </div>
-                            
                     </div>
+
+                     <div class="col-md-6 col-sm-4 clearfix">
+                        <div class="user-profile pull-right">
+                            <img class="avatar user-thumb" src="<?php echo base_url();?>assets/images/author/avatar.png" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Message</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="#">Log Out</a>
+                            </div>
+                        </div>
                     </div>
                     <!-- profile info & task notification -->
                     
                 </div>
             </div>
             <!-- header area end -->
+
