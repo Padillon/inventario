@@ -714,7 +714,7 @@ ul.breadcrumbs {
         flex-wrap: wrap;
     background: -webkit-linear-gradient(left, #8914fe 0%, #8063f5 100%);
     background: linear-gradient(to right, #8914fe 0%, #8063f5 100%);
-    padding: 17px 38px;
+    padding: 0px 3px;
     position: relative;
 }
 

@@ -1,3 +1,6 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -20,3 +23,35 @@
     <!-- modernizr css -->
     <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
+
+ <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6  clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div  class="row align-items-right">
+                        <div class="col-sm-8 clearfix">
+                                <div class="user-profile pull-right">
+                                    <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
+                                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Message</a>
+                                        <a class="dropdown-item" href="#">Settings</a>
+                                        <a class="dropdown-item" href="#">Log Out</a>
+                                    </div>
+                                </div>
+                        </div>
+                            
+                    </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                    
+                </div>
+            </div>
+            <!-- header area end -->
