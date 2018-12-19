@@ -31,7 +31,54 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 
-                   
+            <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <table id="example1" class="table table-striped table-bordered" >
+                            
+                     <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Precio</th>
+                                    <th>Mayoreo</th>
+                                    <th>Stock</th>
+                                    <th>Categoria</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                <?php if(!empty($categoria)):?>
+                                    <?php foreach($categoria as $cat):?>
+                                        <tr>
+                                            <td><?php echo $cat->id_categoria;?></td>
+                                            <td><?php echo $cat->nombre;?></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modal-default" value="<?php echo $dataproducto;?>">
+                                                        <span class="fa fa-search"></span>
+                                                    </button>
+
+                                                   
+
+                                                    
+                                                   
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach;?>
+                                <?php endif;?>
+                            </tbody>
+                        </table>
+                        <a href="<?php echo base_url();?>pdfcontroller/productos" target="_blank">
+                            <button type="button" class="btn btn-success"><i class="fa fa-check"></i>Generrar Reporte</button>
+                        </a>
+                       </div>
+                     </div>
+                </div>
+            </div>              
                     
             
             </div>
