@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-12-2018 a las 03:56:30
+-- Tiempo de generación: 20-12-2018 a las 05:01:44
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -31,8 +31,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`id_categoria`, `nombre`, `id_usuario`) VALUES
+(1, 'bebé', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,7 +79,7 @@ CREATE TABLE `detalle_salidas` (
 
 CREATE TABLE `entradas` (
   `id_entrada` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `id_tipo_entrada` int(11) NOT NULL,
   `id_detalle_entrada` int(11) NOT NULL,
   `fecha` date NOT NULL,
@@ -88,7 +95,7 @@ CREATE TABLE `entradas` (
 
 CREATE TABLE `presentacion` (
   `id_presentacion` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
   `valor_en_unidades` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -101,7 +108,7 @@ CREATE TABLE `presentacion` (
 
 CREATE TABLE `productos` (
   `id_producto` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `id_categoria` int(11) NOT NULL,
   `codigo` varchar(100) NOT NULL,
   `id_stock` int(11) NOT NULL,
@@ -126,7 +133,7 @@ CREATE TABLE `proveedores` (
   `nombre` varchar(100) NOT NULL,
   `empresa` varchar(100) NOT NULL,
   `telefono` varchar(100) NOT NULL,
-  `id_usuario` int(11) NOT NULL
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -137,7 +144,7 @@ CREATE TABLE `proveedores` (
 
 CREATE TABLE `salidas` (
   `id_salida` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `id_detalle_salida` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `total` double NOT NULL,
@@ -168,6 +175,14 @@ CREATE TABLE `tipo_empresa` (
   `id_tipo_empresa` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_empresa`
+--
+
+INSERT INTO `tipo_empresa` (`id_tipo_empresa`, `nombre`) VALUES
+(1, 'bazar'),
+(2, 'bazar');
 
 -- --------------------------------------------------------
 
@@ -207,6 +222,13 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `id_tipo_empresa`, `nombre_empresa`, `usuario`, `correo`, `password`) VALUES
+(1, 1, 'Bazar Zulma', 'Konny', 'pinchehugochan@gmail.com', 'ba599f713a5264d1fe7596b3cb1901335cba3100');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -214,8 +236,7 @@ CREATE TABLE `usuarios` (
 -- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id_categoria`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD PRIMARY KEY (`id_categoria`);
 
 --
 -- Indices de la tabla `detalle_entrada`
@@ -236,7 +257,6 @@ ALTER TABLE `detalle_salidas`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`id_entrada`),
-  ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_tipo_entrada` (`id_tipo_entrada`),
   ADD KEY `id_detalle_entrada` (`id_detalle_entrada`),
   ADD KEY `id_proveedor` (`id_proveedor`);
@@ -245,15 +265,13 @@ ALTER TABLE `entradas`
 -- Indices de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  ADD PRIMARY KEY (`id_presentacion`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD PRIMARY KEY (`id_presentacion`);
 
 --
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_categoria` (`id_categoria`),
   ADD KEY `id_stock` (`id_stock`),
   ADD KEY `id_presentacion` (`id_presentacion`);
@@ -262,15 +280,13 @@ ALTER TABLE `productos`
 -- Indices de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  ADD PRIMARY KEY (`id_proveedor`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD PRIMARY KEY (`id_proveedor`);
 
 --
 -- Indices de la tabla `salidas`
 --
 ALTER TABLE `salidas`
   ADD PRIMARY KEY (`id_salida`),
-  ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_detalle_salida` (`id_detalle_salida`),
   ADD KEY `id_tipo_salida` (`id_tipo_salida`);
 
@@ -313,7 +329,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_entrada`
@@ -367,7 +383,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT de la tabla `tipo_empresa`
 --
 ALTER TABLE `tipo_empresa`
-  MODIFY `id_tipo_empresa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipo_empresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_entrada`
@@ -385,17 +401,11 @@ ALTER TABLE `tipo_salida`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Filtros para la tabla `detalle_entrada`
@@ -415,14 +425,7 @@ ALTER TABLE `detalle_salidas`
 ALTER TABLE `entradas`
   ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`),
   ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_tipo_entrada`) REFERENCES `tipo_entrada` (`id_tipo_entrada`),
-  ADD CONSTRAINT `entradas_ibfk_3` FOREIGN KEY (`id_detalle_entrada`) REFERENCES `detalle_entrada` (`id_detalle_entrada`),
-  ADD CONSTRAINT `entradas_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `presentacion`
---
-ALTER TABLE `presentacion`
-  ADD CONSTRAINT `presentacion_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+  ADD CONSTRAINT `entradas_ibfk_3` FOREIGN KEY (`id_detalle_entrada`) REFERENCES `detalle_entrada` (`id_detalle_entrada`);
 
 --
 -- Filtros para la tabla `productos`
@@ -430,22 +433,14 @@ ALTER TABLE `presentacion`
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
   ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`),
-  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`),
-  ADD CONSTRAINT `productos_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Filtros para la tabla `proveedores`
---
-ALTER TABLE `proveedores`
-  ADD CONSTRAINT `proveedores_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`);
 
 --
 -- Filtros para la tabla `salidas`
 --
 ALTER TABLE `salidas`
   ADD CONSTRAINT `salidas_ibfk_1` FOREIGN KEY (`id_tipo_salida`) REFERENCES `tipo_salida` (`id_tipo_salida`),
-  ADD CONSTRAINT `salidas_ibfk_2` FOREIGN KEY (`id_detalle_salida`) REFERENCES `detalle_salidas` (`id_detalle_salida`),
-  ADD CONSTRAINT `salidas_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+  ADD CONSTRAINT `salidas_ibfk_2` FOREIGN KEY (`id_detalle_salida`) REFERENCES `detalle_salidas` (`id_detalle_salida`);
 
 --
 -- Filtros para la tabla `usuarios`
