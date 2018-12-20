@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/default-css.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/responsive.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/dataTables/css/dataTables.css">
+
+
     <!-- modernizr css -->
     <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>

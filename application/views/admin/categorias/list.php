@@ -29,24 +29,20 @@
                 </div>
             </div>
 </div>
-            <!-- page title area end -->
-            <div class="main-content-inner">
-                
-            <div class="col-md-12">
-                        <div class="panel panel-default">
-                          <div class="panel-body">
-                            <table id="example1" class="table table-striped table-bordered" >
+<div class="main-content-inner">
+                <div class="row">
+                    <!-- data table start -->
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Lista - Categorias</h4>
+                                <div class="data-tables">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
                             
-                     <thead>
+                     <thead  >
                                 <tr>
                                     <th>#</th>
-                                    <th>Codigo</th>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Precio</th>
-                                    <th>Mayoreo</th>
-                                    <th>Stock</th>
-                                    <th>Categoria</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -58,21 +54,18 @@
                                             <td><?php echo $cat->nombre;?></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modal-default" value="<?php echo $dataproducto;?>">
+                                                    <button type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modal-default">
                                                         <span class="fa fa-search"></span>
-                                                    </button>
-
-                                                   
-
-                                                    
-                                                   
-                                                </div>
+                                                    </button>                                             
+                                                   </div>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>
                                 <?php endif;?>
                             </tbody>
                         </table>
+</div>
+</div>
                         <a href="<?php echo base_url();?>pdfcontroller/productos" target="_blank">
                             <button type="button" class="btn btn-success"><i class="fa fa-check"></i>Generrar Reporte</button>
                         </a>

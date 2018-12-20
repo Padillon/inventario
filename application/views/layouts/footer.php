@@ -34,7 +34,35 @@
     <!-- others plugins -->
     <script src="<?php echo base_url();?>assets/js/plugins.js"></script>
     <script src="<?php echo base_url();?>assets/js/scripts.js"></script>
+    <!--data table-->
+    <script>
+ $(document).ready(function() {
+    $('#example').DataTable({
+        "scrollX": true,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontraron resultados en su busqueda",
+            "searchPlaceholder": "Buscar registros",
+            "info": "Mostrando registros de _START_ al _END_ de un total de  _TOTAL_ registros",
+            "infoEmpty": "No existen registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+        }
+    });     
+} );
 
+
+</script>
+<!--Data Table-->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     </body>
 
 </html>
