@@ -12,7 +12,7 @@
    
        <!-- main content area start -->
         <div class="main-content">
-           
+        <div class="header-area">
             <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
@@ -28,6 +28,7 @@
                     
                 </div>
             </div>
+</div>
             <!-- page title area end -->
             <div class="main-content-inner">
                 

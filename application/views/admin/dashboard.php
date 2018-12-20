@@ -1,9 +1,4 @@
 
-
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
     </div>
@@ -11,10 +6,10 @@
     <!-- page container area start -->
    
        <!-- main content area start -->
-        <div class="main-content">
-           
-            <!-- page title area start -->
-            <div class="page-title-area">
+    <div class="main-content">
+        <div class="header-area">
+             <!-- page title area start -->
+             <div class="page-title-area">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
@@ -29,14 +24,8 @@
                 </div>
             </div>
             <!-- page title area end -->
-            <div class="main-content-inner">
-                
-                   
-                    
-            
-            </div>
         </div>
-        <!-- main content area end -->
+     </div>
        
     
     <!-- page container area end -->

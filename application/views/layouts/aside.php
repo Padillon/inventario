@@ -1,4 +1,4 @@
-<div class="page-container"><!-- sidebar menu area start -->  
+<div class=""><!-- sidebar menu area start -->  
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
