@@ -24,8 +24,8 @@ class Auth extends CI_Controller {
 		}
 		else{
 			$data  = array(
-				'id' => $res->id, 
-				'nombre' => $res->nombres,
+				'id' => $res->id_usuario, 
+				'nombre' => $res->nombre_empresa,
 				'login' => TRUE
 			);
 			$this->session->set_userdata($data);

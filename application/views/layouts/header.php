@@ -45,7 +45,8 @@
                     </div>
                     <div class="clearfix">
                         <ul class="notification-area pull-right">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown" style=" color: #000000;">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown" style=" color: #000000;">
+                                <?php echo $this->session->userdata("nombre")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a>
