@@ -17,6 +17,7 @@
                                     <li><a href="index3.html">Proveedores</a></li>
                                     <li><a href="index3.html">Tipos de entrada</a></li>
                                     <li><a href="index3.html">Tipos de salida</a></li>
+                                    <li><a href="<?php echo base_url();?>mantenimiento/marcas">Marcas</a></li>
                                 </ul>
                             </li>
                             <li>
