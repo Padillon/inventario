@@ -51,18 +51,20 @@ Agregar.
                                 </tr>
                             </thead>
                             <tbody> 
+                                <?php $cont = 0;?>
                                 <?php if(!empty($marcas)):?>
-                                    <?php foreach($marcas as $mar):?>
+                                    <?php  foreach($marcas as $mar):?>
+                                    <?php $cont++;?>
                                         <tr>
                                             <td><?php echo $mar->id_marca;?></td>
                                             <td><?php echo $mar->nombre;?></td>
                                             <?php $dataMarca = $mar->id_marca."*".$mar->nombre ?>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button id="up_marca" onclick="marcaUpdate()" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
+                                                    <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>                           
-                                                    <button id="del_marca" onclick="marcaDelete()" type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_marca" value="<?php echo $dataMarca;?>" >
+                                                    <button id="del_marca<?php echo $cont; ?>" onclick="marcaDelete(<?php echo $cont; ?>)" type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_marca" value="<?php echo $dataMarca;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>                  
                                                 </div>
@@ -151,15 +153,15 @@ Agregar.
                                 </div>
         <!-- main content area end -->
         <script>
-        function marcaDelete(){
-        var marc = document.getElementById('del_marca');
+        function marcaDelete($num){
+        var marc = document.getElementById('del_marca'+$num);
         var i = marc.value
         var data = i.split('*');
         document.getElementById("id_marca_delete").value= parseInt(data[0]);
         ;}  
 
-        function marcaUpdate(){
-        var marc = document.getElementById('up_marca');
+        function marcaUpdate($num){
+        var marc = document.getElementById('up_marca'+$num);
         var i = marc.value
         var data = i.split('*');
         document.getElementById("id_marca_update").value= parseInt(data[0]);
