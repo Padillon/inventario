@@ -56,7 +56,7 @@ Agregar.
                                     <?php  foreach($marcas as $mar):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $mar->id_marca;?></td>
+                                            <td><?php echo $cont?></td>
                                             <td><?php echo $mar->nombre;?></td>
                                             <?php $dataMarca = $mar->id_marca."*".$mar->nombre ?>
                                             <td>
@@ -154,16 +154,14 @@ Agregar.
         <!-- main content area end -->
         <script>
         function marcaDelete($num){
-        var marc = document.getElementById('del_marca'+$num);
-        var i = marc.value
-        var data = i.split('*');
+        var marc = $('#del_marca'+$num).val();
+        var data = marc.split('*');
         document.getElementById("id_marca_delete").value= parseInt(data[0]);
-        ;}  
+        }  
 
         function marcaUpdate($num){
-        var marc = document.getElementById('up_marca'+$num);
-        var i = marc.value
-        var data = i.split('*');
+        var marc = $("#up_marca"+$num).val();
+        var data = marc.split('*');
         document.getElementById("id_marca_update").value= parseInt(data[0]);
         document.getElementById("nombre_marca_update").value= data[1];
         }
