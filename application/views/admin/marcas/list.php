@@ -36,10 +36,9 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                            <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#add">
-Agregar.
-</button>
+                            
                                 <h4 class="header-title">Lista - Marcas</h4>
+                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#add"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                             
@@ -99,7 +98,7 @@ Agregar.
                                             <div class="modal-body">
                                                <form action="<?php echo base_url();?>mantenimiento/marcas/store" method="POST">
                                                <label >Nombre de la marca.</label>
-                                               <input name="name" type="text" class="form-control" placeholder="Ingrese nombre        ">
+                                               <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
                                                
                                             </div>
                                             <div class="modal-footer">

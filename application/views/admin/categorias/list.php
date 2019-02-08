@@ -36,6 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Categorias</h4>
+                                <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAdd"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                             
@@ -47,17 +48,20 @@
                                 </tr>
                             </thead>
                             <tbody> 
+                            <?php $cont = 0;?>
                                 <?php if(!empty($categoria)):?>
                                     <?php foreach($categoria as $cat):?>
+                                    <?php $cont++;?>
                                         <tr>
                                             <td><?php echo $cat->id_categoria;?></td>
                                             <td><?php echo $cat->nombre;?></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modal-default">
-                                                        <span class="fa fa-search"></span>
-                                                    </button>                                             
-                                                   </div>
+                                                <?php $data = $cat->id_categoria."*".$cat->nombre ?>
+                                                <button id="edit<?php echo $cont;?>" type="button" onclick="cargarDatos(<?php echo $cont;?>)" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modalEdit" value="<?php echo $data;?>">
+                                                    <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                </button>                                               
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>
@@ -66,9 +70,7 @@
                         </table>
 </div>
 </div>
-                        <a href="<?php echo base_url();?>pdfcontroller/productos" target="_blank">
-                            <button type="button" class="btn btn-success"><i class="fa fa-check"></i>Generrar Reporte</button>
-                        </a>
+                        
                        </div>
                      </div>
                 </div>
@@ -78,8 +80,59 @@
             </div>
         </div>
         <!-- main content area end -->
-       
-    
     <!-- page container area end -->
 
+    <!-- Modal add-->
+    <div class="modal fade" id="modalAdd">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title">Agregar</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+             <div class="modal-body">
+             <form action='<?php echo base_url();?>mantenimiento/categorias/store' method='POST'>
+                <label>Nombre de la categoria</label>
+             <input name='name' type='text' class='form-control' placeholder='Ingrese nombre'>
+            </div>
+             <div class="modal-footer">
+             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+             <button type='submit' class='btn btn-primary'>Guardar</button>
+            </div>
+        </div>
+     </div>  
+    </div>
     
+    <!-- Modal edit-->
+    <div class="modal fade" id="modalEdit">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title">Editar</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+             <div class="modal-body">
+             <form action='<?php echo base_url();?>mantenimiento/categorias/update' method='POST'>
+                <label>Nombre de la categoria</label>
+                <input name='idCategoria' id="idCartegoria" type='hidden'>
+             <input name='editName' id="editName" type='text' class='form-control'>
+            </div>
+             <div class="modal-footer">
+             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+             <button type='submit' class='btn btn-primary'>Guardar</button>
+            </div>
+        </div>
+     </div>  
+    </div>
+
+<script type="text/javascript">
+
+function cargarDatos(num){
+    valores = $("#edit"+num).val();
+    datos = valores.split("*");
+
+    $("#idCategoria").val(datos[0]);
+    $("#editName").val(datos[1]);
+};    
+
+</script>
