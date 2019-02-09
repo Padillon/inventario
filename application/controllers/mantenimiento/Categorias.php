@@ -49,7 +49,7 @@ class Categorias extends CI_Controller {
         }
         else{
             $this->session->set_flashdata("error","No se puede eliminar la categoria.");
-            redirect(base_url()."mantenimiento/categoria");
+            redirect(base_url()."mantenimiento/categorias");
         }
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');

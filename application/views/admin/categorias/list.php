@@ -90,15 +90,16 @@
                 <h5 class="modal-title">Agregar</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
-             <div class="modal-body">
-             <form action='<?php echo base_url();?>mantenimiento/categorias/store' method='POST'>
-                <label>Nombre de la categoria</label>
-             <input name='name' type='text' class='form-control' placeholder='Ingrese nombre'>
-            </div>
-             <div class="modal-footer">
-             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-             <button type='submit' class='btn btn-primary'>Guardar</button>
-            </div>
+            <form action='<?php echo base_url();?>mantenimiento/categorias/store' method='POST'>
+                <div class="modal-body">
+                    <label>Nombre de la categoria</label>
+                    <input name='name' type='text' class='form-control' placeholder='Ingrese nombre'>
+                </div>
+                <div class="modal-footer">
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                    <button type='submit' class='btn btn-primary'>Guardar</button>
+                </div>
+            </form>
         </div>
      </div>  
     </div>
@@ -111,28 +112,46 @@
                 <h5 class="modal-title">Editar</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
-             <div class="modal-body">
-             <form action='<?php echo base_url();?>mantenimiento/categorias/update' method='POST'>
+            <form action='<?php echo base_url();?>mantenimiento/categorias/update' method='POST'>
+            <div class="modal-body">
                 <label>Nombre de la categoria</label>
-                <input name='idCategoria' id="idCartegoria" type='hidden'>
-             <input name='editName' id="editName" type='text' class='form-control'>
+                <input name='editName' id="editName" type='text' class='form-control'>
+                <input name='idCategoria' id="idCartegoria" type='hidden' class='form-control'>
             </div>
              <div class="modal-footer">
-             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-             <button type='submit' class='btn btn-primary'>Guardar</button>
+             <button type='button' id='cerrarModal' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+             <button type='submit' id='editarCategoria' class='btn btn-primary'>Actualizar</button>
             </div>
+            </form>
         </div>
      </div>  
     </div>
 
 <script type="text/javascript">
+var base = "<?php echo base_url();?>";
 
 function cargarDatos(num){
     valores = $("#edit"+num).val();
     datos = valores.split("*");
-
-    $("#idCategoria").val(datos[0]);
+   
     $("#editName").val(datos[1]);
+    $("#idCategoria").val(num);
 };    
+
+// $("#editarCategoria").click(function(){
+//     var id = $("#idCategoria").val();
+//     var nombre = $("#editName").val();
+
+//    $.post(base+"mantenimiento/categorias/update", {
+//         idCategoria: id,
+//         editName: nombre
+//    }, 
+//    function(data){
+//         if (data == 1){
+//             $("#cerrarModal").click();
+//             location.reload();
+//         }
+//    });
+//});
 
 </script>
