@@ -60,7 +60,10 @@
                                                 <?php $data = $cat->id_categoria."*".$cat->nombre ?>
                                                 <button id="edit<?php echo $cont;?>" type="button" onclick="cargarDatos(<?php echo $cont;?>)" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modalEdit" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
-                                                </button>                                               
+                                                </button>
+                                                <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                    <span class="fa fa-times" style="color: #fff"></span>
+                                                </button>                                                 
                                                 </div>
                                             </td>
                                         </tr>
@@ -115,8 +118,8 @@
             <form action='<?php echo base_url();?>mantenimiento/categorias/update' method='POST'>
             <div class="modal-body">
                 <label>Nombre de la categoria</label>
-                <input name='editName' id="editName" type='text' class='form-control'>
-                <input name='idCategoria' id="idCartegoria" type='hidden' class='form-control'>
+                <input name='editName' id="name" type='text' class='form-control'>
+                <input name='idCategoria' id="idCategoria" type='hidden' class='form-control'>
             </div>
              <div class="modal-footer">
              <button type='button' id='cerrarModal' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
@@ -127,31 +130,44 @@
      </div>  
     </div>
 
+    <!-- Modal edit-->
+    <div class="modal fade" id="modalDelete">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title">Eliminar</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <form action='<?php echo base_url();?>mantenimiento/categorias/delete' method='POST'>
+            <div class="modal-body">
+                <label>Nombre de la categoria</label>
+                <input name='nombre' id="nombre" type='text' class='form-control'>
+                <input name='idCategoriaDelete' id="idCategoriaDelete" type='hidden' class='form-control'>
+            </div>
+             <div class="modal-footer">
+             <button type='button' id='cerrarModal' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+             <button type='submit' class='btn btn-primary'>Borrar
+            </button>
+            </div>
+            </form>
+        </div>
+     </div>  
+    </div>
+
 <script type="text/javascript">
-var base = "<?php echo base_url();?>";
 
 function cargarDatos(num){
     valores = $("#edit"+num).val();
     datos = valores.split("*");
-   
-    $("#editName").val(datos[1]);
-    $("#idCategoria").val(num);
-};    
+    $("#idCategoria").val(datos[0]);
+    $("#name").val(datos[1]);
+};
 
-// $("#editarCategoria").click(function(){
-//     var id = $("#idCategoria").val();
-//     var nombre = $("#editName").val();
-
-//    $.post(base+"mantenimiento/categorias/update", {
-//         idCategoria: id,
-//         editName: nombre
-//    }, 
-//    function(data){
-//         if (data == 1){
-//             $("#cerrarModal").click();
-//             location.reload();
-//         }
-//    });
-//});
+function deleteCategoria(num){
+    valores = $("#delete"+num).val();
+    datos = valores.split("*");
+    $("#idCategoriaDelete").val(datos[0]);
+    $("#nombre").val(datos[1]);
+};
 
 </script>
