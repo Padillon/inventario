@@ -9,7 +9,7 @@
     </div>
     <!-- preloader area end -->
     <!-- page container area start -->
-   
+
        <!-- main content area start -->
         <div class="main-content">
         <div class="header-area">
@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 </div>
@@ -36,10 +36,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Categorias</h4>
-                                <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAdd"> Agregar+</button>
+                                <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalCategoria"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
-                            
+
                      <thead  >
                                 <tr>
                                     <th>#</th>
@@ -47,7 +47,7 @@
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
-                            <tbody> 
+                            <tbody>
                             <?php $cont = 0;?>
                                 <?php if(!empty($categoria)):?>
                                     <?php foreach($categoria as $cat):?>
@@ -58,12 +58,12 @@
                                             <td>
                                                 <div class="btn-group">
                                                 <?php $data = $cat->id_categoria."*".$cat->nombre ?>
-                                                <button id="edit<?php echo $cont;?>" type="button" onclick="cargarDatos(<?php echo $cont;?>)" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#modalEdit" value="<?php echo $data;?>">
+                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
                                                     <span class="fa fa-times" style="color: #fff"></span>
-                                                </button>                                                 
+                                                </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -73,101 +73,118 @@
                         </table>
 </div>
 </div>
-                        
+
                        </div>
                      </div>
                 </div>
-            </div>              
-                    
-            
+            </div>
+
+
             </div>
         </div>
         <!-- main content area end -->
     <!-- page container area end -->
 
-    <!-- Modal add-->
-    <div class="modal fade" id="modalAdd">
+    <!-- Modal Categorias-->
+    <div class="modal fade" id="modalCategoria">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-             <div class="modal-header">
-                <h5 class="modal-title">Agregar</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <form action='<?php echo base_url();?>mantenimiento/categorias/store' method='POST'>
-                <div class="modal-body">
-                    <label>Nombre de la categoria</label>
-                    <input name='name' type='text' class='form-control' placeholder='Ingrese nombre'>
-                </div>
-                <div class="modal-footer">
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='submit' class='btn btn-primary'>Guardar</button>
-                </div>
-            </form>
-        </div>
-     </div>  
-    </div>
-    
-    <!-- Modal edit-->
-    <div class="modal fade" id="modalEdit">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                <h5 class="modal-title">Editar</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <form action='<?php echo base_url();?>mantenimiento/categorias/update' method='POST'>
-            <div class="modal-body">
-                <label>Nombre de la categoria</label>
-                <input name='editName' id="name" type='text' class='form-control'>
-                <input name='idCategoria' id="idCategoria" type='hidden' class='form-control'>
-            </div>
-             <div class="modal-footer">
-             <button type='button' id='cerrarModal' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-             <button type='submit' id='editarCategoria' class='btn btn-primary'>Actualizar</button>
-            </div>
-            </form>
-        </div>
-     </div>  
-    </div>
 
-    <!-- Modal edit-->
-    <div class="modal fade" id="modalDelete">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                <h5 class="modal-title">Eliminar</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <form action='<?php echo base_url();?>mantenimiento/categorias/delete' method='POST'>
-            <div class="modal-body">
-                <label>Nombre de la categoria</label>
-                <input name='nombre' id="nombre" type='text' class='form-control'>
-                <input name='idCategoriaDelete' id="idCategoriaDelete" type='hidden' class='form-control'>
-            </div>
-             <div class="modal-footer">
-             <button type='button' id='cerrarModal' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-             <button type='submit' class='btn btn-primary'>Borrar
-            </button>
-            </div>
-            </form>
         </div>
-     </div>  
+     </div>
     </div>
 
 <script type="text/javascript">
 
-function cargarDatos(num){
-    valores = $("#edit"+num).val();
+function editCategoria(num){
+    valores = $("#delete"+num).val();
     datos = valores.split("*");
-    $("#idCategoria").val(datos[0]);
-    $("#name").val(datos[1]);
+
+    var html = "";
+    html = "<form action='<?php echo base_url();?>mantenimiento/categorias/update' method='POST'>";
+    html += "<div class='modal-header'>";
+    html += "<h5 class='modal-title'></h5>";
+    html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
+    html += "</div>";
+    html += "<div class='modal-body'>";
+    html += "</div>";
+    html += "<div class='modal-footer'>";
+    html += "</div>";
+    html += "</form>";
+    $("#modalCategoria .modal-content").html(html);
+
+    $("#modalCategoria .modal-title").html("Editar");
+
+    var html2 = "";
+    html2 = "<label>Nombre de la categoria</label>";
+    html2 += "<input name='editName' id='name' type='text' class='form-control' value='"+datos[1]+"'>";
+    html2 += "<input name='idCategoria' id='idCategoria' type='hidden' value='"+datos[0]+" class='form-control'>";
+    $("#modalCategoria .modal-body").html(html2);
+
+    var html3 = "";
+    html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
+    html3 += "<button type='submit' class='btn btn-primary'>Actualizar</button>";
+    $("#modalCategoria .modal-footer").html(html3);
+
 };
 
 function deleteCategoria(num){
     valores = $("#delete"+num).val();
     datos = valores.split("*");
-    $("#idCategoriaDelete").val(datos[0]);
-    $("#nombre").val(datos[1]);
+
+    var html = "";
+    html = "<form action='<?php echo base_url();?>mantenimiento/categorias/delete' method='POST'>";
+    html += "<div class='modal-header'>";
+    html += "<h5 class='modal-title'></h5>";
+    html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
+    html += "</div>";
+    html += "<div class='modal-body'>";
+    html += "</div>";
+    html += "<div class='modal-footer'>";
+    html += "</div>";
+    html += "</form>";
+    $("#modalCategoria .modal-content").html(html);
+
+    $("#modalCategoria .modal-title").html("Eliminar");
+
+    var html2 = "";
+    html2 = "<label>Nombre de la categoria</label>";
+    html2 += "<input name='nombre' id='name' type='text' class='form-control' value='"+datos[1]+"'>";
+    html2 += "<input name='idCategoriaDelete' id='idCategoria' type='hidden' value='"+datos[0]+" class='form-control'>";
+    $("#modalCategoria .modal-body").html(html2);
+
+    var html3 = "";
+    html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
+    html3 += "<button type='submit' class='btn btn-primary'>Borrar</button>";
+    $("#modalCategoria .modal-footer").html(html3);
+
 };
+
+$("#btnAgregar").on("click", function(){
+    var html = "";
+    html = "<form action='<?php echo base_url();?>mantenimiento/categorias/store' method='POST'>";
+    html += "<div class='modal-header'>";
+    html += "<h5 class='modal-title'></h5>";
+    html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
+    html += "</div>";
+    html += "<div class='modal-body'>";
+    html += "</div>";
+    html += "<div class='modal-footer'>";
+    html += "</div>";
+    html += "</form>";
+    $("#modalCategoria .modal-content").html(html);
+
+    $("#modalCategoria .modal-title").html("Agregar");
+
+    var html2 = "";
+    html2 = "<label>Nombre de la categoria</label>";
+    html2 += "<input name='name' type='text' class='form-control' placeholder='Ingrese nombre'>";
+    $("#modalCategoria .modal-body").html(html2);
+
+    var html3 = "";
+    html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
+    html3 += "<button type='submit' class='btn btn-primary'>Guardar</button>";
+    $("#modalCategoria .modal-footer").html(html3);
+});
 
 </script>
