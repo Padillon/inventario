@@ -13,7 +13,7 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Mantenimiento</span></a>
                                 <ul class="collapse">
                                     <li><a href="<?php echo base_url();?>mantenimiento/categorias">Categorias</a></li>
-                                    <li><a href="index2.html">Productos</a></li>
+                                    <li><a href="<?php echo base_url();?>mantenimiento/productos">Productos</a></li>
                                     <li><a href="index3.html">Proveedores</a></li>
                                     <li><a href="index3.html">Tipos de entrada</a></li>
                                     <li><a href="index3.html">Tipos de salida</a></li>
