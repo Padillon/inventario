@@ -69,8 +69,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
-                                    <a href="#" class="btn btn-primary">Editar</a>
+                                    <?php $data = $usuarios->nombre_empresa."*".$ajus->direccion."*".$ajus->giro."*".$ajus->telefono."*".$ajus->correo."*".$ajus->logo."*".$ajus->id ?>
+                                    <button href="#" class="btn btn-primary" onclick="editAjuste()" type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
                                 </div>
                             </div>
                         </div>

@@ -22,4 +22,22 @@ class Ajustes extends CI_Controller {
 
 	}
 
+	public function upload(){
+
+		$mi_archivo = 'uploaded';
+        $config['upload_path'] = "assets/images/ajuste";
+        $config['file_name'] = " ";
+        $config['allowed_types'] = "jpeg|png|jpg";
+        $config['max_size'] = "5000";
+        $config['max_width'] = "2000";
+        $config['max_height'] = "2000";
+        $this->load->library('upload', $config);
+       $this->upload->do_upload($mi_archivo);
+       $data = $this->upload->data();
+
+       $data = array(
+       	 'nombre' => $nombre, 
+         'estado' => 1,
+        );
+    }
 }
