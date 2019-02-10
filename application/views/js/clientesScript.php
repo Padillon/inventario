@@ -1,3 +1,4 @@
+<script type="text/javascript">
 function viewCliente(num){
     valores = $("#view"+num).val();
     datos = valores.split("*");
@@ -189,3 +190,5 @@ $("#btnAgregar").on("click", function(){
     html3 += "<button type='submit' class='btn btn-primary'>Guardar</button>";
     $("#modalCliente .modal-footer").html(html3);
 });
+
+</script>

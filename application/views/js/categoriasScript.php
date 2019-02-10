@@ -1,3 +1,5 @@
+<script type="text/javascript">
+
 function editCategoria(num){
     valores = $("#delete"+num).val();
     datos = valores.split("*");
@@ -121,3 +123,4 @@ $("#btnAgregar").on("click", function(){
     $("#modalCategoria .modal-footer").html(html3);
 });
 
+</script>
