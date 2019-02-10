@@ -23,7 +23,6 @@
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Registros</span></a>
                                 <ul class="collapse">
-                                    <li><a href="<?php echo base_url();?>#">Categorias</a></li>
                                     <li><a href="index3.html">Proveedores</a></li>
                                     <li><a href="<?php echo base_url();?>mantenimiento/clientes">Clientes</a></li>
                                 </ul>
