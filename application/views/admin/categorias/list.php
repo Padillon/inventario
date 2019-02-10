@@ -44,6 +44,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
+                                    <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -55,15 +56,34 @@
                                         <tr>
                                             <td><?php echo $cat->id_categoria;?></td>
                                             <td><?php echo $cat->nombre;?></td>
+                                            <?php if($cat->estado == 1){?>
+                                                <td>
+                                                    <div class="alert alert-primary" role="alert">
+                                                    <strong>Activo</strong>
+                                                    </div>
+                                                </td>
+                                            <?php }else{?>
+                                                <td>
+                                                    <div class="alert alert-danger" role="alert">
+                                                    <strong>Inactivo</strong>
+                                                    </div>
+                                                </td>
+                                            <?php }?>
                                             <td>
                                                 <div class="btn-group">
                                                 <?php $data = $cat->id_categoria."*".$cat->nombre ?>
                                                 <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
-                                                    <span class="fa fa-times" style="color: #fff"></span>
-                                                </button>
+                                                <?php if($cat->estado == 1){?>
+                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-times" style="color: #fff"></span>
+                                                    </button>
+                                                <?php }else{?>
+                                                    <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-check" style="color: #fff"></span>
+                                                    </button>
+                                                <?php }?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -156,6 +176,38 @@ function deleteCategoria(num){
     var html3 = "";
     html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
     html3 += "<button type='submit' class='btn btn-primary'>Borrar</button>";
+    $("#modalCategoria .modal-footer").html(html3);
+
+};
+
+function activeCategoria(num){
+    valores = $("#active"+num).val();
+    datos = valores.split("*");
+
+    var html = "";
+    html = "<form action='<?php echo base_url();?>mantenimiento/categorias/active' method='POST'>";
+    html += "<div class='modal-header'>";
+    html += "<h5 class='modal-title'></h5>";
+    html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
+    html += "</div>";
+    html += "<div class='modal-body'>";
+    html += "</div>";
+    html += "<div class='modal-footer'>";
+    html += "</div>";
+    html += "</form>";
+    $("#modalCategoria .modal-content").html(html);
+
+    $("#modalCategoria .modal-title").html("Activar");
+
+    var html2 = "";
+    html2 = "<label>Nombre de la categoria</label>";
+    html2 += "<input name='nombre' id='name' type='text' class='form-control' value='"+datos[1]+"'>";
+    html2 += "<input name='idCategoria' id='idCategoria' type='hidden' value='"+datos[0]+" class='form-control'>";
+    $("#modalCategoria .modal-body").html(html2);
+
+    var html3 = "";
+    html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
+    html3 += "<button type='submit' class='btn btn-primary'>Activar</button>";
     $("#modalCategoria .modal-footer").html(html3);
 
 };

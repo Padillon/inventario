@@ -82,9 +82,15 @@
                                                 <button id="edit<?php echo $cont;?>" type="button" onclick="editCliente(<?php echo $cont;?>)" class="btn btn-warning" data-toggle="modal" data-target="#modalCliente" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <button id="delete<?php echo $cont; ?>" onclick="deleteCliente(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCliente" value="<?php echo $data;?>" >
-                                                    <span class="fa fa-times" style="color: #fff"></span>
-                                                </button>
+                                                <?php if($cli->estado == 1){?>
+                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCliente(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCliente" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-times" style="color: #fff"></span>
+                                                    </button>
+                                                <?php }else{?>
+                                                    <button id="active<?php echo $cont; ?>" onclick="activeCliente(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCliente" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-check" style="color: #fff"></span>
+                                                    </button>
+                                                <?php }?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -234,6 +240,40 @@ function deleteCliente(num){
     var html3 = "";
     html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
     html3 += "<button type='submit' class='btn btn-danger'>Borrar</button>";
+    $("#modalCliente .modal-footer").html(html3);
+
+};
+
+function activeCliente(num){
+    valores = $("#active"+num).val();
+    datos = valores.split("*");
+
+    var html = "";
+    html = "<form action='<?php echo base_url();?>mantenimiento/clientes/active' method='POST'>";
+    html += "<div class='modal-header'>";
+    html += "<h5 class='modal-title'></h5>";
+    html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
+    html += "</div>";
+    html += "<div class='modal-body'>";
+    html += "</div>";
+    html += "<div class='modal-footer'>";
+    html += "</div>";
+    html += "</form>";
+    $("#modalCliente .modal-content").html(html);
+
+    $("#modalCliente .modal-title").html("¿Desea activar el cliente?");
+
+    var html2 = "";
+    html2 = "<div class='form-group'><label>Nombre:</label>";
+    html2 += "<input name='idCliente' type='hidden' value='"+datos[0]+" class='form-control'>";
+    html2 += "<input name='nombre' type='text' class='form-control' value='"+datos[1]+"'></div>";
+    html2 += "<div class='form-group'><label>Apellidos: </label>";
+    html2 += "<input name='apellido' type='text' class='form-control' value='"+datos[2]+"'></div>";
+    $("#modalCliente .modal-body").html(html2);
+
+    var html3 = "";
+    html3 = "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>";
+    html3 += "<button type='submit' class='btn btn-success'>Activar</button>";
     $("#modalCliente .modal-footer").html(html3);
 
 };

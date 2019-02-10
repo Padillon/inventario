@@ -95,5 +95,23 @@ class Clientes extends CI_Controller {
         $this->load->view("admin/clientes/list",$data);
         $this->load->view("layouts/footer");
     }
+
+    public function active(){
+        $id = $this->input->post("idCliente");
+        $data = array(
+            'estado' =>1, 
+        );
+        if ($this->Clientes_model->update($id, $data)) {
+            redirect(base_url()."mantenimiento/clientes");
+        }
+        else{
+            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            redirect(base_url()."mantenimiento/clientes");
+        }
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/clientes/list",$data);
+        $this->load->view("layouts/footer");
+    }
 	
 }
