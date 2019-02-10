@@ -87,3 +87,13 @@
                 </div>
             </div>
         </div>
+
+         <div class="modal fade" id="modalAjuste">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+
+        </div>
+     </div>
+    </div>
+
+    <script type="text/javascript" src="<?php echo base_url();?>assets/js/adminJS/ajuste.js"></script>
