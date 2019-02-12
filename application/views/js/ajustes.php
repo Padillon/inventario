@@ -33,7 +33,7 @@ function editAjuste(num){
     html2 += "<input name='tel' id='name' type='text' class='form-control' value='"+datos[3]+"'>";
     html2 += "<label>Correo</label>";
     html2 += "<input name='correo' id='name' type='text' class='form-control' value='"+datos[4]+"'>";
-    html2 += "<input name='idCategoria' id='idCategoria' type='hidden' value='"+datos[6]+" class='form-control'>";
+    html2 += "<input name='idAjuste' id='idCategoria' type='hidden' value='"+datos[6]+" class='form-control'>";
     $("#modalAjuste .modal-body").html(html2);
 
     var html3 = "";

@@ -11,4 +11,13 @@ class Ajustes_model extends CI_Model {
 			return $resultados->result();
 	}
 
+	public function updateUsu($id,$datos){
+		$this->db->where("id_usuario",$id);
+		return $this->db->update("usuarios",$datos);
+	}
+	public function updateAjus($id,$data){
+		$this->db->where("id",$id);
+		return $this->db->update("ajustes",$data);
+	}
+
 }
