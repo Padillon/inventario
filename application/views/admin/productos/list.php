@@ -36,7 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalProducto"> Agregar+</button>
+                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalProductoAdd"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -105,13 +105,69 @@
         <!-- main content area end -->
     <!-- page container area end -->
 
-    <!-- Modal Categorias-->
-    <div class="modal fade" id="modalProducto">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
+    <!-- Modal agregar producto-->
+    <div class="modal fade" id="modalProductoAdd" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Agregar producto</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <form id="frm-create">
+                                               <label for="">Nombre del producto.</label>
+                                               <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
+                                               <label for="create_categoria">categoria.</label>         
+                                               <select name='create_categoria' id='create_categoria' class='form-control' required>
+                                               <?php foreach($categoria as $cat):?>
+                                               <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
+                                               <?php endforeach;?>
+                                               </select>
+                                               <label for="create_codigo">Codigo.</label>
+                                               <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
+                                               <label for="create_descripcion">Descripción.</label>
+                                               <input name='create_descripcion' id="create_descripcion"type='text' class='form-control' placeholder='Ingrese descripción'>
+                                               <label for="create_precio_compra">Precio de compra.</label>
+                                               <input name='create_precio_compra' id="create_precio_compra" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
+                                               <label for="create_precio_venta">Precio de venta.</label>
+                                               <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
+                                               <label for="create_img">Imagen.</label><br>
+                                               <input name="create_img" id="create_img"type='file' name='img' accept='image/png, image/jpeg'><br>
+                                               <label for="create_inventariable">Inventariable.</label><br>
+                                               <input name='create_inventariable' id="create_inventariable" type='int'><br>
+                                               <label for="create_presentacion">Presentación.</label><br>
+                                               <input name='create_presentacion' id="create_presentacion" type='int'><br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success" id="btn-create">Guardar cambio</button>
+                                           </form> </div>
+                                        </div>
+                                    </div>
+                                </div>
+<script type="text/javascript" src='<?php echo base_url();?>assets/js/adminJS/productos.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#btn-create').on('click',function(){
+           // var data = $('#frm-create').serialize();
+            $.ajax({
+                url:"<?php echo base_url() ?>mantenimiento/productos/store",
+                type: "POST",
+                data: $('#frm-create').serialize(),
+                dataType: 'json',
+                success: function(data){
+                        
+                        if (data.status) {
+                            alert("Producto agregado");
+                        }
+                },
+                error: function(){
+                    alert("Error");
+                }
+            });
+        });
+    });
 
-        </div>
-     </div>
-    </div>
 
-<script type="text/javascript" src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
+</script>

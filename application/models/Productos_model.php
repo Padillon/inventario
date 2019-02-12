@@ -7,8 +7,9 @@ public function getProductos(){
 			return $resultados->result();
 	}
 	
-	public function save($data){
-		return $this->db->insert("categoria",$data);
+	public function add($data){
+		$this->db->insert("productos",$data);
+		return $insert_id = $this->db->insert_id();
 	}
 
 	public function update($id,$data){
