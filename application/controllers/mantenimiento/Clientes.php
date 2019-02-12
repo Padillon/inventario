@@ -14,8 +14,8 @@ class Clientes extends CI_Controller {
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
         $this->load->view("admin/clientes/list",$data);
-        $this->load->view("js/clientesScript");
         $this->load->view("layouts/footer");
+        $this->load->view("js/clientesScript");
     }
 
     public function store(){
