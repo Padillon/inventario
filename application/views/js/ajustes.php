@@ -1,9 +1,11 @@
+<script type="text/javascript">
+
 function editAjuste(num){
     valores = $("#ajuste").val();
     datos = valores.split("*");
 
     var html = "";
-    html = "<form action='<?php echo base_url();?>ajustes/ajustes/upload' method='POST' enctype="multipart/form-data">";
+    html = "<form action='<?php echo base_url();?>ajustes/ajustes/upload' method='POST' enctype='multipart/form-data'>";
     html += "<div class='modal-header'>";
     html += "<h5 class='modal-title'></h5>";
     html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
@@ -41,3 +43,5 @@ function editAjuste(num){
 
 };
 
+
+</script>

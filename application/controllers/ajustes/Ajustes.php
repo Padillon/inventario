@@ -18,8 +18,7 @@ class Ajustes extends CI_Controller {
 		$this->load->view('layouts/aside');
 		$this->load->view('ajustes/ajustes',$data);
 		$this->load->view('layouts/footer');
-		
-
+		$this->load->view('js/ajustes');
 	}
 
 	public function upload(){
