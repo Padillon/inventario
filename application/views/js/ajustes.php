@@ -20,7 +20,7 @@ function editAjuste(num){
     $("#modalAjuste .modal-title").html("Editar");
 
     var html2 = "";
-    html2 += " <img src='../../assets/images/ajuste/"+datos[5]+"' alt='image'>";
+    html2 += " <img src='assets/images/ajuste/"+datos[5]+"' alt='image'>";
     html2 += "<br><br>";
     html2 += "<input name='uploaded' id='name' type='file' class='form-control' >";
     html2 += "<label>Nombre de la Empresa</label>";
@@ -29,6 +29,8 @@ function editAjuste(num){
     html2 += "<input name='direccion' id='name' type='text' class='form-control' value='"+datos[1]+"'>";
     html2 += "<label>Giro</label>";
     html2 += "<input name='giro' id='name' type='text' class='form-control' value='"+datos[2]+"'>";
+    html2 += "<label>Registro</label>";
+    html2 += "<input name='registro' id='name' type='text' class='form-control' value='"+datos[7]+"'>";
     html2 += "<label>Telefono</label>";
     html2 += "<input name='tel' id='name' type='text' class='form-control' value='"+datos[3]+"'>";
     html2 += "<label>Correo</label>";
