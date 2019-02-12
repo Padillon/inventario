@@ -26,7 +26,7 @@ class Ajustes extends CI_Controller {
 
         $config['upload_path'] = "assets/images/ajuste/";
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['overwrite'] = TRUE;
+        $config['overwrite'] = true;
         $config['max_size'] = '2048';
         $config['max_width'] = '1080';
         $config['max_height'] = '720';

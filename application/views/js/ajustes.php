@@ -20,7 +20,7 @@ function editAjuste(num){
     $("#modalAjuste .modal-title").html("Editar");
 
     var html2 = "";
-    html2 += " <img src='assets/images/ajuste/"+datos[5]+"' alt='image'>";
+    html2 += " <img src='<?php echo base_url();?>assets/images/ajuste/"+datos[5]+"' alt='image'>";
     html2 += "<br><br>";
     html2 += "<input name='uploaded' id='name' type='file' class='form-control' >";
     html2 += "<label>Nombre de la Empresa</label>";
