@@ -54,7 +54,7 @@
                                     <?php foreach($producto as $pro):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $pro->id_categoria;?></td>
+                                            <td><?php echo $pro->id_producto;?></td>
                                             <td><?php echo $pro->nombre;?></td>
                                             <?php if($pro->estado == 1){?>
                                                 <td>
@@ -72,10 +72,10 @@
                                             <td>
                                                 <div class="btn-group">
                                                 <?php $data = $pro->id_categoria."*".$pro->nombre ?>
-                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>,<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>">
+                                                <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#modalProductoAdd">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php if($cat->estado == 1){?>
+                                                <?php if($pro->estado == 1){?>
                                                     <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
@@ -115,6 +115,7 @@
                                             </div>
                                             <div class="modal-body">
                                                <form id="frm-create">
+                                                <input name='data_id' id='data_id' type='hidden'>
                                                <label for="">Nombre del producto.</label>
                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
                                                <label for="create_categoria">categoria.</label>         
@@ -139,16 +140,58 @@
                                                <input name='create_presentacion' id="create_presentacion" type='int'><br>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" class="btn btn-success" id="btn-create">Guardar cambio</button>
+                                                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-success" name="btn-create" id="btn-create">Guardar cambio</button>
                                            </form> </div>
                                         </div>
                                     </div>
                                 </div>
 <script type="text/javascript" src='<?php echo base_url();?>assets/js/adminJS/productos.js'></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script>
+    function resete(){
+                    $('#create_nombre').val('');
+                    $('#create_categoria').val('');
+                    $('#create_codigo').val('');
+                    $('#create_descripcion').val('');
+                    $('#create_precio_compra').val('');
+                    $('#create_precio_venta').val('');
+                    $('#create_img').val('');
+                    $('#create_inventariable').val('');
+                    $('#create_presentacion').val('');
+                    $('#data_id').val('');
+                    $('#btn-create').val("update");
+    }
     $(document).ready(function(){
+       $(document).on('click', '.btn-close', function(){
+            resete();
+        });
+
+        $(document).on('click', '.edit_data', function(){
+            var id = $(this).attr("id");
+            $.ajax({
+                url:"<?php echo base_url() ?>mantenimiento/productos/get",
+                method:"POST",
+                data:{id:id},
+                dataType:"json",
+                success:function(data){
+                    $('#create_nombre').val(data.nombre);
+                    $('#create_categoria').val(data.id_categoria);
+                    $('#create_codigo').val(data.codigo);
+                    $('#create_descripcion').val(data.descripcion);
+                    $('#create_precio_compra').val(data.precio_compra);
+                    $('#create_precio_venta').val(data.precio_venta);
+                    $('#create_img').val(data.imagen);
+                    $('#create_inventariable').val(data.inventariable);
+                    $('#create_presentacion').val(data.id_presentacion);
+                    $('#data_id').val(data.id_producto);
+                    $('#btn-create').val("update");
+                }
+            });
+        });
+
+
         $('#btn-create').on('click',function(){
            // var data = $('#frm-create').serialize();
             $.ajax({
@@ -159,8 +202,10 @@
                 success: function(data){
                         
                         if (data.status) {
-                            alert("Producto agregado");
+                            alert("Guardado exitosamente.");
                         }
+                        resete();
+                        
                 },
                 error: function(){
                     alert("Error");
