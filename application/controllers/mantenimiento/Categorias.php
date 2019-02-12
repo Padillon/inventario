@@ -25,18 +25,11 @@ class Categorias extends CI_Controller {
             'nombre' => $nombre, 
             'estado' => 1,
         );
-        //we keep the new brand.
-        if ($this->Categorias_model->save($data)) {
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        else{
-            $this->session->set_flashdata("error","No se pudo guardar la informacion");
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/categorias/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Categorias_model->save($data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false)); 
     }
 
     public function update(){
@@ -45,17 +38,11 @@ class Categorias extends CI_Controller {
         $data = array(
             'nombre' =>$nombre, 
         );
-        if ($this->Categorias_model->update($id, $data)) {
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        else{
-            $this->session->set_flashdata("error","No se puede eliminar la categoria.");
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/categorias/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Categorias_model->update($id, $data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false));
     }
 
     public function delete(){
@@ -63,34 +50,22 @@ class Categorias extends CI_Controller {
         $data = array(
             'estado' =>0, 
         );
-        if ($this->Categorias_model->update($id, $data)) {
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/categorias/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Categorias_model->update($id, $data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false));
     }
 
     public function active(){
-        $id = $this->input->post("idCategoria");
+        $id = $this->input->post("idCategoriaActive");
         $data = array(
             'estado' =>1, 
         );
-        if ($this->Categorias_model->update($id, $data)) {
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
-            redirect(base_url()."mantenimiento/categorias");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/categorias/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Categorias_model->update($id, $data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false));
     }
 }
