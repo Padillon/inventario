@@ -35,18 +35,12 @@ class Clientes extends CI_Controller {
             'direccion' => $direccion,
             'estado' => 1,
         );
-        //we keep the new brand.
-        if ($this->Clientes_model->save($data)) {
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        else{
-            $this->session->set_flashdata("error","No se pudo guardar la informacion");
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/clientes/list",$data);
-        $this->load->view("layouts/footer");
+ 
+        $result = $this->Clientes_model->save($data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false)); 
     }
 
     public function update(){
@@ -66,53 +60,35 @@ class Clientes extends CI_Controller {
             'registro' => $registro,
             'direccion' => $direccion,
         );
-        if ($this->Clientes_model->update($id, $data)) {
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        else{
-            $this->session->set_flashdata("error","No se puede eliminar la categoria.");
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/clientes/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Clientes_model->update($id, $data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false)); 
     }
 
     public function delete(){
-        $id = $this->input->post("idCliente");
+        $id = $this->input->post("idClienteDelete");
         $data = array(
             'estado' =>0, 
         );
-        if ($this->Clientes_model->update($id, $data)) {
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/clientes/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Clientes_model->update($id, $data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false)); 
     }
 
     public function active(){
-        $id = $this->input->post("idCliente");
+        $id = $this->input->post("idClienteActive");
         $data = array(
             'estado' =>1, 
         );
-        if ($this->Clientes_model->update($id, $data)) {
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
-            redirect(base_url()."mantenimiento/clientes");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/clientes/list",$data);
-        $this->load->view("layouts/footer");
+        $result = $this->Clientes_model->update($id, $data);
+        if($result)
+            echo json_encode(array('status'=>true));
+        else 
+            echo json_encode(array('status'=>false)); 
     }
 	
 }
