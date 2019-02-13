@@ -131,25 +131,26 @@
                                 </div>
         <!-- Modal update-->
         <div class="modal fade" id="edit_marca">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Actualizar</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                               <form action="<?php echo base_url();?>mantenimiento/marcas/update" method="POST">
-                                               <input id="id_marca_update" name="id_marca_update" type="hidden" class="form-control" >
-                                               <h4>Nombre</H4>
-                                               <input id="nombre_marca_update" name="nombre_marca_update" class="form-control" >
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary">Guardar cambio</button>
-                                           </form> </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Actualizar</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?php echo base_url();?>mantenimiento/marcas/update" method="POST">
+                                <input id="id_marca_update" name="id_marca_update" type="hidden" class="form-control" >
+                                <h4>Nombre</H4>
+                                <input id="nombre_marca_update" name="nombre_marca_update" class="form-control" >
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar cambio</button>
+                            </form> 
+                            </div>
+                    </div>
+            </div>
+        </div>
         <!-- main content area end -->
         <script>
         function marcaDelete($num){

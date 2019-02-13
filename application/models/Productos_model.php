@@ -12,8 +12,14 @@ public function getProductos(){
 		return $insert_id = $this->db->insert_id();
 	}
 
+	public function get($id){
+		$this->db->where("id_producto",$id);
+		$resultado = $this->db->get("productos");
+		return $resultado->row();
+	}
+
 	public function update($id,$data){
-		$this->db->where("id_categoria",$id);
-		return $this->db->update("categoria",$data);
+		$this->db->where("id_producto",$id);		
+		return $this->db->update("productos",$data);
 	}
 }
