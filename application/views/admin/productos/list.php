@@ -36,7 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalProductoAdd"> Agregar+</button>
+                                <button type="button" class="btn btn-outline-primary mb-3" onclick=resete() data-toggle="modal" data-target="#modalProductoAdd"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -75,12 +75,13 @@
                                                 <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#modalProductoAdd">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
+                                                <?php $data = $pro->id_categoria."*".$pro->nombre."*".$pro->estado ?>
                                                 <?php if($pro->estado == 1){?>
-                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
+                                                    <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
+                                                    <button id="active<?php echo $cont; ?>"  type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
                                                         <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>
@@ -105,12 +106,35 @@
         <!-- main content area end -->
     <!-- page container area end -->
 
+      <!-- Modal active-->
+      <div class="modal fade" id="active">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5  class="modal-title" id="titulo" name="titulo"></h5  >
+                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?php echo base_url();?>mantenimiento/marcas/update" method="POST">
+                                <input id="id_marca_update" name="id_marca_update" type="hidden" class="form-control" >
+                                <h4 id="titulo">Producto</H4>
+                                <input id="active_nombre" name="active_nombre" class="form-control" >
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar cambio</button>
+                            </form> 
+                            </div>
+                    </div>
+            </div>
+        </div>      
+
     <!-- Modal agregar producto-->
     <div class="modal fade" id="modalProductoAdd" role="dialog">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Agregar producto</h5>
+                                                <h5 class="modal-title">Producto.</h5>
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
@@ -164,6 +188,21 @@
                     $('#btn-create').val("update");
     }
     $(document).ready(function(){
+        $(document).on('click','.btn-active',function(){
+            var id = $(this).attr("id");
+            var data= $(this).attr("value");
+            var data2 = data.split('*');
+            alert(data2[2]);
+            if (data2[2]==1) {
+                document.getElementById("titulo").innerHTML = "Desactivar."
+                document.getElementById("active_nombre").value=data2[1];
+            }else{
+                document.getElementById("titulo").innerHTML = "Activar."
+                document.getElementById("active_nombre").value=data2[1];
+            }
+           
+
+        });
        $(document).on('click', '.btn-close', function(){
             resete();
         });
@@ -204,7 +243,7 @@
                         if (data.status) {
                             alert("Guardado exitosamente.");
                         }
-                        resete();
+                        location.reload();
                         
                 },
                 error: function(){

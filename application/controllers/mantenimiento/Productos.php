@@ -34,10 +34,11 @@ class Productos extends CI_Controller {
         if($id != ""){
             $producto = $this->Productos_model->update($id,$data_in);
         }else{
-        $producto = $this->Productos_model->add($data_in);
+            $producto = $this->Productos_model->add($data_in);
         }
         if($producto){
             echo json_encode(array('status'=>true));
+            //redirect(base_url()."mantenimiento/productos");
         }
         else{
             echo json_encode(array('status'=>false));
