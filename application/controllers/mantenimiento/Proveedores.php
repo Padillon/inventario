@@ -1,42 +1,36 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clientes extends CI_Controller {
+class Proveedores extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Clientes_model");
-	}
+		$this->load->model("Proveedores_model");
+    }
 
-	public function index(){
+    public function index(){
         $data = array(
-            'clientes' => $this->Clientes_model->getClientes(),
+            'proveedores' => $this->Proveedores_model->getProveedores(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
-        $this->load->view("admin/clientes/list",$data);
+        $this->load->view("admin/proveedores/list",$data);
         $this->load->view("layouts/footer");
-        $this->load->view("js/clientes_Script");
+        $this->load->view("js/proveedores_Script");
     }
 
     public function store(){
         $nombre  = $this->input->post("nombre");
-        $apellido  = $this->input->post("apellido");
-        $nit  = $this->input->post("nit");
+        $empresa  = $this->input->post("empresa");
         $telefono  = $this->input->post("telefono");
-        $registro  = $this->input->post("registro");
-        $direccion  = $this->input->post("direccion");
         
         $data  = array(
             'nombre' => $nombre,
-            'apellido' => $apellido,
-            'nit' => $nit,
+            'empresa' => $empresa,
             'telefono' => $telefono,
-            'registro' => $registro,
-            'direccion' => $direccion,
             'estado' => 1,
         );
  
-        $result = $this->Clientes_model->save($data);
+        $result = $this->Proveedores_model->save($data);
         if($result)
             echo json_encode(array('status'=>true));
         else 
@@ -44,23 +38,17 @@ class Clientes extends CI_Controller {
     }
 
     public function update(){
-        $id = $this->input->post("idCliente");
+        $id = $this->input->post("idProveedor");
         $nombre  = $this->input->post("nombre");
-        $apellido  = $this->input->post("apellido");
-        $nit  = $this->input->post("nit");
+        $empresa  = $this->input->post("empresa");
         $telefono  = $this->input->post("telefono");
-        $registro  = $this->input->post("registro");
-        $direccion  = $this->input->post("direccion");
 
         $data = array(
             'nombre' => $nombre,
-            'apellido' => $apellido,
-            'nit' => $nit,
+            'empresa' => $empresa,
             'telefono' => $telefono,
-            'registro' => $registro,
-            'direccion' => $direccion,
         );
-        $result = $this->Clientes_model->update($id, $data);
+        $result = $this->Proveedores_model->update($id, $data);
         if($result)
             echo json_encode(array('status'=>true));
         else 
@@ -68,11 +56,11 @@ class Clientes extends CI_Controller {
     }
 
     public function delete(){
-        $id = $this->input->post("idClienteDelete");
+        $id = $this->input->post("idProveedorDelete");
         $data = array(
             'estado' =>0, 
         );
-        $result = $this->Clientes_model->update($id, $data);
+        $result = $this->Proveedores_model->update($id, $data);
         if($result)
             echo json_encode(array('status'=>true));
         else 
@@ -80,15 +68,14 @@ class Clientes extends CI_Controller {
     }
 
     public function active(){
-        $id = $this->input->post("idClienteActive");
+        $id = $this->input->post("idProveedorActive");
         $data = array(
             'estado' =>1, 
         );
-        $result = $this->Clientes_model->update($id, $data);
+        $result = $this->Proveedores_model->update($id, $data);
         if($result)
             echo json_encode(array('status'=>true));
         else 
             echo json_encode(array('status'=>false)); 
     }
-	
 }

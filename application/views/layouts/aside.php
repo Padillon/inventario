@@ -14,7 +14,7 @@
                                 <ul class="collapse">
                                     <li><a href="<?php echo base_url();?>mantenimiento/categorias">Categorias</a></li>
                                     <li><a href="<?php echo base_url();?>mantenimiento/productos">Productos</a></li>
-                                    <li><a href="index3.html">Proveedores</a></li>
+                                    <li><a href="<?php echo base_url();?>mantenimiento/proveedores">Proveedores</a></li>
                                     <li><a href="index3.html">Tipos de entrada</a></li>
                                     <li><a href="index3.html">Tipos de salida</a></li>
                                     <li><a href="<?php echo base_url();?>mantenimiento/marcas">Marcas</a></li>
