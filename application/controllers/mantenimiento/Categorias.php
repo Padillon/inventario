@@ -15,7 +15,6 @@ class Categorias extends CI_Controller {
         $this->load->view('layouts/aside');
         $this->load->view("admin/categorias/list",$data);
         $this->load->view("layouts/footer");
-        $this->load->view("js/categorias_Script");
     }
 
     public function store(){

@@ -248,5 +248,5 @@
      </div>
     </div>
 
-    
+    <script src="<?php echo base_url();?>assets/js/adminJS/clientes.js"></script>
 

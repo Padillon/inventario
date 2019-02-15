@@ -15,7 +15,6 @@ class Proveedores extends CI_Controller {
         $this->load->view('layouts/aside');
         $this->load->view("admin/proveedores/list",$data);
         $this->load->view("layouts/footer");
-        $this->load->view("js/proveedores_Script");
     }
 
     public function store(){

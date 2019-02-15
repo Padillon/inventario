@@ -1,29 +1,29 @@
-<script type="text/javascript">
 
-function editCategoria(num){
+function editCategoria(num){ //carga datos del modal Editar Categoria
     valores = $("#edit"+num).val();
     datos = valores.split("*");
     $("#idCategoria").val(datos[0]); 
     $("#editName").val(datos[1]);
 };
 
-function deleteCategoria(num){
+function deleteCategoria(num){ //carga datos del modal borrar Categoria
     valores = $("#delete"+num).val();
     datos = valores.split("*");
     $("#idCategoriaDelete").val(datos[0]); 
     $("#nombre").val(datos[1]);
 };
 
-function activeCategoria(num){
+function activeCategoria(num){ //carga datos del modal activar Categoria
     valores = $("#active"+num).val();
     datos = valores.split("*");
     $("#idCategoriaActive").val(datos[0]); 
     $("#nombreActive").val(datos[1]);
 };
 
-$("#btnGuardar").on("click", function(){
+//variable base_url declarada en el header
+$("#btnGuardar").on("click", function(){ //boton del modal agregar categoria
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/categorias/store",
+        url: base_url+"mantenimiento/categorias/store",
         type: "POST",
         data: $("#formAgregar").serialize(),
         dataType: "json",
@@ -39,9 +39,9 @@ $("#btnGuardar").on("click", function(){
     });
 });
 
-$("#btnEditar").on("click", function(){
+$("#btnEditar").on("click", function(){ //boton del modal editar categoria
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/categorias/update",
+        url: base_url+"mantenimiento/categorias/update",
         type: "POST",
         data: $("#formEditar").serialize(),
         dataType: "json",
@@ -57,9 +57,9 @@ $("#btnEditar").on("click", function(){
     });
 });
 
-$("#btnDelete").on("click", function(){
+$("#btnDelete").on("click", function(){ //boton del modal borrar categoria
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/categorias/Delete",
+        url: base_url+"mantenimiento/categorias/Delete",
         type: "POST",
         data: $("#formDelete").serialize(),
         dataType: "json",
@@ -75,9 +75,9 @@ $("#btnDelete").on("click", function(){
     });
 });
 
-$("#btnActive").on("click", function(){
+$("#btnActive").on("click", function(){ //boton del modal activar categoria
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/categorias/active",
+        url: base_url+"mantenimiento/categorias/active",
         type: "POST",
         data: $("#formActive").serialize(),
         dataType: "json",
@@ -92,5 +92,3 @@ $("#btnActive").on("click", function(){
         }
     });
 });
-
-</script>

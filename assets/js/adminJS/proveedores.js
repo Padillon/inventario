@@ -1,23 +1,15 @@
-<script type="text/javascript">
-
-function viewCliente(num){
+function viewProveedor(num){
     valores = $("#view"+num).val();
     datos = valores.split("*");
     var html2 = ""; 
     html2 = "<div class='form-group'><label>Nombre:</label>"; 
     html2 += "<input name='nombre' type='text' class='form-control' value='"+datos[1]+"' disabled></div>"; 
     html2 += "<div class='form-group'><label>Apellidos: </label>"; 
-    html2 += "<input name='apellido' type='text' class='form-control' value='"+datos[2]+"' disabled></div>"; 
-    html2 += "<div class='form-group'><label>NIT:</label>"; 
-    html2 += "<input name='nit' type='text' class='form-control' value='"+datos[3]+"' disabled></div>"; 
+    html2 += "<input name='empresa' type='text' class='form-control' value='"+datos[2]+"' disabled></div>";
     html2 += "<div class='form-group'><label>Telefono:</label>"; 
-    html2 += "<input name='telefono' type='text' class='form-control' value='"+datos[4]+"' disabled></div>"; 
-    html2 += "<div class='form-group'><label>Registro</label>"; 
-    html2 += "<input name='registro' type='text' class='form-control' value='"+datos[5]+"' disabled></div>"; 
-    html2 += "<div class='form-group'><label>Dirección:</label>"; 
-    html2 += "<input name='direccion' type='text' class='form-control' value='"+datos[6]+"' disabled></div>"; 
+    html2 += "<input name='telefono' type='text' class='form-control' value='"+datos[3]+"' disabled></div>"; 
     html2 += "<div class='form-group'><label>Estado:</label>"; 
-    if (datos[7] == 1){ 
+    if (datos[4] == 1){ 
         html2 += "<div class='alert alert-primary' role='alert'><strong>Activo</strong></div>"; 
     } else{ 
         html2 += "<div class='alert alert-danger' role='alert'><strong>Inactivo</strong></div>"; 
@@ -25,37 +17,34 @@ function viewCliente(num){
     $("#modalView .modal-body").html(html2); 
 };
 
-function editCliente(num){
+function editProveedor(num){
     valores = $("#edit"+num).val();
     datos = valores.split("*");
-    $("#idCliente").val(datos[0]);
+    $("#idProveedor").val(datos[0]);
     $("#nombre").val(datos[1]);
-    $("#apellido").val(datos[2]);
-    $("#nit").val(datos[3]);
-    $("#telefono").val(datos[4]);
-    $("#registro").val(datos[5]);
-    $("#direccion").val(datos[6]);
+    $("#empresa").val(datos[2]);
+    $("#telefono").val(datos[3]);
 };
 
-function deleteCliente(num){
+function deleteProveedor(num){
     valores = $("#delete"+num).val();
     datos = valores.split("*");
-    $("#idClienteDelete").val(datos[0]);
+    $("#idProveedorDelete").val(datos[0]);
     $("#nombreDelete").val(datos[1]);
-    $("#apellidoDelete").val(datos[2]);
+    $("#empresaDelete").val(datos[2]);
 };
 
-function activeCliente(num){
+function activeProveedor(num){
     valores = $("#active"+num).val();
     datos = valores.split("*");
-    $("#idClienteActive").val(datos[0]);
+    $("#idProveedorActive").val(datos[0]);
     $("#nombreActive").val(datos[1]);
-    $("#apellidoActive").val(datos[2]);
+    $("#empresaActive").val(datos[2]);
 };
 
 $("#btnGuardar").on("click", function(){
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/clientes/store",
+        url: base_url+"mantenimiento/proveedores/store",
         type: "POST",
         data: $("#formAgregar").serialize(),
         dataType: "json",
@@ -73,7 +62,7 @@ $("#btnGuardar").on("click", function(){
 
 $("#btnEditar").on("click", function(){
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/clientes/update",
+        url: base_url+"mantenimiento/proveedores/update",
         type: "POST",
         data: $("#formEditar").serialize(),
         dataType: "json",
@@ -91,7 +80,7 @@ $("#btnEditar").on("click", function(){
 
 $("#btnDelete").on("click", function(){
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/clientes/delete",
+        url: base_url+"mantenimiento/proveedores/delete",
         type: "POST",
         data: $("#formDelete").serialize(),
         dataType: "json",
@@ -109,7 +98,7 @@ $("#btnDelete").on("click", function(){
 
 $("#btnActive").on("click", function(){
     $.ajax({
-        url: "<?php echo base_url();?>mantenimiento/clientes/active",
+        url: base_url+"mantenimiento/proveedores/active",
         type: "POST",
         data: $("#formActive").serialize(),
         dataType: "json",
@@ -124,5 +113,3 @@ $("#btnActive").on("click", function(){
         }
     });
 });
-
-</script>

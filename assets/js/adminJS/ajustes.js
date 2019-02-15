@@ -1,11 +1,9 @@
-<script type="text/javascript">
-
 function editAjuste(num){
     valores = $("#ajuste").val();
     datos = valores.split("*");
 
     var html = "";
-    html = "<form action='<?php echo base_url();?>ajustes/ajustes/upload' method='POST' enctype='multipart/form-data'>";
+    html = "<form action='"+base_url+"ajustes/ajustes/upload' method='POST' enctype='multipart/form-data'>";
     html += "<div class='modal-header'>";
     html += "<h5 class='modal-title'></h5>";
     html += "<button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>";
@@ -20,7 +18,7 @@ function editAjuste(num){
     $("#modalAjuste .modal-title").html("Editar");
 
     var html2 = "";
-    html2 += " <img src='<?php echo base_url();?>assets/images/ajuste/"+datos[5]+"' alt='image'>";
+    html2 += " <img src='"+base_url+"assets/images/ajuste/"+datos[5]+"' alt='image'>";
     html2 += "<br><br>";
     html2 += "<input name='uploaded' id='name' type='file' class='form-control' >";
     html2 += "<label>Nombre de la Empresa</label>";
@@ -44,6 +42,3 @@ function editAjuste(num){
     $("#modalAjuste .modal-footer").html(html3);
 
 };
-
-
-</script>
