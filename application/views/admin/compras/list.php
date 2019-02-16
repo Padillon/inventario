@@ -1,5 +1,4 @@
 
-
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -18,10 +17,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Categorias</h4>
+                            <h4 class="page-title pull-left">Compras</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
-                                <li><span>Mantenimiento</span></li>
+                                <li><span>Movimientos</span></li>
                             </ul>
                         </div>
                     </div>
@@ -35,113 +34,63 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Categorias</h4>
+                                <h4 class="header-title">Lista - Compras</h4>
                                 <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
-
-
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                    <a class="nav-link active show" id="home-tab" data-toggle="tab" href="#tableActive" role="tab" aria-controls="home" aria-selected="true">Activos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tableInactive" role="tab" aria-controls="profile" aria-selected="false">Inactivos</a>
-                                    </li>
-                                </ul>
-
-                    <div class="tab-content mt-3" id="myTabContent">
-                                <div class="tab-pane fade active show" id="tableActive" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="data-tables">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
 
-                                    <thead  >
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Estado</th>
-                                        <th>Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php $cont = 0;?>
-                                    <?php if(!empty($categoria)):?>
-                                        <?php foreach($categoria as $cat):?>
-                                        <?php $cont++;?>
-                                        <?php if($cat->estado == 1){?>
-                                            <tr>
-                                                <td><?php echo $cat->id_categoria;?></td>
-                                                <td><?php echo $cat->nombre;?></td>
-                                                    <td>
-                                                        <div class="alert alert-primary" role="alert">
-                                                        <strong>Activo</strong>
-                                                        </div>
-                                                    </td>
+                     <thead  >
+                                <tr>
+                                    <th>#</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php $cont = 0;?>
+                                <?php if(!empty($categoria)):?>
+                                    <?php foreach($categoria as $cat):?>
+                                    <?php $cont++;?>
+                                        <tr>
+                                            <td><?php echo $cat->id_categoria;?></td>
+                                            <td><?php echo $cat->nombre;?></td>
+                                            <?php if($cat->estado == 1){?>
                                                 <td>
-                                                    <div class="btn-group">
-                                                    <?php $data = $cat->id_categoria."*".$cat->nombre ?>
-                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
-                                                        <span span class="fa fa-pencil" style="color: #fff"></span>
-                                                    </button>
-                                                        <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
-                                                            <span class="fa fa-times" style="color: #fff"></span>
-                                                        </button>
+                                                    <div class="alert alert-primary" role="alert">
+                                                    <strong>Activo</strong>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            <?php }else{?>
+                                                <td>
+                                                    <div class="alert alert-danger" role="alert">
+                                                    <strong>Inactivo</strong>
+                                                    </div>
+                                                </td>
                                             <?php }?>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
-                                </tbody>
-                            </table>
-                         </div>
-                         </div>
-                        
-
-                <div class="tab-pane fade" id="tableInactive" role="tabpanel" aria-labelledby="profile-tab">
-                         <div class="data-tables">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                    <thead  >
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Estado</th>
-                                        <th>Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php $cont = 0;?>
-                                    <?php if(!empty($categoria)):?>
-                                        <?php foreach($categoria as $cat):?>
-                                        <?php $cont++;?>
-                                        <?php if($cat->estado == 0){?>
-                                            <tr>
-                                                <td><?php echo $cat->id_categoria;?></td>
-                                                <td><?php echo $cat->nombre;?></td>
-                                                    <td>
-                                                        <div class="alert alert-danger" role="alert">
-                                                        <strong>Inactivo</strong>
-                                                        </div>
-                                                    </td>
-                                                
-                                                <td>
-                                                    <div class="btn-group">
-                                                    <?php $data = $cat->id_categoria."*".$cat->nombre ?>
-                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
-                                                        <span span class="fa fa-pencil" style="color: #fff"></span>
+                                            <td>
+                                                <div class="btn-group">
+                                                <?php $data = $cat->id_categoria."*".$cat->nombre ?>
+                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
+                                                    <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                </button>
+                                                <?php if($cat->estado == 1){?>
+                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
-                                                        <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
-                                                            <span class="fa fa-check" style="color: #fff"></span>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php }?>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
-                                </tbody>
-                            </table>
-                         </div>
-                         </div>
-                         </div>
+                                                <?php }else{?>
+                                                    <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-check" style="color: #fff"></span>
+                                                    </button>
+                                                <?php }?>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach;?>
+                                <?php endif;?>
+                            </tbody>
+                        </table>
+</div>
 </div>
 
                        </div>
