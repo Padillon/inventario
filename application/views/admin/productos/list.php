@@ -75,13 +75,13 @@
                                                 <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#modalProductoAdd">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php $data = $pro->id_categoria."*".$pro->nombre."*".$pro->estado ?>
+                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado ?>
                                                 <?php if($pro->estado == 1){?>
                                                     <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>"  type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCategoria" value="<?php echo $data;?>" >
+                                                    <button id="active<?php echo $cont; ?>"  type="button" class="btn btn-success btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>
@@ -107,27 +107,26 @@
     <!-- page container area end -->
 
       <!-- Modal active-->
-      <div class="modal fade" id="active">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                            <div class="modal-header">
-                                <h5  class="modal-title" id="titulo" name="titulo"></h5  >
-                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="<?php echo base_url();?>mantenimiento/marcas/update" method="POST">
-                                <input id="id_marca_update" name="id_marca_update" type="hidden" class="form-control" >
-                                <h4 id="titulo">Producto</H4>
-                                <input id="active_nombre" name="active_nombre" class="form-control" >
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Guardar cambio</button>
-                            </form> 
-                            </div>
-                    </div>
-            </div>
-        </div>      
+     <div class="modal fade" id="active">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ti-cabeza">Eliminar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <form action="<?php echo base_url();?>mantenimiento/productos/active" method="POST">
+                                               <h4 id="titulo"></H4>
+                                               <input id="id-pro-active" name="id-pro-active" type="hidden" class="form-control" >
+                                               <input id="estado-pro-active" name="estado-pro-active" type="hidden" class="form-control" >
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" id="g-active" name="g-active"class="btn btn-primary"></button>
+                                           </form> </div>
+                                        </div>
+                                    </div>
+                                </div>
 
     <!-- Modal agregar producto-->
     <div class="modal fade" id="modalProductoAdd" role="dialog">
@@ -158,10 +157,19 @@
                                                <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
                                                <label for="create_img">Imagen.</label><br>
                                                <input name="create_img" id="create_img"type='file' name='img' accept='image/png, image/jpeg'><br>
-                                               <label for="create_inventariable">Inventariable.</label><br>
+                                               <label for="create_inventariable">Perecedero.</label><br>
+
+                                                <div class="s-sw-title">
+                                                    <div class="s-swtich">
+                                                        <input type="checkbox" id="switch1">
+                                                        <label for="switch1">Toggle</label>
+                                                    </div>
+                                                </div>
+
                                                <input name='create_inventariable' id="create_inventariable" type='int'><br>
                                                <label for="create_presentacion">Presentación.</label><br>
                                                <input name='create_presentacion' id="create_presentacion" type='int'><br>
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Cancelar</button>
@@ -188,19 +196,26 @@
                     $('#btn-create').val("update");
     }
     $(document).ready(function(){
+        $('input[type="checkbox"]').on('change', function(e){
+   alert("XD");
+});
         $(document).on('click','.btn-active',function(){
             var id = $(this).attr("id");
             var data= $(this).attr("value");
             var data2 = data.split('*');
-            alert(data2[2]);
             if (data2[2]==1) {
-                document.getElementById("titulo").innerHTML = "Desactivar."
-                document.getElementById("active_nombre").value=data2[1];
+                document.getElementById("ti-cabeza").innerHTML="Eliminar";
+                document.getElementById("g-active").innerHTML="Eliminar";
+                document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
+                document.getElementById("id-pro-active").value=data2[0];
+                document.getElementById("estado-pro-active").value=data2[2];
             }else{
-                document.getElementById("titulo").innerHTML = "Activar."
-                document.getElementById("active_nombre").value=data2[1];
-            }
-           
+                document.getElementById("ti-cabeza").innerHTML="Activar";
+                document.getElementById("g-active").innerHTML="Activar";
+                document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
+                document.getElementById("id-pro-active").value=data2[0];
+                document.getElementById("estado-pro-active").value=data2[2];
+            }        
 
         });
        $(document).on('click', '.btn-close', function(){

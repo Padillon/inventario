@@ -51,4 +51,26 @@ class Productos extends CI_Controller {
         $data = $this->Productos_model->get($id);
         echo json_encode($data);
     }
+
+    public function active(){
+        $id_producto= $this->input->post('id-pro-active');
+        $estado_producto= $this->input->post('estado-pro-active');
+        if ($estado_producto!=0) {
+            $data = array(
+                'estado' =>0, 
+            );
+        }else{
+            $data = array(
+                'estado' =>1, 
+            );
+        }
+        if ($this->Productos_model->update($id_producto, $data)) {
+            redirect(base_url()."mantenimiento/productos");
+        }
+        else{
+            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            redirect(base_url()."mantenimiento/productos");
+        }
+        
+    }
 }
