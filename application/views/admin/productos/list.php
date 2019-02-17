@@ -161,8 +161,8 @@
 
                                                 <div class="s-sw-title">
                                                     <div class="s-swtich">
-                                                        <input type="checkbox" id="switch1">
-                                                        <label for="switch1">Toggle</label>
+                                                        <input type="checkbox" checked="checked" id="switch1" value='1'>
+                                                        <label for="switch1" >Toggle</label>
                                                     </div>
                                                 </div>
 
@@ -197,7 +197,8 @@
     }
     $(document).ready(function(){
         $('input[type="checkbox"]').on('change', function(e){
-   alert("XD");
+    var val = $(this).attr("value");
+    alert (val);
 });
         $(document).on('click','.btn-active',function(){
             var id = $(this).attr("id");
