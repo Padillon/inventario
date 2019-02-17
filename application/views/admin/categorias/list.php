@@ -38,18 +38,6 @@
                                 <h4 class="header-title">Lista - Categorias</h4>
                                 <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
 
-
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                    <a class="nav-link active show" id="home-tab" data-toggle="tab" href="#tableActive" role="tab" aria-controls="home" aria-selected="true">Activos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tableInactive" role="tab" aria-controls="profile" aria-selected="false">Inactivos</a>
-                                    </li>
-                                </ul>
-
-                    <div class="tab-content mt-3" id="myTabContent">
-                                <div class="tab-pane fade active show" id="tableActive" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="data-tables">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -66,18 +54,16 @@
                                     <?php if(!empty($categoria)):?>
                                         <?php foreach($categoria as $cat):?>
                                         <?php $cont++;?>
-                                        <?php if($cat->estado == 1){?>
                                             <tr>
                                                 <td><?php echo $cat->id_categoria;?></td>
                                                 <td><?php echo $cat->nombre;?></td>
+                                                <?php $data = $cat->id_categoria."*".$cat->nombre ?>
+                                                <?php if($cat->estado == 1){?>
                                                     <td>
-                                                        <div class="alert alert-primary" role="alert">
-                                                        <strong>Activo</strong>
-                                                        </div>
+                                                    <span class="badge badge-success">Activo</span>
                                                     </td>
-                                                <td>
+                                                    <td>
                                                     <div class="btn-group">
-                                                    <?php $data = $cat->id_categoria."*".$cat->nombre ?>
                                                     <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>
@@ -86,62 +72,26 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                            </tr>
-                                            <?php }?>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
-                                </tbody>
-                            </table>
-                         </div>
-                         </div>
-                        
-
-                <div class="tab-pane fade" id="tableInactive" role="tabpanel" aria-labelledby="profile-tab">
-                         <div class="data-tables">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                    <thead  >
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Estado</th>
-                                        <th>Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php $cont = 0;?>
-                                    <?php if(!empty($categoria)):?>
-                                        <?php foreach($categoria as $cat):?>
-                                        <?php $cont++;?>
-                                        <?php if($cat->estado == 0){?>
-                                            <tr>
-                                                <td><?php echo $cat->id_categoria;?></td>
-                                                <td><?php echo $cat->nombre;?></td>
+                                                <?php }else {?>
                                                     <td>
-                                                        <div class="alert alert-danger" role="alert">
-                                                        <strong>Inactivo</strong>
-                                                        </div>
+                                                    <span class="badge badge-danger">Inactivo</span>
                                                     </td>
-                                                
-                                                <td>
+                                                    <td>
                                                     <div class="btn-group">
-                                                    <?php $data = $cat->id_categoria."*".$cat->nombre ?>
                                                     <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>
-                                                        <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
-                                                            <span class="fa fa-check" style="color: #fff"></span>
+                                                    <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
+                                                        <span class="fa fa-check" style="color: #fff"></span>
                                                         </button>
                                                     </div>
                                                 </td>
+                                                <? } ?>
                                             </tr>
-                                        <?php }?>
                                         <?php endforeach;?>
                                     <?php endif;?>
                                 </tbody>
                             </table>
-                         </div>
-                         </div>
-                         </div>
 </div>
 
                        </div>

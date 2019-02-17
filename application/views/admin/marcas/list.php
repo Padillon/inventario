@@ -58,6 +58,10 @@
                                             <td><?php echo $cont?></td>
                                             <td><?php echo $mar->nombre;?></td>
                                             <?php $dataMarca = $mar->id_marca."*".$mar->nombre ?>
+                                            <?php if($mar->estado == 1){?>
+                                            <td>
+                                                <span class="badge badge-success">Activo</span>
+                                            </td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
@@ -68,6 +72,21 @@
                                                     </button>                  
                                                 </div>
                                             </td>
+                                            <? }else {?>
+                                                <td>
+                                                    <span class="badge badge-danger">Inactivo</span>
+                                                </td>
+                                                <td>
+                                                <div class="btn-group">
+                                                    <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
+                                                        <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                    </button>                           
+                                                    <button id="activeMarca<?php echo $cont; ?>" onclick="marcaActive(<?php echo $cont; ?>)" type="button" class="btn btn-success btn-remove" data-toggle="modal" data-target="#activeMarca" value="<?php echo $dataMarca;?>" >
+                                                    <span class="fa fa-check" style="color: #fff"></span>
+                                                    </button>                  
+                                                </div>
+                                            </td>
+                                            <?}?>
                                         </tr>
                                     <?php endforeach;?>
                                 <?php endif;?>
@@ -75,9 +94,6 @@
                         </table>
 </div>
 </div>
-                        <a href="<?php echo base_url();?>pdfcontroller/productos" target="_blank">
-                            <button type="button" class="btn btn-success"><i class="fa fa-check"></i>Generrar Reporte</button>
-                        </a>
                        </div>
                      </div>
                 </div>
@@ -129,6 +145,29 @@
                                         </div>
                                     </div>
                                 </div>
+        
+<!-- Modal active-->
+<div class="modal fade" id="activeMarca">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Eliminar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <form action="<?php echo base_url();?>mantenimiento/marcas/active" method="POST">
+                                               <h4>Está seguro de activar la marca?</H4>
+                                               <input id="id_marca_active" name="id_marca_active" type="hidden" class="form-control" >
+                                               
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-success">Activar</button>
+                                           </form> </div>
+                                        </div>
+                                    </div>
+                                </div>
+
         <!-- Modal update-->
         <div class="modal fade" id="edit_marca">
             <div class="modal-dialog modal-dialog-centered" role="document">

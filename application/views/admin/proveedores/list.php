@@ -61,15 +61,11 @@
                                             <td><?php echo $pro->telefono;?></td>
                                             <?php if($pro->estado == 1){?>
                                                 <td>
-                                                    <div class="alert alert-primary" role="alert">
-                                                    <strong>Activo</strong>
-                                                    </div>
+                                                <span class="badge badge-success">Activo</span>
                                                 </td>
                                             <?php }else{?>
                                                 <td>
-                                                    <div class="alert alert-danger" role="alert">
-                                                    <strong>Inactivo</strong>
-                                                    </div>
+                                                <span class="badge badge-danger">Inactivo</span>
                                                 </td>
                                             <?php }?>
                                             <td>
