@@ -137,7 +137,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form id="frm-create">
+                                               <form id="frm-create" >
                                                 <input name='data_id' id='data_id' type='hidden'>
                                                <label for="">Nombre del producto.</label>
                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
@@ -156,17 +156,16 @@
                                                <label for="create_precio_venta">Precio de venta.</label>
                                                <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
                                                <label for="create_img">Imagen.</label><br>
-                                               <input name="create_img" id="create_img"type='file' name='img' accept='image/png, image/jpeg'><br>
-                                               <label for="create_inventariable">Perecedero.</label><br>
+                                               <input name="create_img" id="create_img" type='file' ><br>
+                                               <label for="create_perecedero">Perecedero.</label><br>
 
                                                 <div class="s-sw-title">
                                                     <div class="s-swtich">
-                                                        <input type="checkbox" checked="checked" id="switch1" value='1'>
-                                                        <label for="switch1" >Toggle</label>
+                                                        <input type="checkbox" id="create_perecedero" name="create_perecedero" >
+                                                        <label for="create_perecedero" >Toggle</label>
                                                     </div>
                                                 </div>
 
-                                               <input name='create_inventariable' id="create_inventariable" type='int'><br>
                                                <label for="create_presentacion">Presentación.</label><br>
                                                <input name='create_presentacion' id="create_presentacion" type='int'><br>
 
@@ -178,95 +177,104 @@
                                         </div>
                                     </div>
                                 </div>
-<script type="text/javascript" src='<?php echo base_url();?>assets/js/adminJS/productos.js'></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
-    function resete(){
-                    $('#create_nombre').val('');
-                    $('#create_categoria').val('');
-                    $('#create_codigo').val('');
-                    $('#create_descripcion').val('');
-                    $('#create_precio_compra').val('');
-                    $('#create_precio_venta').val('');
-                    $('#create_img').val('');
-                    $('#create_inventariable').val('');
-                    $('#create_presentacion').val('');
-                    $('#data_id').val('');
-                    $('#btn-create').val("update");
-    }
-    $(document).ready(function(){
-        $('input[type="checkbox"]').on('change', function(e){
-    var val = $(this).attr("value");
-    alert (val);
+function resete(){
+    $('#create_nombre').val('');
+    $('#create_categoria').val('');
+    $('#create_codigo').val('');
+    $('#create_descripcion').val('');
+    $('#create_precio_compra').val('');
+    $('#create_precio_venta').val('');
+    $('#create_img').val('');
+    $('#create_inventariable').val('');
+    $('#create_presentacion').val('');
+    $('#data_id').val('');
+    $('#btn-create').val("update");
+    $("#create_perecedero").prop('checked', false);
+    $("#create_perecedero").val('0');
+
+}
+$(document).ready(function(){
+$('input[type="checkbox"]').on('change', function(e){
+
+var val = $(this).attr("value"); 
+if(val!=0){
+$('#create_perecedero').val('0');
+}else{
+$('#create_perecedero').val('1');
+}
 });
-        $(document).on('click','.btn-active',function(){
-            var id = $(this).attr("id");
-            var data= $(this).attr("value");
-            var data2 = data.split('*');
-            if (data2[2]==1) {
-                document.getElementById("ti-cabeza").innerHTML="Eliminar";
-                document.getElementById("g-active").innerHTML="Eliminar";
-                document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
-                document.getElementById("id-pro-active").value=data2[0];
-                document.getElementById("estado-pro-active").value=data2[2];
-            }else{
-                document.getElementById("ti-cabeza").innerHTML="Activar";
-                document.getElementById("g-active").innerHTML="Activar";
-                document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
-                document.getElementById("id-pro-active").value=data2[0];
-                document.getElementById("estado-pro-active").value=data2[2];
-            }        
+$(document).on('click','.btn-active',function(){
+var id = $(this).attr("id");
+var data= $(this).attr("value");
+var data2 = data.split('*');
+if (data2[2]==1) {
+document.getElementById("ti-cabeza").innerHTML="Eliminar";
+document.getElementById("g-active").innerHTML="Eliminar";
+document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
+document.getElementById("id-pro-active").value=data2[0];
+document.getElementById("estado-pro-active").value=data2[2];
+}else{
+document.getElementById("ti-cabeza").innerHTML="Activar";
+document.getElementById("g-active").innerHTML="Activar";
+document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
+document.getElementById("id-pro-active").value=data2[0];
+document.getElementById("estado-pro-active").value=data2[2];
+}        
 
-        });
-       $(document).on('click', '.btn-close', function(){
-            resete();
-        });
+});
 
-        $(document).on('click', '.edit_data', function(){
-            var id = $(this).attr("id");
-            $.ajax({
-                url:"<?php echo base_url() ?>mantenimiento/productos/get",
-                method:"POST",
-                data:{id:id},
-                dataType:"json",
-                success:function(data){
-                    $('#create_nombre').val(data.nombre);
-                    $('#create_categoria').val(data.id_categoria);
-                    $('#create_codigo').val(data.codigo);
-                    $('#create_descripcion').val(data.descripcion);
-                    $('#create_precio_compra').val(data.precio_compra);
-                    $('#create_precio_venta').val(data.precio_venta);
-                    $('#create_img').val(data.imagen);
-                    $('#create_inventariable').val(data.inventariable);
-                    $('#create_presentacion').val(data.id_presentacion);
-                    $('#data_id').val(data.id_producto);
-                    $('#btn-create').val("update");
-                }
-            });
-        });
+$(document).on('click', '.edit_data', function(){
+   
+var id = $(this).attr("id");
+$.ajax({
+url:"<?php echo base_url() ?>mantenimiento/productos/get",
+method:"POST",
+data:{id:id},
+dataType:"json",
+success:function(data){
+   $('#create_nombre').val(data.nombre);
+    $('#create_categoria').val(data.id_categoria);
+    $('#create_codigo').val(data.codigo);
+    $('#create_descripcion').val(data.descripcion);
+    $('#create_precio_compra').val(data.precio_compra);
+    $('#create_precio_venta').val(data.precio_venta);
+    $('#create_img').val(data.imagen);
+    $('#create_perecedero').val(data.inventariable);
+    $('#create_presentacion').val(data.id_presentacion);
+    $('#data_id').val(data.id_producto);
+    if (data.perecedero==1) {
+        $('#create_perecedero').val('1');
+        $("#create_perecedero").prop('checked', true);
+    }
+    $('#btn-create').val("update");
+    
+}
+});
+});
 
 
-        $('#btn-create').on('click',function(){
-           // var data = $('#frm-create').serialize();
-            $.ajax({
-                url:"<?php echo base_url() ?>mantenimiento/productos/store",
-                type: "POST",
-                data: $('#frm-create').serialize(),
-                dataType: 'json',
-                success: function(data){
-                        
-                        if (data.status) {
-                            alert("Guardado exitosamente.");
-                        }
-                        location.reload();
-                        
-                },
-                error: function(){
-                    alert("Error");
-                }
-            });
-        });
-    });
-
+$('#btn-create').on('click',function(){
+// var data = $('#frm-create').serialize();
+$.ajax({
+url:"<?php echo base_url() ?>mantenimiento/productos/store",
+type: "POST",
+data: $('#frm-create').serialize(),
+dataType: 'json',
+success: function(data){
+        
+        if (data.status) {
+            alert("Guardado exitosamente.");
+        }
+        location.reload();
+        
+},
+error: function(){
+    alert("Error");
+}
+});
+});
+});
 </script>
+

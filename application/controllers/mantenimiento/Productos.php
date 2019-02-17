@@ -20,6 +20,7 @@ class Productos extends CI_Controller {
     }
 
     public function store(){
+
         $id = $this->input->post('data_id');
         $data_in['id_categoria'] = $this->input->post('create_categoria');
         $data_in['codigo'] = $this->input->post('create_codigo');
@@ -28,9 +29,10 @@ class Productos extends CI_Controller {
         $data_in['descripcion'] = $this->input->post('create_descripcion');
         $data_in['precio_compra'] = $this->input->post('create_precio_compra');
         $data_in['precio_venta'] = $this->input->post('create_precio_venta');
-       // $data_in['imagen'] = $this->input->post('create_img');
-        $data_in['inventariable'] = $this->input->post('create_inventariable');
+     //  $data_in['imagen'] ="";
+        $data_in['perecedero'] = $this->input->post('create_perecedero');
         $data_in['id_presentacion'] = $this->input->post('create_presentacion');
+
         if($id != ""){
             $producto = $this->Productos_model->update($id,$data_in);
         }else{
@@ -47,7 +49,7 @@ class Productos extends CI_Controller {
 
     public function get(){
         $id =$this->input->post('id');
-        $id =(int)$id;
+        $id =$id;
         $data = $this->Productos_model->get($id);
         echo json_encode($data);
     }
