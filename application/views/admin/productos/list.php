@@ -157,12 +157,11 @@
                                                <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
                                                <label for="create_img">Imagen.</label><br>
                                                <input name="create_img" id="create_img" type='file' ><br>
-                                               <label for="create_perecedero">Perecedero.</label><br>
-
+                                               <label for="create_perecedero">Perecedero.</label><br>  
                                                 <div class="s-sw-title">
                                                     <div class="s-swtich">
                                                         <input type="checkbox" id="create_perecedero" name="create_perecedero" >
-                                                        <label for="create_perecedero" >Toggle</label>
+                                                        <label for="create_perecedero" ></label>
                                                     </div>
                                                 </div>
 
@@ -178,8 +177,8 @@
                                     </div>
                                 </div>
 
-<script>
-function resete(){
+                                
+<script>function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
     $('#create_codigo').val('');
@@ -191,6 +190,7 @@ function resete(){
     $('#create_presentacion').val('');
     $('#data_id').val('');
     $('#btn-create').val("update");
+
     $("#create_perecedero").prop('checked', false);
     $("#create_perecedero").val('0');
 
@@ -247,19 +247,17 @@ success:function(data){
     if (data.perecedero==1) {
         $('#create_perecedero').val('1');
         $("#create_perecedero").prop('checked', true);
-    }
-    $('#btn-create').val("update");
-    
+    }    
 }
 });
 });
 
 
 $('#btn-create').on('click',function(){
-// var data = $('#frm-create').serialize();
 $.ajax({
 url:"<?php echo base_url() ?>mantenimiento/productos/store",
 type: "POST",
+enctype:"multipart/form-data",
 data: $('#frm-create').serialize(),
 dataType: 'json',
 success: function(data){
@@ -275,6 +273,5 @@ error: function(){
 }
 });
 });
-});
-</script>
+});</script>
 

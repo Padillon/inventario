@@ -10,6 +10,7 @@ function resete(){
     $('#create_presentacion').val('');
     $('#data_id').val('');
     $('#btn-create').val("update");
+
     $("#create_perecedero").prop('checked', false);
     $("#create_perecedero").val('0');
 
@@ -45,6 +46,7 @@ document.getElementById("estado-pro-active").value=data2[2];
 });
 
 $(document).on('click', '.edit_data', function(){
+   
 var id = $(this).attr("id");
 $.ajax({
 url:"<?php echo base_url() ?>mantenimiento/productos/get",
@@ -52,7 +54,6 @@ method:"POST",
 data:{id:id},
 dataType:"json",
 success:function(data){
-    alert(data);
    $('#create_nombre').val(data.nombre);
     $('#create_categoria').val(data.id_categoria);
     $('#create_codigo').val(data.codigo);
@@ -66,16 +67,13 @@ success:function(data){
     if (data.perecedero==1) {
         $('#create_perecedero').val('1');
         $("#create_perecedero").prop('checked', true);
-    }
-    $('#btn-create').val("update");
-    
+    }    
 }
 });
 });
 
 
 $('#btn-create').on('click',function(){
-// var data = $('#frm-create').serialize();
 $.ajax({
 url:"<?php echo base_url() ?>mantenimiento/productos/store",
 type: "POST",
