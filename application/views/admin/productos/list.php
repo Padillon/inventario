@@ -167,6 +167,13 @@
 
                                                <label for="create_presentacion">Presentación.</label><br>
                                                <input name='create_presentacion' id="create_presentacion" type='int'><br>
+                                                
+                                               <label for="create_presentacion">presentacion.</label>         
+                                               <select name='create_presentacion' id='create_presentacion' class='form-control' required>
+                                               <?php foreach($categoria as $cat):?>
+                                               <option value='<?php echo $prese->id_presentacion;?>'><?php echo $prese->nombre;?></option>
+                                               <?php endforeach;?>
+                                               </select>
 
                                             </div>
                                             <div class="modal-footer">
