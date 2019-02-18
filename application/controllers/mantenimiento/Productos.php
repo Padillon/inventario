@@ -27,11 +27,8 @@ class Productos extends CI_Controller {
         $config['max_size'] = '2048';
         $config['max_width'] = '1080';
         $config['max_height'] = '720';
-
         $this->load->library('upload',$config);
-
         $this->upload->do_upload('create_img');
-
         $file_info = $this->upload->data();
         $imagen = $file_info['file_name'];
 
