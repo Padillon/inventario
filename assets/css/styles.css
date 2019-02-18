@@ -2826,4 +2826,8 @@ table.dataTable thead td {
     color: #555;
 }
 
+.right{
+    float: right;
+    margin-right: 100px;
+}
 /*-------------------- END Offset Sidebar ------------------- */

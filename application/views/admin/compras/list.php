@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Compras</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
+                                <a href="<?php echo base_url();?>movimientos/compras/add" class="btn btn-outline-primary mb-3"><span class="fa fa-plus"></span>Comprar</a>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -43,19 +43,25 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Fecha</th>
+                                    <th>Proveedor</th>
+                                    <th>Encargado</th>
+                                    <th>Total</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php $cont = 0;?>
-                                <?php if(!empty($categoria)):?>
-                                    <?php foreach($categoria as $cat):?>
+                                <?php if(!empty($compras)):?>
+                                    <?php foreach($compras as $com):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $cat->id_categoria;?></td>
-                                            <td><?php echo $cat->nombre;?></td>
-                                            <?php if($cat->estado == 1){?>
+                                            <td><?php echo $com->id_compras;?></td>
+                                            <td><?php echo $com->fecha;?></td>
+                                            <td><?php echo $com->proveedor;?></td>
+                                            <td><?php echo $com->usuario;?></td>
+                                            <td><?php echo $com->total;?></td>
+                                            <?php if($com->estado == 1){?>
                                                 <td>
                                                     <div class="alert alert-primary" role="alert">
                                                     <strong>Activo</strong>
@@ -70,16 +76,16 @@
                                             <?php }?>
                                             <td>
                                                 <div class="btn-group">
-                                                <?php $data = $cat->id_categoria."*".$cat->nombre ?>
-                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
+                                                <?php $data = $com->id_compra."*".$com->nombre ?>
+                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCompra(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php if($cat->estado == 1){?>
-                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                <?php if($com->estado == 1){?>
+                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCompra(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
+                                                    <button id="active<?php echo $cont; ?>" onclick="activeCompra(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
                                                         <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>
