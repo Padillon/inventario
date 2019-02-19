@@ -31,18 +31,22 @@
         <div class="main-content-inner">
                 <div class="row">
                     <!-- busqueda de producto -->
-                    <div class="col-12 mt-5">
+                    <div class="col-9 mt-5">
                         <div class="card">
                             <div class="card-body">
                             <form class="form-control">
-                                <div class='form-group col-3'>
+                                <div class='input-group'>
+                                     <div class='col-md-3'>
                                     <label>Fecha:</label>
                                     <input name='nombre' type="date" class='form-control' >
+                                </div>
+                                     <div class='col-md-9'>
                                     <label>Proveedor: </label>
                                     <input name='apellido' type='select' class='form-control' >
                                 </div>
+                                </div>
                             
-                    
+                            <div class="col-md-12">
                             <label class="col-form-control">Buscar Producto:</label>
                             <div class="input-group">
                                     <input class="form-control" type="text">
@@ -50,6 +54,7 @@
                                     <button class="btn btn-outline-primary" type="button">Buscar</button>
                                 </div>
                             </div>
+                            
                             <br>
                             <table id="tbCompras" class="table table-bordered table-striped table-hover">
                                 <thead>
@@ -67,22 +72,10 @@
                                 
                                 </tbody>
                             </table>
-
-                            <div class="form-group row" >
-                             <div class="col-sm-6">
-                                    <div class="input-group rigth">
-                
-                                    <div class="alert alert-primary" role="alert">
-                                            <div class="input-group-append">
-                                            <label class="input-group-text">Total: </label>
-                                            <span class="input-group-text">$</span>
-                                            <span class="input-group-text">0.00</span>
-                                        </div>
-                                        </div>
-                                        
-                                    </div>
                                 </div>
-                            </div>
+                                
+                                
+                            
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-outline-primary mb-3">Procesar Compra</button>
@@ -91,7 +84,37 @@
 
 
                             </div>
+
+
+
                         </div>
                     </div>
+                        <div class="col-3 mt-5">
+                        <div class="card">
+                    <div class="card-body">
+                            <div class="form-control">
+                                    <table class="table">
+                                        <tr>
+                                        <td>SUBTOTAL:</td>
+                                        <td>$</td>
+                                        </tr>
+                                        <tr>
+                                        <td>IVA:</td>
+                                        <td>$</td>
+                                        </tr>
+                                        <tr>
+                                        <td>CESC:</td>
+                                        <td>$</td>
+                                        </tr>
+                                        <tr>
+                                        <td class="alert alert-success">TOTAL:</td>
+                                        <td class="alert alert-success">$</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                             
+                         </div>
+                     </div>
+                 </div>
                 </div>
         </div>
