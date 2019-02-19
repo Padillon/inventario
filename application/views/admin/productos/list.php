@@ -151,8 +151,8 @@
                                                <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
                                                <label for="create_descripcion">Descripción.</label>
                                                <input name='create_descripcion' id="create_descripcion"type='text' class='form-control' placeholder='Ingrese descripción'>
-                                               <label for="create_stock">Stock mínimo.</label>
-                                               <input name='create_stock' id="create_stock" type='number'class='form-control' placeholder='Ingrese cantidad.'>
+                                               <label for="create_stock_min">Stock mínimo.</label>
+                                               <input name='create_stock_min' id="create_stock_min" type='number'class='form-control' placeholder='Ingrese cantidad.'>
                                                <label for="create_precio_compra">Precio de compra.</label>
                                                <input name='create_precio_compra' id="create_precio_compra" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
                                                <label for="create_precio_venta">Precio de venta.</label>
@@ -190,7 +190,7 @@
     $('#create_descripcion').val('');
     $('#create_precio_compra').val('');
     $('#create_precio_venta').val('');
-    $('#create_stock').val('');
+    $('#create_stock_min').val('');
     $('#create_img').val('');
     $('#create_inventariable').val('');
     $('#create_presentacion').val('');
@@ -239,7 +239,8 @@ url:"<?php echo base_url() ?>mantenimiento/productos/get",
 method:"POST",
 data:{id:id},
 dataType:"json",
-success:function(data){
+success:function data(data){
+    alert(data.nombre);
    $('#create_nombre').val(data.nombre);
     $('#create_categoria').val(data.id_categoria);
     $('#create_codigo').val(data.codigo);
@@ -248,7 +249,7 @@ success:function(data){
     $('#create_precio_venta').val(data.precio_venta);
     $('#create_img').val(data.imagen);
     $('#create_perecedero').val(data.inventariable);
-    $('#create_stock').val(data.stock);
+    $('#create_stock_min').val(data.stock_minimo);
     $('#create_presentacion').val(data.id_presentacion);
     $('#data_id').val(data.id_producto);
     if (data.perecedero==1) {
