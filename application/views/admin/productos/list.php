@@ -151,6 +151,8 @@
                                                <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
                                                <label for="create_descripcion">Descripción.</label>
                                                <input name='create_descripcion' id="create_descripcion"type='text' class='form-control' placeholder='Ingrese descripción'>
+                                               <label for="create_stock">Stock mínimo.</label>
+                                               <input name='create_stock' id="create_stock" type='number'class='form-control' placeholder='Ingrese cantidad.'>
                                                <label for="create_precio_compra">Precio de compra.</label>
                                                <input name='create_precio_compra' id="create_precio_compra" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
                                                <label for="create_precio_venta">Precio de venta.</label>
@@ -163,15 +165,11 @@
                                                         <input type="checkbox" id="create_perecedero" name="create_perecedero" >
                                                         <label for="create_perecedero" ></label>
                                                     </div>
-                                                </div>
-
-                                               <label for="create_presentacion">Presentación.</label><br>
-                                               <input name='create_presentacion' id="create_presentacion" type='int'><br>
-                                                
-                                               <label for="create_presentacion">presentacion.</label>         
+                                                </div>    
+                                                <label for="create_presentacion">Presentacion.</label>         
                                                <select name='create_presentacion' id='create_presentacion' class='form-control' required>
-                                               <?php foreach($categoria as $cat):?>
-                                               <option value='<?php echo $prese->id_presentacion;?>'><?php echo $prese->nombre;?></option>
+                                               <?php foreach($presentacion as $pre):?>
+                                               <option value='<?php echo $pre->id_presentacion;?>'><?php echo $pre->nombre;?></option>
                                                <?php endforeach;?>
                                                </select>
 
@@ -192,6 +190,7 @@
     $('#create_descripcion').val('');
     $('#create_precio_compra').val('');
     $('#create_precio_venta').val('');
+    $('#create_stock').val('');
     $('#create_img').val('');
     $('#create_inventariable').val('');
     $('#create_presentacion').val('');
@@ -249,6 +248,7 @@ success:function(data){
     $('#create_precio_venta').val(data.precio_venta);
     $('#create_img').val(data.imagen);
     $('#create_perecedero').val(data.inventariable);
+    $('#create_stock').val(data.stock);
     $('#create_presentacion').val(data.id_presentacion);
     $('#data_id').val(data.id_producto);
     if (data.perecedero==1) {

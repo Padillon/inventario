@@ -6,12 +6,14 @@ class Productos extends CI_Controller {
         parent::__construct();
         $this->load->model("Productos_model");
         $this->load->model("Categorias_model");
+        $this->load->model("Presentacion_model");
     }
 
     public function index(){
         $data = array(
             'producto' => $this->Productos_model->getProductos(), 
             'categoria' => $this->Categorias_model->getCategorias(),
+            'presentacion'=> $this->Presentacion_model->getPresentaciones(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -20,7 +22,6 @@ class Productos extends CI_Controller {
     }
 
     public function store(){
-
         $config['upload_path'] = "assets/images/productos/";
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['overwrite'] = true;
@@ -33,6 +34,7 @@ class Productos extends CI_Controller {
         $imagen = $file_info['file_name'];
 
         $id = $this->input->post('data_id');
+        
         $data_in['id_categoria'] = $this->input->post('create_categoria');
         $data_in['codigo'] = $this->input->post('create_codigo');
         $data_in['id_stock'] =1;
@@ -61,8 +63,8 @@ class Productos extends CI_Controller {
 
     public function get(){
         $id =$this->input->post('id');
-        $id =$id;
         $data = $this->Productos_model->get($id);
+       // $data += [ "two" => 2 ];
         echo json_encode($data);
     }
 
