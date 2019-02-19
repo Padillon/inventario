@@ -30,4 +30,8 @@ public function getProductos(){
 		$this->db->where("id_producto",$id);		
 		return $this->db->update("productos",$data);
 	}
+	public function updateStock($id,$data){
+		$this->db->where("id_stock",$id);		
+		return $this->db->update("stock",$data);
+	}
 }

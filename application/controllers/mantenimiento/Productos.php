@@ -34,9 +34,10 @@ class Productos extends CI_Controller {
         $imagen = $file_info['file_name'];
 
         $id = $this->input->post('data_id');
+        $id_stock = $this->input->post('id_stock');
+        $data_stock['stock_minimo'] = $this->input->post('create_stock_min');
         $data_in['id_categoria'] = $this->input->post('create_categoria');
         $data_in['codigo'] = $this->input->post('create_codigo');
-       // $data_in['id_stock'] =1;
         $data_in['nombre'] = $this->input->post('create_nombre');
         $data_in['descripcion'] = $this->input->post('create_descripcion');
         $data_in['precio_compra'] = $this->input->post('create_precio_compra');
@@ -48,9 +49,10 @@ class Productos extends CI_Controller {
         $data_in['id_presentacion'] = $this->input->post('create_presentacion');
 
         if($id != ""){
-            $producto = $this->Productos_model->update($id,$data_in);
+            if ($this->Productos_model->updateStock($id_stock,$data_stock)) {
+                $producto = $this->Productos_model->update($id,$data_in);
+            }
         }else{
-            $data_stock['stock_minimo'] = $this->input->post('create_stock_min');
             $id_stock=$this->Productos_model->addStok($data_stock);
             $data_in['id_stock'] =$id_stock;
             $producto = $this->Productos_model->add($data_in);
@@ -66,8 +68,8 @@ class Productos extends CI_Controller {
     public function get(){
         $id =$this->input->post('id');
         $data = $this->Productos_model->get($id);
-
         $data2 = $this->Productos_model->getStock($data->id_stock);
+        $data->id_stock = $data->id_stock.'*'.$data2->stock_minimo;
         echo json_encode($data);
     }
 
