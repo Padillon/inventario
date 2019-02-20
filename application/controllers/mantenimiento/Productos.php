@@ -28,10 +28,14 @@ class Productos extends CI_Controller {
         $config['max_size'] = '2048';
         $config['max_width'] = '1080';
         $config['max_height'] = '720';
+
         $this->load->library('upload',$config);
+
         $this->upload->do_upload('create_img');
-        $file_info = $this->upload->data();
-        $imagen = $file_info['file_name'];
+          
+
+            $file_info = $this->upload->data();
+            $imagen = $file_info['file_name'];	
 
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');
@@ -58,10 +62,11 @@ class Productos extends CI_Controller {
             $producto = $this->Productos_model->add($data_in);
         }
         if($producto){
-            echo json_encode(array('status'=>true));
+            redirect(base_url()."mantenimiento/productos");
         }
         else{
-            echo json_encode(array('status'=>false));
+            $this->session->set_flashdata("error","No se pudo actualizar la informacion");
+            redirect(base_url()."mantenimiento/productos");
         }
     }
 

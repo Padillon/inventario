@@ -137,7 +137,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="frm-create" >
+                                                <form action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data'>
                                                 <input name='data_id' id='data_id' type='hidden'>
                                                 <input name='id_stock' id='id_stock' type='hidden'>
                                                 <label for="">Nombre del producto.</label>
@@ -159,7 +159,8 @@
                                                 <label for="create_precio_venta">Precio de venta.</label>
                                                 <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
                                                 <label for="create_img">Imagen.</label><br>
-                                                <input name="create_img" id="create_img" type='file' ><br>
+                                                <div><img id="preview" src="<?php echo base_url();?>assets/images/productos/default.png" /></div><br>
+                                                <input name='create_img' id='create_img' type='file' class='form-control' ><br>
                                                 <label for="create_perecedero">Perecedero.</label><br>  
                                                 <div class="s-sw-title">
                                                     <div class="s-swtich">
@@ -176,7 +177,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" class="btn btn-success" name="btn-create" id="btn-create">Guardar cambio</button>
+                                                <button type="submit" class="btn btn-success" name="btn-create" >Guardar cambio</button>
                                            </form> </div>
                                         </div>
                                     </div>
@@ -241,25 +242,26 @@
     data:{id:id},
     dataType:"json",
     success:function data(data){
-    $('#create_nombre').val(data.nombre);
+        $('#data_id').val(data.id_producto);
+        var stock= data.id_stock;
+        var data2 = stock.split('*');
+        $('#create_stock_min').val(data2[1]);
+        $('#id_stock').val(data2[0]);
+        alert(data.precio_venta);
+        $('#create_nombre').val(data.nombre);
         $('#create_categoria').val(data.id_categoria);
         $('#create_codigo').val(data.codigo);
         $('#create_descripcion').val(data.descripcion);
         $('#create_precio_compra').val(data.precio_compra);
         $('#create_precio_venta').val(data.precio_venta);
-        $('#create_img').val(data.imagen);
+        $('#preview').prop('src','<?php echo base_url();?>assets/images/productos/'+data.imagen);
         $('#create_perecedero').val(data.inventariable);
         $('#create_stock_min').val(data.stock_minimo);
         $('#create_presentacion').val(data.id_presentacion);
-        $('#data_id').val(data.id_producto);
         if (data.perecedero==1) {
             $('#create_perecedero').val('1');
             $("#create_perecedero").prop('checked', true);
         }
-        var stock= data.id_stock;
-        var data2 = stock.split('*');
-        $('#create_stock_min').val(data2[1]);
-        $('#id_stock').val(data2[0]);
     }
     });
     });
@@ -286,4 +288,3 @@
     });
 });
 </script>
-
