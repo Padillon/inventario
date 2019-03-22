@@ -32,7 +32,7 @@ class Compras extends CI_Controller {
 
     public function getProductos(){
         $valor = $this->input->post("valor");
-		$producto = $this->Reabastecer_model->getProductos($valor);
+		$producto = $this->Compras_model->getProductos($valor);
 		echo json_encode($producto);
     }
 }
