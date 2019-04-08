@@ -21,11 +21,13 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/responsive.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/dataTables/css/dataTables.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.css">
 
     <!-- modernizr css -->
     <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
      <!-- jquery latest version -->
      <script src="<?php echo base_url();?>assets/js/vendor/jquery-2.2.4.min.js"></script>
+     <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/jquery-ui.js"></script>
      <script type="text/javascript"> 
          var base_url = "http://localhost/inventario/"; //carga la baseurl de todos los js que se cargan de los modulos 
     </script>

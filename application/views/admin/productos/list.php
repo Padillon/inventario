@@ -137,148 +137,154 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form id="frm-create" >
+                                                <form action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data'>
                                                 <input name='data_id' id='data_id' type='hidden'>
-                                               <label for="">Nombre del producto.</label>
-                                               <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
-                                               <label for="create_categoria">categoria.</label>         
-                                               <select name='create_categoria' id='create_categoria' class='form-control' required>
-                                               <?php foreach($categoria as $cat):?>
-                                               <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
-                                               <?php endforeach;?>
-                                               </select>
-                                               <label for="create_codigo">Codigo.</label>
-                                               <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
-                                               <label for="create_descripcion">Descripción.</label>
-                                               <input name='create_descripcion' id="create_descripcion"type='text' class='form-control' placeholder='Ingrese descripción'>
-                                               <label for="create_precio_compra">Precio de compra.</label>
-                                               <input name='create_precio_compra' id="create_precio_compra" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
-                                               <label for="create_precio_venta">Precio de venta.</label>
-                                               <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
-                                               <label for="create_img">Imagen.</label><br>
-                                               <input name="create_img" id="create_img" type='file' ><br>
-                                               <label for="create_perecedero">Perecedero.</label><br>  
+                                                <input name='id_stock' id='id_stock' type='hidden'>
+                                                <label for="">Nombre del producto.</label>
+                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
+                                                <label for="create_categoria">categoria.</label>         
+                                                <select name='create_categoria' id='create_categoria' class='form-control' required>
+                                                <?php foreach($categoria as $cat):?>
+                                                <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
+                                                <?php endforeach;?>
+                                                </select>
+                                                <label for="create_codigo">Codigo.</label>
+                                                <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
+                                                <label for="create_descripcion">Descripción.</label>
+                                                <input name='create_descripcion' id="create_descripcion"type='text' class='form-control' placeholder='Ingrese descripción'>
+                                                <label for="create_stock_min">Stock mínimo.</label>
+                                                <input name='create_stock_min' id="create_stock_min" type='number'class='form-control' placeholder='Ingrese cantidad.'>
+                                                <label for="create_precio_compra">Precio de compra.</label>
+                                                <input name='create_precio_compra' id="create_precio_compra" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
+                                                <label for="create_precio_venta">Precio de venta.</label>
+                                                <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
+                                                <label for="create_img">Imagen.</label><br>
+                                                <div><img id="preview" src="<?php echo base_url();?>assets/images/productos/default.png" /></div><br>
+                                                <input name='create_img' id='create_img' type='file' class='form-control' ><br>
+                                                <label for="create_perecedero">Perecedero.</label><br>  
                                                 <div class="s-sw-title">
                                                     <div class="s-swtich">
                                                         <input type="checkbox" id="create_perecedero" name="create_perecedero" >
                                                         <label for="create_perecedero" ></label>
                                                     </div>
-                                                </div>
-
-                                               <label for="create_presentacion">Presentación.</label><br>
-                                               <input name='create_presentacion' id="create_presentacion" type='int'><br>
-                                                
-                                               <label for="create_presentacion">presentacion.</label>         
-                                               <select name='create_presentacion' id='create_presentacion' class='form-control' required>
-                                               <?php foreach($categoria as $cat):?>
-                                               <option value='<?php echo $prese->id_presentacion;?>'><?php echo $prese->nombre;?></option>
-                                               <?php endforeach;?>
-                                               </select>
-
+                                                </div>    
+                                                <label for="create_presentacion">Presentacion.</label>         
+                                                <select name='create_presentacion' id='create_presentacion' class='form-control' required>
+                                                <?php foreach($presentacion as $pre):?>
+                                                <option value='<?php echo $pre->id_presentacion;?>'><?php echo $pre->nombre;?></option>
+                                                <?php endforeach;?>
+                                                </select>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" class="btn btn-success" name="btn-create" id="btn-create">Guardar cambio</button>
+                                                <button type="submit" class="btn btn-success" name="btn-create" >Guardar cambio</button>
                                            </form> </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 
-<script>function resete(){
-    $('#create_nombre').val('');
-    $('#create_categoria').val('');
-    $('#create_codigo').val('');
-    $('#create_descripcion').val('');
-    $('#create_precio_compra').val('');
-    $('#create_precio_venta').val('');
-    $('#create_img').val('');
-    $('#create_inventariable').val('');
-    $('#create_presentacion').val('');
-    $('#data_id').val('');
-    $('#btn-create').val("update");
+<script>
+    function resete(){
+        $('#create_nombre').val('');
+        $('#create_categoria').val('');
+        $('#create_codigo').val('');
+        $('#create_descripcion').val('');
+        $('#create_precio_compra').val('');
+        $('#create_precio_venta').val('');
+        $('#create_stock_min').val('');
+        $('#id_stock').val('');
+        $('#create_img').val('');
+        $('#create_inventariable').val('');
+        $('#create_presentacion').val('');
+        $('#data_id').val('');
+        $('#btn-create').val("update");
 
-    $("#create_perecedero").prop('checked', false);
-    $("#create_perecedero").val('0');
+        $("#create_perecedero").prop('checked', false);
+        $("#create_perecedero").val('0');
 
-}
-$(document).ready(function(){
-$('input[type="checkbox"]').on('change', function(e){
-
-var val = $(this).attr("value"); 
-if(val!=0){
-$('#create_perecedero').val('0');
-}else{
-$('#create_perecedero').val('1');
-}
-});
-$(document).on('click','.btn-active',function(){
-var id = $(this).attr("id");
-var data= $(this).attr("value");
-var data2 = data.split('*');
-if (data2[2]==1) {
-document.getElementById("ti-cabeza").innerHTML="Eliminar";
-document.getElementById("g-active").innerHTML="Eliminar";
-document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
-document.getElementById("id-pro-active").value=data2[0];
-document.getElementById("estado-pro-active").value=data2[2];
-}else{
-document.getElementById("ti-cabeza").innerHTML="Activar";
-document.getElementById("g-active").innerHTML="Activar";
-document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
-document.getElementById("id-pro-active").value=data2[0];
-document.getElementById("estado-pro-active").value=data2[2];
-}        
-
-});
-
-$(document).on('click', '.edit_data', function(){
-   
-var id = $(this).attr("id");
-$.ajax({
-url:"<?php echo base_url() ?>mantenimiento/productos/get",
-method:"POST",
-data:{id:id},
-dataType:"json",
-success:function(data){
-   $('#create_nombre').val(data.nombre);
-    $('#create_categoria').val(data.id_categoria);
-    $('#create_codigo').val(data.codigo);
-    $('#create_descripcion').val(data.descripcion);
-    $('#create_precio_compra').val(data.precio_compra);
-    $('#create_precio_venta').val(data.precio_venta);
-    $('#create_img').val(data.imagen);
-    $('#create_perecedero').val(data.inventariable);
-    $('#create_presentacion').val(data.id_presentacion);
-    $('#data_id').val(data.id_producto);
-    if (data.perecedero==1) {
+    }
+    $(document).ready(function(){
+        $('input[type="checkbox"]').on('change', function(e){
+        var val = $(this).attr("value"); 
+        if(val!=0){
+        $('#create_perecedero').val('0');
+        }else{
         $('#create_perecedero').val('1');
-        $("#create_perecedero").prop('checked', true);
-    }    
-}
-});
-});
-
-
-$('#btn-create').on('click',function(){
-$.ajax({
-url:"<?php echo base_url() ?>mantenimiento/productos/store",
-type: "POST",
-enctype:"multipart/form-data",
-data: $('#frm-create').serialize(),
-dataType: 'json',
-success: function(data){
-        
-        if (data.status) {
-            alert("Guardado exitosamente.");
         }
-        location.reload();
-        
-},
-error: function(){
-    alert("Error");
-}
-});
-});
-});</script>
+        });
 
+        $(document).on('click','.btn-active',function(){
+        var id = $(this).attr("id");
+        var data= $(this).attr("value");
+        var data2 = data.split('*');
+        if (data2[2]==1) {
+        document.getElementById("ti-cabeza").innerHTML="Eliminar";
+        document.getElementById("g-active").innerHTML="Eliminar";
+        document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
+        document.getElementById("id-pro-active").value=data2[0];
+        document.getElementById("estado-pro-active").value=data2[2];
+        }else{
+        document.getElementById("ti-cabeza").innerHTML="Activar";
+        document.getElementById("g-active").innerHTML="Activar";
+        document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
+        document.getElementById("id-pro-active").value=data2[0];
+        document.getElementById("estado-pro-active").value=data2[2];
+        }        
+
+        });
+
+    $(document).on('click', '.edit_data', function(){
+    var id = $(this).attr("id");
+    $.ajax({
+    url:"<?php echo base_url() ?>mantenimiento/productos/get",
+    method:"POST",
+    data:{id:id},
+    dataType:"json",
+    success:function data(data){
+        $('#data_id').val(data.id_producto);
+        var stock= data.id_stock;
+        var data2 = stock.split('*');
+        $('#create_stock_min').val(data2[1]);
+        $('#id_stock').val(data2[0]);
+        alert(data.precio_venta);
+        $('#create_nombre').val(data.nombre);
+        $('#create_categoria').val(data.id_categoria);
+        $('#create_codigo').val(data.codigo);
+        $('#create_descripcion').val(data.descripcion);
+        $('#create_precio_compra').val(data.precio_compra);
+        $('#create_precio_venta').val(data.precio_venta);
+        $('#preview').prop('src','<?php echo base_url();?>assets/images/productos/'+data.imagen);
+        $('#create_perecedero').val(data.inventariable);
+        $('#create_stock_min').val(data.stock_minimo);
+        $('#create_presentacion').val(data.id_presentacion);
+        if (data.perecedero==1) {
+            $('#create_perecedero').val('1');
+            $("#create_perecedero").prop('checked', true);
+        }
+    }
+    });
+    });
+    
+    $('#btn-create').on('click',function(){
+        $.ajax({
+            url:"<?php echo base_url() ?>mantenimiento/productos/store",
+            type: "POST",
+            enctype:"multipart/form-data",
+            data: $('#frm-create').serialize(),
+            dataType: 'json',
+            success: function(data){
+                    
+                    if (data.status) {
+                        alert("Guardado exitosamente.");
+                    }
+                    location.reload();
+                    
+            },
+            error: function(){
+                alert("Error");
+            }
+       });
+    });
+});
+</script>

@@ -11,7 +11,15 @@ public function getProductos(){
 		$this->db->insert("productos",$data);
 		return $insert_id = $this->db->insert_id();
 	}
-
+	public function addStok($minimo){
+		$this->db->insert("stock",$minimo);
+		return $insert_id = $this->db->insert_id();
+	}
+	public function getStock($id){
+		$this->db->where("id_stock",$id);
+		$resultado = $this->db->get("stock");
+		return $resultado->row();
+	}
 	public function get($id){
 		$this->db->where("id_producto",$id);
 		$resultado = $this->db->get("productos");
@@ -21,5 +29,9 @@ public function getProductos(){
 	public function update($id,$data){
 		$this->db->where("id_producto",$id);		
 		return $this->db->update("productos",$data);
+	}
+	public function updateStock($id,$data){
+		$this->db->where("id_stock",$id);		
+		return $this->db->update("stock",$data);
 	}
 }

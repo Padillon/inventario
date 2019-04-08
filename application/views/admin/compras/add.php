@@ -38,20 +38,21 @@
                                 <div class='input-group'>
                                      <div class='col-md-3'>
                                     <label>Fecha:</label>
-                                    <input name='nombre' type="date" class='form-control' >
+                                    <input name='nombre' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                 </div>
                                      <div class='col-md-9'>
                                     <label>Proveedor: </label>
-                                    <input name='apellido' type='select' class='form-control' >
+                                    <input name='empresa' id='keyupProveedor' type='text' class='form-control' >
+                                    <input type="hidden" id="idProveedor" name="idProveedor">
                                 </div>
                                 </div>
-                            
+                            <br>
                             <div class="col-md-12">
                             <label class="col-form-control">Buscar Producto:</label>
                             <div class="input-group">
                                     <input class="form-control" type="text">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button">Buscar</button>
+                                    <button class="btn btn-outline-primary" type="button">Agregar</button>
                                 </div>
                             </div>
                             
@@ -118,3 +119,4 @@
                  </div>
                 </div>
         </div>
+<script src="<?php echo base_url();?>assets/js/adminJS/compras.js"></script>
