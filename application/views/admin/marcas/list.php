@@ -55,9 +55,9 @@
                                     <?php  foreach($marcas as $mar):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $cont?></td>
+                                            <td><?php echo $cont;?></td>
                                             <td><?php echo $mar->nombre;?></td>
-                                            <?php $dataMarca = $mar->id_marca."*".$mar->nombre ?>
+                                            <?php $dataMarca = $mar->id_marca."*".$mar->nombre; ?>
                                             <?php if($mar->estado == 1){?>
                                             <td>
                                                 <span class="badge badge-success">Activo</span>
@@ -72,7 +72,7 @@
                                                     </button>                  
                                                 </div>
                                             </td>
-                                            <? }else {?>
+                                            <?php } else{?>
                                                 <td>
                                                     <span class="badge badge-danger">Inactivo</span>
                                                 </td>
@@ -86,10 +86,11 @@
                                                     </button>                  
                                                 </div>
                                             </td>
-                                            <?}?>
+                                            <?php } ?>
                                         </tr>
+                                        <?php endif;?>
                                     <?php endforeach;?>
-                                <?php endif;?>
+
                             </tbody>
                         </table>
 </div>
