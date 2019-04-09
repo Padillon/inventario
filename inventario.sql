@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-02-2019 a las 01:17:18
+-- Tiempo de generación: 09-04-2019 a las 04:25:11
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -216,13 +216,13 @@ CREATE TABLE `marcas` (
 --
 
 INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
-(1, 'Lactolac', 0),
+(1, 'Lactolac', 1),
 (2, 'Gumarsal', 0),
 (3, 'Gumarsal', 0),
 (4, 'Size', 0),
-(5, 'nike', 0),
+(5, 'nike', 1),
 (6, 'ya', 1),
-(7, 'Hers', 1),
+(7, 'Hers', 0),
 (8, 'Bebe', 0),
 (9, 'Bebe', 1),
 (10, 'Hers', 0);
@@ -236,8 +236,18 @@ INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
 CREATE TABLE `presentacion` (
   `id_presentacion` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `valor_en_unidades` int(11) DEFAULT NULL
+  `estado` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `presentacion`
+--
+
+INSERT INTO `presentacion` (`id_presentacion`, `nombre`, `estado`) VALUES
+(1, 'Unidad', 0),
+(2, 'Caja', 1),
+(3, 'Estuche', 0),
+(4, 'Docena', 1);
 
 -- --------------------------------------------------------
 
@@ -280,7 +290,7 @@ CREATE TABLE `proveedores` (
 
 INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `empresa`, `telefono`, `estado`) VALUES
 (1, 'Francisco', 'Hers', '4444400000', 1),
-(2, 'Javier', 'RosmyLove', '4443222', 1),
+(2, 'Javier', 'RosmyLove', '4443222', 0),
 (3, 'Baltazar', 'Creaciones Jeanett', '3333', 1);
 
 -- --------------------------------------------------------
@@ -358,6 +368,7 @@ CREATE TABLE `usuarios` (
   `nombre_empresa` varchar(100) NOT NULL,
   `usuario` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
+  `estado` tinyint(4) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -365,8 +376,9 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nombre_empresa`, `usuario`, `correo`, `password`) VALUES
-(1, 'konpami', 'konny', 'pinchehugochan@gmail.com', 'd033e22ae348aeb5660fc2140aec35850c4da997');
+INSERT INTO `usuarios` (`id_usuario`, `nombre_empresa`, `usuario`, `correo`, `estado`, `password`) VALUES
+(1, 'konpami', 'konny', 'pinchehugochan@gmail.com', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(2, 'Visual', 'Carlos', 'pinchehugochan@lel.com', 1, 'xK13PdyM4sXBIOKRvN7g7YiISmBCcpAIUbB/29Nzxdo');
 
 -- --------------------------------------------------------
 
@@ -593,7 +605,7 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT de la tabla `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -641,7 +653,7 @@ ALTER TABLE `tipo_salida`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
