@@ -54,7 +54,7 @@
                                 <?php if(!empty($marcas)):?>
                                     <?php  foreach($marcas as $mar):?>
                                     <?php $cont++;?>
-                                        <tr>
+                                        <tr> 
                                             <td><?php echo $cont;?></td>
                                             <td><?php echo $mar->nombre;?></td>
                                             <?php $dataMarca = $mar->id_marca."*".$mar->nombre; ?>
@@ -88,9 +88,9 @@
                                             </td>
                                             <?php } ?>
                                         </tr>
-                                        <?php endif;?>
+                                        
                                     <?php endforeach;?>
-
+                                    <?php endif;?>
                             </tbody>
                         </table>
 </div>
