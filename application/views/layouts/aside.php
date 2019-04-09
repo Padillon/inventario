@@ -15,6 +15,7 @@
                                     <li><a href="<?php echo base_url();?>mantenimiento/marcas">Marcas</a></li>
                                     <li><a href="<?php echo base_url();?>mantenimiento/categorias">Categorias</a></li>
                                     <li><a href="<?php echo base_url();?>mantenimiento/productos">Productos</a></li>
+                                    <li><a href="<?php echo base_url();?>mantenimiento/presentaciones">Presentaciones</a></li>
                                 </ul>
                             </li>
                             <li>

@@ -8,11 +8,11 @@ class Presentacion_model extends CI_Model {
 	}
 	
 	public function save($data){
-		return $this->db->insert("proveedores",$data);
+		return $this->db->insert("presentacion",$data);
 	}
 
 	public function update($id,$data){
-		$this->db->where("id_proveedor",$id);
-		return $this->db->update("proveedores",$data);
+		$this->db->where("id_presentacion",$id);
+		return $this->db->update("presentacion",$data);
 	}
 }
