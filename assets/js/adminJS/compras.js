@@ -42,3 +42,9 @@ $("#producto-reabastecer").autocomplete({ //autocomplete del producto
        $("#btn-agregar-abast").val(data); 
     },
 });
+
+var options = {
+	data: ["blue", "green", "pink", "red", "yellow"]
+};
+
+$("#basics").easyAutocomplete(options);

@@ -119,4 +119,6 @@
                  </div>
                 </div>
         </div>
+
+        <input id="basics" />
 <script src="<?php echo base_url();?>assets/js/adminJS/compras.js"></script>
