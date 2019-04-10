@@ -25,8 +25,7 @@ class Compras extends CI_Controller {
     }
 
     public function getProveedores(){
-        $valorProveedor = $this->input->post("empresa");
-		$prov = $this->Compras_model->getProveedores($valorProveedor);
+		$prov = $this->Compras_model->getProveedores();
 		echo json_encode($prov);
     }
 

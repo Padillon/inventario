@@ -17,7 +17,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Agregar Compra</h4>
+                            <h4 class="page-title pull-left">Agregar Entrada</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
                                 <li><span>Movimientos</span></li>
@@ -42,8 +42,8 @@
                                 </div>
                                      <div class='col-md-9'>
                                     <label>Proveedor: </label>
-                                    <input name='empresa' id='keyupProveedor' type='text' class='form-control' >
-                                    <input type="hidden" id="idProveedor" name="idProveedor">
+                                    <input name='proveedor' id='keyupProveedor' type='text' class='form-control' >
+                                    <input type="hidden" id="idProveedor" name="idProveedor" value="0">
                                 </div>
                                 </div>
                             <br>
@@ -120,5 +120,4 @@
                 </div>
         </div>
 
-        <input id="basics" />
 <script src="<?php echo base_url();?>assets/js/adminJS/compras.js"></script>
