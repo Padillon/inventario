@@ -1,3 +1,5 @@
+
+
 $("#keyupProveedor").autocomplete({ //autocomplete del proveedor
     source: function(request, response){
         $.ajax({
@@ -43,8 +45,5 @@ $("#producto-reabastecer").autocomplete({ //autocomplete del producto
     },
 });
 
-var options = {
-	data: ["blue", "green", "pink", "red", "yellow"]
-};
 
-$("#basics").easyAutocomplete(options);
+

@@ -27,7 +27,6 @@
 <!-- CSS file -->
 <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/easyAutocomplete/easy-autocomplete.min.css"> 
 <!-- JS file Easy autocomplete-->
-<script src="<?php echo base_url();?>assets/plugins/easyAutocomplete/jquery.easy-autocomplete.min.js"></script> 
     <!-- modernizr css -->
     <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
      <!-- jquery latest version -->
