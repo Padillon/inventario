@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Marcas extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Marcas_model");
+        $this->load->model("Marcas_model");
+        $this->load->library('toastr');
 	}
 
 	public function index(){
@@ -25,7 +26,9 @@ class Marcas extends CI_Controller {
         );
         //we keep the new brand.
         if ($this->Marcas_model->save($data)) {
+            $this->toastr->success('La operacion fue realizada con exito!');
             redirect(base_url()."mantenimiento/marcas");
+            
         }
         else{
             $this->session->set_flashdata("error","No se pudo guardar la informacion");

@@ -25,7 +25,8 @@ class Entradas extends CI_Controller {
     }
 
     public function getProveedores(){
-		$prov = $this->Entradas_model->getProveedores();
+        $valorProveedor = $this->input->post("valorProveedor");
+		$prov = $this->Entradas_model->getProveedores($valorProveedor);
 		echo json_encode($prov);
     }
 
