@@ -79,7 +79,7 @@
                             
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-outline-primary mb-3">Procesar Compra</button>
+                                    <button type="button" class="btn btn-outline-primary mb-3">Procesar</button>
                                 </div>
                             </div>
 
@@ -120,4 +120,4 @@
                 </div>
         </div>
 
-<script src="<?php echo base_url();?>assets/js/adminJS/compras.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
