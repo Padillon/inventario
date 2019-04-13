@@ -21,6 +21,18 @@ class Productos extends CI_Controller {
         $this->load->view("layouts/footer");
     }
 
+    public function agregar(){
+          $data = array(
+            'producto' => $this->Productos_model->getProductos(), 
+            'categoria' => $this->Categorias_model->getCategorias(),
+            'presentacion'=> $this->Presentacion_model->getPresentaciones(),
+        );
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/productos/add",$data);
+        $this->load->view("layouts/footer");
+    }
+
     public function store(){
         $config['upload_path'] = "assets/images/productos/";
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
