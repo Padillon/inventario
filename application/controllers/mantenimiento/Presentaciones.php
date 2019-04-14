@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Presentaciones extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Presentacion_model");
+        $this->load->model("Presentacion_model");
+        $this->load->library('toastr');
 	}
 
 	public function index(){
@@ -26,16 +27,13 @@ class Presentaciones extends CI_Controller {
         );
         //we keep the new brand.
         if ($this->Presentacion_model->save($data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/presentaciones");
         }
         else{
-            $this->session->set_flashdata("error","No se pudo guardar la informacion");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/presentaciones");
         }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/presentaciones/list",$data);
-        $this->load->view("layouts/footer");
     }
 
     public function delete(){
@@ -44,16 +42,13 @@ class Presentaciones extends CI_Controller {
             'estado' =>0, 
         );
         if ($this->Presentacion_model->update($id, $data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/presentaciones");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la presentacion.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/presentaciones");
         }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/presentaciones/list",$data);
-        $this->load->view("layouts/footer");
     }
 
     public function update(){
@@ -63,16 +58,13 @@ class Presentaciones extends CI_Controller {
             'nombre' =>$nombre, 
         );
         if ($this->Presentacion_model->update($id, $data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/presentaciones");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la presentacion.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/presentaciones");
         }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/presentaciones/list",$data);
-        $this->load->view("layouts/footer");
     }
 
     public function active(){
@@ -81,15 +73,12 @@ class Presentaciones extends CI_Controller {
             'estado' =>1, 
         );
         if ($this->Presentacion_model->update($id, $data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/presentaciones");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/presentaciones");
         }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/presentaciones/list",$data);
-        $this->load->view("layouts/footer");
     }
 }
