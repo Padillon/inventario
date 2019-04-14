@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Categorias extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Categorias_model");
+        $this->load->model("Categorias_model");
+        $this->load->library('toastr');
 	}
 
 	public function index(){
@@ -24,11 +25,15 @@ class Categorias extends CI_Controller {
             'nombre' => $nombre, 
             'estado' => 1,
         );
-        $result = $this->Categorias_model->save($data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if ($this->Categorias_model->save($data)) {
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/categorias");
+            
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/categorias");
+        }
     }
 
     public function update(){
@@ -37,11 +42,15 @@ class Categorias extends CI_Controller {
         $data = array(
             'nombre' =>$nombre, 
         );
-        $result = $this->Categorias_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false));
+        if ($this->Categorias_model->update($id, $data)) {
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/categorias");
+            
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/categorias");
+        }
     }
 
     public function delete(){
@@ -49,11 +58,15 @@ class Categorias extends CI_Controller {
         $data = array(
             'estado' =>0, 
         );
-        $result = $this->Categorias_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false));
+        if ($this->Categorias_model->update($id, $data)) {
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/categorias");
+            
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/categorias");
+        }
     }
 
     public function active(){
@@ -61,10 +74,14 @@ class Categorias extends CI_Controller {
         $data = array(
             'estado' =>1, 
         );
-        $result = $this->Categorias_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false));
+        if ($this->Categorias_model->update($id, $data)) {
+            $this->toastr->success('Registro activado!');
+            redirect(base_url()."mantenimiento/categorias");
+            
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/categorias");
+        }
     }
 }
