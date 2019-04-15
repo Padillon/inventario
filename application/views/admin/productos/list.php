@@ -73,8 +73,8 @@
                                             <?php }?>
                                             <td>
                                                 <div class="btn-group">
-                                                <?php $data = $pro->id_categoria."*".$pro->nombre ?>
-                                                <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#modalProductoAdd">
+                                                <?php $data = $pro->id_producto?>
+                                                <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
                                                 <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado ?>
@@ -124,7 +124,27 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="g-active" name="g-active"class="btn btn-primary"></button>
+                                                <button type="submit" id="g-active" name="g-active"class="btn btn-primary">Aceptar</button>
+                                           </form> </div>
+                                        </div>
+                                    </div>
+                                </div>
+      <!-- Modal para asegurar la edicion-->
+      <div class="modal fade" id="edit">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ti-cabeza">Editar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <form action="<?php echo base_url();?>mantenimiento/productos/edit_get" method="POST">
+                                               <h4 id="titulo">Está seguro de editar este producto?</H4>
+                                               <input id="id-pro-edit" name="id-pro-edit" type="hidden" class="form-control" >
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
                                            </form> </div>
                                         </div>
                                     </div>
@@ -184,109 +204,4 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                
-<script>
-    function resete(){
-        $('#create_nombre').val('');
-        $('#create_categoria').val('');
-        $('#create_codigo').val('');
-        $('#create_descripcion').val('');
-        $('#create_precio_compra').val('');
-        $('#create_precio_venta').val('');
-        $('#create_stock_min').val('');
-        $('#id_stock').val('');
-        $('#create_img').val('');
-        $('#create_inventariable').val('');
-        $('#create_presentacion').val('');
-        $('#data_id').val('');
-        $('#btn-create').val("update");
-
-        $("#create_perecedero").prop('checked', false);
-        $("#create_perecedero").val('0');
-
-    }
-    $(document).ready(function(){
-        $('input[type="checkbox"]').on('change', function(e){
-        var val = $(this).attr("value"); 
-        if(val!=0){
-        $('#create_perecedero').val('0');
-        }else{
-        $('#create_perecedero').val('1');
-        }
-        });
-
-        $(document).on('click','.btn-active',function(){
-        var id = $(this).attr("id");
-        var data= $(this).attr("value");
-        var data2 = data.split('*');
-        if (data2[2]==1) {
-        document.getElementById("ti-cabeza").innerHTML="Eliminar";
-        document.getElementById("g-active").innerHTML="Eliminar";
-        document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
-        document.getElementById("id-pro-active").value=data2[0];
-        document.getElementById("estado-pro-active").value=data2[2];
-        }else{
-        document.getElementById("ti-cabeza").innerHTML="Activar";
-        document.getElementById("g-active").innerHTML="Activar";
-        document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
-        document.getElementById("id-pro-active").value=data2[0];
-        document.getElementById("estado-pro-active").value=data2[2];
-        }        
-
-        });
-
-    $(document).on('click', '.edit_data', function(){
-    var id = $(this).attr("id");
-    $.ajax({
-    url:"<?php echo base_url() ?>mantenimiento/productos/get",
-    method:"POST",
-    data:{id:id},
-    dataType:"json",
-    success:function data(data){
-        $('#data_id').val(data.id_producto);
-        var stock= data.id_stock;
-        var data2 = stock.split('*');
-        $('#create_stock_min').val(data2[1]);
-        $('#id_stock').val(data2[0]);
-        alert(data.precio_venta);
-        $('#create_nombre').val(data.nombre);
-        $('#create_categoria').val(data.id_categoria);
-        $('#create_codigo').val(data.codigo);
-        $('#create_descripcion').val(data.descripcion);
-        $('#create_precio_compra').val(data.precio_compra);
-        $('#create_precio_venta').val(data.precio_venta);
-        $('#preview').prop('src','<?php echo base_url();?>assets/images/productos/'+data.imagen);
-        $('#create_perecedero').val(data.inventariable);
-        $('#create_stock_min').val(data.stock_minimo);
-        $('#create_presentacion').val(data.id_presentacion);
-        if (data.perecedero==1) {
-            $('#create_perecedero').val('1');
-            $("#create_perecedero").prop('checked', true);
-        }
-    }
-    });
-    });
-    
-    $('#btn-create').on('click',function(){
-        $.ajax({
-            url:"<?php echo base_url() ?>mantenimiento/productos/store",
-            type: "POST",
-            enctype:"multipart/form-data",
-            data: $('#frm-create').serialize(),
-            dataType: 'json',
-            success: function(data){
-                    
-                    if (data.status) {
-                        alert("Guardado exitosamente.");
-                    }
-                    location.reload();
-                    
-            },
-            error: function(){
-                alert("Error");
-            }
-       });
-    });
-});
-</script>
+<script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>

@@ -90,6 +90,25 @@ class Productos extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function edit_get(){
+        $id =$this->input->post('id-pro-edit');
+        $data2 = $this->Productos_model->get($id);
+        $data3 = $this->Productos_model->getStock($data2->id_stock);
+        $id_stock = $data2->id_stock;
+        $stock_minimo = $data3->stock_minimo;
+        $data = array(
+            'id_stock' => $id_stock,
+            'stock_minimo'=> $stock_minimo,
+            'producto' => $data2, 
+            'categoria' => $this->Categorias_model->getCategorias(),
+            'presentacion'=> $this->Presentacion_model->getPresentaciones(),
+        );
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/productos/edit",$data);
+        $this->load->view("layouts/footer");
+    }
+
     public function active(){
         $id_producto= $this->input->post('id-pro-active');
         $estado_producto= $this->input->post('estado-pro-active');

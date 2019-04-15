@@ -32,44 +32,22 @@ var data2 = data.split('*');
 if (data2[2]==1) {
 document.getElementById("ti-cabeza").innerHTML="Eliminar";
 document.getElementById("g-active").innerHTML="Eliminar";
-document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?"
+document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?";
 document.getElementById("id-pro-active").value=data2[0];
 document.getElementById("estado-pro-active").value=data2[2];
 }else{
 document.getElementById("ti-cabeza").innerHTML="Activar";
 document.getElementById("g-active").innerHTML="Activar";
-document.getElementById("titulo").innerHTML = "Está seguro activar el producto?"
+document.getElementById("titulo").innerHTML = "Desea activar el producto?";
 document.getElementById("id-pro-active").value=data2[0];
 document.getElementById("estado-pro-active").value=data2[2];
 }        
 
 });
 
-$(document).on('click', '.edit_data', function(){
-   
-var id = $(this).attr("id");
-$.ajax({
-url:"<?php echo base_url() ?>mantenimiento/productos/get",
-method:"POST",
-data:{id:id},
-dataType:"json",
-success:function(data){
-   $('#create_nombre').val(data.nombre);
-    $('#create_categoria').val(data.id_categoria);
-    $('#create_codigo').val(data.codigo);
-    $('#create_descripcion').val(data.descripcion);
-    $('#create_precio_compra').val(data.precio_compra);
-    $('#create_precio_venta').val(data.precio_venta);
-    $('#create_img').val(data.imagen);
-    $('#create_perecedero').val(data.inventariable);
-    $('#create_presentacion').val(data.id_presentacion);
-    $('#data_id').val(data.id_producto);
-    if (data.perecedero==1) {
-        $('#create_perecedero').val('1');
-        $("#create_perecedero").prop('checked', true);
-    }    
-}
-});
+$(document).on('click', '.edit_data', function(){   
+    var id = $(this).attr("id");
+    document.getElementById("id-pro-edit").value=id;
 });
 
 
