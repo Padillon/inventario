@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Marcas extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Marcas_model");
+        $this->load->model("Marcas_model");
+        $this->load->library('toastr');
 	}
 
 	public function index(){
@@ -25,16 +26,14 @@ class Marcas extends CI_Controller {
         );
         //we keep the new brand.
         if ($this->Marcas_model->save($data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/marcas");
+            
         }
         else{
-            $this->session->set_flashdata("error","No se pudo guardar la informacion");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/marcas");
         }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/marcas/list",$data);
-        $this->load->view("layouts/footer");
     }
 
     public function delete(){
@@ -43,10 +42,11 @@ class Marcas extends CI_Controller {
             'estado' =>0, 
         );
         if ($this->Marcas_model->update($id, $data)) {
+            $this->toastr->success('Registro eliminado!');
             redirect(base_url()."mantenimiento/marcas");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/marcas");
         }
         $this->load->view("layouts/header");
@@ -62,10 +62,11 @@ class Marcas extends CI_Controller {
             'nombre' =>$nombre, 
         );
         if ($this->Marcas_model->update($id, $data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/marcas");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/marcas");
         }
         $this->load->view("layouts/header");
@@ -80,10 +81,11 @@ class Marcas extends CI_Controller {
             'estado' =>1, 
         );
         if ($this->Marcas_model->update($id, $data)) {
+            $this->toastr->success('Registro activado!');
             redirect(base_url()."mantenimiento/marcas");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/marcas");
         }
         $this->load->view("layouts/header");

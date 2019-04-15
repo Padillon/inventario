@@ -16,3 +16,4 @@ function marcaDelete($num){
         var data = marc.split('*');
         document.getElementById("id_marca_active").value= parseInt(data[0]);
         }
+

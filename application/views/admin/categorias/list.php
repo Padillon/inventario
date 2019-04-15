@@ -103,12 +103,14 @@
             </div>
         </div>
         <!-- main content area end -->
-
+    <?php
+    $this->load->view('layouts/alert');
+    ?>
     <!-- Modal Agregar-->
     <div class="modal fade" id="modalAgregar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formAgregar">
+            <form class="form-control" action="<?php echo base_url();?>mantenimiento/categorias/store" method="POST">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Agregar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -119,7 +121,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnGuardar">Guardar</button>
+                    <button type='submit' class='btn btn-primary'>Guardar</button>
                 </div>
             </form>
         </div>
@@ -130,7 +132,7 @@
     <div class="modal fade" id="modalEditar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formEditar">
+            <form class="form-control" action="<?php echo base_url();?>mantenimiento/categorias/update" method="POST">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Editar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -142,9 +144,9 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnEditar">Guardar</button>
+                    <button type='submit' class='btn btn-primary' id="btnEditar">Guardar</button>
                 </div>
-            </form>
+            </form>                                        
         </div>
      </div>
     </div>
@@ -153,7 +155,7 @@
 <div class="modal fade" id="modalDelete">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formDelete">
+            <form class="form-control" action="<?php echo base_url();?>mantenimiento/categorias/delete" method="POST">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Eliminar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -165,7 +167,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-danger' id="btnDelete">Borrar</button>
+                    <button type='submit' class='btn btn-danger' id="btnDelete">Borrar</button>
                 </div>
             </form>
         </div>
@@ -176,7 +178,7 @@
 <div class="modal fade" id="modalActive">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formActive">
+            <form class="form-control" action="<?php echo base_url();?>mantenimiento/categorias/active" method="POST">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Activar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -188,47 +190,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnActive">Guardar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
-
-    <!-- Modal Exito-->
-<div class="modal fade" id="modalExito">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formExito">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Exito!</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>La operación se realizo con exito</label>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary' data-dismiss='modal' id="btnExito">Aceptar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
-
-<!-- Modal Error-->
-<div class="modal fade" id="modalError">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formError">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Error!</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>La operación no pudo compleatarse satisfactoriamente</label>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary' data-dismiss='modal' id="btnError">Aceptar</button>
+                    <button type='submit' class='btn btn-primary' id="btnActive">Guardar</button>
                 </div>
             </form>
         </div>

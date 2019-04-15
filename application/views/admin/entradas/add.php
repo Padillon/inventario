@@ -24,7 +24,6 @@
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -42,7 +41,7 @@
                                 </div>
                                      <div class='col-md-9'>
                                     <label>Proveedor: </label>
-                                    <input name='proveedor' id='keyupProveedor' type='text' class='form-control' >
+                                    <input name='valorProveedor' id='autocompleteProveedor' type='text' class='form-control' >
                                     <input type="hidden" id="idProveedor" name="idProveedor" value="0">
                                 </div>
                                 </div>
@@ -50,7 +49,7 @@
                             <div class="col-md-12">
                             <label class="col-form-control">Buscar Producto:</label>
                             <div class="input-group">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" id="autocompleteProducto">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary" type="button">Agregar</button>
                                 </div>

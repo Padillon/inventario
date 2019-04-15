@@ -105,6 +105,10 @@
             </div>
         </div>
 
+        <?php
+    $this->load->view('layouts/alert');
+    ?>
+
         <!-- Modal add-->
                                 <div class="modal fade" id="add">
                                     <div class="modal-dialog modal-dialog-centered" role="document">

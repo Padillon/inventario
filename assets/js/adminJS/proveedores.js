@@ -10,7 +10,7 @@ function viewProveedor(num){
     html2 += "<input name='telefono' type='text' class='form-control' value='"+datos[3]+"' disabled></div>"; 
     html2 += "<div class='form-group'><label>Estado:</label>"; 
     if (datos[4] == 1){ 
-        html2 += "<div class='alert alert-primary' role='alert'><strong>Activo</strong></div>"; 
+        html2 += "<div class='alert alert-success' role='alert'><strong>Activo</strong></div>"; 
     } else{ 
         html2 += "<div class='alert alert-danger' role='alert'><strong>Inactivo</strong></div>"; 
     } 
