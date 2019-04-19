@@ -100,15 +100,9 @@
                             </select>
                             </div>
                             <div class="col-md-2"> 
-                            <script>
-                            if($producto->perecedero != 0){
-                                    $('#create_perecedero').val('1');
-                                    $("#create_perecedero").prop('checked', true);
-                            }
-                            </script>
                             <label>Perecedero</label>                     
                             <div class="s-swtich">                          
-                             <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input" >
+                             <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input" value="<?php echo $producto->perecedero;?>">
                             <label for="create_perecedero" class="form-check-label">Perecedero.</label>
                             </div>
                             </div>  
@@ -144,3 +138,9 @@
         </div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
+<script>
+
+if($('#create_perecedero').val() > 0){
+    $("#create_perecedero").prop('checked', true);
+}
+</script>
