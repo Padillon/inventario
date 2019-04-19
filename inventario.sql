@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 13-04-2019 a las 03:34:33
--- Versión del servidor: 10.1.35-MariaDB
--- Versión de PHP: 7.2.9
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 19-04-2019 a las 18:37:21
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -123,10 +123,27 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `nit`, `telefono`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detalle_entrada`
+-- Estructura de tabla para la tabla `compras`
 --
 
-CREATE TABLE `detalle_entrada` (
+CREATE TABLE `compras` (
+  `id_compra` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_tipo_compra` int(11) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `total` double NOT NULL,
+  `id_proveedor` int(11) NOT NULL,
+  `estado` tinyint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_compra`
+--
+
+CREATE TABLE `detalle_compra` (
   `id_detalle_compra` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
@@ -170,23 +187,6 @@ CREATE TABLE `detalle_venta` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `entradas`
---
-
-CREATE TABLE `entradas` (
-  `id_compra` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_tipo_compra` int(11) NOT NULL,
-  `descripcion` varchar(200) DEFAULT NULL,
-  `fecha` date NOT NULL,
-  `total` double NOT NULL,
-  `id_proveedor` int(11) NOT NULL,
-  `estado` tinyint(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `kardex`
 --
 
@@ -216,7 +216,7 @@ CREATE TABLE `marcas` (
 --
 
 INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
-(1, 'Lactolac', 1),
+(1, 'Lactolacc', 1),
 (2, 'Gumarsal', 0),
 (3, 'Gumarsal', 0),
 (4, 'Size', 0),
@@ -260,15 +260,29 @@ CREATE TABLE `productos` (
   `id_categoria` int(11) NOT NULL,
   `codigo` varchar(100) NOT NULL,
   `id_stock` int(11) NOT NULL,
-  `nombre` int(100) NOT NULL,
-  `descripcion` int(200) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` varchar(200) NOT NULL,
   `precio_compra` double NOT NULL,
   `precio_venta` double NOT NULL,
   `imagen` varchar(100) NOT NULL,
   `inventariable` tinyint(4) NOT NULL,
   `fecha_caducidad` date DEFAULT NULL,
-  `id_presentacion` int(11) NOT NULL
+  `id_presentacion` int(11) NOT NULL,
+  `perecedero` int(2) NOT NULL,
+  `estado` int(2) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `nombre`, `descripcion`, `precio_compra`, `precio_venta`, `imagen`, `inventariable`, `fecha_caducidad`, `id_presentacion`, `perecedero`, `estado`) VALUES
+(3, 4, 'as', 5, 'haaa prro', 'ughkhll', -0.01, 0.01, '', 0, NULL, 2, 1, 1),
+(4, 2, 's', 7, 'jejeje', '0', 0.02, 0.01, '', 0, NULL, 1, 0, 1),
+(5, 1, '', 9, '0', '0', 0, 0, '', 0, NULL, 1, 0, 1),
+(6, 1, '', 10, '0', '0', 0, 0, '', 0, NULL, 1, 0, 1),
+(7, 11, '5xll', 12, 'Pizza', '0', 5, 10, 'el-meme-surgio-a-partir.jpg', 0, NULL, 1, 0, 1),
+(8, 1, '666', 13, 'calzone', 'toalla', 0.25, 1.35, '', 0, NULL, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -320,6 +334,25 @@ CREATE TABLE `stock` (
   `stock_inicial` int(11) NOT NULL,
   `stock_minimo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `stock`
+--
+
+INSERT INTO `stock` (`id_stock`, `stock_actual`, `stock_inicial`, `stock_minimo`) VALUES
+(1, 0, 0, 0),
+(2, 0, 0, 10),
+(3, 0, 0, 5),
+(4, 0, 0, 2),
+(5, 0, 0, 10),
+(6, 0, 0, 0),
+(7, 0, 0, 1),
+(8, 0, 0, 1),
+(9, 0, 0, 0),
+(10, 0, 0, 0),
+(11, 0, 0, 0),
+(12, 0, 0, 10),
+(13, 0, 0, 10);
 
 -- --------------------------------------------------------
 
@@ -425,9 +458,18 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `detalle_entrada`
+-- Indices de la tabla `compras`
 --
-ALTER TABLE `detalle_entrada`
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id_compra`),
+  ADD KEY `id_usuario` (`id_usuario`,`id_tipo_compra`,`id_proveedor`),
+  ADD KEY `id_tipo_entrada` (`id_tipo_compra`),
+  ADD KEY `id_proveedor` (`id_proveedor`);
+
+--
+-- Indices de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
   ADD PRIMARY KEY (`id_detalle_compra`),
   ADD KEY `id_producto` (`id_producto`),
   ADD KEY `id_entrada` (`id_compra`);
@@ -449,15 +491,6 @@ ALTER TABLE `detalle_venta`
   ADD PRIMARY KEY (`id_detalle_venta`),
   ADD KEY `id_producto` (`id_producto`,`id_venta`),
   ADD KEY `id_venta` (`id_venta`);
-
---
--- Indices de la tabla `entradas`
---
-ALTER TABLE `entradas`
-  ADD PRIMARY KEY (`id_compra`),
-  ADD KEY `id_usuario` (`id_usuario`,`id_tipo_compra`,`id_proveedor`),
-  ADD KEY `id_tipo_entrada` (`id_tipo_compra`),
-  ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
 -- Indices de la tabla `kardex`
@@ -566,9 +599,15 @@ ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `detalle_entrada`
+-- AUTO_INCREMENT de la tabla `compras`
 --
-ALTER TABLE `detalle_entrada`
+ALTER TABLE `compras`
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
   MODIFY `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -582,12 +621,6 @@ ALTER TABLE `detalle_salida`
 --
 ALTER TABLE `detalle_venta`
   MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `entradas`
---
-ALTER TABLE `entradas`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex`
@@ -611,7 +644,7 @@ ALTER TABLE `presentacion`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -629,7 +662,7 @@ ALTER TABLE `salidas`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_comprobante`
@@ -672,11 +705,19 @@ ALTER TABLE `ajustes`
   ADD CONSTRAINT `ajustes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `detalle_entrada`
+-- Filtros para la tabla `compras`
 --
-ALTER TABLE `detalle_entrada`
-  ADD CONSTRAINT `detalle_entrada_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
-  ADD CONSTRAINT `detalle_entrada_ibfk_2` FOREIGN KEY (`id_compra`) REFERENCES `entradas` (`id_compra`);
+ALTER TABLE `compras`
+  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_tipo_compra`) REFERENCES `tipo_entrada` (`id_tipo_entrada`),
+  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `compras_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
+
+--
+-- Filtros para la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
+  ADD CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
+  ADD CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id_compra`);
 
 --
 -- Filtros para la tabla `detalle_salida`
@@ -693,20 +734,12 @@ ALTER TABLE `detalle_venta`
   ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
 
 --
--- Filtros para la tabla `entradas`
---
-ALTER TABLE `entradas`
-  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_tipo_compra`) REFERENCES `tipo_entrada` (`id_tipo_entrada`),
-  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `entradas_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
-
---
 -- Filtros para la tabla `kardex`
 --
 ALTER TABLE `kardex`
   ADD CONSTRAINT `kardex_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
   ADD CONSTRAINT `kardex_ibfk_2` FOREIGN KEY (`id_salida`) REFERENCES `salidas` (`id_salida`),
-  ADD CONSTRAINT `kardex_ibfk_3` FOREIGN KEY (`id_entrada`) REFERENCES `entradas` (`id_compra`),
+  ADD CONSTRAINT `kardex_ibfk_3` FOREIGN KEY (`id_entrada`) REFERENCES `compras` (`id_compra`),
   ADD CONSTRAINT `kardex_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
