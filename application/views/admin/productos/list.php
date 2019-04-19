@@ -36,7 +36,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" onclick=resete() data-toggle="modal" data-target="#modalProductoAdd"> Agregar+</button>
                                  <a href="<?php echo base_url();?>mantenimiento/productos/agregar" class="btn btn-primary mb-3">Productos P</a>
 
                                 <div class="data-tables">
