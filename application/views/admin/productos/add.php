@@ -127,10 +127,3 @@
         </div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
-<script>
- /* if(4<5){
-        alert("jolas");
-        $('#create_perecedero').val('1');
-        $("#create_perecedero").prop('checked', true);
-    }*/
-</script>
