@@ -107,12 +107,14 @@
         </div>
         <!-- main content area end -->
     <!-- page container area end -->
-
+    <?php
+    $this->load->view('layouts/alert');
+    ?>
     <!-- Modal Agregar-->
     <div class="modal fade" id="modalAgregar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formAgregar">
+            <form method="POST" action="<?php echo base_url();?>mantenimiento/clientes/store">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Agregar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -133,7 +135,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' id="btnGuardar" class='btn btn-primary'>Guardar</button>
+                    <button type='submit' id="btnGuardar" class='btn btn-primary'>Guardar</button>
                 </div>
             </form>
         </div>
@@ -144,7 +146,7 @@
     <div class="modal fade" id="modalView">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formView">
+            <form method="POST" action="<?php echo base_url();?>mantenimiento/clientes/update">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Información</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -165,7 +167,7 @@
     <div class="modal fade" id="modalEditar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formEditar">
+            <form method="POST" action="<?php echo base_url();?>mantenimiento/clientes/update">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Editar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -187,7 +189,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' id="btnEditar" class='btn btn-primary'>Guardar</button>
+                    <button type='submit' id="btnEditar" class='btn btn-primary'>Guardar</button>
                 </div>
             </form>
         </div>
@@ -198,7 +200,7 @@
     <div class="modal fade" id="modalDelete">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formDelete">
+            <form method="POST" action="<?php echo base_url();?>mantenimiento/clientes/delete">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Eliminar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -212,7 +214,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' id="btnDelete" class='btn btn-danger'>Eliminar</button>
+                    <button type='submit' id="btnDelete" class='btn btn-danger'>Eliminar</button>
                 </div>
             </form>
         </div>
@@ -223,7 +225,7 @@
     <div class="modal fade" id="modalActive">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formActive">
+            <form method="POST" action="<?php echo base_url();?>mantenimiento/clientes/active">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Activar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -237,7 +239,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' id="btnActive" class='btn btn-success'>Activar</button>
+                    <button type='submit' id="btnActive" class='btn btn-success'>Activar</button>
                 </div>
             </form>
         </div>

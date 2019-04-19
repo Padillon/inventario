@@ -17,3 +17,14 @@ function marcaDelete($num){
         document.getElementById("id_marca_active").value= parseInt(data[0]);
         }
 
+$("#form1").validate({
+    rules:{
+        name: "required",
+    },
+    messages:{
+        name: "Ingrese nombre de la marca",
+    },
+    submitHandler: function(form){
+        form.submit();
+    }
+});

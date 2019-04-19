@@ -118,9 +118,9 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form action="<?php echo base_url();?>mantenimiento/marcas/store" method="POST">
+                                               <form id="form1" action="<?php echo base_url();?>mantenimiento/marcas/store" method="POST">
                                                <label >Nombre de la marca.</label>
-                                               <input name="name" type="text" class="form-control" placeholder="Ingrese nombre">
+                                               <input id="name" name="name" type="text" class="form-control" placeholder="Ingrese nombre">
                                                
                                             </div>
                                             <div class="modal-footer">
@@ -183,7 +183,7 @@
                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?php echo base_url();?>mantenimiento/marcas/update" method="POST">
+                                <form id="form2" action="<?php echo base_url();?>mantenimiento/marcas/update" method="POST">
                                 <input id="id_marca_update" name="id_marca_update" type="hidden" class="form-control" >
                                 <h4>Nombre</H4>
                                 <input id="nombre_marca_update" name="nombre_marca_update" class="form-control" >
