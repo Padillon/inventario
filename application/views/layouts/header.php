@@ -29,9 +29,9 @@
      <!-- jquery latest version -->
      <script src="<?php echo base_url();?>assets/js/vendor/jquery-2.2.4.min.js"></script>
      <script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/jquery-ui.js"></script>
-     <script src="<?php echo base_url();?>assets/js/toastr.min.js"></script>
-     <script src="<?php echo base_url();?>assets/js/jquery.validate.js"></script>
-    <script src="<?php echo base_url();?>assets/js/additional-methods.js"></script>
+     <script src="<?php echo base_url();?>assets/js/plugins/toastr.min.js"></script>
+     <script src="<?php echo base_url();?>assets/js/plugins/jquery.validate.js"></script>
+    <script src="<?php echo base_url();?>assets/js/plugins/additional-methods.js"></script>
 
 
      
