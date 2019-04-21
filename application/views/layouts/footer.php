@@ -9,14 +9,14 @@
  
 
     <!-- bootstrap 4 js -->
-    <script src="<?php echo base_url();?>assets/js/plugins/popper.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/bootstrap.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/owl.carousel.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/metisMenu.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/jquery.slimscroll.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/jquery.slicknav.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/owl.carousel.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/metisMenu.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery.slicknav.min.js"></script>
     
-    
+     
     <!-- start chart js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <!-- start highcharts js -->
@@ -32,8 +32,8 @@
     <!-- all pie chart -->
     <script src="<?php echo base_url();?>assets/js/pie-chart.js"></script>
     <!-- others plugins -->
-    <script src="<?php echo base_url();?>assets/js/plugins/plugins.js"></script>
-    <script src="<?php echo base_url();?>assets/js/plugins/scripts.js"></script>
+    <script src="<?php echo base_url();?>assets/js/plugins.js"></script>
+    <script src="<?php echo base_url();?>assets/js/scripts.js"></script>
     <!--data table-->
     <script>
  $(document).ready(function() {
