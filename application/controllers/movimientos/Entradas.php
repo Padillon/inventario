@@ -31,7 +31,7 @@ class Entradas extends CI_Controller {
     }
 
     public function getProductos(){
-        $valor = $this->input->post("valor");
+        $valor = $this->input->post("autocompleteProducto");
 		$producto = $this->Entradas_model->getProductos($valor);
 		echo json_encode($producto);
     }
