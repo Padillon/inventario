@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Clientes extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Clientes_model");
+        $this->load->model("Clientes_model");
+        $this->load->library('toastr');
 	}
 
 	public function index(){
@@ -35,11 +36,13 @@ class Clientes extends CI_Controller {
             'estado' => 1,
         );
  
-        $result = $this->Clientes_model->save($data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($this->Clientes_model->save($data)){
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/clientes");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/clientes");
+        }
     }
 
     public function update(){
@@ -59,11 +62,13 @@ class Clientes extends CI_Controller {
             'registro' => $registro,
             'direccion' => $direccion,
         );
-        $result = $this->Clientes_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($this->Clientes_model->update($id, $data)){
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/clientes");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/clientes");
+        }
     }
 
     public function delete(){
@@ -71,11 +76,14 @@ class Clientes extends CI_Controller {
         $data = array(
             'estado' =>0, 
         );
-        $result = $this->Clientes_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($this->Clientes_model->update($id, $data)){
+            $this->toastr->success('Registro borrado!');
+            redirect(base_url()."mantenimiento/clientes");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/clientes");
+        }
+        
     }
 
     public function active(){
@@ -83,11 +91,13 @@ class Clientes extends CI_Controller {
         $data = array(
             'estado' =>1, 
         );
-        $result = $this->Clientes_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($this->Clientes_model->update($id, $data)){
+            $this->toastr->success('Registro activado!');
+            redirect(base_url()."mantenimiento/clientes");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/clientes");
+        }  
     }
 	
 }

@@ -43,7 +43,7 @@
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Administracion</span></a>
                                 <ul class="collapse">
-                                    <li><a href="index.html">Configuraciones</a></li>
+                                    <li><a href="<?php echo base_url();?>ajustes/ajustes">Configuraciones</a></li>
                                 </ul>
                             </li>
                         </ul>

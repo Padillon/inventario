@@ -15,7 +15,8 @@
     <script src="<?php echo base_url();?>assets/js/metisMenu.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.slimscroll.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/jquery.slicknav.min.js"></script>
-
+    
+     
     <!-- start chart js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <!-- start highcharts js -->

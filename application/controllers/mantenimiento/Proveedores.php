@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Proveedores extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Proveedores_model");
+        $this->load->model("Proveedores_model");
+        $this->load->library('toastr');
     }
 
     public function index(){
@@ -29,11 +30,13 @@ class Proveedores extends CI_Controller {
             'estado' => 1,
         );
  
-        $result = $this->Proveedores_model->save($data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($result = $this->Proveedores_model->save($data)){
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/proveedores");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/proveedores");
+        }
     }
 
     public function update(){
@@ -47,11 +50,13 @@ class Proveedores extends CI_Controller {
             'empresa' => $empresa,
             'telefono' => $telefono,
         );
-        $result = $this->Proveedores_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($this->Proveedores_model->update($id, $data)){
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."mantenimiento/proveedores");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/proveedores");
+        }
     }
 
     public function delete(){
@@ -59,11 +64,13 @@ class Proveedores extends CI_Controller {
         $data = array(
             'estado' =>0, 
         );
-        $result = $this->Proveedores_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($this->Proveedores_model->update($id, $data)){
+            $this->toastr->success('Registro borrado!');
+            redirect(base_url()."mantenimiento/proveedores");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/proveedores");
+        } 
     }
 
     public function active(){
@@ -71,10 +78,13 @@ class Proveedores extends CI_Controller {
         $data = array(
             'estado' =>1, 
         );
-        $result = $this->Proveedores_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        
+        if($result = $this->Proveedores_model->update($id, $data)){
+            $this->toastr->success('Registro activado!');
+            redirect(base_url()."mantenimiento/proveedores");
+        }else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/proveedores");
+        } 
     }
 }
