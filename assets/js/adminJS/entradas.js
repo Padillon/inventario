@@ -52,10 +52,10 @@ $("#btn-agregar-abast").on("click", function(){
         html = "<tr>";
         html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
-        html += "<td><input type='hidden' name='precios[]' value='"+infoProducto[2]+"'><input step='any' min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='cantidades' value='"+infoProducto[2]+"'></td>"; //precios
-        html += "<td><input type='number' step='any' min='0.00' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[] ' value='"+infoProducto[3]+"'> </td>";//stock
-        html += "<td><input type='number' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
-        html += "<td><input type='hidden' name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
+        html += "<td><input type='hidden' name='precios[]' value='"+infoProducto[2]+"'><input style='width:100px' step='any' min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='"+infoProducto[2]+"'></td>"; //precios
+        html += "<td><input type='number' style='width:100px; step='0.01'  min='0.00' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[] ' value='"+infoProducto[3]+"'> </td>";//precio salida
+        html += "<td><input type='number' style='width:100px; placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
+        html += "<td><input type='hidden' align='center' name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";
         $("#tbCompras tbody").append(html);
@@ -67,7 +67,17 @@ $("#btn-agregar-abast").on("click", function(){
         alert("seleccione un producto");
     }
 });
-
+//procesamiento al ingresar otra cantidad de compra
+$(document).on("input", "#tbCompras input.precio-entrada", function(){
+    pre_compra = $(this).val();
+    cant = $(this).closest("tr").find("td:eq(4)").children("input").val();
+    importe = pre_compra * cant;
+    totalImporte = parseFloat(importe).toFixed(2);
+    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+    $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+    $(this).closest("tr").find("td:eq(2)").children("input").val(pre_compra);
+    sumarReabastecimiento();
+});
 //procedimiento al ingresar cantidades
 $(document).on("input", "#tbCompras input.cantidades", function(){
     cantidad = $(this).val();
