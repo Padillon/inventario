@@ -7,6 +7,7 @@ class Productos extends CI_Controller {
         $this->load->model("Productos_model");
         $this->load->model("Categorias_model");
         $this->load->model("Presentacion_model");
+        $this->load->model("Proveedores_model");
     }
 
     public function index(){
@@ -26,6 +27,7 @@ class Productos extends CI_Controller {
             'producto' => $this->Productos_model->getProductos(), 
             'categoria' => $this->Categorias_model->getCategorias(),
             'presentacion'=> $this->Presentacion_model->getPresentaciones(),
+            'proveedores'=>$this->Proveedores_model->getProveedores(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -52,6 +54,7 @@ class Productos extends CI_Controller {
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');
         $data_stock['stock_minimo'] = $this->input->post('create_stock_min');
+        $data_in['id_proveedor'] = $this->input->post('proveedor');
         $data_in['id_categoria'] = $this->input->post('create_categoria');
         $data_in['codigo'] = $this->input->post('create_codigo');
         $data_in['nombre'] = $this->input->post('create_nombre');
@@ -105,6 +108,7 @@ class Productos extends CI_Controller {
             'producto' => $data2, 
             'categoria' => $this->Categorias_model->getCategorias(),
             'presentacion'=> $this->Presentacion_model->getPresentaciones(),
+            'proveedores'=>$this->Proveedores_model->getProveedores(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
