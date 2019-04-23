@@ -75,7 +75,6 @@ $(document).on("input", "#tbCompras input.precio-entrada", function(){
     totalImporte = parseFloat(importe).toFixed(2);
     $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
     $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
-    $(this).closest("tr").find("td:eq(2)").children("input").val(pre_compra);
     sumarReabastecimiento();
 });
 //procedimiento al ingresar cantidades
@@ -96,3 +95,10 @@ function sumarReabastecimiento(){
     });
     $("#total-reabastecer").val(total.toFixed(2));
 }
+//eliminar comprado
+$(document).on("click", ".btn-remove-producto", function(){
+    $(this).closest("tr").remove();
+    contador = contador - 1;
+    f=0;
+    sumar();
+});

@@ -70,7 +70,7 @@
                                         </div> 
                                         <div class="col-md-3">
                                             <label for="create_stock_min">Stock mínimo.</label>
-                                            <input name='create_stock_min' id="create_stock_min" type='number' class='custom-select' min='0' pattern='^[0-9]+' class='form-control' placeholder='Ingrese cantidad.'>
+                                            <input name='create_stock_min' id="create_stock_min" type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Ingrese cantidad.'>
                                         </div>
 
 
@@ -81,12 +81,12 @@
 
                                         <div class="col-md-2">
                                             <label for="create_precio_compra">Precio de compra.</label>
-                                            <input name='create_precio_compra' id="create_precio_compra" step='0.01' class='custom-select' type='number' class='form-control' placeholder='$0.00'> 
+                                            <input name='create_precio_compra' id="create_precio_compra" step='0.01'  type='number' class='form-control' placeholder='$0.00'> 
                                         </div>
 
                                         <div class="col-md-2">
                                             <label for="create_precio_venta">Precio de venta.</label>
-                                            <input name='create_precio_venta' id="create_precio_venta" step='0.01' class='custom-select' type='number' class='form-control' placeholder='$0.00'>
+                                            <input name='create_precio_venta' id="create_precio_venta" step='0.01'  type='number' class='form-control' placeholder='$0.00'>
                                         </div>
                                         <div class="col-md-12"> 
                                             <br>
