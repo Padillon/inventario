@@ -15,7 +15,7 @@ class Entradas_model extends CI_Model {
       return $resultados->result_array();
     }
 
-    public function getProductos($valor){
+    public function getProductos($valor,$proveedor){
     $this->db->select("p.*,c.nombre as id_categoria, pre.nombre as id_presentacion");
       $this->db->from("productos p");
       $this->db->join("categoria c","p.id_categoria = c.id_categoria");
@@ -23,6 +23,7 @@ class Entradas_model extends CI_Model {
       $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
      // $this->db->join("proveedores pr","p.id_proveedor = pr.id_proveedor");
       $this->db->where("p.estado","1");
+      $this->db->where("p.id_proveedor",$proveedor);
       $this->db->like("p.nombre", $valor);
       //$this->db->from("productos");
      // $this->db->like("nombre", $valor);

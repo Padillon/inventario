@@ -33,7 +33,7 @@
                         <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control">
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entrada/store" method='POST'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
@@ -73,7 +73,7 @@
 
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <button type="button" class="btn btn-outline-primary mb-3">Procesar</button>
+                                                <button type="submit" class="btn btn-outline-primary mb-3">Procesar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -88,19 +88,15 @@
                                         <table id="tbTotal" class="table">
                                             <tr>
                                              <td>SUBTOTAL:</td>
-                                             <td>$</td>
+                                             <td id="sub_total" >$</td>
                                              </tr>
                                              <tr>
                                              <td>IVA:</td>
-                                             <td>$</td>
-                                             </tr>
-                                             <tr>
-                                             <td>CESC:</td>
-                                             <td>$</td>
+                                             <td id="iva">$</td>
                                              </tr>
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
-                                             <td class="alert alert-success">$</td>
+                                             <td id="total" class="alert alert-success">$</td>
                                              </tr>
                                         </table>
                                     </div>                               

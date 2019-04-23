@@ -27,7 +27,7 @@ $("#autocompleteProducto").autocomplete({
           url: base_url+"movimientos/entradas/getProductos",
           type: "POST",
           dataType: "json",
-          data:{ autocompleteProducto: request.term},
+          data:{ autocompleteProducto: request.term,id_proveedor: $("#idProveedor").val() },
           success: function(data){
               response($.map(data, function (item) {
                   return {
@@ -60,9 +60,7 @@ $("#btn-agregar-abast").on("click", function(){
         html += "</tr>";
         $("#tbCompras tbody").append(html);
         $('#btn-agregar-abast').val('');
-        $('#autocompleteProducto').val('');
-        $('#autocompleteProducto').prop('id','');
-
+        $('#autocompleteProducto').val(null);
     } else {
         alert("seleccione un producto");
     }
@@ -87,13 +85,18 @@ $(document).on("input", "#tbCompras input.cantidades", function(){
     $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
     sumarReabastecimiento();
 });
-//funcion para sumar
+//funcion para sumar el costo total
 function sumarReabastecimiento(){
     total = 0;
-    $("tbTotal tbody tr").each(function(){
+    $("#tbCompras tbody tr").each(function(){
+
         total = total + Number($(this).find("td:eq(5)").text());
     });
+    
     $("#total-reabastecer").val(total.toFixed(2));
+    document.getElementById("sub_total").innerHTML=total.toFixed(2);
+    document.getElementById("total").innerHTML=total.toFixed(2);
+    
 }
 //eliminar comprado
 $(document).on("click", ".btn-remove-producto", function(){
