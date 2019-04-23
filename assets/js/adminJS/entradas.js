@@ -81,7 +81,7 @@ $(document).on("input", "#tbCompras input.cantidades", function(){
 //funcion para sumar
 function sumarReabastecimiento(){
     total = 0;
-    $("#tbreabastecer tbody tr").each(function(){
+    $("tbTotal tbody tr").each(function(){
         total = total + Number($(this).find("td:eq(5)").text());
     });
     $("#total-reabastecer").val(total.toFixed(2));

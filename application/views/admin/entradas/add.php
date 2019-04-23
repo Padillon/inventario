@@ -85,7 +85,7 @@
                             <div class="card">
                         <div class="card-body">
                                 <div class="form-control">
-                                        <table class="table">
+                                        <table id="tbTotal" class="table">
                                             <tr>
                                             <td>SUBTOTAL:</td>
                                             <td>$</td>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-04-2019 a las 18:37:21
+-- Tiempo de generación: 23-04-2019 a las 02:18:37
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -123,23 +123,6 @@ INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `nit`, `telefono`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `compras`
---
-
-CREATE TABLE `compras` (
-  `id_compra` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_tipo_compra` int(11) NOT NULL,
-  `descripcion` varchar(200) DEFAULT NULL,
-  `fecha` date NOT NULL,
-  `total` double NOT NULL,
-  `id_proveedor` int(11) NOT NULL,
-  `estado` tinyint(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `detalle_compra`
 --
 
@@ -182,6 +165,23 @@ CREATE TABLE `detalle_venta` (
   `precio` varchar(45) NOT NULL,
   `cantidad` varchar(45) NOT NULL,
   `importe` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entradas`
+--
+
+CREATE TABLE `entradas` (
+  `id_entrada` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_tipo_entrada` int(11) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `total` double NOT NULL,
+  `id_proveedor` int(11) NOT NULL,
+  `estado` tinyint(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -458,15 +458,6 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `compras`
---
-ALTER TABLE `compras`
-  ADD PRIMARY KEY (`id_compra`),
-  ADD KEY `id_usuario` (`id_usuario`,`id_tipo_compra`,`id_proveedor`),
-  ADD KEY `id_tipo_entrada` (`id_tipo_compra`),
-  ADD KEY `id_proveedor` (`id_proveedor`);
-
---
 -- Indices de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
@@ -491,6 +482,15 @@ ALTER TABLE `detalle_venta`
   ADD PRIMARY KEY (`id_detalle_venta`),
   ADD KEY `id_producto` (`id_producto`,`id_venta`),
   ADD KEY `id_venta` (`id_venta`);
+
+--
+-- Indices de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD PRIMARY KEY (`id_entrada`),
+  ADD KEY `id_usuario` (`id_usuario`,`id_tipo_entrada`,`id_proveedor`),
+  ADD KEY `id_tipo_entrada` (`id_tipo_entrada`),
+  ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
 -- Indices de la tabla `kardex`
@@ -599,12 +599,6 @@ ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `compras`
---
-ALTER TABLE `compras`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
@@ -621,6 +615,12 @@ ALTER TABLE `detalle_salida`
 --
 ALTER TABLE `detalle_venta`
   MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex`
@@ -705,19 +705,11 @@ ALTER TABLE `ajustes`
   ADD CONSTRAINT `ajustes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `compras`
---
-ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_tipo_compra`) REFERENCES `tipo_entrada` (`id_tipo_entrada`),
-  ADD CONSTRAINT `compras_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `compras_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
-
---
 -- Filtros para la tabla `detalle_compra`
 --
 ALTER TABLE `detalle_compra`
   ADD CONSTRAINT `detalle_compra_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
-  ADD CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id_compra`);
+  ADD CONSTRAINT `detalle_compra_ibfk_2` FOREIGN KEY (`id_compra`) REFERENCES `entradas` (`id_entrada`);
 
 --
 -- Filtros para la tabla `detalle_salida`
@@ -734,12 +726,20 @@ ALTER TABLE `detalle_venta`
   ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
 
 --
+-- Filtros para la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_tipo_entrada`) REFERENCES `tipo_entrada` (`id_tipo_entrada`),
+  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `entradas_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
+
+--
 -- Filtros para la tabla `kardex`
 --
 ALTER TABLE `kardex`
   ADD CONSTRAINT `kardex_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
   ADD CONSTRAINT `kardex_ibfk_2` FOREIGN KEY (`id_salida`) REFERENCES `salidas` (`id_salida`),
-  ADD CONSTRAINT `kardex_ibfk_3` FOREIGN KEY (`id_entrada`) REFERENCES `compras` (`id_compra`),
+  ADD CONSTRAINT `kardex_ibfk_3` FOREIGN KEY (`id_entrada`) REFERENCES `entradas` (`id_entrada`),
   ADD CONSTRAINT `kardex_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
