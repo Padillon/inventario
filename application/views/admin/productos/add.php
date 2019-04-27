@@ -44,6 +44,15 @@
                                                 <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
                                         </div>  
 
+                                         <div class="col-md-3">
+                                                <label for="create_categoria">Marca.</label>         
+                                                <select name='create_marca' id='create_marca' class='custom-select' required>
+                                                    <?php foreach($marcas as $marca):?>
+                                                    <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                        </div>
+
                                         <div class="col-md-3">
                                                 <label for="create_categoria">categoria.</label>         
                                                 <select name='create_categoria' id='create_categoria' class='custom-select' required>

@@ -45,20 +45,34 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="create_categoria">categoria.</label>         
-                                    <select name='create_categoria' id='create_categoria' class='form-control' required >
-                                    <?php foreach($categoria as $cat):?>
-                                    <?php if($cat->id_categoria == $producto->id_categoria){
-                                    ?>
-                                    <option value='<?php echo $cat->id_categoria;?>' selected ><?php echo $cat->nombre;?></option>
-                                    <?php   
-                                    }else{
-                                    ?>
-                                    <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
-                                    <?php }?>
-                                    <?php endforeach;?>
+                                    <label for="create_categoria">Marca.</label>         
+                                    <select name='create_marca' id='create_marca' class='form-control' required >
+                                        <?php foreach($marcas as $marca):?>
+                                            <?php if($marca->id_marca == $producto->id_marca){ ?>
+                                                <option value='<?php echo $marca->id_marca;?>' selected ><?php echo $marca->nombre;?></option>
+                                            <?php   
+                                                }else{
+                                            ?>
+                                            <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>
+                                            <?php }?>
+                                        <?php endforeach;?>
                                     </select>
-                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="create_categoria">Categoria.</label>         
+                                    <select name='create_categoria' id='create_categoria' class='form-control' required >
+                                        <?php foreach($categoria as $cat):?>
+                                            <?php if($cat->id_categoria == $producto->id_categoria){ ?>
+                                                <option value='<?php echo $cat->id_categoria;?>' selected ><?php echo $cat->nombre;?></option>
+                                            <?php   
+                                                }else{
+                                            ?>
+                                            <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
+                                            <?php }?>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
 
                                     <div class="col-md-3">
                                     <label for="create_codigo">Codigo.</label>

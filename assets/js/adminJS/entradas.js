@@ -31,8 +31,8 @@ $("#autocompleteProducto").autocomplete({
           success: function(data){
               response($.map(data, function (item) {
                   return {
-                      label: item.nombre+' '+item.id_categoria,
-                      id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_categoria,
+                      label: item.nombre,
+                      id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion,
                   }
               }))
           },
