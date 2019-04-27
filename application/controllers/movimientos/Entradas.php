@@ -36,7 +36,7 @@ class Entradas extends CI_Controller {
 		$producto = $this->Entradas_model->getProductos($valor);
 		echo json_encode($producto);
     }
-//fncion para guardar las compras
+				//fncion para guardar las compras
     public function store(){
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
@@ -125,5 +125,19 @@ class Entradas extends CI_Controller {
 		}
 		$this->Cajas_model->updateCaja($idcaja, $data);
 	}
+
+	public function edit_get(){
+        $id =$this->input->post('id-entrada-edit');
+        $entrada = $this->Entradas_model->get(1);
+        $detalle = $this->Entradas_model->getDetalle($entrada->id_entrada);
+        $data = array(
+            'entrada' => $entrada, 
+            'detalle' => $detalle,
+        );
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/entradas/edit",$data);
+        $this->load->view("layouts/footer");
+    }
 
 }

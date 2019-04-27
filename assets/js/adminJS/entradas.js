@@ -106,3 +106,8 @@ $(document).on("click", ".btn-remove-producto", function(){
     f=0;
     sumar();
 });
+
+$(document).on('click', '.edit_data', function(){   
+    var id = $(this).attr("id");
+    document.getElementById("id-entrada-edit").value=id;
+});

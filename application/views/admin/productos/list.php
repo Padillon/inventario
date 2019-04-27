@@ -124,8 +124,8 @@
                                         </div>
                                     </div>
                                 </div>
-      <!-- Modal para asegurar la edicion-->
-      <div class="modal fade" id="edit">
+    <!-- Modal para asegurar la edicion-->
+    <div class="modal fade" id="edit">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -143,7 +143,7 @@
                                            </form> </div>
                                         </div>
                                     </div>
-                                </div>
+    </div>
 
     <!-- Modal agregar producto-->
     <div class="modal fade" id="modalProductoAdd" role="dialog">

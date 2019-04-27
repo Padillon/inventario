@@ -53,15 +53,15 @@
                             <tbody>
                             <?php $cont = 0;?>
                                 <?php if(!empty($entradas)):?>
-                                    <?php foreach($entradas as $com):?>
+                                    <?php foreach($entradas as $entrada):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $com->id_entrada;?></td>
-                                            <td><?php echo $com->fecha;?></td>
-                                            <td><?php echo $com->id_proveedor;?></td>
-                                            <td><?php echo $com->id_usuario;?></td>
-                                            <td><?php echo $com->total;?></td>
-                                            <?php if($com->estado == 1){?>
+                                            <td><?php echo $entrada->id_entrada;?></td>
+                                            <td><?php echo $entrada->fecha;?></td>
+                                            <td><?php echo $entrada->id_proveedor;?></td>
+                                            <td><?php echo $entrada->id_usuario;?></td>
+                                            <td><?php echo $entrada->total;?></td>
+                                            <?php if($entrada->estado == 1){?>
                                                 <td>
                                                     <div class="alert alert-primary" role="alert">
                                                     <strong>Activo</strong>
@@ -75,17 +75,18 @@
                                                 </td>
                                             <?php }?>
                                             <td>
-                                                <div class="btn-group">
-                                                <?php $data = $com->id_entrada; ?>
-                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCompra(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
+                                                  <div class="btn-group">
+                                                <?php $data = $entrada->id_entrada?>
+                                                <button name="edit" id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php if($com->estado == 1){?>
-                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCompra(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                <?php $data = $entrada->id_entrada."*".$entrada->estado ?>
+                                                <?php if($entrada->estado == 1){?>
+                                                    <button id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCompra(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
+                                                    <button id="active<?php echo $cont; ?>"  type="button" class="btn btn-success btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>
@@ -109,49 +110,25 @@
         </div>
         <!-- main content area end -->
 
-    <!-- Modal Agregar-->
-    <div class="modal fade" id="modalAgregar">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formAgregar">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Agregar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='name' id="name" type='text' class='form-control' placeholder='Ingrese nombre'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnGuardar">Guardar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
-
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formEditar">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Editar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='editName' id='editName' type='text' class='form-control'>
-                    <input name='idCategoria' id='idCategoria' type='hidden' class='form-control'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnEditar">Guardar</button>
-                </div>
-            </form>
-        </div>
-     </div>
+ <!-- Modal para asegurar la edicion-->
+    <div class="modal fade" id="edit">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ti-cabeza">Editar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <form action="<?php echo base_url();?>movimientos/entradas/edit_get" method="POST">
+                                               <h4 id="titulo">Está seguro de editar esta compra?</H4>
+                                               <input id="id-entrada-edit" name="id-entrada-edit" type="hidden" class="form-control" >
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
+                                           </form> </div>
+                                        </div>
+                                    </div>
     </div>
 
 <!-- Modal Delete-->
@@ -240,4 +217,4 @@
      </div>
     </div>
 
-<script src="<?php echo base_url();?>assets/js/adminJS/categorias.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>

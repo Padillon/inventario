@@ -12,6 +12,19 @@ class Entradas_model extends CI_Model {
 			return $resultados->result();
     }
 
+    public function get($id){ 
+      $this->db->where("id_entrada",$id);
+    $resultado = $this->db->get("entradas");
+    return $resultado->row();
+    }
+
+    public function getDetalle($id){ 
+      $this->db->where("id_entrada",$id);
+      $resultados = $this->db->get("detalle_entrada");
+      return $resultados->result();
+    }
+
+
     public function getProveedores($valor){
       $this->db->select("id_proveedor, empresa as label");
       $this->db->from("proveedores");
