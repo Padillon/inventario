@@ -27,7 +27,7 @@ $("#autocompleteProducto").autocomplete({
           url: base_url+"movimientos/entradas/getProductos",
           type: "POST",
           dataType: "json",
-          data:{ autocompleteProducto: request.term,id_proveedor: $("#idProveedor").val() },
+          data:{ autocompleteProducto: request.term},
           success: function(data){
               response($.map(data, function (item) {
                   return {
@@ -93,7 +93,7 @@ function sumarReabastecimiento(){
         total = total + Number($(this).find("td:eq(5)").text());
     });
     
-    $("#total-reabastecer").val(total.toFixed(2));
+    $("#total").val(total.toFixed(2));
     document.getElementById("sub_total").innerHTML=total.toFixed(2);
     document.getElementById("total").innerHTML=total.toFixed(2);
     

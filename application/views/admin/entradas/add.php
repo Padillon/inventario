@@ -33,16 +33,17 @@
                         <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entrada/store" method='POST'  >
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" method='POST'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
-                                            <input name='nombre' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                            <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
                                             <input name='valorProveedor' id='autocompleteProveedor' type='text' class='form-control' >
-                                            <input type="hidden" id="idProveedor" name="idProveedor" value="0">
+                                            <input type="hidden" id="idProveedor" name="idProveedor" >
+                                            <input type="hidden" id="total" name="total" value="0">
                                         </div>                        
                                         <br>
                                         <div class="col-md-12">

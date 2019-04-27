@@ -36,21 +36,7 @@
                         <div class="card-body">                      
                             <form class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data'>
                                 <div class="input-group">
-                                <div class="col-md-3">
-                                <label for="proveedor">Proveedor..</label>         
-                                <select name='proveedor' id='proveedor' class='form-control' required >
-                                <?php foreach($proveedores as $proveedor):?>
-                                <?php if($proveedor->id_proveedor == $producto->id_proveedor){
-                                ?>
-                                <option value='<?php echo $proveedor->id_proveedor?>' selected ><?php echo $proveedor->nombre;?></option>
-                                <?php   
-                                }else{
-                                ?>
-                                <option value='<?php echo $proveedor->id_proveedor;?>'><?php echo $proveedor->nombre;?></option>
-                                <?php }?>
-                                <?php endforeach;?>
-                                </select>
-                                </div>
+
                                 
                                 <div class="col-md-3">
                                     <label for="">Nombre del producto.</label>

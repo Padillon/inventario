@@ -52,14 +52,14 @@
                             </thead>
                             <tbody>
                             <?php $cont = 0;?>
-                                <?php if(!empty($entrada)):?>
-                                    <?php foreach($entrada as $com):?>
+                                <?php if(!empty($entradas)):?>
+                                    <?php foreach($entradas as $com):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $com->id_compras;?></td>
+                                            <td><?php echo $com->id_entrada;?></td>
                                             <td><?php echo $com->fecha;?></td>
-                                            <td><?php echo $com->proveedor;?></td>
-                                            <td><?php echo $com->usuario;?></td>
+                                            <td><?php echo $com->id_proveedor;?></td>
+                                            <td><?php echo $com->id_usuario;?></td>
                                             <td><?php echo $com->total;?></td>
                                             <?php if($com->estado == 1){?>
                                                 <td>
@@ -76,7 +76,7 @@
                                             <?php }?>
                                             <td>
                                                 <div class="btn-group">
-                                                <?php $data = $com->id_compra."*".$com->nombre ?>
+                                                <?php $data = $com->id_entrada; ?>
                                                 <button id="edit<?php echo $cont;?>" type="button" onclick="editCompra(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
