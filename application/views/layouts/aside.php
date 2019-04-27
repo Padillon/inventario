@@ -38,6 +38,7 @@
                                 <ul class="collapse">
                                     <li><a href="index.html">Entradas</a></li>
                                     <li><a href="index2.html">Salidas</a></li>
+                                    <li><a href="index2.html">Kardex</a></li>
                                 </ul>
                             </li>
                             <li>
