@@ -61,6 +61,7 @@ $("#btn-agregar-abast").on("click", function(){
         $("#tbCompras tbody").append(html);
         $('#btn-agregar-abast').val('');
         $('#autocompleteProducto').val(null);
+        $('#procesar').prop('disabled',false);
     } else {
         alert("seleccione un producto");
     }
@@ -90,10 +91,10 @@ function sumarReabastecimiento(){
     total = 0;
     $("#tbCompras tbody tr").each(function(){
 
-        total = total + Number($(this).find("td:eq(5)").text());
+        total = total +  Number($(this).find("td:eq(5)").text());
     });
-    
-    $("#total").val(total.toFixed(2));
+    total2 = parseFloat(total).toFixed(2);
+    $("#total").val(total2);
     document.getElementById("sub_total").innerHTML=total.toFixed(2);
     document.getElementById("total").innerHTML=total.toFixed(2);
     

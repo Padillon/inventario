@@ -41,9 +41,9 @@
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
-                                            <input name='valorProveedor' id='autocompleteProveedor' type='text' class='form-control' >
+                                            <input name='valorProveedor' required id='autocompleteProveedor' type='text' class='form-control' >
                                             <input type="hidden" id="idProveedor" name="idProveedor" >
-                                            <input type="hidden" id="total" name="total" value="0">
+                                            <input  step='0.01' type="hidden" pattern='^\d*(\.\d{0,2})?$' id="total" name="total" value="0">
                                         </div>                        
                                         <br>
                                         <div class="col-md-12">
@@ -74,7 +74,7 @@
 
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-outline-primary mb-3">Procesar</button>
+                                                <button type="submit" disabled="false" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
                                             </div>
                                         </div>
                                     </form>
