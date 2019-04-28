@@ -108,4 +108,4 @@
 </div>
 
 
-<script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/salidas.js"></script>
