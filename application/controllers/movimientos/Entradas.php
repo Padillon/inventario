@@ -127,12 +127,13 @@ class Entradas extends CI_Controller {
 	}
 
 	public function edit_get(){
-        $id =$this->input->post('id-entrada-edit');
-        $entrada = $this->Entradas_model->get(1);
+        $id = $this->input->post('id-entrada-edit');
+        $entrada = $this->Entradas_model->get($id);
         $detalle = $this->Entradas_model->getDetalle($entrada->id_entrada);
         $data = array(
             'entrada' => $entrada, 
             'detalle' => $detalle,
+            
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');

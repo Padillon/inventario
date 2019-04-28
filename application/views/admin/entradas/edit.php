@@ -17,7 +17,7 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="breadcrumbs-area clearfix">
-                                <h4 class="page-title pull-left">Agregar Entrada</h4>
+                                <h4 class="page-title pull-left">Editar Entrada</h4>
                                 <ul class="breadcrumbs pull-left">
                                     <li><a href="index.html">Home</a></li>
                                     <li><span>Movimientos</span></li>
@@ -37,12 +37,12 @@
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
-                                            <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                            <input name='fecha' type="date" value="<?php echo $entrada->fecha;?>" class='form-control' >
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
-                                            <input name='valorProveedor' required id='autocompleteProveedor' type='text' class='form-control' >
-                                            <input type="hidden" id="idProveedor" name="idProveedor" >
+                                            <input name='valorProveedor' required id='autocompleteProveedor' value="<?php echo $entrada->id_provedor ?>"type='text' class='form-control' >
+                                            <input type="hidden" id="idProveedor" name="idProveedor" value="<?php echo $entrada->id_provedor ?>">
                                             <input  step='0.01' type="hidden" pattern='^\d*(\.\d{0,2})?$' id="total" name="total" value="0">
                                         </div>                        
                                         <br>
