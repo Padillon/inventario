@@ -34,4 +34,13 @@ public function getProductos(){
 		$this->db->where("id_stock",$id);		
 		return $this->db->update("stock",$data);
 	}
+
+	public function getInfoProducto($id){
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo");
+		$this->db->from("productos p");
+		$this->db->join("marca m", "p.id_marca = m.id_marca");
+		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
+		$this->db->join("stock s", "p.id_stock = s.id_stock");
+		return $resultados->result();
+	}
 }

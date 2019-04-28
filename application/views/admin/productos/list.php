@@ -102,7 +102,9 @@
         </div>
         <!-- main content area end -->
     <!-- page container area end -->
-
+    <?php
+    $this->load->view('layouts/alert');
+    ?>
       <!-- Modal active-->
      <div class="modal fade" id="active">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -146,7 +148,7 @@
     </div>
 
     <!-- Modal agregar producto-->
-    <div class="modal fade" id="modalProductoAdd" role="dialog">
+    <div class="modal fade" id="modalViewProducto" role="dialog">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -154,7 +156,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data'>
+                                                <form enctype='multipart/form-data'>
                                                 <input name='data_id' id='data_id' type='hidden'>
                                                 <input name='id_stock' id='id_stock' type='hidden'>
                                                 <label for="">Nombre del producto.</label>

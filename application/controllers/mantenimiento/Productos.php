@@ -8,6 +8,7 @@ class Productos extends CI_Controller {
         $this->load->model("Categorias_model");
         $this->load->model("Presentacion_model");
         $this->load->model("Marcas_model");
+        $this->load->library('toastr');
     }
 
     public function index(){
@@ -80,10 +81,11 @@ class Productos extends CI_Controller {
             $producto = $this->Productos_model->add($data_in);
         }
         if($producto){
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/productos");
         }
         else{
-            $this->session->set_flashdata("error","No se pudo actualizar la informacion");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/productos");
         }
     }
@@ -129,10 +131,11 @@ class Productos extends CI_Controller {
             );
         }
         if ($this->Productos_model->update($id_producto, $data)) {
+            $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/productos");
         }
         else{
-            $this->session->set_flashdata("error","No se puede eliminar la marca.");
+            $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/productos");
         }
         

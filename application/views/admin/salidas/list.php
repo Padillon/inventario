@@ -240,4 +240,4 @@
      </div>
     </div>
 
-<script src="<?php echo base_url();?>assets/js/adminJS/categorias.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/salidas.js"></script>

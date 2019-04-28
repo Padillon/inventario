@@ -147,6 +147,9 @@
             </div>
         </div>
     </div>
+    <?php
+    $this->load->view('layouts/alert');
+    ?>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
 <script>
