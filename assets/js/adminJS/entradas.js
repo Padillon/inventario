@@ -96,7 +96,7 @@ function sumarReabastecimiento(){
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
     document.getElementById("sub_total").innerHTML=total.toFixed(2);
-    document.getElementById("total").innerHTML=total.toFixed(2);
+    document.getElementById("totalFinal").innerHTML=total.toFixed(2);
     
 }
 //eliminar comprado

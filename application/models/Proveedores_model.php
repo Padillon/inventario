@@ -15,4 +15,10 @@ class Proveedores_model extends CI_Model {
 		$this->db->where("id_proveedor",$id);
 		return $this->db->update("proveedores",$data);
 	}
+
+	public function get($id){
+		$this->db->where("id_proveedor",$id);
+		$resultado = $this->db->get("proveedores");
+		return $resultado->row();
+	}
 }

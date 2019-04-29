@@ -6,6 +6,7 @@ class Entradas extends CI_Controller {
 		parent::__construct();
 		$this->load->model("Entradas_model");
 		$this->load->model("Productos_model");
+		$this->load->model("Proveedores_model");
 	}
 
 	public function index(){
@@ -129,10 +130,14 @@ class Entradas extends CI_Controller {
 	public function edit_get(){
         $id = $this->input->post('id-entrada-edit');
         $entrada = $this->Entradas_model->get($id);
-        $detalle = $this->Entradas_model->getDetalle($entrada->id_entrada);
+		$detalle = $this->Entradas_model->getDetalle($entrada->id_entrada);
+		$proveedor = $this->Proveedores_model->get($entrada->id_proveedor);
+		$productos = $this->Entradas_model->get_productosDetalle($entrada->id_entrada);
         $data = array(
             'entrada' => $entrada, 
-            'detalle' => $detalle,
+			'detalles' => $detalle,
+			'proveedor' => $proveedor,
+			'productos' => $productos,
             
         );
         $this->load->view("layouts/header");

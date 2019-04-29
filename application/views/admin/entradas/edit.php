@@ -33,7 +33,7 @@
                         <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" method='POST'  >
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/edit" method='POST'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
@@ -41,8 +41,8 @@
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
-                                            <input name='valorProveedor' required id='autocompleteProveedor' value="<?php echo $entrada->id_provedor ?>"type='text' class='form-control' >
-                                            <input type="hidden" id="idProveedor" name="idProveedor" value="<?php echo $entrada->id_provedor ?>">
+                                            <input name='valorProveedor' required id='autocompleteProveedor' value="<?php echo $proveedor->empresa ?>"type='text' class='form-control' >
+                                            <input type="hidden" id="idProveedor" name="idProveedor" value="<?php echo $entrada->id_proveedor ?>">
                                             <input  step='0.01' type="hidden" pattern='^\d*(\.\d{0,2})?$' id="total" name="total" value="0">
                                         </div>                        
                                         <br>
@@ -67,7 +67,18 @@
                                                         <th>Opciones</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>                               
+                                                <tbody>  
+                                                    <?php foreach($detalles as $detalle):?>  
+                                                        <tr>
+                                                        <td><input type='hidden' name='idProductos[]' value=<?php echo $detalle->id_producto ?>> <?php echo $detalle->codigoP ?> </td>
+                                                        <td><p><?php echo $detalle->nombreP ?></p></td>
+                                                        <td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='<?php echo $detalle->precio; ?>'></td>
+                                                        <td> :V </td>
+                                                        <td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades'  value='<?php echo $detalle->cantidad; ?>'></td>
+                                                        <td><input type='hidden' align='center' name='importes[]' value='<?php echo $detalle->subtotal; ?>'><p><?php echo $detalle->subtotal; ?></p></td>
+                                                        <td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>
+                                                        </tr>
+                                                    <?php endforeach;?>              
                                                 </tbody>
                                             </table>
                                         </div>             
@@ -97,7 +108,7 @@
                                              </tr>
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
-                                             <td id="total" class="alert alert-success">$</td>
+                                             <td id="totalFinal" class="alert alert-success">$sasdas</td>
                                              </tr>
                                         </table>
                                     </div>                               
@@ -109,3 +120,6 @@
 
 
 <script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
+<script>
+                                                    sumarReabastecimiento();
+                                                    </script>    

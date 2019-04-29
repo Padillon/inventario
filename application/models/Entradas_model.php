@@ -19,8 +19,12 @@ class Entradas_model extends CI_Model {
     }
 
     public function getDetalle($id){ 
+      $this->db->select("d.*,p.nombre nombreP,p.codigo codigoP,p.id_producto id_productoP");
+      $this->db->from("detalle_entrada d");
+      $this->db->join("productos p","p.id_producto = d.id_producto");
       $this->db->where("id_entrada",$id);
-      $resultados = $this->db->get("detalle_entrada");
+      //$resultados = $this->db->get("detalle_entrada");
+      $resultados = $this->db->get();
       return $resultados->result();
     }
 
@@ -63,5 +67,14 @@ class Entradas_model extends CI_Model {
       $this->db->where("id_producto",$id);		
       $this->db->update("productos",$data);
       return 0;
+    }
+
+    public function get_productosDetalle($id){
+      $this->db->select("p.nombre nombre,p.codigo codigo,p.id_producto id_producto");
+      $this->db->from("detalle_entrada d");
+      $this->db->join("productos p","p.id_producto = d.id_producto");
+      $this->db->where("d.id_entrada",$id);
+      $resultados = $this->db->get();
+      return $resultados->result_array();
     }
 }
