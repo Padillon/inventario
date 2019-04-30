@@ -13,8 +13,8 @@ function resete(){
 
     $("#create_perecedero").prop('checked', false);
     $("#create_perecedero").val('0');
-
 }
+
 $(document).ready(function(){
 $('input[type="checkbox"]').on('change', function(e){
 
@@ -42,14 +42,12 @@ document.getElementById("titulo").innerHTML = "Desea activar el producto?";
 document.getElementById("id-pro-active").value=data2[0];
 document.getElementById("estado-pro-active").value=data2[2];
 }        
-
 });
 
 $(document).on('click', '.edit_data', function(){   
     var id = $(this).attr("id");
     document.getElementById("id-pro-edit").value=id;
 });
-
 
 $('#btn-create').on('click',function(){
 $.ajax({
@@ -58,12 +56,7 @@ type: "POST",
 data: $('#frm-create').serialize(),
 dataType: 'json',
 success: function(data){
-        
-        if (data.status) {
-            alert("Guardado exitosamente.");
-        }
-        location.reload();
-        
+    
 },
 error: function(){
     alert("Error");
@@ -71,3 +64,4 @@ error: function(){
 });
 });
 });
+

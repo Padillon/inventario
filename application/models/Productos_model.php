@@ -1,12 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Productos_model extends CI_Model {
-	
-public function getProductos(){ 
-		$resultados = $this->db->get("productos");
-			return $resultados->result();
-	}
-	
+
 	public function add($data){
 		$this->db->insert("productos",$data);
 		return $insert_id = $this->db->insert_id();
@@ -35,12 +30,14 @@ public function getProductos(){
 		return $this->db->update("stock",$data);
 	}
 
-	public function getInfoProducto($id){
-		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo");
+	public function getProductos(){
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, pre.nombre as presentacion");
 		$this->db->from("productos p");
-		$this->db->join("marca m", "p.id_marca = m.id_marca");
+		$this->db->join("marcas m", "p.id_marca = m.id_marca");
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
 		$this->db->join("stock s", "p.id_stock = s.id_stock");
+		$this->db->join("presentacion pre", "p.id_presentacion = pre.id_presentacion");
+		$resultados = $this->db->get();
 		return $resultados->result();
 	}
 }

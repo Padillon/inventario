@@ -14,8 +14,6 @@ class Productos extends CI_Controller {
     public function index(){
         $data = array(
             'producto' => $this->Productos_model->getProductos(), 
-            'categoria' => $this->Categorias_model->getCategorias(),
-            'presentacion'=> $this->Presentacion_model->getPresentaciones(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -138,6 +136,5 @@ class Productos extends CI_Controller {
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/productos");
         }
-        
     }
 }

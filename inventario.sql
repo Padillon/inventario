@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-04-2019 a las 02:33:46
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.3
+-- Servidor: localhost
+-- Tiempo de generación: 30-04-2019 a las 03:14:31
+-- Versión del servidor: 10.1.35-MariaDB
+-- Versión de PHP: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -245,7 +245,8 @@ INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
 (7, 'Hers', 0),
 (8, 'Bebe', 0),
 (9, 'Bebe', 1),
-(10, 'Hers', 0);
+(10, 'Hers', 0),
+(11, 'Hers', 1);
 
 -- --------------------------------------------------------
 
@@ -288,21 +289,25 @@ CREATE TABLE `productos` (
   `inventariable` tinyint(4) NOT NULL,
   `id_presentacion` int(11) NOT NULL,
   `perecedero` int(2) NOT NULL,
-  `estado` int(2) NOT NULL DEFAULT '1'
+  `estado` int(2) NOT NULL DEFAULT '1',
+  `id_marca` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `nombre`, `descripcion`, `precio_compra`, `precio_venta`, `imagen`, `inventariable`, `id_presentacion`, `perecedero`, `estado`) VALUES
-(3, 4, 'as', 5, 'haaa prroasass', 'ughkhll', -0.01, 0.01, '', 0, 2, 1, 1),
-(4, 2, 's', 7, 'jejeje', '0', 0.02, 0.01, '', 0, 1, 0, 1),
-(5, 1, '', 9, '0', '0', 0, 0, '', 0, 1, 0, 1),
-(6, 1, '', 10, '0', '0', 0, 0, '', 0, 1, 0, 1),
-(7, 11, '5xll', 12, 'Pizza', '0', 5, 10, 'el-meme-surgio-a-partir.jpg', 0, 1, 0, 1),
-(8, 1, '666', 13, 'calzone', 'toalla', 1, 1.35, '', 0, 1, 0, 1),
-(9, 28, 'xxxxx', 14, 'selena', 'muñeca', 5.2, 10.25, '', 0, 1, 1, 1);
+INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `nombre`, `descripcion`, `precio_compra`, `precio_venta`, `imagen`, `inventariable`, `id_presentacion`, `perecedero`, `estado`, `id_marca`) VALUES
+(3, 4, 'as', 5, 'haaa prroasass', 'ughkhll', -0.01, 0.01, '', 0, 2, 1, 0, NULL),
+(4, 2, 's', 7, 'jejeje', '0', 0.02, 0.01, '', 0, 1, 0, 1, NULL),
+(5, 1, '', 9, '0', '0', 0, 0, '', 0, 1, 0, 1, NULL),
+(6, 1, '', 10, '0', '0', 0, 0, '', 0, 1, 0, 1, NULL),
+(7, 11, '5xll', 12, 'Pizza', '0', 5, 10, 'el-meme-surgio-a-partir.jpg', 0, 1, 0, 1, NULL),
+(8, 1, '666', 13, 'calzone', 'toalla', 1, 1.35, '', 0, 1, 0, 1, NULL),
+(9, 28, 'xxxxx', 14, 'selena', 'muñeca', 5.2, 10.25, '', 0, 1, 1, 1, NULL),
+(10, 5, 'bloomer primavera3', 17, 'Bloomer', 'blanco', 32, 36, '', 0, 4, 0, 1, 7),
+(11, 10, 'frerr', 18, 'blusa', 'algodon', 3, 5, '', 0, 1, 0, 1, 5),
+(12, 5, 'pr', 19, 'pericazo', 'blanco', 1, 6, '', 0, 1, 0, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -373,7 +378,12 @@ INSERT INTO `stock` (`id_stock`, `stock_actual`, `stock_inicial`, `stock_minimo`
 (11, 0, 0, 0),
 (12, 2, 0, 10),
 (13, 24, 0, 10),
-(14, 0, 0, 9);
+(14, 0, 0, 9),
+(15, 0, 0, 3),
+(16, 0, 0, 3),
+(17, 0, 0, 3),
+(18, 0, 0, 4),
+(19, 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -438,7 +448,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre_empresa`, `usuario`, `correo`, `estado`, `password`) VALUES
-(1, 'konpami', 'konny', 'pinchehugochan@gmail.com', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(1, 'kode-lab', 'konny', 'pinchehugochan@gmail.com', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997'),
 (2, 'Visual', 'Carlos', 'pinchehugochan@lel.com', 1, 'xK13PdyM4sXBIOKRvN7g7YiISmBCcpAIUbB/29Nzxdo');
 
 -- --------------------------------------------------------
@@ -549,7 +559,8 @@ ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`),
   ADD KEY `id_categoria` (`id_categoria`,`id_stock`,`id_presentacion`),
   ADD KEY `id_stock` (`id_stock`),
-  ADD KEY `id_presentacion` (`id_presentacion`);
+  ADD KEY `id_presentacion` (`id_presentacion`),
+  ADD KEY `id_marca` (`id_marca`);
 
 --
 -- Indices de la tabla `proveedores`
@@ -648,7 +659,7 @@ ALTER TABLE `detalle_venta`
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `kardex`
@@ -660,7 +671,7 @@ ALTER TABLE `kardex`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `presentacion`
@@ -672,7 +683,7 @@ ALTER TABLE `presentacion`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -690,7 +701,7 @@ ALTER TABLE `salidas`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_comprobante`
@@ -776,7 +787,8 @@ ALTER TABLE `kardex`
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
   ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`),
-  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`);
+  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`),
+  ADD CONSTRAINT `productos_ibfk_4` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id_marca`);
 
 --
 -- Filtros para la tabla `salidas`

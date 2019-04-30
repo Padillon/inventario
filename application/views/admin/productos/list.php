@@ -36,7 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" class="btn btn-primary mb-3">Productos P</a>
+                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" class="btn btn-primary mb-3">Productos+</a>
 
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -45,6 +45,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
+                                    <th>Marca</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -57,6 +58,7 @@
                                         <tr>
                                             <td><?php echo $pro->id_producto;?></td>
                                             <td><?php echo $pro->nombre;?></td>
+                                            <td><?php echo $pro->marca;?></td>
                                             <?php if($pro->estado == 1){?>
                                                 <td>
                                                 <span class="badge badge-success">Activo</span>
@@ -69,11 +71,16 @@
                                             <td>
                                                 <div class="btn-group">
                                                 <?php $data = $pro->id_producto?>
-                                                <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#edit">
+                                                <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado ?>
+                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*".
+                                                $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*"
+                                                .$pro->marca; ?>
                                                 <?php if($pro->estado == 1){?>
+                                                    <button id="view<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-target="#" value="<?php echo $data;?>">
+                                                    <span class="fa fa-search" style="color: #fff"></span>
+                                                    </button>
                                                     <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
@@ -147,58 +154,5 @@
                                     </div>
     </div>
 
-    <!-- Modal agregar producto-->
-    <div class="modal fade" id="modalViewProducto" role="dialog">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Producto.</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form enctype='multipart/form-data'>
-                                                <input name='data_id' id='data_id' type='hidden'>
-                                                <input name='id_stock' id='id_stock' type='hidden'>
-                                                <label for="">Nombre del producto.</label>
-                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
-                                                <label for="create_categoria">categoria.</label>         
-                                                <select name='create_categoria' id='create_categoria' class='form-control' required>
-                                                <?php foreach($categoria as $cat):?>
-                                                <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
-                                                <?php endforeach;?>
-                                                </select>
-                                                <label for="create_codigo">Codigo.</label>
-                                                <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
-                                                <label for="create_descripcion">Descripción.</label>
-                                                <input name='create_descripcion' id="create_descripcion"type='text' class='form-control' placeholder='Ingrese descripción'>
-                                                <label for="create_stock_min">Stock mínimo.</label>
-                                                <input name='create_stock_min' id="create_stock_min" type='number'class='form-control' placeholder='Ingrese cantidad.'>
-                                                <label for="create_precio_compra">Precio de compra.</label>
-                                                <input name='create_precio_compra' id="create_precio_compra" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
-                                                <label for="create_precio_venta">Precio de venta.</label>
-                                                <input name='create_precio_venta' id="create_precio_venta" step='0.01' type='number'class='form-control' placeholder='Ingrese descripción'>
-                                                <label for="create_img">Imagen.</label><br>
-                                                <div><img id="preview" src="<?php echo base_url();?>assets/images/productos/default.png" /></div><br>
-                                                <input name='create_img' id='create_img' type='file' class='form-control' ><br>
-                                                <label for="create_perecedero">Perecedero.</label><br>  
-                                                <div class="s-sw-title">
-                                                    <div class="s-swtich">
-                                                        <input type="checkbox" id="create_perecedero" name="create_perecedero" >
-                                                        <label for="create_perecedero" ></label>
-                                                    </div>
-                                                </div>    
-                                                <label for="create_presentacion">Presentacion.</label>         
-                                                <select name='create_presentacion' id='create_presentacion' class='form-control' required>
-                                                <?php foreach($presentacion as $pre):?>
-                                                <option value='<?php echo $pre->id_presentacion;?>'><?php echo $pre->nombre;?></option>
-                                                <?php endforeach;?>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-success" name="btn-create" >Guardar cambio</button>
-                                           </form> </div>
-                                        </div>
-                                    </div>
-                                </div>
+   
 <script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
