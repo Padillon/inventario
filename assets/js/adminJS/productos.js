@@ -15,15 +15,19 @@ function resete(){
     $("#create_perecedero").val('0');
 }
 
+function viewProducto(){
+    
+}
+
 $(document).ready(function(){
     $('input[type="checkbox"]').on('change', function(e){
-
-    var val = $(this).attr("value"); 
-    if(val!=0){
-        $('#create_perecedero').val('0');
-    }else{
-    $('#create_perecedero').val('1');
-    }
+        var val = $(this).attr("value"); 
+        if(val!=0){
+            $('#create_perecedero').val('0');
+        }else{
+        $('#create_perecedero').val('1');
+        }
+    });
 });
 
 $(document).on('click','.btn-active',function(){
@@ -50,5 +54,5 @@ $(document).on('click', '.edit_data', function(){
     document.getElementById("id-pro-edit").value=id;
 });
 
-});
+
 

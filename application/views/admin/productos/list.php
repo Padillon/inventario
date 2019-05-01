@@ -74,9 +74,11 @@
                                                 <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado; ?>
+                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
+                                                $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
+                                                .$pro->marca; ?> 
                                                 <?php if($pro->estado == 1){?>
-                                                    <button id="view<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-target="#modalView" value="<?php echo $data;?>">
+                                                    <button id="view<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
                                                     </button>
                                                     <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
@@ -113,10 +115,32 @@
 
     <!-- Large modal -->
 
-<div id='modalView' class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id='modalView' class="modal fade bd-example-modal-lg" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      ...
+    <div class="modal-header">
+        <h5 class="modal-title" id="ti-cabeza">Informacion del Producto</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+    </div>
+    <div class='modal-body'>
+        <div class='form-group'><label>Nombre:</label>
+            <input name='nombre' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Apellidos: </label>
+            <input name='apellido' type='text' class='form-control' ></div>
+        <div class='form-group'><label>NIT:</label>
+            <input name='nit' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Telefono:</label>
+            <input name='telefono' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Registro</label>
+            <input name='registro' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Dirección:</label>
+            <input name='direccion' type='text' class='form-control' ></div>
+        </div>
+        <div class='modal-footer'>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+            <button type='submit' id="btnGuardar" class='btn btn-primary'>Guardar</button>
+        </div>
+    </div>
     </div>
   </div>
 </div>
