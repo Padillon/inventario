@@ -16,32 +16,33 @@ function resete(){
 }
 
 $(document).ready(function(){
-$('input[type="checkbox"]').on('change', function(e){
+    $('input[type="checkbox"]').on('change', function(e){
 
-var val = $(this).attr("value"); 
-if(val!=0){
-$('#create_perecedero').val('0');
-}else{
-$('#create_perecedero').val('1');
-}
+    var val = $(this).attr("value"); 
+    if(val!=0){
+        $('#create_perecedero').val('0');
+    }else{
+    $('#create_perecedero').val('1');
+    }
 });
+
 $(document).on('click','.btn-active',function(){
-var id = $(this).attr("id");
-var data= $(this).attr("value");
-var data2 = data.split('*');
-if (data2[2]==1) {
-document.getElementById("ti-cabeza").innerHTML="Eliminar";
-document.getElementById("g-active").innerHTML="Eliminar";
-document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?";
-document.getElementById("id-pro-active").value=data2[0];
-document.getElementById("estado-pro-active").value=data2[2];
-}else{
-document.getElementById("ti-cabeza").innerHTML="Activar";
-document.getElementById("g-active").innerHTML="Activar";
-document.getElementById("titulo").innerHTML = "Desea activar el producto?";
-document.getElementById("id-pro-active").value=data2[0];
-document.getElementById("estado-pro-active").value=data2[2];
-}        
+    var id = $(this).attr("id");
+    var data= $(this).attr("value");
+    var data2 = data.split('*');
+    if (data2[2]==1) {
+        document.getElementById("ti-cabeza").innerHTML="Eliminar";
+        document.getElementById("g-active").innerHTML="Eliminar";
+        document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?";
+        document.getElementById("id-pro-active").value=data2[0];
+        document.getElementById("estado-pro-active").value=data2[2];
+    }else{
+        document.getElementById("ti-cabeza").innerHTML="Activar";
+        document.getElementById("g-active").innerHTML="Activar";
+        document.getElementById("titulo").innerHTML = "Desea activar el producto?";
+        document.getElementById("id-pro-active").value=data2[0];
+        document.getElementById("estado-pro-active").value=data2[2];
+    }        
 });
 
 $(document).on('click', '.edit_data', function(){   
@@ -49,19 +50,5 @@ $(document).on('click', '.edit_data', function(){
     document.getElementById("id-pro-edit").value=id;
 });
 
-$('#btn-create').on('click',function(){
-$.ajax({
-url:"<?php echo base_url() ?>mantenimiento/productos/store",
-type: "POST",
-data: $('#frm-create').serialize(),
-dataType: 'json',
-success: function(data){
-    
-},
-error: function(){
-    alert("Error");
-}
-});
-});
 });
 

@@ -74,11 +74,9 @@
                                                 <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*".
-                                                $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*"
-                                                .$pro->marca; ?>
+                                                <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado; ?>
                                                 <?php if($pro->estado == 1){?>
-                                                    <button id="view<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-target="#" value="<?php echo $data;?>">
+                                                    <button id="view<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
                                                     </button>
                                                     <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
@@ -112,6 +110,16 @@
     <?php
     $this->load->view('layouts/alert');
     ?>
+
+    <!-- Large modal -->
+
+<div id='modalView' class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
       <!-- Modal active-->
      <div class="modal fade" id="active">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
