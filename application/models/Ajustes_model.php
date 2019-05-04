@@ -1,9 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Ajustes_model extends CI_Model {
-	public function getAjustes(){ 
-		$resultados = $this->db->get("ajustes");
-			return $resultados->result();
+	public function getAjustes(){
+		$this->db->where("id",1);
+		$resultado = $this->db->get("ajustes");
+		return $resultado->row();
 	}
 
 	public function getUsuario(){ 

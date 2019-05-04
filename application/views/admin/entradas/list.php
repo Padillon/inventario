@@ -80,16 +80,10 @@
                                                 <button name="edit" id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php $data = $entrada->id_entrada."*".$entrada->estado ?>
-                                                <?php if($entrada->estado == 1){?>
-                                                    <button id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
+                                                    <button name='eliminar' id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
-                                                <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>"  type="button" class="btn btn-success btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-check" style="color: #fff"></span>
-                                                    </button>
-                                                <?php }?>
+                                               
                                                 </div>
                                             </td>
                                         </tr>
@@ -132,26 +126,24 @@
     </div>
 
 <!-- Modal Delete-->
-<div class="modal fade" id="modalDelete">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formDelete">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Eliminar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='nombre' id='nombre' type='text' class='form-control'>
-                    <input name='idCategoriaDelete' id='idCategoriaDelete' type='hidden' class='form-control'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-danger' id="btnDelete">Borrar</button>
-                </div>
-            </form>
-        </div>
-     </div>
+<div class="modal fade" id="eliminar">
+<div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ti-cabeza">Eliminar</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <form action="<?php echo base_url();?>movimientos/entradas/eliminar" method="POST">
+                                               <h4 id="titulo">Está seguro de eliminar esta compra?</H4>
+                                               <input id="id-entrada-delete" name="id-entrada-delete" type="hidden" class="form-control" >
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
+                                           </form> </div>
+                                        </div>
+                                    </div>
     </div>
     
 <!-- Modal Active-->

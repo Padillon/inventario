@@ -55,7 +55,7 @@ $("#btn-agregar-abast").on("click", function(){
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='"+infoProducto[2]+"'></td>"; //precios
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]' value='"+infoProducto[3]+"'> </td>";//precio salida
         html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
-        html += "<td><input type='hidden' align='center' name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
+        html += "<td><input type='hidden'  name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";
         $("#tbCompras tbody").append(html);
@@ -96,7 +96,7 @@ function sumarReabastecimiento(){
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
     document.getElementById("sub_total").innerHTML=total.toFixed(2);
-    document.getElementById("totalFinal").innerHTML=total.toFixed(2);
+    document.getElementById("total_sub").innerHTML=total.toFixed(2);
     
 }
 //eliminar comprado
@@ -107,7 +107,7 @@ $(document).on("click", ".btn-remove-producto", function(){
     sumar();
 });
 
-$(document).on('click', '.edit_data', function(){   
+$(document).on('click', '.eliminar_data', function(){   
     var id = $(this).attr("id");
-    document.getElementById("id-entrada-edit").value=id;
+    document.getElementById("id-entrada-delete").value=id;
 });

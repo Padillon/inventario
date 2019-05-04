@@ -2,14 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Salidas_model extends CI_Model {
 	
-    public function getEntradas(){ 
-      $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
-        $this->db->from("entradas e");
-        $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
-        $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
-        $this->db->order_by("e.id_entrada", "ASC");
-		$resultados = $this->db->get();
-			return $resultados->result();
+    public function getSalidas(){ 
+      $this->db->where('estado',1);
+      $resultados = $this->db->get("salidas");
+      return $resultados->result();
     }
 
     public function getProveedores($valor){
@@ -36,7 +32,7 @@ class Salidas_model extends CI_Model {
     }
 
     public function save($data){
-      return $this->db->insert("entradas", $data);
+      return $this->db->insert("salidas", $data);
     }
 
     public function lastID(){
@@ -44,11 +40,22 @@ class Salidas_model extends CI_Model {
     }
 
     public function save_detalle($data){
-      $this->db->insert("detalle_entrada", $data);
+      $this->db->insert("detalle_salida", $data);
     }
     public function updateP($id,$data){
       $this->db->where("id_producto",$id);		
       $this->db->update("productos",$data);
+      return 0;
+    }
+
+    public function  getComprobantes(){
+      $resultados = $this->db->get('tipo_comprobante');
+      return $resultados->result();
+    }
+
+    public function update_correlativo($id,$cantidad){
+      $this->db->where("id_tipo_comprobante",$id);		
+      $this->db->update("tipo_comprobante",$cantidad);
       return 0;
     }
 }

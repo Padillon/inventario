@@ -97,7 +97,7 @@
                                              </tr>
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
-                                             <td id="total" class="alert alert-success">$</td>
+                                             <td id="total_sub" class="alert alert-success">$</td>
                                              </tr>
                                         </table>
                                     </div>                               

@@ -3,9 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Proveedores extends CI_Controller {
 	public function __construct(){
-		parent::__construct();
+        parent::__construct();
+        if($this->session->userdata('usuario_log')=="") {
+            redirect(base_url());
+    } else{
         $this->load->model("Proveedores_model");
         $this->load->library('toastr');
+}
     }
 
     public function index(){

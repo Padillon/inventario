@@ -7,24 +7,26 @@ class Entradas_model extends CI_Model {
         $this->db->from("entradas e");
         $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
         $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
-        $this->db->order_by("e.id_entrada", "ASC");
+        $this->db->where("e.estado",1);
 		$resultados = $this->db->get();
 			return $resultados->result();
     }
 
     public function get($id){ 
       $this->db->where("id_entrada",$id);
+      $this->db->where("estado",1);
     $resultado = $this->db->get("entradas");
     return $resultado->row();
     }
 
     public function getDetalle($id){ 
-      $this->db->select("d.*,p.nombre nombreP,p.codigo codigoP,p.id_producto id_productoP");
-      $this->db->from("detalle_entrada d");
-      $this->db->join("productos p","p.id_producto = d.id_producto");
-      $this->db->where("id_entrada",$id);
+      //$this->db->select("d.*,p.nombre nombreP,p.codigo codigoP,p.id_producto id_productoP,p.precio_venta precioSalidaP");
+      //$this->db->from("detalle_entrada d");
+      //$this->db->join("productos p","p.id_producto = d.id_producto");
+      //$this->db->where("id_entrada",$id);
       //$resultados = $this->db->get("detalle_entrada");
-      $resultados = $this->db->get();
+      $this->db->where("id_entrada",$id);
+      $resultados = $this->db->get("detalle_entrada");
       return $resultados->result();
     }
 
@@ -66,6 +68,16 @@ class Entradas_model extends CI_Model {
     public function updateP($id,$data){
       $this->db->where("id_producto",$id);		
       $this->db->update("productos",$data);
+      return 0;
+    }
+    public function updateDetalle($id,$data){
+      $this->db->where("id_entrada",$id);		
+      $this->db->update("detalle_entrada",$data);
+      return 0;
+    }
+    public function updateEntrada($id,$data){
+      $this->db->where("id_entrada",$id);		
+      $this->db->update("entradas",$data);
       return 0;
     }
 

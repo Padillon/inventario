@@ -42,8 +42,7 @@
                      <thead  >
                                 <tr>
                                     <th>#</th>
-                                    <th>Fecha</th>
-                                    <th>Proveedor</th>
+                                    <th>Fecha.</th>
                                     <th>Encargado</th>
                                     <th>Total</th>
                                     <th>Estado</th>
@@ -52,16 +51,15 @@
                             </thead>
                             <tbody>
                             <?php $cont = 0;?>
-                                <?php if(!empty($entradas)):?>
-                                    <?php foreach($entradas as $com):?>
+                                <?php if(!empty($salidas)):?>
+                                    <?php foreach($salidas as $sal):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $com->id_entrada;?></td>
-                                            <td><?php echo $com->fecha;?></td>
-                                            <td><?php echo $com->id_proveedor;?></td>
-                                            <td><?php echo $com->id_usuario;?></td>
-                                            <td><?php echo $com->total;?></td>
-                                            <?php if($com->estado == 1){?>
+                                            <td><?php echo $sal->id_salida;?></td>
+                                            <td><?php echo $sal->fecha;?></td>
+                                            <td><?php echo $sal->id_usuario;?></td>
+                                            <td><?php echo $sal->total;?></td>
+                                            <?php if($sal->estado == 1){?>
                                                 <td>
                                                     <div class="alert alert-primary" role="alert">
                                                     <strong>Activo</strong>
@@ -76,11 +74,11 @@
                                             <?php }?>
                                             <td>
                                                 <div class="btn-group">
-                                                <?php $data = $com->id_entrada; ?>
+                                                <?php $data = $sal->id_salida; ?>
                                                 <button id="edit<?php echo $cont;?>" type="button" onclick="editCompra(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php if($com->estado == 1){?>
+                                                <?php if($sal->estado == 1){?>
                                                     <button id="delete<?php echo $cont; ?>" onclick="deleteCompra(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>

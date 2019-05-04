@@ -17,7 +17,7 @@
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="breadcrumbs-area clearfix">
-                                <h4 class="page-title pull-left">Agregar Salida</h4>
+                                <h4 class="page-title pull-left">Agregar Compra.</h4>
                                 <ul class="breadcrumbs pull-left">
                                     <li><a href="index.html">Home</a></li>
                                     <li><span>Movimientos</span></li>
@@ -33,18 +33,29 @@
                         <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" method='POST'  >
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/salidas/store" method='POST'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
                                             <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                         </div>
-                                        <div class='col-md-9'>
-                                            <label>Proveedor: </label>
-                                            <input name='valorProveedor' required id='autocompleteProveedor' type='text' class='form-control' >
-                                            <input type="hidden" id="idProveedor" name="idProveedor" >
-                                            <input  step='0.01' type="hidden" pattern='^\d*(\.\d{0,2})?$' id="total" name="total" value="0">
-                                        </div>                        
+                                        <div class="col-md-3">
+                                               <input type="hidden" id="total" name="total"> <!--
+                                                <input name='id_conprobante'  id='id_conprobante' type='hidden' class='form-control' >
+                                                <label for="create_categoria">Comprobante:</label>         
+                                                <select name='create_comprobante' id='create_comprobante' class='custom-select' onchange="serie_numero()">
+                                                    <?php// foreach($comprobantes as $comprobante):?>
+                                                    <option value='<?php// echo $comprobante->id_tipo_comprobante.'*'.$comprobante->serie.'*'.$comprobante->cantidad;?>'><?php echo $comprobante->nombre;?></option>
+
+                                                    <?php// endforeach;?>
+                                                </select> -->
+                                        </div>   
+                                        <div class='col-md-3'>
+
+                                        </div>   
+                                        <div class='col-md-3'>
+
+                                        </div>                       
                                         <br>
                                         <div class="col-md-12">
                                             <label class="col-form-control">Buscar Producto:</label>
@@ -58,10 +69,9 @@
                                             <table id="tbCompras" class="table table-bordered table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Codigo</th>
-                                                        <th>Nombre</th>
-                                                        <th>Precio Entrada</th>
-                                                        <th>Precio Salida</th>
+                                                        <th>Codigo.</th>
+                                                        <th>Producto.</th>
+                                                        <th>Precio Venta.</th>
                                                         <th>Cantidad</th>
                                                         <th>Importes</th>
                                                         <th>Opciones</th>
@@ -97,7 +107,7 @@
                                              </tr>
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
-                                             <td id="total" class="alert alert-success">$</td>
+                                             <td id="total_sub" class="alert alert-success">$</td>
                                              </tr>
                                         </table>
                                     </div>                               

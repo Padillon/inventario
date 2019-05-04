@@ -4,7 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Ajustes extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
-		$this->load->model("Ajustes_model");
+		if($this->session->userdata('usuario_log')=="") {
+			redirect(base_url());
+	} else{
+		$this->load->model("Ajustes_model"); 
+	}
 		
 	}
 
@@ -47,7 +51,8 @@ class Ajustes extends CI_Controller {
        		$id = $this->input->post('idAjuste');
 
        		$data = array(
-       		  'direccion' => $direct, 
+			  'direccion' => $direct, 
+			  'nombre' => $nombre,
        		  'registro' => $registro,
        		  'giro' => $giro,
        		  'logo' => $imagen,

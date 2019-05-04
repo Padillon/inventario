@@ -70,12 +70,12 @@
                                                 <tbody>  
                                                     <?php foreach($detalles as $detalle):?>  
                                                         <tr>
-                                                        <td><input type='hidden' name='idProductos[]' value=<?php echo $detalle->id_producto ?>> <?php echo $detalle->codigoP ?> </td>
+                                                        <td><input type='hidden' name='idProductos[]' value=<?php echo $detalle->id_producto +'*' + $detalle->id_detalle_entrada;?>> <?php echo $detalle->codigoP ?> </td>
                                                         <td><p><?php echo $detalle->nombreP ?></p></td>
                                                         <td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='<?php echo $detalle->precio; ?>'></td>
-                                                        <td> :V </td>
+                                                        <td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]'value='<?php echo $detalle->precioSalidaP; ?>'> </td>
                                                         <td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades'  value='<?php echo $detalle->cantidad; ?>'></td>
-                                                        <td><input type='hidden' align='center' name='importes[]' value='<?php echo $detalle->subtotal; ?>'><p><?php echo $detalle->subtotal; ?></p></td>
+                                                        <td><input type='hidden'  name='importes[]' value='<?php echo $detalle->subtotal; ?>'><p><?php echo $detalle->subtotal; ?></p></td>
                                                         <td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>
                                                         </tr>
                                                     <?php endforeach;?>              

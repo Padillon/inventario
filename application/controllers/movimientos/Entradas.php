@@ -4,9 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Entradas extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
+		if($this->session->userdata('usuario_log')=="") {
+			redirect(base_url());
+	} else{
 		$this->load->model("Entradas_model");
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
+	}
 	}
 
 	public function index(){
@@ -47,7 +51,7 @@ class Entradas extends CI_Controller {
 		$importe =$this->input->post("importes");
 		$total = $this->input->post("total");
 		$idProveedor = $this->input->post("idProveedor");
-		$idusuario = 1;
+		$idusuario = $this->session->userdata('id');
 
 		$data = array(
 			'fecha' => $fecha,
@@ -139,11 +143,34 @@ class Entradas extends CI_Controller {
 			'proveedor' => $proveedor,
 			'productos' => $productos,
             
-        );
+		);
+		
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
         $this->load->view("admin/entradas/edit",$data);
         $this->load->view("layouts/footer");
-    }
+	}
+	
+	public function eliminar(){
+		$id = $this->input->post('id-entrada-delete');
+		//$entrada = $this->Entradas_model->get($id);
+		$detalle = $this->Entradas_model->getDetalle($id);
+		$data = array(
+			'estado' =>0,
+		);
+		$this->Entradas_model->updateEntrada($id, $data);
+		$this->Entradas_model->updateDetalle($id, $data);
 
+		foreach( $detalle as $det ):
+			$productoActual = $this->Productos_model->get($det->id_producto);
+			$stock = $this->Productos_model->getStock($productoActual->id_stock);
+			$data2 = array(
+				'stock_actual' => $stock->stock_actual - $det->cantidad,
+			);
+			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
+		endforeach;
+		redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+
+
+	}
 }

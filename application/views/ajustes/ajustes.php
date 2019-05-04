@@ -27,66 +27,56 @@
                      <div class="col-lg-8 col-md-6 mt-4">
                             <div class="card card-bordered">
                                 <div class="card-body">
-                                    <?php if(!empty($usuario)):?>
-                                    <?php foreach($usuario as $usuarios):?>
-                                    <h5 class="title">Bienvenido/a <?php echo $usuarios->usuario;?></h5>
-                                    <?php if(!empty($ajuste)):?>
-                                    <?php foreach($ajuste as $ajus):?>
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>Nombre de la empresa:</td>
-                                                <td><?php echo $usuarios->nombre_empresa;?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dirección:</td>
-                                                <td><?php echo $ajus->direccion;?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Giro:</td>
-                                                <td><?php echo $ajus->giro;?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Registro:</td>
-                                                <td><?php echo $ajus->registro;?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Telefono:</td>
-                                                <td><?php echo $ajus->telefono;?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Correo:</td>
-                                                <td><?php if ($ajus->correo!="") {
-                                                    echo $ajus->correo;
-                                                    
-                                                    # code...
-                                                }else{
-                                                    echo "ejemplo@ejemplo";
-                                                }
+                                        <?php if(!empty($ajuste)):?>
+                                            <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Nombre de la empresa:</td>
+                                                    <td><?php echo $ajuste->nombre;?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Dirección:</td>
+                                                    <td><?php echo $ajuste->direccion;?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Giro:</td>
+                                                    <td><?php echo $ajuste->giro;?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Registro:</td>
+                                                    <td><?php echo $ajuste->registro;?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Telefono:</td>
+                                                    <td><?php echo $ajuste->telefono;?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Correo:</td>
+                                                    <td><?php if ($ajuste->correo!="") {
+                                                        echo $ajuste->correo;
+                                                        
+                                                        # code...
+                                                    }else{
+                                                        echo "ejemplo@ejemplo";
+                                                    }
 
-
-
-                                                ?>
+                                                    ?>
                                                     
 
                                                 </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <?php $data = $usuarios->nombre_empresa."*".$ajus->direccion."*".$ajus->giro."*".$ajus->telefono."*".$ajus->correo."*".$ajus->logo."*".$ajus->id."*".$ajus->registro ?>
+                                                </tr>
+                                            </tbody>
+                                            </table>
+                                    <?php $data = $ajuste->nombre."*".$ajuste->direccion."*".$ajuste->giro."*".$ajuste->telefono."*".$ajuste->correo."*".$ajuste->logo."*".$ajuste->id."*".$ajuste->registro ?>
                                     <button href="#" class="btn btn-primary" onclick="editAjuste()" type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 mt-4">
                             <div class="card card-bordered">
-                 <img class="card-img-top img-fluid" src="<?php echo base_url()?>assets/images/ajuste/<?=$ajus->logo;?>" alt="image">
-                                
+                                <img class="card-img-top img-fluid" src="<?php echo base_url()?>assets/images/ajuste/<?=$ajuste->logo;?>" alt="image">                              
                             </div>
                         </div>
-                         <?php endforeach;?>
-                                    <?php endif;?>
-                                    <?php endforeach;?>
                                     <?php endif;?>
                 </div>
             </div>

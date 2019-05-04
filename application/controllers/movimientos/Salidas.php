@@ -10,7 +10,7 @@ class Salidas extends CI_Controller {
 
 	public function index(){
         $data = array(
-            'entradas' => $this->Entradas_model->getEntradas(),
+            'salidas' => $this->Salidas_model->getSalidas(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -19,17 +19,15 @@ class Salidas extends CI_Controller {
 	}
 	
 	public function add(){
+		$data = array(
+			'comprobante' => $this->Salidas_model->getComprobantes(),
+		);
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
-        $this->load->view("admin/entradas/add");
+        $this->load->view("admin/salidas/add",$data);
         $this->load->view("layouts/footer");
     }
 
-    public function getProveedores(){
-        $valorProveedor = $this->input->post("valorProveedor");
-		$prov = $this->Entradas_model->getProveedores($valorProveedor);
-		echo json_encode($prov);
-    }
 
     public function getProductos(){
         $valor = $this->input->post("autocompleteProducto");
@@ -38,73 +36,58 @@ class Salidas extends CI_Controller {
     }
 //fncion para guardar las compras
     public function store(){
+		//$tipo_comprobante = $this->input->post('id_conprobante');
+	//	$numero =$this->input->post('numero');
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
-		$nuevoPrecio =$this->input->post("nuevoPrecio");
-		$precioSalida =$this->input->post("precioSalida");
+		$precioVenta =$this->input->post("precioVenta");
 		$cantidades =$this->input->post("cantidades");
 		$importe =$this->input->post("importes");
 		$total = $this->input->post("total");
-		$idProveedor = $this->input->post("idProveedor");
-		$idusuario = 1;
-
+		$idusuario = $this->session->userdata('id');
+		$descripcion = 'venta de producto';
+		/*$aumento= array(
+			'cantidad' => $numero+1,
+		);*/
 		$data = array(
+			'id_usuario' => $idusuario,
 			'fecha' => $fecha,
 			'total' => $total,
-			'id_usuario' => $idusuario,
-			'id_tipo_entrada' =>1 ,
-			'id_proveedor' => $idProveedor,
+			'descripcion' => $descripcion,
+			'id_tipo_salida' =>1 ,
 		);
-		//operación para el saldo 
-		/*$dat2= array(
-			'usuario' => $idusuario,
-			'transaccion' => 2,
-			'fecha' => $fecha,
-			'monto' => $total,
-			'saldo' => $total,
-		);
-		//guardamos el registro en caja
-		if($this->Cajas_model->save($dat2)){
-			$id_caja = $this->Cajas_model->lastID();
-			$this->updateCaja($id_caja,$total,0);//se actualiza el saldo de la caja
-		}*/
-		//datos de cajas guardados-----
 
-		if ($this->Entradas_model->save($data)){
-			$idEntrada = $this->Entradas_model->lastID(); 
-			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha); //guardando el detalle de la venta
-			redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+		if ($this->Salidas_model->save($data)){
+			$idSalida = $this->Salidas_model->lastID(); 
+			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe); //guardando el detalle de la venta
+			//$this->Salidas_model->update_correlativo($tipo_comprobante,$aumento);
+			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 		} else {
 			redirect(base_url()."movimientos/entradas/add");
 		}
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha ){
+	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes){
 		for ($i=0; $i < count($productos); $i++) { 
 				$data = array(
-					'id_entrada' => $idEntrada,
-					'precio' => $nuevoPrecio[$i],
+					'id_salida' => $idSalida,
+					'precio_venta' => $precioVentas[$i],
 					'id_producto' => $productos[$i],
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
 				);
-				$this->Entradas_model->save_detalle($data);
-				$this->updateProducto($productos[$i], $nuevoPrecio[$i],$precioSalida[$i], $cantidades[$i], $fecha); //actualizamos el stock del producto
+				$this->Salidas_model->save_detalle($data);
+				$this->updateProducto($productos[$i], $cantidades[$i]); //actualizamos el stock del producto
 			
 		}
 	}
 
-	protected function updateProducto($idProducto, $nuevoPecio,$precioSalida, $cantidad ,$fecha){
+	protected function updateProducto($idProducto,$cantidad){
 		$productoActual = $this->Productos_model->get($idProducto);
-		$data_in = array(
-			'precio_compra' => $nuevoPecio,
-			'precio_venta' => $precioSalida,
-		);
-		$this->Entradas_model->updatep($idProducto,$data_in);
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
 		$data2 = array(
-			'stock_actual' => $stock->stock_actual + $cantidad,
+			'stock_actual' => $stock->stock_actual - $cantidad,
 		);
 		$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 	}
