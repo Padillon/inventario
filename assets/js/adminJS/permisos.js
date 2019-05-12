@@ -18,18 +18,22 @@ $(document).on('click', '.modal_editar', function(){
         $("#radio_insertar").val('1');
     }
     //actualizar
-    if(data_permiso[3]==1){
+    if(data_permiso[5]==1){
         $("#radio_actualizar").prop('checked', true);
         $("#radio_actualizar").val('1');
     }
     //eliminar
-    if(data_permiso[3]==1){
+    if(data_permiso[6]==1){
         $("#radio_eliminar").prop('checked', true);
         $("#radio_eliminar").val('1');
     }
 
 
 });
+
+function radios(){
+    
+}
 
 $(document).on('click','.condicion_leer',function(){
     valor = $("#radio_leer").val();
