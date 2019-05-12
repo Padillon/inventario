@@ -11,21 +11,33 @@ $(document).on('click', '.modal_editar', function(){
     if(data_permiso[3]==1){
         $("#radio_leer").prop('checked', true);
         $("#radio_leer").val('1');
+    }else{
+        $("#radio_leer").prop('checked', false);
+        $("#radio_leer").val('0');
     }
     //insertar
     if(data_permiso[4]==1){
         $("#radio_insertar").prop('checked', true);
         $("#radio_insertar").val('1');
+    }else{
+        $("#radio_insertar").prop('checked', false);
+        $("#radio_insertar").val('0');
     }
     //actualizar
     if(data_permiso[5]==1){
         $("#radio_actualizar").prop('checked', true);
         $("#radio_actualizar").val('1');
+    }else{
+        $("#radio_actualizar").prop('checked', false);
+        $("#radio_actualizar").val('0');
     }
     //eliminar
     if(data_permiso[6]==1){
         $("#radio_eliminar").prop('checked', true);
         $("#radio_eliminar").val('1');
+    }else{
+        $("#radio_eliminar").prop('checked', false);
+        $("#radio_eliminar").val('0');
     }
 
 
