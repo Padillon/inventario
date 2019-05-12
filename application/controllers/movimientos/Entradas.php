@@ -2,11 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Entradas extends CI_Controller {
+	private $permisos;
 	public function __construct(){
 		parent::__construct();
 		if($this->session->userdata('usuario_log')=="") {
 			redirect(base_url());
 	} else{
+		$this->permisos = $this->backend_lib->control();
 		$this->load->model("Entradas_model");
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
@@ -15,6 +17,7 @@ class Entradas extends CI_Controller {
 
 	public function index(){
         $data = array(
+			'permisos' => $this->permisos,
             'entradas' => $this->Entradas_model->getEntradas(),
         );
         $this->load->view("layouts/header");

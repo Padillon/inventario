@@ -2,18 +2,22 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Usuarios extends CI_Controller {
+    private $permisos;
 	public function __construct(){
         parent::__construct();
         if($this->session->userdata('usuario_log')=="") {
             redirect(base_url());
     } else{
+        $this->permisos = $this->backend_lib->control();
         $this->load->model("Usuarios_model");
     }
 	}
 
 	public function index(){
         $data = array(
+            'permisos' => $this->permisos,
             'usuarios' => $this->Usuarios_model->getUsuarios(),
+            'roles' => $this->Usuarios_model->getRoles(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -22,28 +26,24 @@ class Usuarios extends CI_Controller {
     }
 
     public function store(){
-        $nombre  = $this->input->post("nombre");
-        $apellido  = $this->input->post("apellido");
-        $nit  = $this->input->post("nit");
-        $telefono  = $this->input->post("telefono");
-        $registro  = $this->input->post("registro");
-        $direccion  = $this->input->post("direccion");
+        $usuario  = $this->input->post("usuario");
+        $correo  = $this->input->post("correo");
+        $id_rol  = $this->input->post("id_rol");
+        $pswd  = $this->input->post("passwordU");
         
         $data  = array(
-            'nombre' => $nombre,
-            'apellido' => $apellido,
-            'nit' => $nit,
-            'telefono' => $telefono,
-            'registro' => $registro,
-            'direccion' => $direccion,
+            'rol' => $id_rol,
+            'usuario' => $usuario,
+            'correo' => $correo,
+            'password' => sha1($pswd),
             'estado' => 1,
         );
  
         $result = $this->Usuarios_model->save($data);
         if($result)
-            echo json_encode(array('status'=>true));
+        redirect(base_url()."mantenimiento/usuarios");
         else 
-            echo json_encode(array('status'=>false)); 
+        redirect(base_url()."mantenimiento/usuarios");
     }
 
     public function update(){

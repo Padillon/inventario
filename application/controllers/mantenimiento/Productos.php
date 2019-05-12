@@ -2,11 +2,13 @@
 defined('BASEPATH') OR exit('No dorect script access allowed');
 
 class Productos extends CI_Controller {
+    private $permisos;
     public function __construct(){
         parent::__construct();
         if($this->session->userdata('usuario_log')=="") {
             redirect(base_url());
     } else{
+        $this->permisos = $this->backend_lib->control();
         $this->load->model("Productos_model");
         $this->load->model("Categorias_model");
         $this->load->model("Presentacion_model");
@@ -17,6 +19,7 @@ class Productos extends CI_Controller {
 
     public function index(){
         $data = array(
+            'permisos' => $this->permisos,
             'producto' => $this->Productos_model->getProductos(), 
         );
         $this->load->view("layouts/header");

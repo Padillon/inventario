@@ -13,7 +13,7 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Mantenimiento</span></a>
                                 <ul class="collapse">
                                     <li><a href="<?php echo base_url();?>mantenimiento/marcas">Marcas</a></li>
-                                    <li><a href="<?php echo base_url();?>mantenimiento/categorias">Categorias</a></li>
+                                   <!-- <li><a href="<?php echo base_url();?>mantenimiento/categorias">Categorias</a></li> -->
                                     <li><a href="<?php echo base_url();?>mantenimiento/productos">Productos</a></li>
                                     <li><a href="<?php echo base_url();?>mantenimiento/presentaciones">Presentaciones</a></li>
                                 </ul>
@@ -26,13 +26,13 @@
                                     <li><a href="<?php echo base_url();?>mantenimiento/usuarios">Usuarios</a></li>
                                 </ul>
                             </li>
-                            <li>
+                            <li> 
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Movimientos</span></a>
                                 <ul class="collapse">
                                     <li><a href="<?php echo base_url();?>movimientos/entradas">Entradas</a></li>
                                     <li><a href="<?php echo base_url();?>movimientos/salidas">Salidas</a></li>
                                 </ul>
-                            </li>
+                            </li> 
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Reportes</span></a>
                                 <ul class="collapse">
@@ -45,6 +45,7 @@
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Administracion</span></a>
                                 <ul class="collapse">
                                     <li><a href="<?php echo base_url();?>ajustes/ajustes">Configuraciones</a></li>
+                                    <li><a href="<?php echo base_url();?>ajustes/permisos">Permisos</a></li>
                                 </ul>
                             </li>
                         </ul>
