@@ -43,7 +43,7 @@
 
                      <thead  >
                                 <tr>
-                                    <th>#</th>
+                                    <th>Codigo</th>
                                     <th>Nombre</th>
                                     <th>Marca</th>
                                     <th>Estado</th>
@@ -56,7 +56,7 @@
                                     <?php foreach($producto as $pro):?>
                                     <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $pro->id_producto;?></td>
+                                            <td><?php echo $pro->codigo;?></td>
                                             <td><?php echo $pro->nombre;?></td>
                                             <td><?php echo $pro->marca;?></td>
                                             <?php if($pro->estado == 1){?>
@@ -78,7 +78,7 @@
                                                 $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
                                                 .$pro->marca; ?> 
                                                 <?php if($pro->estado == 1){?>
-                                                    <button id="view<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
+                                                    <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
                                                     </button>
                                                     <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
@@ -123,18 +123,26 @@
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
     </div>
     <div class='modal-body'>
-        <div class='form-group'><label>Nombre:</label>
-            <input name='nombre' type='text' class='form-control' ></div>
-        <div class='form-group'><label>Apellidos: </label>
-            <input name='apellido' type='text' class='form-control' ></div>
-        <div class='form-group'><label>NIT:</label>
-            <input name='nit' type='text' class='form-control' ></div>
-        <div class='form-group'><label>Telefono:</label>
-            <input name='telefono' type='text' class='form-control' ></div>
-        <div class='form-group'><label>Registro</label>
-            <input name='registro' type='text' class='form-control' ></div>
-        <div class='form-group'><label>Dirección:</label>
-            <input name='direccion' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Codigo:</label>
+            <input id='viewCodigo' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Nombre: </label>
+            <input id='viewNombre' type='text' class='form-control' ></div>
+            <div class='form-group'><label>Marca: </label>
+            <input id='viewMarca' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Descripcion:</label>
+            <input id='viewDescripcion' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Presentacion:</label>
+            <input id='viewPresentacion' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Estado:</label>
+            <input id='viewEstado' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Stock minimo:</label>
+            <input id='viewStock' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Precio Compra:</label>
+            <input id='viewCompra' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Precio Venta:</label>
+            <input id='viewVenta' type='text' class='form-control' ></div>
+        <div class='form-group'><label>Precio Compra:</label>
+            <input id='viewCompra' type='text' class='form-control' ></div>
         </div>
         <div class='modal-footer'>
             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>

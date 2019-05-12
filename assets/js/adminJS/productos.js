@@ -15,8 +15,19 @@ function resete(){
     $("#create_perecedero").val('0');
 }
 
-function viewProducto(){
-    
+function viewProducto(num){
+    valores = $("#viewPro"+num).val();
+    datos = valores.split("*");
+
+    $("#viewCodigo").val(datos[4]);
+    $("#viewNombre").val(datos[1]);
+    $("#viewDescripcion").val(datos[6]);
+    $("#viewEstado").val(datos[2]);
+    $("#viewStock").val(datos[5]);
+    $("#viewCompra").val(datos[7]);
+    $("#viewVenta").val(datos[8]);
+    $("#viewPresentacion").val(datos[11]);
+    $("#viewMarca").val(datos[13]);
 }
 
 $(document).ready(function(){
@@ -53,6 +64,3 @@ $(document).on('click', '.edit_data', function(){
     var id = $(this).attr("id");
     document.getElementById("id-pro-edit").value=id;
 });
-
-
-
