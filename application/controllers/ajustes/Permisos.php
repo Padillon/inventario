@@ -27,4 +27,24 @@ class Permisos extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+	public function store(){
+		$id_permiso = $this->input->post('id_permiso');
+		$leer = $this->input->post('radio_leer');
+		$insertar =$this->input->post('radio_insertar');
+		$actualizar = $this->input->post('radio_actualizar');
+		$eliminar = $this->input->post('radio_eliminar');
+
+		$data = array(
+			'read' => $leer, 
+			'insert' => $insertar,
+			   'update' => $actualizar,
+			   'delete' => $eliminar,
+			  );
+		
+		if ($this->Permisos_model->insertar($data,$id_permiso)) {
+			# code...
+			redirect(base_url()."ajustes/permisos");
+		}
+	}
+
 }

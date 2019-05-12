@@ -17,10 +17,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Salidas</h4>
+                            <h4 class="page-title pull-left">Permisos</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
-                                <li><span>Movimientos</span></li>
+                                <li><span>Administración</span></li>
                             </ul>
                         </div>
                     </div>
@@ -34,8 +34,7 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Salidas</h4>
-                                <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3"><span class="fa fa-plus"></span>Vender</a>
+                                <h4 class="header-title">Lista - Permisos</h4>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -148,14 +147,15 @@
     <div class="modal fade" id="modalEditar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form class="form-control" id="formEditar">
+            <form class="form-control" id="formEditar"  action="<?php echo base_url();?>ajustes/permisos/store" method='POST' >
                 <div class='modal-header'>
                     <h5 class='modal-title' id="titulo_rol">Editar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
                 </div>
                 <div class='modal-body'>
                     <label id="titulo_menu">Nombre de la categoria</label>
-                    <div class="btn-group">
+                    <div class="btn-group"> 
+                                            <div><input type="hidden" id="id_permiso" name="id_permiso"></div>
                                             <label>Leer</label>                     
                                             <div class="s-swtich">                          
                                                 <input type="checkbox" id="radio_leer" name="radio_leer" class="form-check-input condicion_leer" >
@@ -187,7 +187,7 @@
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnEditar">Guardar</button>
+                    <button type='submit' class='btn btn-primary' id="btnEditar">Guardar</button>
                 </div>
             </form>
         </div>

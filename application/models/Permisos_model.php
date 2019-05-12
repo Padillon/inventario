@@ -25,4 +25,9 @@ class Permisos_model extends CI_Model {
 		$resultado = $this->db->get("proveedores");
 		return $resultado->row();
 	}
+	public function insertar($data,$id)
+	{
+		$this->db->where("id_permiso",$id);
+		return $this->db->update("permisos",$data);
+	}
 }

@@ -6,7 +6,7 @@ $(document).on('click', '.modal_editar', function(){
     
     document.getElementById("titulo_menu").innerHTML = "Menu "+data_permiso[1];
     // ******************************************* RADIO BUTON ***********************************************
-
+    $("#id_permiso").val(data_permiso[0]);
     //leer
     if(data_permiso[3]==1){
         $("#radio_leer").prop('checked', true);
