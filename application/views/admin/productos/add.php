@@ -102,14 +102,12 @@
                                         </div>
 
                                         <div class="col-md-2"> 
-                                            <label>Perecedero</label>                     
-                                            <div class="s-swtich">                          
-                                                <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input" >
-                                                <label for="create_perecedero" class="form-check-label">Perecedero.</label>
-                                            </div>
+                                            <label>Perecedero:</label>                                             
+                                                <input data-style="ios" data-toggle="toggle" type="checkbox" id="create_perecedero" name="create_perecedero" >
                                         </div>  
 
                                         <div class="col-md-3 ">
+                                        <label>Imagen:</label>
                                             <label for="create_img" class="custom-file-label">Seleccione una imagen.</label><br>
                                             <input name='create_img' id='create_img' type='file' class='custom-file-input' ><br>      
                                         </div>      

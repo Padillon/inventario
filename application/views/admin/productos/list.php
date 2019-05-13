@@ -122,41 +122,52 @@
         <h5 class="modal-title" id="ti-cabeza">Informacion del Producto</h5>
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
     </div>
-    <div class='modal-body'> 
-            <div class="input-group">   
-                <div class="col-md-3">
-                    <label for="">Nombre del producto.</label>
-                    <input id='viewNombre' type='text' class='form-control' disabled>
+    <div class='modal-body'>
+    <div class='row'>  
+        <div class="col-md-3 mt-4">
+            <label for="create_categoria">Imagen:</label>
+            <br>
+                <div class="card card-bordered">
+                    <img id="viewImagen" class="card-img-top img-fluid" alt="image">                              
+                </div>
+            <br>
+            <div class="">
+                <label for="">Nombre:</label>
+                <input id='viewNombre' type='text' class='form-control' disabled>
+            </div>
+        </div>
+        <div class="col-md-9 mt-4">
+            <div class="input-group">
+                <div class="col-md-5">
+                    <label for="create_codigo">Codigo:</label>
+                    <input id="viewCodigo" type='text' class='form-control' disabled>
                 </div>  
-                <div class="col-md-3">
-                    <label for="create_categoria">Marca.</label>
+                <div class="col-md-4">
+                    <label for="create_categoria">Marca:</label>
                     <input id='viewMarca' type='text' class='form-control' disabled>
                 </div>
                 <div class="col-md-3">
-                    <label for="create_codigo">Codigo.</label>
-                    <input id="viewCodigo" type='text' class='form-control' disabled>
-                </div>
-                <div class="col-md-3">
-                    <label for="create_categoria">Categoria.</label>         
+                    <label for="create_categoria">Categoria:</label>         
                     <input id='viewCategoria' type='text' class='form-control' disabled>
                 </div>
                 <div class="col-md-12"> 
                     <br>
                 </div> 
-                <div class="col-md-3">
-                    <label for="create_stock_min">Stock mínimo.</label>
+                <div class="col-md-2">
+                    <label for="create_stock_min">Stock mínimo:</label>
                     <input id="viewStock" type='text'class='form-control' disabled>
                 </div>
-                <div class="col-md-5">
-                    <label for="create_descripcion">Descripción.</label>
+                <div class="col-md-6">
+                    <br>
+                    <label for="create_descripcion">Descripción:</label>
                     <input id="viewDescripcion" type='text' class='form-control' disabled>
                 </div>
                 <div class="col-md-2">
-                    <label for="create_precio_compra">Precio de compra.</label>
+                    <label for="create_precio_compra">Precio compra:</label>
                     <input id="viewCompra"  type='text' class='form-control' disabled> 
                 </div>
                 <div class="col-md-2">
-                    <label for="create_precio_venta">Precio de venta.</label>
+                    <label for="create_precio_venta">Precio venta:</label>
                     <input id="viewVenta" type='text' class='form-control' disabled>
                 </div>
                 <div class="col-md-12"> 
@@ -166,26 +177,24 @@
                     <label for="create_presentacion">Presentacion.</label>
                     <input id="viewPresentacion" type='text' class='form-control' disabled>         
                     </div>
+                <div class="col-md-3">
+                    <label>Estado.</label>
+                    <input id='viewEstado' role='alert'><strong></strong>     
+                    </div>     
                 <div class="col-md-2"> 
                     <label>Perecedero</label>                     
                     <div class="s-swtich">                          
                         <input type="checkbox" id="viewPerecedero" name="create_perecedero" class="form-check-input" >
                         <label for="create_perecedero" class="form-check-label">Perecedero.</label>
                     </div>
-                </div>
-                <div class="col-md-3 ">
-                    <label for="create_img" class="custom-file-label">Seleccione una imagen.</label><br>
-                    <input id='viewImagen' type='file' class='custom-file-input' ><br>      
-                </div>
-                <div class="col-md-3">
-                    <label>Estado.</label>
-                    <input id='viewEstado' role='alert'><strong></strong>     
-                    </div>                
-                </div> 
+                </div>           
+            </div> 
+            </div>
+            </div>
             </div>
         <div class='modal-footer'>
             <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-            <button type='submit' id="btnGuardar" class='btn btn-primary'>Aceptar</button>
+            <button type='button' data-dismiss='modal' class='btn btn-primary'>Aceptar</button>
         </div>
     </div>
     </div>

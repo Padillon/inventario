@@ -29,6 +29,7 @@ function viewProducto(num){
     $("#viewMarca").val(datos[13]);
     $("#viewCategoria").val(datos[3]);
     $("#viewPerecedero").val(datos[12]);
+    $("#viewImagen").attr("src", base_url+"assets/images/ajuste/"+datos[9]);
 
     if (datos[2] = 1){
         $("#viewEstado").addClass("form-control alert alert-success");
