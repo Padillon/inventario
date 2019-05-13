@@ -22,12 +22,22 @@ function viewProducto(num){
     $("#viewCodigo").val(datos[4]);
     $("#viewNombre").val(datos[1]);
     $("#viewDescripcion").val(datos[6]);
-    $("#viewEstado").val(datos[2]);
     $("#viewStock").val(datos[5]);
-    $("#viewCompra").val(datos[7]);
-    $("#viewVenta").val(datos[8]);
+    $("#viewCompra").val("$ "+datos[7]);
+    $("#viewVenta").val("$ "+datos[8]);
     $("#viewPresentacion").val(datos[11]);
     $("#viewMarca").val(datos[13]);
+    $("#viewCategoria").val(datos[3]);
+    $("#viewPerecedero").val(datos[12]);
+
+    if (datos[2] = 1){
+        $("#viewEstado").addClass("form-control alert alert-success");
+        $("#viewEstado").val("Activo");
+    } else{
+        $("#viewEstado").addClass("form-control alert alert-danger");
+        $("#viewEstado").val("Inactivo");
+    }
+    
 }
 
 $(document).ready(function(){
