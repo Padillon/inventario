@@ -29,6 +29,31 @@
                 </div>
             </div>
 </div>
+
+<!--permisos ***************************************** -->
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}
+$habilitado_insert ="disabled";
+
+$habilitado_update="disabled";
+
+$habilitado_delete="disabled";
+
+if ($permisos->update == 1) {
+    $habilitado_update ="enabled";
+}
+
+if ($permisos->delete == 1) {
+    $habilitado_delete = "enabled";
+}
+if ($permisos->insert == 1) {
+    $habilitado_insert = "enabled";
+}
+
+?>
+
 <div class="main-content-inner">
                 <div class="row">
                     <!-- data table start -->
@@ -36,7 +61,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" class="btn btn-primary mb-3">Productos+</a>
+                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-primary mb-3">Productos+</a>
 
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -71,7 +96,7 @@
                                             <td>
                                                 <div class="btn-group">
                                                 <?php $data = $pro->id_producto?>
-                                                <button name="edit" id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
+                                                <button name="edit" id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_update ?> type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
                                                 <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
@@ -81,11 +106,11 @@
                                                     <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
                                                     </button>
-                                                    <button id="<?php echo $pro->id_producto;?>" type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
+                                                    <button id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>"  type="button" class="btn btn-success btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
+                                                    <button id="active<?php echo $cont; ?>" <?php echo $habilitado_delete ?>  type="button" class="btn btn-success btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
                                                         <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>

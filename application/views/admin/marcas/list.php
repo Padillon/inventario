@@ -29,6 +29,31 @@
                 </div>
             </div>
 </div>
+<!--permisos ***************************************** >
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}
+$habilitado_insert ="disabled";
+
+$habilitado_update="disabled";
+
+$habilitado_delete="disabled";
+
+if ($permisos->update == 1) {
+    $habilitado_update ="enabled";
+}
+
+if ($permisos->delete == 1) {
+    $habilitado_delete = "enabled";
+}
+if ($permisos->insert == 1) {
+    $habilitado_insert = "enabled";
+}
+
+?>
+
+
 
 <div class="main-content-inner">
                 <div class="row">
@@ -38,7 +63,7 @@
                             <div class="card-body">
                             
                                 <h4 class="header-title">Lista - Marcas</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#add"> Agregar+</button>
+                                <button type="button" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#add"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                             
@@ -65,10 +90,11 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
+
+                                                    <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)" <?php echo $habilitado_update ?> type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>                           
-                                                    <button id="del_marca<?php echo $cont; ?>" onclick="marcaDelete(<?php echo $cont; ?>)" type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_marca" value="<?php echo $dataMarca;?>" >
+                                                    <button id="del_marca<?php echo $cont; ?>" onclick="marcaDelete(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_marca" value="<?php echo $dataMarca;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>                  
                                                 </div>
@@ -79,10 +105,10 @@
                                                 </td>
                                                 <td>
                                                 <div class="btn-group">
-                                                    <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
+                                                    <button id="up_marca<?php echo $cont; ?>" onclick="marcaUpdate(<?php echo $cont; ?>)"  <?php echo $habilitado_update ?> type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_marca" value="<?php echo $dataMarca;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>                           
-                                                    <button id="activeMarca<?php echo $cont; ?>" onclick="marcaActive(<?php echo $cont; ?>)" type="button" class="btn btn-success btn-remove" data-toggle="modal" data-target="#activeMarca" value="<?php echo $dataMarca;?>" >
+                                                    <button id="activeMarca<?php echo $cont; ?>" onclick="marcaActive(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-success btn-remove" data-toggle="modal" data-target="#activeMarca" value="<?php echo $dataMarca;?>" >
                                                     <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>                  
                                                 </div>

@@ -20,6 +20,10 @@
                 </div>
             </div>
 </div>
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}?>
 <div class="main-content-inner">
     <div class="card-area">
                 <div class="row">
@@ -68,7 +72,12 @@
                                             </tbody>
                                             </table>
                                     <?php $data = $ajuste->nombre."*".$ajuste->direccion."*".$ajuste->giro."*".$ajuste->telefono."*".$ajuste->correo."*".$ajuste->logo."*".$ajuste->id."*".$ajuste->registro ?>
-                                    <button href="#" class="btn btn-primary" onclick="editAjuste()" type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
+                                    <?php if ($permisos->update == 1) { ?>
+                                        <button href="#" class="btn btn-primary" onclick="editAjuste()" type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
+                                    <?php }else{ ?>
+                                        <button href="#" class="btn btn-primary" onclick="editAjuste()" disabled type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
+                                    <?php } ?>
+
                                 </div>
                             </div>
                         </div>

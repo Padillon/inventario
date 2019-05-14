@@ -30,6 +30,30 @@
             </div>
 </div>
 
+<!--permisos ***************************************** -->
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}
+$habilitado_insert ="disabled";
+
+$habilitado_update="disabled";
+
+$habilitado_delete="disabled";
+
+if ($permisos->update == 1) {
+    $habilitado_update ="enabled";
+}
+
+if ($permisos->delete == 1) {
+    $habilitado_delete = "enabled";
+}
+if ($permisos->insert == 1) {
+    $habilitado_insert = "enabled";
+}
+
+?>
+
 <div class="main-content-inner">
                 <div class="row">
                     <!-- data table start -->
@@ -38,7 +62,7 @@
                             <div class="card-body">
                             
                                 <h4 class="header-title">Lista - Presentaciones</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#add"> Agregar+</button>
+                                <button type="button" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#add"> Agregar+</button>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                             
@@ -65,10 +89,10 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
+                                                    <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" <?php echo $habilitado_update ?> type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>                           
-                                                    <button id="del_presentacion<?php echo $cont; ?>" onclick="presentacionDelete(<?php echo $cont; ?>)" type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_presentacion" value="<?php echo $presentacionData;?>" >
+                                                    <button id="del_presentacion<?php echo $cont; ?>" onclick="presentacionDelete(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_presentacion" value="<?php echo $presentacionData;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>                  
                                                 </div>
@@ -79,10 +103,10 @@
                                                 </td>
                                                 <td>
                                                 <div class="btn-group">
-                                                    <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
+                                                    <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" <?php echo $habilitado_update ?> type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>                           
-                                                    <button id="activepresentacion<?php echo $cont; ?>" onclick="presentacionActive(<?php echo $cont; ?>)" type="button" class="btn btn-success btn-remove" data-toggle="modal" data-target="#activepresentacion" value="<?php echo $presentacionData;?>" >
+                                                    <button id="activepresentacion<?php echo $cont; ?>" onclick="presentacionActive(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-success btn-remove" data-toggle="modal" data-target="#activepresentacion" value="<?php echo $presentacionData;?>" >
                                                     <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>                  
                                                 </div>
