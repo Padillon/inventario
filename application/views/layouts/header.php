@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/dataTables/css/dataTables.css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/jquery-ui/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/toastr.min.css">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
     <!-- modernizr css -->
     <script src="<?php echo base_url();?>assets/js/vendor/modernizr-2.8.3.min.js"></script>
@@ -33,10 +32,7 @@
      <script src="<?php echo base_url();?>assets/js/toastr.min.js"></script>
      <script src="<?php echo base_url();?>assets/js/jquery.validate.js"></script>
     <script src="<?php echo base_url();?>assets/js/additional-methods.js"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-
-     
      <script type="text/javascript"> 
          var base_url = "http://localhost/inventario/"; //carga la baseurl de todos los js que se cargan de los modulos 
     </script>

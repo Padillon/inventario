@@ -152,9 +152,3 @@
     ?>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
-<script>
-
-if($('#create_perecedero').val() > 0){
-    $("#create_perecedero").prop('checked', true);
-}
-</script>

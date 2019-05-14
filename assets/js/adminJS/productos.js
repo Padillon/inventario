@@ -1,3 +1,7 @@
+if($('#create_perecedero').val() > 0){
+    $("#create_perecedero").prop('checked', true);
+}
+
 function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
@@ -31,6 +35,12 @@ function viewProducto(num){
     $("#viewPerecedero").val(datos[12]);
     $("#viewImagen").attr("src", base_url+"assets/images/ajuste/"+datos[9]);
 
+    if(datos[12] = 1){
+        $("#viewPerecedero").prop('checked', true);
+    } else {
+        $("#viewPerecedero").prop('checked', false);
+    }
+    
     if (datos[2] = 1){
         $("#viewEstado").addClass("form-control alert alert-success");
         $("#viewEstado").val("Activo");
@@ -45,9 +55,9 @@ $(document).ready(function(){
     $('input[type="checkbox"]').on('change', function(e){
         var val = $(this).attr("value"); 
         if(val!=0){
-            $('#create_perecedero').val('0');
+            $('#create_perecedero').val('1');
         }else{
-        $('#create_perecedero').val('1');
+        $('#create_perecedero').val('0');
         }
     });
 });

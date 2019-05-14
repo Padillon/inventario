@@ -69,9 +69,9 @@ class Productos extends CI_Controller {
         $data_in['precio_venta'] = $this->input->post('create_precio_venta');
         $data_in['imagen'] =$imagen;
         if ($this->input->post('create_perecedero') != "" ) {
-            $data_in['perecedero'] =1;
-        }else{
             $data_in['perecedero'] =0;
+        }else{
+            $data_in['perecedero'] =1;
         }
         
         $data_in['id_presentacion'] = $this->input->post('create_presentacion');

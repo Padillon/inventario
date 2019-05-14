@@ -184,7 +184,7 @@
                 <div class="col-md-2"> 
                     <label>Perecedero</label>                     
                     <div class="s-swtich">                          
-                        <input type="checkbox" id="viewPerecedero" name="create_perecedero" class="form-check-input" >
+                        <input type="checkbox" id="viewPerecedero" class="form-check-input" disabled>
                         <label for="create_perecedero" class="form-check-label">Perecedero.</label>
                     </div>
                 </div>           
