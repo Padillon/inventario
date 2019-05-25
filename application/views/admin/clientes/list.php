@@ -40,6 +40,7 @@ $habilitado_insert ="disabled";
 $habilitado_update="disabled";
 
 $habilitado_delete="disabled";
+$habilitado_edit = "disabled";
 
 if ($permisos->update == 1) {
     $habilitado_update ="enabled";
@@ -50,6 +51,10 @@ if ($permisos->delete == 1) {
 }
 if ($permisos->insert == 1) {
     $habilitado_insert = "enabled";
+}
+
+if ($permisos->edit == 1){
+    $habilitado_edit = "enabled";
 }
 
 ?>
@@ -105,7 +110,7 @@ if ($permisos->insert == 1) {
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
                                                 <?php if($cli->estado == 1){?>
-                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCliente(<?php echo $cont; ?>)" <?php echo $habilitado_deletet?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteCliente(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 <?php }else{?>
