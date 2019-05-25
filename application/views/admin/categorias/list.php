@@ -51,7 +51,7 @@
                                 </thead>
                                 <tbody>
                                 <?php $cont = 0;?>
-                                    <?php if(!empty($categoria)):?>
+                                    <?php if($categoria != " "){?>
                                         <?php foreach($categoria as $cat):?>
                                         <?php $cont++;?>
                                             <tr>
@@ -72,7 +72,7 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                                <?php }else {?>
+                                                <?php } else {?>
                                                     <td>
                                                     <span class="badge badge-danger">Inactivo</span>
                                                     </td>
@@ -86,10 +86,11 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                                <? } ?>
+                                                
                                             </tr>
-                                        <?php endforeach;?>
-                                    <?php endif;?>
+                                            <?php }; ?>
+                                                <?php endforeach; ?>
+                                    <?php }; ?>
                                 </tbody>
                             </table>
 </div>
