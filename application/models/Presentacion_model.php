@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Presentacion_model extends CI_Model {
 	
   public function getPresentaciones(){ 
+	$this->db->where("estado",1);
 		$resultados = $this->db->get("presentacion");
 			return $resultados->result();
 	}

@@ -37,6 +37,7 @@ class Productos_model extends CI_Model {
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
 		$this->db->join("stock s", "p.id_stock = s.id_stock");
 		$this->db->join("presentacion pre", "p.id_presentacion = pre.id_presentacion");
+		$this->db->where("estado",1);
 		$resultados = $this->db->get();
 		return $resultados->result();
 	}

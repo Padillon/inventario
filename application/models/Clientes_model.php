@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Clientes_model extends CI_Model {
 	
     public function getClientes(){ 
+		$this->db->where("estado",1);
 		$resultados = $this->db->get("clientes");
 			return $resultados->result();
 	}

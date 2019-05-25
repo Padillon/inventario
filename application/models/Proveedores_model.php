@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Proveedores_model extends CI_Model {
 	
     public function getProveedores(){ 
+		$this->db->where("estado",1);
 		$resultados = $this->db->get("proveedores");
 			return $resultados->result();
 	}
