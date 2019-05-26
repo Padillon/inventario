@@ -32,7 +32,7 @@ class Entradas_model extends CI_Model {
 
 
     public function getProveedores($valor){
-      $this->db->select("id_proveedor, empresa as label");
+      $this->db->select("id_proveedor, empresa as label, nombre");
       $this->db->from("proveedores");
       $this->db->like("empresa", $valor);
       $this->db->or_like("nombre", $valor);
