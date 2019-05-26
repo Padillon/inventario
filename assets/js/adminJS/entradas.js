@@ -31,7 +31,7 @@ $("#autocompleteProducto").autocomplete({
           success: function(data){
               response($.map(data, function (item) {
                   return {
-                      label: item.nombre+' '+item.id_presentacion,
+                      label: item.nombre+' - '+item.id_presentacion,
                       id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion,
                   }
               }))
@@ -110,4 +110,17 @@ $(document).on("click", ".btn-remove-producto", function(){
 $(document).on('click', '.eliminar_data', function(){   
     var id = $(this).attr("id");
     document.getElementById("id-entrada-delete").value=id;
+});
+
+$(document).on("click", ".btn-view-entrada", function(){
+    valor_id = $(this).val();
+    $.ajax({
+        url: base_url+"movimientos/entradas/view",
+        type:"POST",
+        dataType: "html",
+        data:{id:valor_id},
+        success: function(data){
+            $("#view .modal-body").html(data);
+        }
+    });
 });

@@ -189,7 +189,14 @@ class Entradas extends CI_Controller {
 			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 		endforeach;
 		redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+	}
 
-
+	function view(){
+		$id = $this->input->post("id");
+		$data = array(
+			'entrada' => $this->Entradas_model->getEntrada($id),
+			'detalle_entrada' => $this->Entradas_model->getDetalleEntrada($id)
+		);
+		$this->load->view("admin/entradas/view", $data);
 	}
 }

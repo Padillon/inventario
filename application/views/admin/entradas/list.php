@@ -77,8 +77,8 @@
                                             <td>
                                                   <div class="btn-group">
                                                 <?php $data = $entrada->id_entrada?>
-                                                <button name="edit" id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-info edit_data" data-toggle="modal" data-target="#edit">
-                                                    <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                <button name="view" value="<? $data ?>" id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-info btn-view-entrada" data-toggle="modal" data-target="view">
+                                                    <span span class="fa fa-search" style="color: #fff"></span>
                                                 </button>
                                                     <button name='eliminar' id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
@@ -105,17 +105,17 @@
         <!-- main content area end -->
 
  <!-- Modal para asegurar la edicion-->
-    <div class="modal fade" id="edit">
+    <div class="modal fade" id="view">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="ti-cabeza">Editar</h5>
+                                                <h5 class="modal-title" id="ti-cabeza">Informacion</h5>
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form action="<?php echo base_url();?>movimientos/entradas/edit_get" method="POST">
-                                               <h4 id="titulo">Está seguro de editar esta compra?</H4>
-                                               <input id="id-entrada-edit" name="id-entrada-edit" type="hidden" class="form-control" >
+                                               <form action="<?php echo base_url();?>movimientos/entradas/view" method="POST">
+                                               
+                                               
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
