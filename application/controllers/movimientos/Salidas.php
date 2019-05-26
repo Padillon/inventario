@@ -115,4 +115,13 @@ class Salidas extends CI_Controller {
 		$this->Cajas_model->updateCaja($idcaja, $data);
 	}
 
+	public function view(){
+		$id = $this->input->post("id");
+		$data = array(
+			'salida' => $this->Salidas_model->getSalida($id),
+			'detalle_salida' => $this->Salidas_model->getDetalleSalida($id)
+		);
+		$this->load->view("admin/salidas/view", $data);
+	}
+
 }
