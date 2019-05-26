@@ -104,6 +104,19 @@ class Productos extends CI_Controller {
     }
 
     public function edit_get(){
+        $config['upload_path'] = "assets/images/productos/";
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['overwrite'] = true;
+        $config['max_size'] = '2048';
+        $config['max_width'] = '1080';
+        $config['max_height'] = '720';
+
+        $this->load->library('upload',$config);
+
+        $this->upload->do_upload('edit_img');
+            $file_info = $this->upload->data();
+            $imagen = $file_info['file_name'];
+
         $id =$this->input->post('id-pro-edit');
         $data2 = $this->Productos_model->get($id);
         $data3 = $this->Productos_model->getStock($data2->id_stock);
@@ -116,6 +129,7 @@ class Productos extends CI_Controller {
             'categoria' => $this->Categorias_model->getCategorias(),
             'presentacion'=> $this->Presentacion_model->getPresentaciones(),
             'marcas'=>$this->Marcas_model->getMarcas(),
+            'imagen' => $imagen
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
