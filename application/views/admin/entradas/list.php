@@ -77,7 +77,7 @@
                                             <td>
                                                   <div class="btn-group">
                                                 <?php $data = $entrada->id_entrada?>
-                                                <button name="view" value="<? $data ?>" id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-info btn-view-entrada" data-toggle="modal" data-target="view">
+                                                <button name="view" value="<? $data ?>" id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-info btn-view-entrada" data-toggle="modal" data-target="#view">
                                                     <span span class="fa fa-search" style="color: #fff"></span>
                                                 </button>
                                                     <button name='eliminar' id="<?php echo $entrada->id_entrada;?>" type="button" class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" value="<?php echo $data;?>" >
