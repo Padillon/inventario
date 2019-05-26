@@ -48,6 +48,7 @@ class Salidas extends CI_Controller {
 	//	$numero =$this->input->post('numero');
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
+		$idCliente = $this->input->post("idCliente");
 		$precioVenta =$this->input->post("precioVenta");
 		$cantidades =$this->input->post("cantidades");
 		$importe =$this->input->post("importes");
@@ -59,6 +60,7 @@ class Salidas extends CI_Controller {
 		);*/
 		$data = array(
 			'id_usuario' => $idusuario,
+			'idCliente' => $idCliente,
 			'fecha' => $fecha,
 			'total' => $total,
 			'descripcion' => $descripcion,
@@ -174,6 +176,12 @@ class Salidas extends CI_Controller {
 			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 		endforeach;
 		redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
+	}
+
+	public function getClientes(){
+		$valorCliente = $this->input->post("valorCliente");
+		$cli = $this->Salidas_model->getClientes($valorCliente);
+		echo json_encode($cli);
 	}
 
 }

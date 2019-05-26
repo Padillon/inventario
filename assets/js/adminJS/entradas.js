@@ -7,15 +7,19 @@ $("#autocompleteProveedor").autocomplete({
           dataType: "json",
           data:{ valorProveedor: request.term},
           success: function(data){
-              response(data);
+              response($.map(data, function(item){
+                  return {
+                      label: item.nombre + " - " + item.label,
+                      id: item.id_proveedor,
+                  }
+              }));
           }
       });
   }, //indica la informacion a mostrar al momento de comenzar a llenar el campo
   minLength:2, //caracteres que activan el autocomplete
   select: function(event, ui){
-      data = ui.item.id_proveedor + "*" + ui.item.label;
-      infoProveedor = data.split("*");
-      $("#idProveedor").val(infoProveedor[0]);
+      data = ui.item.id;
+      $("#idProveedor").val(data);
   },
 });
 
