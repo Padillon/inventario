@@ -128,7 +128,7 @@
                                     
                                     <div class="col-md-3 ">
                                     <label for="create_img" class="custom-file-label">Seleccione una imagen.</label><br>
-                                    <input name='edit_img' id='edit_img' type='file' class='custom-file-input' ><br>      
+                                    <input name='create_img' id='edit_img' type='file' class='custom-file-input' ><br>      
                                     </div> 
                                     <div class="col-md-12"> 
                                                     <br>

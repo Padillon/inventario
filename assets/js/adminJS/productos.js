@@ -33,7 +33,7 @@ function viewProducto(num){
     $("#viewMarca").val(datos[13]);
     $("#viewCategoria").val(datos[3]);
     $("#viewPerecedero").val(datos[12]);
-    $("#viewImagen").attr("src", base_url+"assets/images/ajuste/"+datos[9]);
+    $("#viewImagen").attr("src", base_url+"assets/images/productos/"+datos[9]);
 
     if(datos[12] = 1){
         $("#viewPerecedero").prop('checked', true);
