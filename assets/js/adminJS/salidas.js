@@ -95,17 +95,17 @@ function sumarReabastecimiento(){
     document.getElementById("total_sub").innerHTML=total.toFixed(2);
     
 }
-//eliminar comprado
+//eliminar articulo
 $(document).on("click", ".btn-remove-producto", function(){
     $(this).closest("tr").remove();
     contador = contador - 1;
     f=0;
     sumar();
 });
-
+//anular venta
 $(document).on('click', '.eliminar_data', function(){   
     var id = $(this).attr("id");
-    document.getElementById("id-entrada-delete").value=id;
+    document.getElementById("id-salida-delete").value=id;
 });
 
 $(document).on("click", ".btn-view-salida", function(){

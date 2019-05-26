@@ -76,4 +76,16 @@ class Salidas_model extends CI_Model {
 		  $resultados = $this->db->get();
 		  return $resultados->result();
     }
+
+    public function getDetalle($id){ 
+      $this->db->where("id_salida",$id);
+      $resultados = $this->db->get("detalle_salida");
+      return $resultados->result();
+    }
+
+    public function updateSalida($id,$data){
+      $this->db->where("id_salida",$id);		
+      $this->db->update("salidas",$data);
+      return 0;
+    }
 }

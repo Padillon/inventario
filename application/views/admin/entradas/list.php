@@ -133,7 +133,7 @@
                                             </div>
                                             <div class="modal-body">
                                                <form action="<?php echo base_url();?>movimientos/entradas/eliminar" method="POST">
-                                               <h4 id="titulo">Está seguro de eliminar esta compra?</H4>
+                                               <h4 id="titulo">Está seguro de anular esta compra?</H4>
                                                <input id="id-entrada-delete" name="id-entrada-delete" type="hidden" class="form-control" >
                                             </div>
                                             <div class="modal-footer">

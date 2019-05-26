@@ -10,7 +10,9 @@ class Salidas extends CI_Controller {
 	} else{
 		$this->permisos = $this->backend_lib->control();		
 		$this->load->model("Salidas_model");
-		$this->load->model("Productos_model");}
+		$this->load->model("Productos_model");
+		$this->load->model("Kardex_model");
+	}
 	}
 
 	public function index(){
@@ -65,7 +67,7 @@ class Salidas extends CI_Controller {
 
 		if ($this->Salidas_model->save($data)){
 			$idSalida = $this->Salidas_model->lastID(); 
-			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe); //guardando el detalle de la venta
+			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha); //guardando el detalle de la venta
 			//$this->Salidas_model->update_correlativo($tipo_comprobante,$aumento);
 			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 		} else {
@@ -74,7 +76,7 @@ class Salidas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes){
+	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha){
 		for ($i=0; $i < count($productos); $i++) { 
 				$data = array(
 					'id_salida' => $idSalida,
@@ -83,6 +85,20 @@ class Salidas extends CI_Controller {
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
 				);
+				$saldo = $this->Kardex_model->get($productos[$i]) ;
+				
+				$kardex = array(
+					'fecha' =>$fecha , 
+					'descripcion'=> 'Salida',
+					'id_producto' => $productos[$i],
+					'cantidad' =>$cantidades[$i],
+					'precio' =>$precioVentas[$i],
+					'total' =>$importes[$i],
+					'saldo' => $saldo->saldo + $importes[$i],
+					'id_salida' => $idSalida,
+					'id_usuario' => $this->session->userdata('id'),					
+				);
+				$this->Kardex_model->add($kardex);
 				$this->Salidas_model->save_detalle($data);
 				$this->updateProducto($productos[$i], $cantidades[$i]); //actualizamos el stock del producto
 			
@@ -100,7 +116,6 @@ class Salidas extends CI_Controller {
 
 	//funcion para actualizar caja
 	protected function updateCaja($idcaja,$subtotal,$tipo){
-
 		$saldoActual = $this->Cajas_model->getSaldo($idcaja-1);
 		if ($tipo == 1) {
 			# code...
@@ -122,6 +137,43 @@ class Salidas extends CI_Controller {
 			'detalle_salida' => $this->Salidas_model->getDetalleSalida($id)
 		);
 		$this->load->view("admin/salidas/view", $data);
+	}
+
+	public function eliminar(){
+		$id = $this->input->post('id-salida-delete');
+		//$entrada = $this->Entradas_model->get($id);
+		$detalle = $this->Salidas_model->getDetalle($id);
+		$data = array(
+			'estado' =>0,
+		);
+		$this->Salidas_model->updateSalida($id, $data);
+		//eliminas la venta en kardex
+		$salidas = $this->Kardex_model->get_venta($id);
+		foreach($salidas as $sa){
+
+			$kardex = array(
+				'fecha' =>date('Y-m-d'),
+				'descripcion'=> 'Venta anulada.',
+				'id_producto' => $sa->id_producto,
+				'cantidad' =>$sa->cantidad,
+				'precio' =>$sa->precio,
+				'total' =>$sa->total,
+				'saldo' => $sa->saldo - $sa->total,
+				'id_salida' => $id,
+				'id_usuario' => $this->session->userdata('id'),					
+			);
+			$this->Kardex_model->add($kardex);
+		}
+
+		foreach( $detalle as $det ):
+			$productoActual = $this->Productos_model->get($det->id_producto);
+			$stock = $this->Productos_model->getStock($productoActual->id_stock);
+			$data2 = array(
+				'stock_actual' => $stock->stock_actual - $det->cantidad,
+			);
+			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
+		endforeach;
+		redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 	}
 
 }
