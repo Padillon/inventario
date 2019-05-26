@@ -60,9 +60,10 @@ class Salidas_model extends CI_Model {
     }
 
     public function getSalida($id){
-      $this->db->select("s.*, u.usuario");
+      $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
       $this->db->from("salidas s");
       $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+      $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
       $this->db->where("s.id_salida", $id);
       $resultado = $this->db->get();
       return $resultado->row();
