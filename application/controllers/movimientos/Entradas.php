@@ -103,11 +103,11 @@ class Entradas extends CI_Controller {
 				
 				$kardex = array(
 					'fecha' =>$fecha , 
-					'descripcion'=> 'Compra',
+					'descripcion'=> 'Entrada',
 					'id_producto' => $productos[$i],
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$nuevoPrecio[$i],
-					'total' =>$cantidades[$i] * $nuevoPrecio[$i],
+					'total' =>$importes[$i],
 					'saldo' => $saldo->saldo + $importes[$i],
 					'id_entrada' => $idEntrada,
 					'id_usuario' => $this->session->userdata('id'),					
@@ -172,7 +172,6 @@ class Entradas extends CI_Controller {
 	
 	public function eliminar(){
 		$id = $this->input->post('id-entrada-delete');
-		//$entrada = $this->Entradas_model->get($id);
 		$detalle = $this->Entradas_model->getDetalle($id);
 		$data = array(
 			'estado' =>0,
@@ -184,7 +183,7 @@ class Entradas extends CI_Controller {
 
 			$kardex = array(
 				'fecha' =>date('Y-m-d'),
-				'descripcion'=> 'Compra eliminada',
+				'descripcion'=> 'Compra eliminada.',
 				'id_producto' => $entr->id_producto,
 				'cantidad' =>$entr->cantidad,
 				'precio' =>$entr->precio,

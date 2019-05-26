@@ -11,6 +11,11 @@ class Kardex_model extends CI_Model {
 		$resultado = $this->db->get('kardex');
 		return $resultado->result();
 	}
+	public function get_venta($id){
+		$this->db->where('id_salida',$id);
+		$resultado = $this->db->get('kardex');
+		return $resultado->result();
+	}
 public function update($data,$id){
 	$this->db->where('id_entrada',$id);
 	$this->db->update('kardex',$data);
