@@ -36,9 +36,7 @@
     redirect(base_url(),"dashboard");
 }
 $habilitado_insert ="disabled";
-
 $habilitado_update="disabled";
-
 $habilitado_delete="disabled";
 $habilitado_edit = "disabled";
 
@@ -53,7 +51,7 @@ if ($permisos->insert == 1) {
     $habilitado_insert = "enabled";
 }
 
-if ($permisos->edit == 1){
+if ($permisos->update == 1){
     $habilitado_edit = "enabled";
 }
 
