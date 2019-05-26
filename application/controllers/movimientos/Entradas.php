@@ -12,6 +12,7 @@ class Entradas extends CI_Controller {
 		$this->load->model("Entradas_model");
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
+		$this->load->model("Kardex_model");
 	}
 	}
 
@@ -97,6 +98,21 @@ class Entradas extends CI_Controller {
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
 				);
+				$producto_saldo = 0;
+				if ($this->kardex_model->get($productos[$i])) {
+					$producto_saldo = $this->kardex_model->get($productos[$i]);
+				}
+
+				$kardex = array(
+					'fecha' =>$fecha , 
+					'descripcion'=> 'Compra',
+					'id_producto' => $productos[$i],
+					'cantidad' => $cantidad,
+					'precio' => $subtotal,
+					'saldo' => $producto_saldo->saldo + $subtotal,
+					'usuario' => $this->session->userdata('id'),					
+				);
+
 				$this->Entradas_model->save_detalle($data);
 				$this->updateProducto($productos[$i], $nuevoPrecio[$i],$precioSalida[$i], $cantidades[$i], $fecha); //actualizamos el stock del producto
 			
