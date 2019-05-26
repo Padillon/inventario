@@ -7,10 +7,10 @@
 <div class="row">
 	<div class="col-xs-6">	
 		<b>Compra de Producto</b><br>
-		<b>ID compra:</b> <?php echo $entrada->id_entrada;?> <br>
-		<b>Fecha:</b> <?php echo $entrada->fecha;?> <br>
-		<b>Encargado:</b> <?php echo $entrada->usuario;?> <br>
-		<b>Proveedor:</b> <?php echo $entrada->empresa;?> <br>
+		<b>ID compra:</b> <?php echo $salida->id_salida;?> <br>
+		<b>Fecha:</b> <?php echo $salida->fecha;?> <br>
+		<b>Encargado:</b> <?php echo $salida->usuario;?> <br>
+		<b>Cliente:</b> <?php echo "No guarda clientes";?> <br>
 	</div>	
 </div>
 <br>
@@ -21,17 +21,17 @@
 				<tr>
 					<th>Codigo</th>
 					<th>Nombre</th>
-					<th>Precio Entrada</th>
+					<th>Precio Venta</th>
 					<th>Cantidad</th>
 					<th>Importe</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<?php foreach($detalle_entrada as $detalle){?>
+					<?php foreach($detalle_salida as $detalle){?>
 					<td><?php echo $detalle->codigo;?></td>
 					<td><?php echo $detalle->nombre;?></td>
-					<td><?php echo $detalle->precio_compra;?></td>
+					<td><?php echo $detalle->precio_venta;?></td>
 					<td><?php echo $detalle->cantidad;?></td>
 					<td><?php echo $detalle->subtotal;?></td>
 				</tr>
@@ -40,7 +40,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="4" class="text-right"><strong>Total:</strong></td>
-					<td><?php echo $entrada->total;?></td>
+					<td><?php echo $salida->total;?></td>
 				</tr>
 			</tfoot>
 		</table>

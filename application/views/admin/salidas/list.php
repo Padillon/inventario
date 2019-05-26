@@ -75,18 +75,12 @@
                                             <td>
                                                 <div class="btn-group">
                                                 <?php $data = $sal->id_salida; ?>
-                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editCompra(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
-                                                    <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                <button value="<?php echo $sal->id_salida;?>" type="button" class="btn btn-info btn-view-salida" data-toggle="modal" data-target="#modalView">
+                                                    <span span class="fa fa-search" style="color: #fff"></span>
                                                 </button>
-                                                <?php if($sal->estado == 1){?>
                                                     <button id="delete<?php echo $cont; ?>" onclick="deleteCompra(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
-                                                <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCompra(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-check" style="color: #fff"></span>
-                                                    </button>
-                                                <?php }?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -130,22 +124,20 @@
     </div>
 
     <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar">
+    <div class="modal fade" id="modalView">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
             <form class="form-control" id="formEditar">
                 <div class='modal-header'>
-                    <h5 class='modal-title'>Editar</h5>
+                    <h5 class='modal-title'>Informacion</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
                 </div>
                 <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='editName' id='editName' type='text' class='form-control'>
-                    <input name='idCategoria' id='idCategoria' type='hidden' class='form-control'>
+                   
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnEditar">Guardar</button>
+                    <button type='button' class='btn btn-primary' data-dismiss='modal'>Aceptar</button>
                 </div>
             </form>
         </div>

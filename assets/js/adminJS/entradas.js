@@ -118,9 +118,9 @@ $(document).on("click", ".btn-view-entrada", function(){
         url: base_url+"movimientos/entradas/view",
         type:"POST",
         dataType: "html",
-        data:{id:valor_id},
+        data:{id_entr:valor_id},
         success: function(data){
-            $("#view .modal-body").html(data);
+            $("#Modalview .modal-body").html(data);
         }
     });
 });

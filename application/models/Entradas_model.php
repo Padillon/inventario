@@ -101,10 +101,10 @@ class Entradas_model extends CI_Model {
     }
 
     public function getDetalleEntrada($id){
-            $this->db->select("dt.*, p.codigo, p.nombre, p.precio_compra");
-            $this->db->from("detalle_entrada dt");
-            $this->db->join("productos p", "dt.id_poducto = p.id_producto");
-            $this->db->where("dt.id_detalle_entrada", $id);
+            $this->db->select("d.*, p.codigo, p.nombre, p.precio_compra");
+            $this->db->from("detalle_entrada d");
+            $this->db->join("productos p", "d.id_producto = p.id_producto");
+            $this->db->where("d.id_entrada", $id);
 		  $resultados = $this->db->get();
 		  return $resultados->result();
     }

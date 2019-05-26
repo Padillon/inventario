@@ -58,4 +58,22 @@ class Salidas_model extends CI_Model {
       $this->db->update("tipo_comprobante",$cantidad);
       return 0;
     }
+
+    public function getSalida($id){
+      $this->db->select("s.*, u.usuario");
+      $this->db->from("salidas s");
+      $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+      $this->db->where("s.id_salida", $id);
+      $resultado = $this->db->get();
+      return $resultado->row();
+    }
+
+    public function getDetalleSalida($id){
+            $this->db->select("d.*, p.codigo, p.nombre");
+            $this->db->from("detalle_salida d");
+            $this->db->join("productos p", "d.id_producto = p.id_producto");
+            $this->db->where("d.id_salida", $id);
+		  $resultados = $this->db->get();
+		  return $resultados->result();
+    }
 }

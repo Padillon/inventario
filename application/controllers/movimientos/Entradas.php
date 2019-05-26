@@ -191,8 +191,8 @@ class Entradas extends CI_Controller {
 		redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
 	}
 
-	function view(){
-		$id = $this->input->post("id");
+	public function view(){
+		$id = $this->input->post("id_entr");
 		$data = array(
 			'entrada' => $this->Entradas_model->getEntrada($id),
 			'detalle_entrada' => $this->Entradas_model->getDetalleEntrada($id)

@@ -107,3 +107,16 @@ $(document).on('click', '.eliminar_data', function(){
     var id = $(this).attr("id");
     document.getElementById("id-entrada-delete").value=id;
 });
+
+$(document).on("click", ".btn-view-salida", function(){
+    valor_id = $(this).val();
+    $.ajax({
+        url: base_url+"movimientos/salidas/view",
+        type:"POST",
+        dataType: "html",
+        data:{id:valor_id},
+        success: function(data){
+            $("#modalView .modal-body").html(data);
+        }
+    });
+});
