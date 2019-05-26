@@ -39,17 +39,15 @@
                                             <label>Fecha:</label>
                                             <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                         </div>
+                                        <div class='col-md-9'>
+                                        <label>Cliente: </label>
+                                            <input name='valorCliente' required id='autocompleteCliente' type='text' class='form-control' >
+                                            <input type="hidden" id="idCliente" name="idCliente" >
+                                            </div>
                                         <div class="col-md-3">
-                                               <input type="hidden" id="total" name="total"> <!--
-                                                <input name='id_conprobante'  id='id_conprobante' type='hidden' class='form-control' >
-                                                <label for="create_categoria">Comprobante:</label>         
-                                                <select name='create_comprobante' id='create_comprobante' class='custom-select' onchange="serie_numero()">
-                                                    <?php// foreach($comprobantes as $comprobante):?>
-                                                    <option value='<?php// echo $comprobante->id_tipo_comprobante.'*'.$comprobante->serie.'*'.$comprobante->cantidad;?>'><?php echo $comprobante->nombre;?></option>
-
-                                                    <?php// endforeach;?>
-                                                </select> -->
-                                        </div>   
+                                               <input type="hidden" id="total" name="total"> 
+                                        </div>
+                                        
                                         <div class='col-md-3'>
 
                                         </div>   

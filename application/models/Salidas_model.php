@@ -8,10 +8,11 @@ class Salidas_model extends CI_Model {
       return $resultados->result();
     }
 
-    public function getProveedores($valor){
-      $this->db->select("id_proveedor, empresa as label");
-      $this->db->from("proveedores");
-      $this->db->like("empresa", $valor);
+    public function getClientes($valor){
+      $this->db->select("id_cliente, nombre as label, apellido");
+      $this->db->from("clientes");
+      $this->db->like("nombre", $valor);
+      $this->db->or_like("apellido", $valor);
       $resultados = $this->db->get();
       return $resultados->result_array();
     }
