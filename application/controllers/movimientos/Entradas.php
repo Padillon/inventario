@@ -98,21 +98,21 @@ class Entradas extends CI_Controller {
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
 				);
-				$producto_saldo = 0;
-				if ($this->kardex_model->get($productos[$i])) {
-					$producto_saldo = $this->kardex_model->get($productos[$i]);
-				}
-
+	//kardex
+				$saldo = $this->Kardex_model->get($productos[$i]) ;
+				
 				$kardex = array(
 					'fecha' =>$fecha , 
 					'descripcion'=> 'Compra',
 					'id_producto' => $productos[$i],
-					'cantidad' => $cantidad,
-					'precio' => $subtotal,
-					'saldo' => $producto_saldo->saldo + $subtotal,
-					'usuario' => $this->session->userdata('id'),					
+					'cantidad' =>$cantidades[$i],
+					'precio' =>$nuevoPrecio[$i],
+					'total' =>$cantidades[$i] * $nuevoPrecio[$i],
+					'saldo' => $saldo->saldo + $importes[$i],
+					'id_entrada' => $idEntrada,
+					'id_usuario' => $this->session->userdata('id'),					
 				);
-
+				$this->Kardex_model->add($kardex);
 				$this->Entradas_model->save_detalle($data);
 				$this->updateProducto($productos[$i], $nuevoPrecio[$i],$precioSalida[$i], $cantidades[$i], $fecha); //actualizamos el stock del producto
 			
@@ -178,7 +178,24 @@ class Entradas extends CI_Controller {
 			'estado' =>0,
 		);
 		$this->Entradas_model->updateEntrada($id, $data);
-		$this->Entradas_model->updateDetalle($id, $data);
+		//eliminas la venta en kardex
+		$entradas = $this->Kardex_model->get_compra($id);
+		foreach($entradas as $entr){
+
+			$kardex = array(
+				'fecha' =>date('Y-m-d'),
+				'descripcion'=> 'Compra eliminada',
+				'id_producto' => $entr->id_producto,
+				'cantidad' =>$entr->cantidad,
+				'precio' =>$entr->precio,
+				'total' =>$entr->total,
+				'saldo' => $entr->saldo - $entr->total,
+				'id_entrada' => $id,
+				'id_usuario' => $this->session->userdata('id'),					
+			);
+			$this->Kardex_model->add($kardex);
+		}
+		
 
 		foreach( $detalle as $det ):
 			$productoActual = $this->Productos_model->get($det->id_producto);

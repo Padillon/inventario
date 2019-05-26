@@ -12,8 +12,5 @@ public function save($data){
 	return $this->db->insert("marcas",$data);
 }
 
-public function update($id,$data){
-	$this->db->where("id_marca",$id);
-	return $this->db->update("marcas",$data);
-}
+
 }
