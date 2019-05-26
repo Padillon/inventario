@@ -31,7 +31,7 @@ $("#autocompleteProducto").autocomplete({
           success: function(data){
               response($.map(data, function (item) {
                   return {
-                      label: item.nombre+' - '+item.id_presentacion,
+                      label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
                       id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion,
                   }
               }))
