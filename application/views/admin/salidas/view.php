@@ -10,7 +10,7 @@
 		<b>ID compra:</b> <?php echo $salida->id_salida;?> <br>
 		<b>Fecha:</b> <?php echo $salida->fecha;?> <br>
 		<b>Encargado:</b> <?php echo $salida->usuario;?> <br>
-		<b>Cliente:</b> <?php echo "No guarda clientes";?> <br>
+		<b>Cliente:</b> <?php echo $salida->nombre + " " + $salida->apellido;?> <br>
 	</div>	
 </div>
 <br>

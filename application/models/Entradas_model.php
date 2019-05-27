@@ -32,9 +32,10 @@ class Entradas_model extends CI_Model {
 
 
     public function getProveedores($valor){
-      $this->db->select("id_proveedor, empresa as label");
+      $this->db->select("id_proveedor, empresa as label, nombre");
       $this->db->from("proveedores");
       $this->db->like("empresa", $valor);
+      $this->db->or_like("nombre", $valor);
       $resultados = $this->db->get();
       return $resultados->result_array();
     }
@@ -48,6 +49,8 @@ class Entradas_model extends CI_Model {
      // $this->db->join("proveedores pr","p.id_proveedor = pr.id_proveedor");
       $this->db->where("p.estado","1");
       $this->db->like("p.nombre", $valor);
+      $this->db->or_like("p.codigo", $valor);
+
       //$this->db->from("productos");
      // $this->db->like("nombre", $valor);
       $resultados = $this->db->get();
