@@ -46,7 +46,7 @@
 
                                          <div class="col-md-3">
                                                 <label for="create_categoria">Marca.</label>         
-                                                <select name='create_marca' id='create_marca' class='custom-select' required>
+                                                <select name='create_marca' id='create_marca' class='custom-select' required onclick="tipoEntrada()">
                                                     <?php foreach($marcas as $marca):?>
                                                     <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>
                                                     <?php endforeach;?>

@@ -31,4 +31,15 @@ public function update($data,$id){
 			return 0;
 		}
 	}
+
+	public function getKardex(){
+	//	$quey = "select * from kardex group by id_producto  where MONTH(fecha) =".date('m')." and YEAR(fecha) =".date('d');
+//	$quey = "select * from kardex group by id_producto and  month(fecha) = ".date('m');
+$quey = "select * from kardex where month(fecha) = ".date('m');
+		if($resultado = $this->db->query($quey)){
+			return $resultado->result();
+		}else{
+			return 0;
+		}
+	}
 }

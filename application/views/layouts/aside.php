@@ -31,6 +31,7 @@
                                 <ul class="collapse">
                                     <li><a href="<?php echo base_url();?>movimientos/entradas">Entradas</a></li>
                                     <li><a href="<?php echo base_url();?>movimientos/salidas">Salidas</a></li>
+                                    <li><a href="<?php echo base_url();?>movimientos/kardex">Kardex</a></li>
                                 </ul>
                             </li> 
                             <li>
