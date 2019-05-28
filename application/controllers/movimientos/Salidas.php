@@ -60,7 +60,7 @@ class Salidas extends CI_Controller {
 		);*/
 		$data = array(
 			'id_usuario' => $idusuario,
-			'idCliente' => $idCliente,
+			'id_cliente' => $idCliente,
 			'fecha' => $fecha,
 			'total' => $total,
 			'descripcion' => $descripcion,
@@ -91,6 +91,7 @@ class Salidas extends CI_Controller {
 				
 				$kardex = array(
 					'fecha' =>$fecha , 
+					'id_movimiento' => 2,
 					'descripcion'=> 'Salida',
 					'id_producto' => $productos[$i],
 					'cantidad' =>$cantidades[$i],
@@ -155,6 +156,7 @@ class Salidas extends CI_Controller {
 
 			$kardex = array(
 				'fecha' =>date('Y-m-d'),
+				'id_movimiento' => 3,
 				'descripcion'=> 'Venta anulada.',
 				'id_producto' => $sa->id_producto,
 				'cantidad' =>$sa->cantidad,
