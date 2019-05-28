@@ -41,11 +41,12 @@ class Entradas_model extends CI_Model {
     }
 
     public function getProductos($valor){
-    $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion");
+    $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion,s.stock_actual as existencias");
       $this->db->from("productos p");
       //$this->db->join("categoria c","p.id_categoria = c.id_categoria");
       $this->db->join("marcas m","p.id_marca = m.id_marca");
       $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
+      $this->db->join("stock s","p.id_stock = s.id_stock");
      // $this->db->join("proveedores pr","p.id_proveedor = pr.id_proveedor");
       $this->db->where("p.estado","1");
       $this->db->like("p.nombre", $valor);

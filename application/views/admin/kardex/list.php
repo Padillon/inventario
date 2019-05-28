@@ -94,23 +94,41 @@
         </div>
         <!-- main content area end -->
          <!-- Modal para movimiento-->
-    <div class="modal fade" id="movimiento">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <select name="tipo_movimiento" id="tipo_movimiento" class='custom-select' required></select>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" data-dismiss="modal" class="btn btn-primary">Aceptar</button>
-                                           </div>
-                                        </div>
-                                    </div>
+         <div id='movimiento' class="modal fade bd-example-modal-lg" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
+        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
     </div>
+    <div class='modal-body'>
+    <div class='row'>  
+        <div class="col-md-3 mt-4">
+        <label>Fecha:</label>
+        <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+        </div>
+
+        <div class="col-md-9 mt-4">
+        <label class="col-form-control">Buscar Producto:</label>
+                                            <div class="input-group">
+                                                <input name="autocompleteProducto" class="form-control" type="text" id="autocompleteProducto">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary" id="btn-agregar-abast" type="button">Agregar</button>
+                                                </div>
+                                            </div>  
+
+            </div> 
+            </div>
+            </div>
+            </div>
+        <div class='modal-footer'>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+            <button type='button' data-dismiss='modal' class='btn btn-primary'>Aceptar</button>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
 
 
  <!-- Modal para asegurar la edicion-->
