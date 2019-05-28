@@ -50,12 +50,12 @@ class Productos extends CI_Controller {
         $config['max_height'] = '720';
 
         $this->load->library('upload',$config);
-
-        $this->upload->do_upload('create_img');
-          
-
+        if ($this->upload->do_upload('create_img')) {
+            # code...
             $file_info = $this->upload->data();
             $imagen = $file_info['file_name'];	
+            $data_in['imagen'] =$imagen;
+        }
 
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');
@@ -67,7 +67,6 @@ class Productos extends CI_Controller {
         $data_in['descripcion'] = $this->input->post('create_descripcion');
         $data_in['precio_compra'] = $this->input->post('create_precio_compra');
         $data_in['precio_venta'] = $this->input->post('create_precio_venta');
-        $data_in['imagen'] =$imagen;
         if ($this->input->post('create_perecedero') != "" ) {
             $data_in['perecedero'] =1;
         }else{
