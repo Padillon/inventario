@@ -73,7 +73,7 @@
                                             </table>
                                     <?php $data = $ajuste->nombre."*".$ajuste->direccion."*".$ajuste->giro."*".$ajuste->telefono."*".$ajuste->correo."*".$ajuste->logo."*".$ajuste->id."*".$ajuste->registro ?>
                                     <?php if ($permisos->update == 1) { ?>
-                                        <button href="#" class="btn btn-primary" onclick="editAjuste()" type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
+                                        <button href="#" class="btn btn-outline-primary mb-3" onclick="editAjuste()" type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
                                     <?php }else{ ?>
                                         <button href="#" class="btn btn-primary" onclick="editAjuste()" disabled type="button" data-toggle="modal" data-target="#modalAjuste" id="ajuste" value="<?php echo $data;?>"  >Editar</button>
                                     <?php } ?>

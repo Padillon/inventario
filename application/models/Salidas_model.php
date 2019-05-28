@@ -3,8 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Salidas_model extends CI_Model {
 	
     public function getSalidas(){ 
-      $this->db->where('estado',1);
-      $resultados = $this->db->get("salidas");
+      $this->db->select("s.* , u.usuario as usuario");
+      $this->db->from("salidas s");
+      $this->db->join("usuarios u","u.id_usuario = s.id_usuario");
+      $this->db->where('s.estado',1);
+      $resultados = $this->db->get();
       return $resultados->result();
     }
 

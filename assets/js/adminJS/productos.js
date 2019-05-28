@@ -32,7 +32,13 @@ function viewProducto(num){
     $("#viewPresentacion").val(datos[11]);
     $("#viewMarca").val(datos[13]);
     $("#viewCategoria").val(datos[3]);
-    $("#viewPerecedero").val(datos[12]);
+    if (datos[12] != 1) {
+        $("#create_perecedero").prop('checked', false);
+        $("#create_perecedero").val('0');
+    }else{
+        $("#create_perecedero").prop('checked', true);
+        $("#create_perecedero").val('1 ');
+    }
     $("#viewImagen").attr("src", base_url+"assets/images/productos/"+datos[9]);
 
     if(datos[12] = 1){

@@ -61,7 +61,7 @@ if ($permisos->insert == 1) {
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-primary mb-3">Productos+</a>
+                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Productos</a>
 
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -209,7 +209,7 @@ if ($permisos->insert == 1) {
                 <div class="col-md-2"> 
                     <label>Perecedero</label>                     
                     <div class="s-swtich">                          
-                        <input type="checkbox" id="viewPerecedero" class="form-check-input" disabled>
+                        <input type="checkbox" id="create_perecedero"  class="form-check-input" disabled>
                         <label for="create_perecedero" class="form-check-label">Perecedero.</label>
                     </div>
                 </div>           

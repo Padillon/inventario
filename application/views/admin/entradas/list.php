@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Entradas</h4>
-                                <a href="<?php echo base_url();?>movimientos/entradas/add" class="btn btn-outline-primary mb-3"><span class="fa fa-plus"></span>Comprar</a>
+                                <a href="<?php echo base_url();?>movimientos/entradas/add" class="btn btn-outline-primary mb-3">Comprar +</a>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 

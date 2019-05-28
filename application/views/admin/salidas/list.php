@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Salidas</h4>
-                                <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3"><span class="fa fa-plus"></span>Vender</a>
+                                <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -57,7 +57,7 @@
                                         <tr>
                                             <td><?php echo $sal->id_salida;?></td>
                                             <td><?php echo $sal->fecha;?></td>
-                                            <td><?php echo $sal->id_usuario;?></td>
+                                            <td><?php echo $sal->usuario;?></td>
                                             <td><?php echo $sal->total;?></td>
                                             <?php if($sal->estado == 1){?>
                                                 <td>

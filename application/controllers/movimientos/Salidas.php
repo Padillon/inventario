@@ -97,7 +97,7 @@ class Salidas extends CI_Controller {
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$precioVentas[$i],
 					'total' =>$importes[$i],
-					'saldo' => $saldo->saldo + $importes[$i],
+					'saldo' => $saldo->saldo - $importes[$i],
 					'id_salida' => $idSalida,
 					'id_usuario' => $this->session->userdata('id'),					
 				);
