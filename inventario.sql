@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2019 at 01:21 AM
+-- Generation Time: May 28, 2019 at 03:12 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -154,7 +154,9 @@ INSERT INTO `detalle_entrada` (`id_detalle_entrada`, `cantidad`, `id_producto`, 
 (10, 1, 10, 32, 0, 32, 8, 1),
 (11, 9, 10, 32, 0, 288, 9, 1),
 (12, 7, 11, 3, 0, 21, 9, 1),
-(13, 3, 10, 32, 0, 96, 10, 1);
+(13, 3, 10, 32, 0, 96, 10, 1),
+(14, 1, 13, 14.45, 0, 14.45, 11, 1),
+(15, 9, 13, 14.45, 0, 130.05, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -232,15 +234,17 @@ CREATE TABLE `entradas` (
 
 INSERT INTO `entradas` (`id_entrada`, `id_usuario`, `id_tipo_entrada`, `fecha`, `total`, `id_proveedor`, `estado`) VALUES
 (1, 1, 1, '2019-04-26', 10.75, 1, 0),
-(2, 1, 1, '2019-04-26', 0.75, 2, 1),
-(3, 1, 1, '2019-04-26', 2, 1, 1),
+(2, 1, 1, '2019-04-26', 0.75, 2, 0),
+(3, 1, 1, '2019-04-26', 2, 1, 0),
 (4, 1, 1, '2019-04-26', 10, 1, 1),
 (5, 1, 1, '2019-05-01', 72.25, 1, 0),
 (6, 1, 1, '2019-05-03', 352, 1, 1),
 (7, 1, 1, '2019-05-03', 288, 1, 1),
 (8, 1, 1, '2019-05-03', 46.45, 1, 1),
 (9, 1, 1, '2019-05-25', 309, 2, 1),
-(10, 1, 1, '2019-05-25', 96, 1, 1);
+(10, 1, 1, '2019-05-25', 96, 1, 1),
+(11, 5, 1, '2019-05-27', 14.45, 1, 1),
+(12, 5, 1, '2019-05-27', 130.05, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -250,12 +254,27 @@ INSERT INTO `entradas` (`id_entrada`, `id_usuario`, `id_tipo_entrada`, `fecha`, 
 
 CREATE TABLE `kardex` (
   `id_kardex` int(11) NOT NULL,
-  `fecha` int(11) NOT NULL,
+  `id_movimiento` int(2) NOT NULL,
+  `fecha` date NOT NULL,
+  `descripcion` varchar(45) NOT NULL,
   `id_producto` int(11) NOT NULL,
-  `id_entrada` int(11) NOT NULL,
-  `id_salida` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` float NOT NULL,
+  `total` float NOT NULL,
+  `saldo` float NOT NULL,
+  `id_entrada` int(100) NOT NULL DEFAULT '0',
+  `id_salida` int(100) NOT NULL DEFAULT '0',
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kardex`
+--
+
+INSERT INTO `kardex` (`id_kardex`, `id_movimiento`, `fecha`, `descripcion`, `id_producto`, `cantidad`, `precio`, `total`, `saldo`, `id_entrada`, `id_salida`, `id_usuario`) VALUES
+(1, 1, '2019-05-27', 'Entrada', 13, 1, 14.45, 14.45, 14.45, 11, 0, 5),
+(2, 1, '2019-05-27', 'Entrada', 13, 9, 14.45, 130.05, 144.5, 12, 0, 5),
+(3, 4, '2019-05-27', 'Compra eliminada.', 13, 9, 14.45, 130.05, 14.45, 12, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -313,7 +332,8 @@ INSERT INTO `menu` (`id_menu`, `nombre`, `link`) VALUES
 (8, 'Entradas', 'movimientos/entradas'),
 (9, 'Salidas', 'movimientos/salidas'),
 (10, 'Configuracion', 'ajustes/ajustes'),
-(11, 'Permisos', 'ajustes/permisos');
+(11, 'Permisos', 'ajustes/permisos'),
+(12, 'Kardex', 'movimientos/kardex');
 
 -- --------------------------------------------------------
 
@@ -346,7 +366,8 @@ INSERT INTO `permisos` (`id_permiso`, `menu_id`, `rol_id`, `read`, `insert`, `up
 (8, 8, 1, 1, 1, 1, 1),
 (9, 9, 1, 1, 1, 1, 1),
 (10, 10, 1, 1, 1, 1, 1),
-(11, 11, 1, 1, 1, 1, 1);
+(11, 11, 1, 1, 1, 1, 1),
+(12, 12, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -500,14 +521,14 @@ INSERT INTO `stock` (`id_stock`, `stock_actual`, `stock_inicial`, `stock_minimo`
 (10, 0, 0, 0),
 (11, 0, 0, 0),
 (12, 2, 0, 10),
-(13, 24, 0, 10),
+(13, 19, 0, 10),
 (14, 0, 0, 9),
 (15, 0, 0, 3),
 (16, 0, 0, 3),
 (17, 7, 0, 3),
 (18, 3, 0, 4),
 (19, 0, 0, 3),
-(20, 1, 0, 1),
+(20, 2, 0, 1),
 (21, 0, 0, 1);
 
 -- --------------------------------------------------------
@@ -537,20 +558,23 @@ INSERT INTO `tipo_comprobante` (`id_tipo_comprobante`, `nombre`, `cantidad`, `iv
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_entrada`
+-- Table structure for table `tipo_movimiento`
 --
 
-CREATE TABLE `tipo_entrada` (
-  `id_tipo_entrada` int(11) NOT NULL,
+CREATE TABLE `tipo_movimiento` (
+  `id_movimiento` int(2) NOT NULL,
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tipo_entrada`
+-- Dumping data for table `tipo_movimiento`
 --
 
-INSERT INTO `tipo_entrada` (`id_tipo_entrada`, `nombre`) VALUES
-(1, 'normal');
+INSERT INTO `tipo_movimiento` (`id_movimiento`, `nombre`) VALUES
+(1, 'Entrada'),
+(2, 'Salida'),
+(3, 'Devolución de compra'),
+(4, 'Devolución de entrada');
 
 -- --------------------------------------------------------
 
@@ -676,10 +700,9 @@ ALTER TABLE `entradas`
 --
 ALTER TABLE `kardex`
   ADD PRIMARY KEY (`id_kardex`),
-  ADD KEY `id_producto` (`id_producto`,`id_entrada`,`id_salida`),
-  ADD KEY `id_salida` (`id_salida`),
-  ADD KEY `id_entrada` (`id_entrada`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_movimiento` (`id_movimiento`);
 
 --
 -- Indexes for table `marcas`
@@ -749,10 +772,10 @@ ALTER TABLE `tipo_comprobante`
   ADD PRIMARY KEY (`id_tipo_comprobante`);
 
 --
--- Indexes for table `tipo_entrada`
+-- Indexes for table `tipo_movimiento`
 --
-ALTER TABLE `tipo_entrada`
-  ADD PRIMARY KEY (`id_tipo_entrada`);
+ALTER TABLE `tipo_movimiento`
+  ADD PRIMARY KEY (`id_movimiento`);
 
 --
 -- Indexes for table `tipo_salida`
@@ -798,7 +821,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT for table `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
-  MODIFY `id_detalle_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_detalle_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `detalle_salida`
 --
@@ -813,12 +836,12 @@ ALTER TABLE `detalle_venta`
 -- AUTO_INCREMENT for table `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `kardex`
 --
 ALTER TABLE `kardex`
-  MODIFY `id_kardex` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kardex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `marcas`
 --
@@ -828,12 +851,12 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `permisos`
 --
 ALTER TABLE `permisos`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `presentacion`
 --
@@ -870,10 +893,10 @@ ALTER TABLE `stock`
 ALTER TABLE `tipo_comprobante`
   MODIFY `id_tipo_comprobante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `tipo_entrada`
+-- AUTO_INCREMENT for table `tipo_movimiento`
 --
-ALTER TABLE `tipo_entrada`
-  MODIFY `id_tipo_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `tipo_movimiento`
+  MODIFY `id_movimiento` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tipo_salida`
 --
@@ -901,13 +924,6 @@ ALTER TABLE `detalle_entrada`
   ADD CONSTRAINT `detalle_entrada_ibfk_2` FOREIGN KEY (`id_entrada`) REFERENCES `entradas` (`id_entrada`);
 
 --
--- Constraints for table `detalle_salida`
---
-ALTER TABLE `detalle_salida`
-  ADD CONSTRAINT `detalle_salida_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
-  ADD CONSTRAINT `detalle_salida_ibfk_2` FOREIGN KEY (`id_salida`) REFERENCES `salidas` (`id_salida`);
-
---
 -- Constraints for table `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
@@ -915,45 +931,12 @@ ALTER TABLE `detalle_venta`
   ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
 
 --
--- Constraints for table `entradas`
---
-ALTER TABLE `entradas`
-  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`id_tipo_entrada`) REFERENCES `tipo_entrada` (`id_tipo_entrada`),
-  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `entradas_ibfk_4` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id_proveedor`);
-
---
 -- Constraints for table `kardex`
 --
 ALTER TABLE `kardex`
   ADD CONSTRAINT `kardex_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
-  ADD CONSTRAINT `kardex_ibfk_2` FOREIGN KEY (`id_salida`) REFERENCES `salidas` (`id_salida`),
-  ADD CONSTRAINT `kardex_ibfk_3` FOREIGN KEY (`id_entrada`) REFERENCES `entradas` (`id_entrada`),
-  ADD CONSTRAINT `kardex_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Constraints for table `productos`
---
-ALTER TABLE `productos`
-  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`),
-  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`id_stock`) REFERENCES `stock` (`id_stock`),
-  ADD CONSTRAINT `productos_ibfk_3` FOREIGN KEY (`id_presentacion`) REFERENCES `presentacion` (`id_presentacion`),
-  ADD CONSTRAINT `productos_ibfk_4` FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id_marca`);
-
---
--- Constraints for table `salidas`
---
-ALTER TABLE `salidas`
-  ADD CONSTRAINT `salidas_ibfk_1` FOREIGN KEY (`id_tipo_salida`) REFERENCES `tipo_salida` (`id_tipo_salida`),
-  ADD CONSTRAINT `salidas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `salidas_ibfk_3` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
-  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+  ADD CONSTRAINT `kardex_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `kardex_ibfk_5` FOREIGN KEY (`id_movimiento`) REFERENCES `tipo_movimiento` (`id_movimiento`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

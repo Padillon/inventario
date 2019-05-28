@@ -64,20 +64,6 @@ class Entradas extends CI_Controller {
 			'id_tipo_entrada' =>1 ,
 			'id_proveedor' => $idProveedor,
 		);
-		//operación para el saldo 
-		/*$dat2= array(
-			'usuario' => $idusuario,
-			'transaccion' => 2,
-			'fecha' => $fecha,
-			'monto' => $total,
-			'saldo' => $total,
-		);
-		//guardamos el registro en caja
-		if($this->Cajas_model->save($dat2)){
-			$id_caja = $this->Cajas_model->lastID();
-			$this->updateCaja($id_caja,$total,0);//se actualiza el saldo de la caja
-		}*/
-		//datos de cajas guardados-----
 
 		if ($this->Entradas_model->save($data)){
 			$idEntrada = $this->Entradas_model->lastID(); 
@@ -103,7 +89,8 @@ class Entradas extends CI_Controller {
 				
 				$kardex = array(
 					'fecha' =>$fecha , 
-					'descripcion'=> 'Entrada',
+					'id_movimiento' => 1,
+					'descripcion'=> 'Entrada de producto.',
 					'id_producto' => $productos[$i],
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$nuevoPrecio[$i],
@@ -183,6 +170,7 @@ class Entradas extends CI_Controller {
 
 			$kardex = array(
 				'fecha' =>date('Y-m-d'),
+				'id_movimiento' => 4,
 				'descripcion'=> 'Compra eliminada.',
 				'id_producto' => $entr->id_producto,
 				'cantidad' =>$entr->cantidad,
