@@ -10,6 +10,7 @@ class Ajustes extends CI_Controller {
 	} else{
 		$this->permisos = $this->backend_lib->control();
 		$this->load->model("Ajustes_model"); 
+		$this->load->library('toastr');
 	}
 		
 	}
@@ -67,13 +68,13 @@ class Ajustes extends CI_Controller {
        			 'nombre_empresa' => $nombre, 
        		 );
 
-       		$result = $this->Ajustes_model->updateUsu($id, $datos);
-       		 if($result){
-       		 	$this->Ajustes_model->updateAjus($id, $data);
+       	
+       		 if($this->Ajustes_model->updateAjus($id, $data)){
+				$this->toastr->success('Registro guardado!');
        		     redirect(base_url()."ajustes/ajustes");
        		 }else{ 
-       		     $this->session->set_flashdata("error","No se pudo actualizar la informacion");
-						redirect(base_url()."ajustes/ajustes");
+				$this->toastr->error('No se pudo completar la operación.');
+				redirect(base_url()."ajustes/ajustes");
     }
 	}
 }
