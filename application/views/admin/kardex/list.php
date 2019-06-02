@@ -94,80 +94,81 @@
         <!-- main content area end -->
          <!-- Modal para movimiento-->
 <div id='movimiento' class="modal fade bd-example-modal-lg" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
-            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-        </div>
-        <div class='modal-body'>
-            <form action="<?php echo base_url();?>movimientos/kardex/addMovimiento" id="movimiento_form"method="POST">
-                <div class='row'>  
-                    <div class="col-md-12 mt-4">
-                        <div class='input-group'>
-                            <div class="col-md-4">
-                                <label>Fecha:</label>
-                                <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
-                            </div>
-                            <div class="col-md-4">
-                                                <label for="id_movimiento">Movimientos: </label>         
-                                                <select name='id_movimiento' id='id_movimiento' class='custom-select' required>
-                                                    <?php foreach($movimientos as $mov):?>
-                                                    <?php if ($mov->id_movimiento<=4) {
-                                                        # code...
-                                                    } else{?>
-                                                    <option value='<?php echo $mov->id_movimiento;?>'><?php echo $mov->nombre;?></option>
-                                                    <?php } ?>
-                                                    <?php endforeach;?>
-                                                </select>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class='modal-body'>
+                <form action="<?php echo base_url();?>movimientos/kardex/addMovimiento" id="movimiento_form" method="POST">
+                    <div class='row'>  
+                        <div class="col-md-12 mt-4">
+                            <div class='input-group'>
+                                <div class="col-md-4">
+                                    <label>Fecha:</label>
+                                    <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="id_movimiento">Movimientos: </label>         
+                                    <select name='id_movimiento' id='id_movimiento' class='custom-select' required>
+                                        <?php foreach($movimientos as $mov):?>
+                                            <?php if ($mov->id_movimiento<=4) {
+                                                echo "<option value='<?php echo $mov->id_movimiento;?>'><?php echo $mov->nombre;?></option>";
+                                            } else{?>
+                                                <option value='<?php echo $mov->id_movimiento;?>'><?php echo $mov->nombre;?></option>
+                                            <?php } ?>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+                                <div class="col-md-12"> 
+                                    <br>
+                                </div>    
+                                <div class="col-md-12"> 
+                                    <label>Descripción del movimiento:</label>
+                                    <input name="descripcion" class="form-control" type="text" id="descripcion" require>
+                                </div>
+                                <div class="col-md-12"> 
+                                    <br>
+                                </div>  
+                                <div class="col-md-12">
+                                <label class="col-form-control">Buscar Producto:</label>
+                                    <div class="input-group">
+                                        <input name="autocompleteProducto" class="form-control" type="text" id="autocompleteProducto">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary" id="btn-agregar-abast" type="button">Agregar</button>
                                         </div>
-                                        <div class="col-md-12"> 
-                                            <br>
-                                         </div>    
-
-                            <div class="col-md-12"> 
-                                <label>Descripción del movimiento:</label>
-                                <input name="descripcion" class="form-control" type="text" id="descripcion" require>
-                            </div>
-                            <div class="col-md-12"> 
-                                            <br>
-                                         </div>  
-
-                            <div class="col-md-12">
-                            <label class="col-form-control">Buscar Producto:</label>
-                                            <div class="input-group">
-                                                <input name="autocompleteProducto" class="form-control" type="text" id="autocompleteProducto">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-primary" id="btn-agregar-abast" type="button">Agregar</button>
-                                                </div>
-                                            </div>                         
-                            </div>
-
-                            <div class="col-md-12"> 
-                                            <br>
-                            </div>
-                         <div class = "col-md-12">   
+                                    </div>                         
+                                </div>
+                                <div class="col-md-12"> 
+                                    <br>
+                                </div>
+                            <div class = "col-md-12">   
                                 <table id="tbCompras" class="table table-bordered table-striped table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Código.</th>
-                                                            <th>Nombre.</th>
-                                                            <th>Cantidad.</th>
-                                                            <th>Precio.</th>
-                                                            <th>Opciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>                               
-                                                    </tbody>
-                                                </table>                       
-                        <div class='modal-footer'>
-                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                        <button type='submite'class="btn btn-success">Aceptar</button>
-                        </div></div> </form>
-                </div>
+                                    <thead>
+                                        <tr>
+                                            <th>Código.</th>
+                                            <th>Nombre.</th>
+                                            <th>Cantidad.</th>
+                                            <th>Precio.</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                               
+                                    </tbody>
+                                </table>                       
+                                <div class='modal-footer'>
+                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                                    <button type='submite'class="btn btn-success">Aceptar</button>
+                                </div>
+                            </div> 
+                         </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-  </div>
+</div>
 </div>
 
 

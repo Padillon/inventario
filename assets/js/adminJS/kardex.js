@@ -6,7 +6,7 @@ $("#autocompleteProducto").autocomplete({
     source: function(request, response){
         //alert('ahora si');
         $.ajax({
-            url: base_url+"movimientos/entradas/getProductos",
+            url: base_url+"movimientos/kardex/getProductos",
             type: "POST",
             dataType: "json",
             data:{ autocompleteProducto: request.term},
