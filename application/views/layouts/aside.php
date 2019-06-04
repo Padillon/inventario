@@ -37,8 +37,8 @@
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Reportes</span></a>
                                 <ul class="collapse">
-                                    <li><a href="index.html">Entradas</a></li>
-                                    <li><a href="index2.html">Salidas</a></li>
+                                    <li><a href="<?php echo base_url();?>mantenimiento/registros">Registros</a></li>
+                                    <li><a href="index2.html">Movimientos</a></li>
                                 </ul>
                             </li>
                             <li>
