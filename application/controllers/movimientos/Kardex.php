@@ -21,6 +21,7 @@ class Kardex extends CI_Controller {
 			'permisos' => $this->permisos,
 			'kardex' => $this->Kardex_model->getKardex(),
 			'movimientos' => $this->Kardex_model->getTipoMovimiento(),
+			
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');

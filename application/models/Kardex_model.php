@@ -41,6 +41,7 @@ public function update($data,$id){
 				$this->db->join("productos p" , "p.id_producto = k.id_producto");
 				$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
 				$this->db->where('month(k.fecha)',date('m'));
+				$this ->db->order_by( 'id_kardex' , 'asc' );
 		if($resultado = $this->db->get()){
 			return $resultado->result();
 		}else{

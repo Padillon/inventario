@@ -2831,3 +2831,6 @@ table.dataTable thead td {
     margin-right: 100px;
 }
 /*-------------------- END Offset Sidebar ------------------- */
+ul.ui-autocomplete {
+    z-index: 1100;
+}
