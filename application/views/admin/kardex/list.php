@@ -36,6 +36,8 @@
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Movimientos.</h4>
                                 <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
+                                &nbsp;
+                                <a href  data-toggle="modal" data-target="#addKardex" class="btn btn-outline-primary mb-3 " onclick="evaluar()">Generar Kardex.</a>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -100,6 +102,7 @@
                 <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
+
             <div class='modal-body'>
                 <form action="<?php echo base_url();?>movimientos/kardex/addMovimiento" id="movimiento_form" method="POST">
                     <div class='row'>  
@@ -143,24 +146,24 @@
                                 <div class="col-md-12"> 
                                     <br>
                                 </div>
-                            <div class = "col-md-12">   
-                                <table id="tbCompras" class="table table-bordered table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Código.</th>
-                                            <th>Nombre.</th>
-                                            <th>Cantidad.</th>
-                                            <th>Precio.</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                               
-                                    </tbody>
-                                </table>                       
-                                <div class='modal-footer'>
-                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                    <button type='submite'class="btn btn-success">Aceptar</button>
-                                </div>
+                                <div class = "col-md-12">   
+                                    <table id="tbCompras" class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Código.</th>
+                                                <th>Nombre.</th>
+                                                <th>Cantidad.</th>
+                                                <th>Precio.</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                               
+                                        </tbody>
+                                    </table>                       
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                                        <button type='submite'class="btn btn-success">Aceptar</button>
+                                    </div>
                             </div> 
                          </div>
                     </div>
@@ -171,6 +174,57 @@
 </div>
 </div>
 
+ <!-- Modal para generar Kardex de un producto-->
+<div class="modal fade" class="modal fade bd-example-modal-lg" id="addKardex" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        
+            <div class="modal-header">
+                <h5 class="modal-title">Kardex</h1>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+
+            <div class="modal-body">         
+                <form action="<?php echo base_url();?>pdf/CreatePdf/pdf" id="kardex_form" method="POST"></form>           
+                    <div class="row">
+                        <div class="col-md-12 mt-4">
+                            <div class="input-group">
+                                <div class="col-md-12">
+                                        <label >Buscar Producto:</label>
+                                            <input name="autocompleteProducto2" class="form-control" type="text" id="autocompleteProducto2" onclick="evaluar()">
+                                        
+                                            <input class="btn btn-outline-primary" id="kardex_producto" name="kardex_producto" type="hidden">
+                                        
+                    
+                                </div>
+                                <div class="col-md-12"> 
+                                        <br>
+                                </div>  
+
+                                <div class="col-md-6">
+                                    <label>Fecha de inicio:</label>
+                                    <input name='fecha_inicio' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label>Fecha final:</label>
+                                    <input name='fecha_final' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                </div>
+                                <div class="col-md-12"> 
+                                        <br>
+                                </div>                 
+                                <div class="modal-footer col-md-12">
+                                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                                    <button type='submite'class="btn btn-success">Generar</button>                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>                             
+        </div>
+    </div>
+</div>
 
  <!-- Modal para asegurar la edicion-->
     <div class="modal fade" id="Modalview">

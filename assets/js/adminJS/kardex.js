@@ -1,10 +1,10 @@
+
 function movimientoModal(){
     document.getElementById("movimiento_form").reset(); 
 }
 //autocomplete para productos entrada
 $("#autocompleteProducto").autocomplete({
     source: function(request, response){
-        //alert('ahora si');
         $.ajax({
             url: base_url+"movimientos/kardex/getProductos",
             type: "POST",
@@ -26,6 +26,36 @@ $("#autocompleteProducto").autocomplete({
        $("#btn-agregar-abast").val(data); 
     },
   });
+  $("#autocompleteProducto2").autocomplete({
+    source: function(request, response){
+        $.ajax({
+            url: base_url+"movimientos/kardex/getProductos",
+            type: "POST",
+            dataType: "json",
+            data:{ autocompleteProducto: request.term},
+            success: function(data){
+                response($.map(data, function (item) {
+                    return {
+                        label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias,
+                    }
+                }))
+            },
+        });
+    }, //indica la informacion a mostrar al momento de comenzar a llenar el campo
+    minLength:2, //caracteres que activan el autocomplete
+    select: function(event, ui){
+       data = ui.item.id;
+       $("#kardex_producto").val(data); 
+    },
+  });
+
+  function evaluar(){
+   if( $("#kardex_producto").val()){
+    $("#kardex_producto").val("");
+    $("#autocompleteProducto2").val("");
+   }
+  }
 
   $("#btn-agregar-abast").on("click", function(){
     data = $(this).val();
