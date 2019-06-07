@@ -12,6 +12,7 @@ class CreatePdf extends CI_Controller {
 
     function pdf()
     {
+        $id_producto =$this->input->post()
         $this->load->helper('pdf_helper');
         /*
             ---- ---- ---- ----

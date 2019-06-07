@@ -22,6 +22,22 @@ public function update($data,$id){
 	return 0;
 }
 
+public function getKardexProducto($id,$inicio,$fin){
+	//$query="select * from kardex where between '".$inicio."' and '".$fin."' and id_producto =".$id;
+	$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento,p.nombre as producto");
+				$this->db->from("kardex k");
+				$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
+				$this->db->join("productos p" , "p.id_producto = k.id_producto");
+				$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
+//	$this->db->where("k.fecha between '".$inicio."' and '".$fin."' and id_producto =".$id);
+	$start_date=$inicio;
+	$end_date=$fin;
+	
+	$this->db->where('k.fecha BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+	$resultados = $this->db->get();
+	return $resultados->result();
+}
+
 	public function get($id){
 		$quey = "select saldo from kardex where id_producto = ".$id." order by id_kardex desc limit 1";
 	//	$this->db->where("id_producto",$id);

@@ -38,7 +38,7 @@ $("#autocompleteProducto").autocomplete({
                 response($.map(data, function (item) {
                     return {
                         label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias,
+                        id:item.id_producto,
                     }
                 }))
             },
@@ -47,26 +47,20 @@ $("#autocompleteProducto").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
-       $("#kardex_producto").val(data); 
+       $("#btn-generar-producto").val(data); 
     },
   });
-
-  function evaluar(){
-   if( $("#kardex_producto").val()){
-    $("#kardex_producto").val("");
-    $("#autocompleteProducto2").val("");
-   }
-  }
-
-  $("#btn-agregar-abast").on("click", function(){
+  $("#btn-generar-producto").on("click", function(){
     data = $(this).val();
     if (data != 0){
         infoProducto = data.split("*");
         html = "<tr>";
-        html += "<td><input type='hidden' name='id_productos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
+        html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
-        html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioCompra[]' class='precio-salida' value='"+infoProducto[2]+"'></td>"; //precios
-        html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' max='"+infoProducto[6]+"' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
+        html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='"+infoProducto[2]+"'></td>"; //precios
+        html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]' value='"+infoProducto[3]+"'> </td>";//precio salida
+        html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
+        html += "<td><input type='hidden'  name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";
         $("#tbCompras tbody").append(html);
@@ -76,6 +70,25 @@ $("#autocompleteProducto").autocomplete({
     } else {
         alert("seleccione un producto");
     }
+});
+  function evaluar(){
+   if( $("#kardex_producto").val()){
+    $("#kardex_producto").val("");
+    $("#autocompleteProducto2").val("");
+   }
+  }
+
+  $("#btn-generar-producto").on("click", function(){
+    $.ajax({
+        url: base_url+"movimientos/kardex/getKardexProducto",
+        type: "POST",
+        dataType: "json",
+        data:{"id":$("#btn-generar-producto").val(),"inicio":$("#fecha_inicio").val(),"fin":$("#fecha_final").val() },
+        success: function(data){
+             alert("si entra aqui");
+            alert("todo bien todo correcto y yo que me alegro.")
+        },
+    });
 });
 
 //eliminar articulo

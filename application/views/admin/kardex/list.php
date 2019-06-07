@@ -176,7 +176,7 @@
 
  <!-- Modal para generar Kardex de un producto-->
 <div class="modal fade" class="modal fade bd-example-modal-lg" id="addKardex" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
         
             <div class="modal-header">
@@ -204,19 +204,41 @@
 
                                 <div class="col-md-6">
                                     <label>Fecha de inicio:</label>
-                                    <input name='fecha_inicio' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                    <input name='fecha_inicio' id="fecha_inicio" type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <label>Fecha final:</label>
-                                    <input name='fecha_final' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                    <input name='fecha_final' id="fecha_final" type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                 </div>
                                 <div class="col-md-12"> 
                                         <br>
-                                </div>                 
+                                </div> 
+                                <div class="col-md-12">                  
+                                    <table id="tbCompras" class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                    <th>#</th>
+                                    <th>Fecha.</th>
+                                    <th>Usuario.</th>
+                                    <th>Transacción.</th>
+                                    <th>Descripción.</th>
+                                    <th>Producto.</th>
+                                    <th>Cantidad.</th>
+                                    <th>Precio.</th>
+                                    <th>Total.</th>
+                                    <th>Saldo.</th>
+                                    <th>Opciones.</th>
+                                </tr>
+                                            </thead>
+                                            <tbody>                               
+                                            </tbody>
+                                        </table>
+                                        </div>                      
                                 <div class="modal-footer col-md-12">
                                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                    <button type='submite'class="btn btn-success">Generar</button>                                     
+                                    <button class="btn btn-outline-primary" name="btn-generar-producto" id="btn-generar-producto" type="button">Generar</button>
+                                    <button type='submite'class="btn btn-success">Reporte</button>                                     
                                 </div>
                             </div>
                         </div>
@@ -236,7 +258,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               
+                                               <div clas="row"> </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

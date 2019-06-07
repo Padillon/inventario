@@ -28,6 +28,15 @@ class Kardex extends CI_Controller {
         $this->load->view("admin/kardex/list",$data);
         $this->load->view("layouts/footer");
 	}
+	//funcion para mandar a traer los movimiento de un producto en concreto
+	public function getKardexProducto(){
+		$id = $this->input->post("id");
+		$inicio = $this->input->post("fecha_inicio");
+		$final = $this->input->post("fecha_final");
+
+		$producto = $this->Kardex_model->getKardexProducto($id,$inicio,$final);
+		echo json_encode($producto);
+    }
 
 	public function getProductos(){
         $valor = $this->input->post("autocompleteProducto");
