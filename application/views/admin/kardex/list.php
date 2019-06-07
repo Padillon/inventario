@@ -146,8 +146,9 @@
                                 <div class="col-md-12"> 
                                     <br>
                                 </div>
-                                <div class = "col-md-12">   
-                                    <table id="tbCompras" class="table table-bordered table-striped table-hover">
+                                <div class = "table-responsive-sm col-md-12"> 
+                                
+                                    <table id="tbCompras" class="table">
                                         <thead>
                                             <tr>
                                                 <th>Código.</th>
