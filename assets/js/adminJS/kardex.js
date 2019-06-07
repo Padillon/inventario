@@ -2,6 +2,7 @@
 function movimientoModal(){
     document.getElementById("movimiento_form").reset(); 
 }
+
 //autocomplete para productos entrada
 $("#autocompleteProducto").autocomplete({
     source: function(request, response){

@@ -185,7 +185,8 @@
             </div>
 
             <div class="modal-body">         
-                <form action="<?php echo base_url();?>pdf/CreatePdf/pdf" id="kardex_form" method="POST"></form>           
+                <form action="<?php echo base_url();?>pdf/CreatePdf/pdf" id="kardex_form" method="POST">
+                          
                     <div class="row">
                         <div class="col-md-12 mt-4">
                             <div class="input-group">
