@@ -11,11 +11,13 @@ class Kardex_model extends CI_Model {
 		$resultado = $this->db->get('kardex');
 		return $resultado->result();
 	}
+
 	public function get_venta($id){
 		$this->db->where('id_salida',$id);
 		$resultado = $this->db->get('kardex');
 		return $resultado->result();
 	}
+
 public function update($data,$id){
 	$this->db->where('id_entrada',$id);
 	$this->db->update('kardex',$data);
@@ -78,13 +80,20 @@ public function getKardexProducto($id,$inicio,$fin){
       return $resultados->result_array();
     }
 
-		public function  getTipoMovimiento(){
-			$resultados = $this->db->get("tipo_movimiento");
-			return $resultados->result();
-		}
+	public function  getTipoMovimiento(){
+		$resultados = $this->db->get("tipo_movimiento");
+		return $resultados->result();
+	}
 
-		public function save($data){
+	public function save($data){
       return $this->db->insert("kardex", $data);
-    }
+	}
+
+	public function getTipoTransaccion($id){
+		$this->db->select("tipo_transaccion");
+		$this->db->where("id_movimiento",$id);
+		$resultado = $this->db->get("tipo_movimiento");
+		return $resultado->row();
+	}
 
 }

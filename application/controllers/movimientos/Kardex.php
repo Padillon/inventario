@@ -50,14 +50,21 @@ class Kardex extends CI_Controller {
 		$descripcion = $this->input->post("descripcion");
 		$id_productos = $this->input->post("id_productos");
 		$cantidades = $this->input->post("cantidades");
+		$cantidades2 = $this->input->post("cantidades2");
 		$precioCompra =	 $this->input->post("precioCompra");
+		if ($cantidades2 != "0"){
+			$cantidades2 = $cantidades;
+		}else {
+			$cantidades = $cantidades;
+		}
 
+		$tipoTransaccion = $this->Kardex_model->getTipoTransaccion($id_movimiento);
 
 		for ($i=0; $i < count($id_productos); $i++) { 
-			# code...
 			$saldo = $this->Kardex_model->get($id_productos[$i]);
 			//condicones para saber que accion tomar en el saldo
-			if ($id_movimiento==7) {
+			if ($tipoTransaccion=='1') { // tipo entrada, entonces suma
+				$nuevoValor = $saldo->saldo + ($cantidades[$i]* $precioCompra[$i]);
 				$data = array(
 					'id_movimiento' => $id_movimiento,
 					'fecha' => $fecha,
@@ -66,16 +73,18 @@ class Kardex extends CI_Controller {
 					'cantidad' => $cantidades[$i],
 					'precio' => $precioCompra[$i],
 					'total' => $cantidades[$i]* $precioCompra[$i],
-					'saldo' => $saldo->saldo -  ($cantidades[$i]* $precioCompra[$i]),
+					'saldo' => $nuevoValor,
 					'id_usuario' => $this->session->userdata('id'),
 				); 
 				//actualizamos el stock
 				$stock = $this->Productos_model->getStock( $id_productos[$i]);
 				$data2 = array(
-				'stock_actual' => $stock->stock_actual - $cantidades[$i],
+				'stock_actual' => $stock->stock_actual + $cantidades[$i],
 				);
 				$this->Productos_model->updateStock( $id_productos[$i], $data2);
-			}elseif($id_movimiento==6){
+
+			}else if($tipoTransaccion=='2'){ //tipo salida, entonces resta 
+				$nuevoValor = $saldo->saldo - ($cantidades[$i]* $precioCompra[$i]);
 				$data = array(
 					'id_movimiento' => $id_movimiento,
 					'fecha' => $fecha,
@@ -84,31 +93,29 @@ class Kardex extends CI_Controller {
 					'cantidad' => $cantidades[$i],
 					'precio' => $precioCompra[$i],
 					'total' => $cantidades[$i]* $precioCompra[$i],
-					'saldo' => $saldo->saldo +  ($cantidades[$i]* $precioCompra[$i]),
+					'saldo' => $nuevoValor,
 					'id_usuario' => $this->session->userdata('id'),
 				);
 				//actualizamos el stock
 				$stock = $this->Productos_model->getStock( $id_productos[$i]);
 				$data2 = array(
-				'stock_actual' => $stock->stock_actual + $cantidades[$i],
+				'stock_actual' => $stock->stock_actual - $cantidades[$i],
 				);
 				$this->Productos_model->updateStock( $id_productos[$i], $data2); 
+			}else{
+				$data = array(
+					'id_movimiento' => $id_movimiento,
+					'fecha' => $fecha,
+					'descripcion' => $descripcion,
+					'id_producto' => $id_productos[$i],
+					'cantidad' => $cantidades[$i],
+					'precio' => $precioCompra[$i],
+					'id_usuario' => $this->session->userdata('id'),
+				);
 			}		
-			else{
-			$data = array(
-				'id_movimiento' => $id_movimiento,
-				'fecha' => $fecha,
-				'descripcion' => $descripcion,
-				'id_producto' => $id_productos[$i],
-				'cantidad' => $cantidades[$i],
-				'precio' => $precioCompra[$i],
-				'id_usuario' => $this->session->userdata('id'),
-			); }
-
+			
 			$this->Kardex_model->save($data);
 		}
 		redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas
-			
-
 	}
 }

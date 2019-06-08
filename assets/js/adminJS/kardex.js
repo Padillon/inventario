@@ -57,7 +57,11 @@ $("#autocompleteProducto").autocomplete({
         html = "<tr>";
         html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
-        html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' max='"+infoProducto[6]+"' min='1' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
+        if(infoProducto[6] == '0'){
+            html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades2[]' values='0' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
+        } else{
+            html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' max='"+infoProducto[6]+"' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
+        }
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='"+infoProducto[2]+"'></td>"; //precios    
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";

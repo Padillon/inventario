@@ -27,12 +27,9 @@ class Salidas extends CI_Controller {
 	}
 	
 	public function add(){
-		$data = array(
-			'comprobante' => $this->Salidas_model->getComprobantes(),
-		);
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
-        $this->load->view("admin/salidas/add",$data);
+        $this->load->view("admin/salidas/add");
         $this->load->view("layouts/footer");
     }
 
@@ -64,7 +61,7 @@ class Salidas extends CI_Controller {
 			'fecha' => $fecha,
 			'total' => $total,
 			'descripcion' => $descripcion,
-			'id_tipo_salida' =>1 ,
+			'id_movimiento' =>2,
 		);
 
 		if ($this->Salidas_model->save($data)){
@@ -156,7 +153,7 @@ class Salidas extends CI_Controller {
 
 			$kardex = array(
 				'fecha' =>date('Y-m-d'),
-				'id_movimiento' => 3,
+				'id_movimiento' => 4,
 				'descripcion'=> 'Venta anulada.',
 				'id_producto' => $sa->id_producto,
 				'cantidad' =>$sa->cantidad,
@@ -172,8 +169,9 @@ class Salidas extends CI_Controller {
 		foreach( $detalle as $det ):
 			$productoActual = $this->Productos_model->get($det->id_producto);
 			$stock = $this->Productos_model->getStock($productoActual->id_stock);
+			$nuevoValor = $stock->stock_actual + $det->cantidad;
 			$data2 = array(
-				'stock_actual' => $stock->stock_actual - $det->cantidad,
+				'stock_actual' => $nuevoValor,
 			);
 			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 		endforeach;

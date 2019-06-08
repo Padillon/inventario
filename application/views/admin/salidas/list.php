@@ -17,7 +17,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Salidas</h4>
+                            <h4 class="page-title pull-left">Ventas</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
                                 <li><span>Movimientos</span></li>
@@ -34,7 +34,7 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Salidas</h4>
+                                <h4 class="header-title">Lista - Ventas</h4>
                                 <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">

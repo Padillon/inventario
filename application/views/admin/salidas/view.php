@@ -1,7 +1,7 @@
 
 <div class="row">
 	<div class="col-xs-12 text-center">
-		<b>Compra</b><br>
+		<b>Venta</b><br>
 	</div>
 </div> <br>
 <div class="row">
@@ -10,7 +10,7 @@
 		<b>ID compra:</b> <?php echo $salida->id_salida;?> <br>
 		<b>Fecha:</b> <?php echo $salida->fecha;?> <br>
 		<b>Encargado:</b> <?php echo $salida->usuario;?> <br>
-		<b>Cliente:</b> <?php echo $salida->nombre + " " + $salida->apellido;?> <br>
+		<b>Cliente:</b> <?php echo $salida->nombre." ".$salida->apellido?> <br>
 	</div>	
 </div>
 <br>

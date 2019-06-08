@@ -61,7 +61,7 @@ class Entradas extends CI_Controller {
 			'fecha' => $fecha,
 			'total' => $total,
 			'id_usuario' => $idusuario,
-			'id_tipo_entrada' =>1 ,
+			'id_movimiento' =>1,
 			'id_proveedor' => $idProveedor,
 		);
 
@@ -90,7 +90,7 @@ class Entradas extends CI_Controller {
 				$kardex = array(
 					'fecha' =>$fecha , 
 					'id_movimiento' => 1,
-					'descripcion'=> 'Entrada de producto.',
+					'descripcion'=> 'Compra de producto.',
 					'id_producto' => $productos[$i],
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$nuevoPrecio[$i],
@@ -170,8 +170,8 @@ class Entradas extends CI_Controller {
 
 			$kardex = array(
 				'fecha' =>date('Y-m-d'),
-				'id_movimiento' => 4,
-				'descripcion'=> 'Compra eliminada.',
+				'id_movimiento' => 3,
+				'descripcion'=> 'Compra anulada.',
 				'id_producto' => $entr->id_producto,
 				'cantidad' =>$entr->cantidad,
 				'precio' =>$entr->precio,
@@ -187,8 +187,10 @@ class Entradas extends CI_Controller {
 		foreach( $detalle as $det ):
 			$productoActual = $this->Productos_model->get($det->id_producto);
 			$stock = $this->Productos_model->getStock($productoActual->id_stock);
+			$nuevoValor = $stock->stock_actual - $det->cantidad;
+			print_r($nuevoValor);
 			$data2 = array(
-				'stock_actual' => $stock->stock_actual - $det->cantidad,
+				'stock_actual' => $nuevoValor,
 			);
 			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 		endforeach;
