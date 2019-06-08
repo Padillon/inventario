@@ -31,7 +31,7 @@ class Productos_model extends CI_Model {
 	}
 
 	public function getProductos(){
-		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, pre.nombre as presentacion");
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion");
 		$this->db->from("productos p");
 		$this->db->join("marcas m", "p.id_marca = m.id_marca");
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");

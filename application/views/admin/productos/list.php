@@ -101,7 +101,7 @@ if ($permisos->insert == 1) {
                                                 </button>
                                                 <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
                                                 $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
-                                                .$pro->marca; ?> 
+                                                .$pro->marca."*".$pro->stock_actual; ?> 
                                                 <?php if($pro->estado == 1){?>
                                                     <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
@@ -182,7 +182,11 @@ if ($permisos->insert == 1) {
                     <label for="create_stock_min">Stock mínimo:</label>
                     <input id="viewStock" type='text'class='form-control' disabled>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-2">
+                    <label for="create_stock_act">Stock actual:</label>
+                    <input id="viewStock_actual" type='text'class='form-control' disabled>
+                </div>
+                <div class="col-md-4">
                     <br>
                     <label for="create_descripcion">Descripción:</label>
                     <input id="viewDescripcion" type='text' class='form-control' disabled>

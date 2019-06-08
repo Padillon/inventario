@@ -27,6 +27,7 @@ function viewProducto(num){
     $("#viewNombre").val(datos[1]);
     $("#viewDescripcion").val(datos[6]);
     $("#viewStock").val(datos[5]);
+    $("#viewStock_actual").val(datos[14]);
     $("#viewCompra").val("$ "+datos[7]);
     $("#viewVenta").val("$ "+datos[8]);
     $("#viewPresentacion").val(datos[11]);
