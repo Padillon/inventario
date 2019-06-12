@@ -61,7 +61,6 @@ class Salidas extends CI_Controller {
 			'fecha' => $fecha,
 			'total' => $total,
 			'descripcion' => $descripcion,
-			'id_movimiento' =>2,
 		);
 
 		if ($this->Salidas_model->save($data)){
