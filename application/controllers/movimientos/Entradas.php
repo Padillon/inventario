@@ -61,7 +61,6 @@ class Entradas extends CI_Controller {
 			'fecha' => $fecha,
 			'total' => $total,
 			'id_usuario' => $idusuario,
-			'id_movimiento' =>1,
 			'id_proveedor' => $idProveedor,
 		);
 

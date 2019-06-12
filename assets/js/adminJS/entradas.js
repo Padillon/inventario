@@ -90,25 +90,10 @@ $(document).on("input", "#tbCompras input.cantidades", function(){
     $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
     sumarReabastecimiento();
 });
-//funcion para sumar el costo total
-function sumarReabastecimiento(){
-    total = 0;
-    $("#tbCompras tbody tr").each(function(){
-
-        total = total +  Number($(this).find("td:eq(5)").text());
-    });
-    total2 = parseFloat(total).toFixed(2);
-    $("#total").val(total2);
-    document.getElementById("sub_total").innerHTML=total.toFixed(2);
-    document.getElementById("total_sub").innerHTML=total.toFixed(2);
-    
-}
 //eliminar articulo
 $(document).on("click", ".btn-remove-producto", function(){
-    $(this).closest("tr").remove();
-    contador = contador - 1;
-    f=0;
-    sumar();
+   $(this).closest("tr").remove();
+    sumarReabastecimiento();
 });
 //anular compra
 $(document).on('click', '.eliminar_data', function(){   
@@ -128,3 +113,17 @@ $(document).on("click", ".btn-view-entrada", function(){
         }
     });
 });
+
+//funcion para sumar el costo total
+function sumarReabastecimiento(){
+    total = 0;
+    $("#tbCompras tbody tr").each(function(){
+
+        total = total +  Number($(this).find("td:eq(5)").text());
+    });
+    total2 = parseFloat(total).toFixed(2);
+    $("#total").val(total2);
+    document.getElementById("sub_total").innerHTML=total.toFixed(2);
+    document.getElementById("total_sub").innerHTML=total.toFixed(2);
+    
+}
