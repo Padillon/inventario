@@ -72,20 +72,4 @@ class Categorias extends CI_Controller {
             redirect(base_url()."mantenimiento/categorias");
         }
     }
-
-    public function active(){
-        $id = $this->input->post("idCategoriaActive");
-        $data = array(
-            'estado' =>1, 
-        );
-        if ($this->Categorias_model->update($id, $data)) {
-            $this->toastr->success('Registro activado!');
-            redirect(base_url()."mantenimiento/categorias");
-            
-        }
-        else{
-            $this->toastr->error('No se pudo completar la operación.');
-            redirect(base_url()."mantenimiento/categorias");
-        }
-    }
 }

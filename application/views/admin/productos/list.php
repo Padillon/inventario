@@ -106,12 +106,8 @@ if ($permisos->insert == 1) {
                                                     <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
                                                     </button>
-                                                    <button id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
+                                                    <button id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
-                                                    </button>
-                                                <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" <?php echo $habilitado_delete ?>  type="button" class="btn btn-success btn-active" data-toggle="modal" data-target="#active" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>
                                                 </div>
@@ -229,8 +225,9 @@ if ($permisos->insert == 1) {
     </div>
   </div>
 </div>
-      <!-- Modal active-->
-     <div class="modal fade" id="active">
+
+ <!-- Modal delete-->
+ <div class="modal fade" id="delete">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -238,14 +235,14 @@ if ($permisos->insert == 1) {
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form action="<?php echo base_url();?>mantenimiento/productos/active" method="POST">
+                                               <form action="<?php echo base_url();?>mantenimiento/productos/delete" method="POST">
                                                <h4 id="titulo"></H4>
-                                               <input id="id-pro-active" name="id-pro-active" type="hidden" class="form-control" >
-                                               <input id="estado-pro-active" name="estado-pro-active" type="hidden" class="form-control" >
+                                               <input id="id-pro-delete" name="id-pro-delete" type="hidden" class="form-control" >
+                                               <input id="estado-pro-delete" name="estado-pro-delete" type="hidden" class="form-control" >
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="g-active" name="g-active"class="btn btn-primary">Aceptar</button>
+                                                <button type="submit" id="g-delete" name="g-delete" class="btn btn-primary">Aceptar</button>
                                            </form> </div>
                                         </div>
                                     </div>

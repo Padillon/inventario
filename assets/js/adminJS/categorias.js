@@ -13,10 +13,3 @@ function deleteCategoria(num){ //carga datos del modal borrar Categoria
     $("#nombre").val(datos[1]);
 };
 
-function activeCategoria(num){ //carga datos del modal activar Categoria
-    valores = $("#active"+num).val();
-    datos = valores.split("*");
-    $("#idCategoriaActive").val(datos[0]); 
-    $("#nombreActive").val(datos[1]);
-};
-

@@ -136,18 +136,12 @@ class Productos extends CI_Controller {
         $this->load->view("layouts/footer");
     }
 
-    public function active(){
-        $id_producto= $this->input->post('id-pro-active');
-        $estado_producto= $this->input->post('estado-pro-active');
-        if ($estado_producto!=0) {
+    public function delete(){
+        $id_producto= $this->input->post('id-pro-delete');
+        $estado_producto= $this->input->post('estado-pro-delete');
             $data = array(
                 'estado' =>0, 
             );
-        }else{
-            $data = array(
-                'estado' =>1, 
-            );
-        }
         if ($this->Productos_model->update($id_producto, $data)) {
             $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/productos");

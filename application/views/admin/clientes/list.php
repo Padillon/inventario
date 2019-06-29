@@ -111,10 +111,6 @@ if ($permisos->update == 1){
                                                     <button id="delete<?php echo $cont; ?>" onclick="deleteCliente(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
-                                                <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCliente(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-check" style="color: #fff"></span>
-                                                    </button>
                                                 <?php }?>
                                                 </div>
                                             </td>
@@ -244,31 +240,6 @@ if ($permisos->update == 1){
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                     <button type='submit' id="btnDelete" class='btn btn-danger'>Eliminar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
-
-    <!-- Modal Active-->
-    <div class="modal fade" id="modalActive">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form method="POST" action="<?php echo base_url();?>mantenimiento/clientes/active">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Activar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <input name='idClienteActive' id='idClienteActive' type='hidden' class='form-control'>
-                    <div class='form-group'><label>Nombre:</label>
-                        <input name='nombreActive' id='nombreActive' type='text' class='form-control' ></div>
-                    <div class='form-group'><label>Apellidos: </label>
-                        <input name='apellidoActive' id='apellidoActive' type='text' class='form-control' ></div>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='submit' id="btnActive" class='btn btn-success'>Activar</button>
                 </div>
             </form>
         </div>

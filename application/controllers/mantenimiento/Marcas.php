@@ -81,23 +81,4 @@ class Marcas extends CI_Controller {
         $this->load->view("admin/marcas/list",$data);
         $this->load->view("layouts/footer");
     }
-
-    public function active(){
-        $id = $this->input->post("id_marca_active");
-        $data = array(
-            'estado' =>1, 
-        );
-        if ($this->Marcas_model->update($id, $data)) {
-            $this->toastr->success('Registro activado!');
-            redirect(base_url()."mantenimiento/marcas");
-        }
-        else{
-            $this->toastr->error('No se pudo completar la operación.');
-            redirect(base_url()."mantenimiento/marcas");
-        }
-        $this->load->view("layouts/header");
-        $this->load->view('layouts/aside');
-        $this->load->view("admin/marcas/list",$data);
-        $this->load->view("layouts/footer");
-    }
 }

@@ -97,20 +97,6 @@ if ($permisos->insert == 1) {
                                                     </button>                  
                                                 </div>
                                             </td>
-                                            <?php } else{?>
-                                                <td>
-                                                    <span class="badge badge-danger">Inactivo</span>
-                                                </td>
-                                                <td>
-                                                <div class="btn-group">
-                                                    <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" <?php echo $habilitado_update ?> type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
-                                                        <span span class="fa fa-pencil" style="color: #fff"></span>
-                                                    </button>                           
-                                                    <button id="activepresentacion<?php echo $cont; ?>" onclick="presentacionActive(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-success btn-remove" data-toggle="modal" data-target="#activepresentacion" value="<?php echo $presentacionData;?>" >
-                                                    <span class="fa fa-check" style="color: #fff"></span>
-                                                    </button>                  
-                                                </div>
-                                            </td>
                                             <?php } ?>
                                         </tr>
                                         
@@ -171,28 +157,6 @@ if ($permisos->insert == 1) {
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary">Eliminar</button>
-                                           </form> </div>
-                                        </div>
-                                    </div>
-                                </div>
-        
-<!-- Modal active-->
-<div class="modal fade" id="activepresentacion">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Activar</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                               <form action="<?php echo base_url();?>mantenimiento/presentaciones/active" method="POST">
-                                               <h4>Está seguro de activar la presentacion?</H4>
-                                               <input id="id_presentacion_active" name="id_presentacion_active" type="hidden" class="form-control" >
-                                               
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-success">Activar</button>
                                            </form> </div>
                                         </div>
                                     </div>
