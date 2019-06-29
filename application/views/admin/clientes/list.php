@@ -261,10 +261,6 @@ if ($permisos->update == 1){
                 </div>
                 <div class='modal-body'>
                     <input name='idClienteActive' id='idClienteActive' type='hidden' class='form-control'>
-                    <div class='form-group'><label>Nombre:</label>
-                        <input name='nombreActive' id='nombreActive' type='text' class='form-control' ></div>
-                    <div class='form-group'><label>Apellidos: </label>
-                        <input name='apellidoActive' id='apellidoActive' type='text' class='form-control' ></div>
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
