@@ -1,4 +1,3 @@
-
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -110,10 +109,6 @@ if ($permisos->update == 1){
                                                 <?php if($cli->estado == 1){?>
                                                     <button id="delete<?php echo $cont; ?>" onclick="deleteCliente(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
-                                                    </button>
-                                                <?php }else{?>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCliente(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-check" style="color: #fff"></span>
                                                     </button>
                                                 <?php }?>
                                                 </div>
@@ -249,6 +244,7 @@ if ($permisos->update == 1){
         </div>
      </div>
     </div>
+
 
     <!-- Modal Active-->
     <div class="modal fade" id="modalActive">

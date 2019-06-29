@@ -43,12 +43,5 @@ function deleteCliente(num){
     $("#apellidoDelete").val(datos[2]);
 };
 
-function activeCliente(num){
-    valores = $("#active"+num).val();
-    datos = valores.split("*");
-    $("#idClienteActive").val(datos[0]);
-    $("#nombreActive").val(datos[1]);
-    $("#apellidoActive").val(datos[2]);
-};
 
 

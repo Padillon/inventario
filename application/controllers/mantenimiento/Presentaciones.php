@@ -72,19 +72,4 @@ class Presentaciones extends CI_Controller {
             redirect(base_url()."mantenimiento/presentaciones");
         }
     }
-
-    public function active(){
-        $id = $this->input->post("id_presentacion_active");
-        $data = array(
-            'estado' =>1, 
-        );
-        if ($this->Presentacion_model->update($id, $data)) {
-            $this->toastr->success('Registro guardado!');
-            redirect(base_url()."mantenimiento/presentaciones");
-        }
-        else{
-            $this->toastr->error('No se pudo completar la operación.');
-            redirect(base_url()."mantenimiento/presentaciones");
-        }
-    }
 }

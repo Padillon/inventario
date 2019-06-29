@@ -34,11 +34,4 @@ function deleteProveedor(num){
     $("#empresaDelete").val(datos[2]);
 };
 
-function activeProveedor(num){
-    valores = $("#active"+num).val();
-    datos = valores.split("*");
-    $("#idProveedorActive").val(datos[0]);
-    $("#nombreActive").val(datos[1]);
-    $("#empresaActive").val(datos[2]);
-};
 

@@ -69,23 +69,17 @@ $(document).ready(function(){
     });
 });
 
-$(document).on('click','.btn-active',function(){
+$(document).on('click','.btn-delete',function(){
     var id = $(this).attr("id");
     var data= $(this).attr("value");
     var data2 = data.split('*');
     if (data2[2]==1) {
         document.getElementById("ti-cabeza").innerHTML="Eliminar";
-        document.getElementById("g-active").innerHTML="Eliminar";
+        document.getElementById("g-delete").innerHTML="Eliminar";
         document.getElementById("titulo").innerHTML = "Está seguro de eliminar el producto?";
-        document.getElementById("id-pro-active").value=data2[0];
-        document.getElementById("estado-pro-active").value=data2[2];
-    }else{
-        document.getElementById("ti-cabeza").innerHTML="Activar";
-        document.getElementById("g-active").innerHTML="Activar";
-        document.getElementById("titulo").innerHTML = "Desea activar el producto?";
-        document.getElementById("id-pro-active").value=data2[0];
-        document.getElementById("estado-pro-active").value=data2[2];
-    }        
+        document.getElementById("id-pro-delete").value=data2[0];
+        document.getElementById("estado-pro-delete").value=data2[2];
+    }  
 });
 
 $(document).on('click', '.edit_data', function(){   

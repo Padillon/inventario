@@ -11,12 +11,6 @@ function marcaDelete($num){
     document.getElementById("nombre_marca_update").value= data[1];
     }
 
-    function marcaActive($num){
-        var marc = $("#activeMarca"+$num).val();
-        var data = marc.split('*');
-        document.getElementById("id_marca_active").value= parseInt(data[0]);
-        }
-
 $("#form1").validate({
     rules:{
         name: "required",

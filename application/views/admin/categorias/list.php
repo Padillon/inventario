@@ -72,20 +72,6 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                                <?php } else {?>
-                                                    <td>
-                                                    <span class="badge badge-danger">Inactivo</span>
-                                                    </td>
-                                                    <td>
-                                                    <div class="btn-group">
-                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
-                                                        <span span class="fa fa-pencil" style="color: #fff"></span>
-                                                    </button>
-                                                    <button id="active<?php echo $cont; ?>" onclick="activeCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalActive" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-check" style="color: #fff"></span>
-                                                        </button>
-                                                    </div>
-                                                </td>
                                                 
                                             </tr>
                                             <?php }; ?>
@@ -169,29 +155,6 @@
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                     <button type='submit' class='btn btn-danger' id="btnDelete">Borrar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
-    
-<!-- Modal Active-->
-<div class="modal fade" id="modalActive">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" action="<?php echo base_url();?>mantenimiento/categorias/active" method="POST">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Activar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='nombreActive' id='nombreActive' type='text' class='form-control'>
-                    <input name='idCategoriaActive' id='idCategoriaActive' type='hidden' class='form-control'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='submit' class='btn btn-primary' id="btnActive">Guardar</button>
                 </div>
             </form>
         </div>

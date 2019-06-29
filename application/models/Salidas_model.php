@@ -27,7 +27,7 @@ class Salidas_model extends CI_Model {
       //$this->db->join("marcas m","p.id_marca = m.id_marca");
       $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
      // $this->db->join("proveedores pr","p.id_proveedor = pr.id_proveedor");
-      $this->db->where("p.estado","1");
+      $this->db->where("p.estado",1);
       $this->db->like("p.nombre", $valor);
       $this->db->or_like("p.codigo", $valor);
       $resultados = $this->db->get();
