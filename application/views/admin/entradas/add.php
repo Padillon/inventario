@@ -33,7 +33,7 @@
                         <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" method='POST'  >
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
@@ -41,7 +41,7 @@
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
-                                            <input name='valorProveedor' required id='autocompleteProveedor' type='text' class='form-control' >
+                                            <input name='valorProveedor' required id='autocompleteProveedor' require type='text' class='form-control' >
                                             <input type="hidden" id="idProveedor" name="idProveedor" >
                                             <input  step='0.01' type="hidden" pattern='^\d*(\.\d{0,2})?$' id="total" name="total" value="0">
                                         </div>                        
@@ -74,7 +74,7 @@
 
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <button type="submit" disabled="false" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
+                                                <button type="button" onclick="validarFormulario()" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -87,14 +87,11 @@
                                 <div class="card-body">
                                     <div class="form-control">
                                         <table id="tbTotal" class="table">
-                                            <tr>
+                                          <!--  <tr>
                                              <td>SUBTOTAL:</td>
                                              <td id="sub_total" >$</td>
-                                             </tr>
-                                             <tr>
-                                             <td>IVA:</td>
-                                             <td id="iva">$</td>
-                                             </tr>
+                                             </tr> -->
+
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
                                              <td id="total_sub" class="alert alert-success">$</td>

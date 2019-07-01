@@ -1,3 +1,4 @@
+
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -245,7 +246,7 @@ if ($permisos->update == 1){
      </div>
     </div>
 
-
+<<<<<<< HEAD
     <!-- Modal Active-->
     <div class="modal fade" id="modalActive">
      <div class="modal-dialog modal-dialog-centered" role="document">
@@ -267,5 +268,7 @@ if ($permisos->update == 1){
      </div>
     </div>
 
+=======
+>>>>>>> e63a4a0bb20fc8add0250153b8efde246f555da6
     <script src="<?php echo base_url();?>assets/js/adminJS/clientes.js"></script>
 

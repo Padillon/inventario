@@ -1,4 +1,19 @@
+//Validar formulario
+function validarFormulario(){
+    total = 0;
+    $("#tbCompras tbody tr").each(function(){
+
+        total = total +  Number($(this).find("td:eq(5)").text());
+    });
+    if ($("#idProveedor").val() != "" & total != 0) {
+        document.getElementById("FormCompra").submit(); s
+    }else{
+        alert("¡Ingrese los dato necesarios!");
+    }
+}
+
 //Autocomplete proveedores
+var estado= 0;
 $("#autocompleteProveedor").autocomplete({
   source: function(request, response){
       $.ajax({
@@ -26,7 +41,6 @@ $("#autocompleteProveedor").autocomplete({
 //autocomplete para productos entrada
 $("#autocompleteProducto").autocomplete({
   source: function(request, response){
-      //alert('ahora si');
       $.ajax({
           url: base_url+"movimientos/entradas/getProductos",
           type: "POST",
@@ -45,9 +59,27 @@ $("#autocompleteProducto").autocomplete({
   minLength:2, //caracteres que activan el autocomplete
   select: function(event, ui){
      data = ui.item.id;
+     estado =1;
      $("#btn-agregar-abast").val(data); 
   },
 });
+//borrar el producto si ya ha sido seleccionado alguno
+$(document).ready(function(){
+	$("#autocompleteProducto").keydown(function(event){
+        if (event.which==8) {
+            $("#autocompleteProducto").val("");
+            $("#btn-agregar-abast").val("");
+            estado = 0;
+        }
+        if (event.which==13 & estado==1) {
+            document.getElementById("btn-agregar-abast").click();     
+            estado = 0;
+        }
+        //alert( String.fromCharCode(event.which) + " es: " + event.which);
+
+	}); 
+});
+
 //funcion para agregar el producto a comprar.
 $("#btn-agregar-abast").on("click", function(){
     data = $(this).val();
@@ -65,7 +97,6 @@ $("#btn-agregar-abast").on("click", function(){
         $("#tbCompras tbody").append(html);
         $('#btn-agregar-abast').val('');
         $('#autocompleteProducto').val(null);
-        $('#procesar').prop('disabled',false);
     } else {
         alert("seleccione un producto");
     }
@@ -123,7 +154,6 @@ function sumarReabastecimiento(){
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
-    document.getElementById("sub_total").innerHTML=total.toFixed(2);
     document.getElementById("total_sub").innerHTML=total.toFixed(2);
     
 }

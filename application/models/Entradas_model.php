@@ -104,7 +104,7 @@ class Entradas_model extends CI_Model {
             $this->db->from("detalle_entrada d");
             $this->db->join("productos p", "d.id_producto = p.id_producto");
             $this->db->where("d.id_entrada", $id);
-		  $resultados = $this->db->get();
-		  return $resultados->result();
+		      $resultados = $this->db->get();
+		      return $resultados->result();
     }
 }

@@ -1,12 +1,40 @@
+//Validar formulario
+function validarFormulario(){
+    total2 = 0;
+    $("#tbCompras tbody tr").each(function(){
+
+        total2 = total +  Number($(this).find("td:eq(5)").text());
+    });
+    if (total2 != 0) {
+        document.getElementById("FormSalida").submit(); s
+    }else{
+        alert("¡Ingrese los dato necesarios!");
+    }
+}
+var estado= 0;
+//borrar el producto si ya ha sido seleccionado alguno
+$(document).ready(function(){
+	$("#autocompleteProducto").keydown(function(event){
+        if (event.which==8) {
+            $("#autocompleteProducto").val("");
+            $("#btn-agregar-abast").val("");
+            estado = 0;
+        }
+        if (event.which==13 & estado==1) {
+            document.getElementById("btn-agregar-abast").click();     
+            estado = 0;
+        }
+        //alert( String.fromCharCode(event.which) + " es: " + event.which);
+
+	}); 
+});
 //numero de serie correlativo *************************************************************
 //serie_numero();
 function serie_numero(){
    //var x = document.getElementById("mySelect").value;
     var valor = document.getElementById('create_comprobante').value;
     alert(valor);
-
     var valores = valor.split('*');
-
     $('#serie').val(Number(valores[1])+1);
     $('#numero').val(Number(valores[2])+1);
     $('#id_conprobante').val(Number(valores[0]));
@@ -35,6 +63,7 @@ $("#autocompleteProducto").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
+       estado =1;
        $("#btn-agregar-abast").val(data); 
     },
   });
@@ -56,7 +85,6 @@ $("#btn-agregar-abast").on("click", function(){
         $("#tbCompras tbody").append(html);
         $('#btn-agregar-abast').val('');
         $('#autocompleteProducto').val(null);
-        $('#procesar').prop('disabled',false);
     } else {
         alert("seleccione un producto");
     }
@@ -140,7 +168,6 @@ function sumarReabastecimiento(){
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
-    document.getElementById("sub_total").innerHTML=total.toFixed(2);
     document.getElementById("total_sub").innerHTML=total.toFixed(2);
     
 }

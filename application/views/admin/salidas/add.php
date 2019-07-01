@@ -33,7 +33,7 @@
                         <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/salidas/store" method='POST'  >
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/salidas/store" id="FormSalida" method='POST'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
@@ -82,7 +82,7 @@
 
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <button type="submit" disabled="false" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
+                                                <button type="button" onclick="validarFormulario()" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -95,14 +95,10 @@
                                 <div class="card-body">
                                     <div class="form-control">
                                         <table id="tbTotal" class="table">
-                                            <tr>
+                                           <!--  <tr>
                                              <td>SUBTOTAL:</td>
                                              <td id="sub_total" >$</td>
-                                             </tr>
-                                             <tr>
-                                             <td>IVA:</td>
-                                             <td id="iva">$</td>
-                                             </tr>
+                                             </tr>-->
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
                                              <td id="total_sub" class="alert alert-success">$</td>
