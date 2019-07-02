@@ -41,7 +41,7 @@
 
                      <thead  >
                                 <tr>
-                                    <th>#</th>
+                                    <th id="#">#</th>
                                     <th>Fecha</th>
                                     <th>Proveedor</th>
                                     <th>Encargado</th>
@@ -208,3 +208,8 @@
     </div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
+<script>//Cargar de manera desc los datos de la tabla
+$(window).load(function () {
+    document.getElementById("#").click();     
+});
+</script>

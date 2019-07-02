@@ -34,14 +34,14 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Ventas</h4>
+                                <h4 class="header-title">Lista - Salidas</h4>
                                 <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
                      <thead  >
                                 <tr>
-                                    <th>#</th>
+                                <th id="#">#</th>
                                     <th>Fecha.</th>
                                     <th>Encargado</th>
                                     <th>Total</th>
@@ -228,4 +228,11 @@
      </div>
     </div>
 
-<script src="<?php echo base_url();?>assets/js/adminJS/salidas.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/salidas.js">
+</script>
+
+<script>//Cargar de manera desc los datos de la tabla
+$(window).load(function () {
+    document.getElementById("#").click();     
+});
+</script>

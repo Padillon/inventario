@@ -1,13 +1,20 @@
+
 //Validar formulario
 function validarFormulario(){
     total2 = 0;
+    validar_cantidad = 0;
     $("#tbCompras tbody tr").each(function(){
-
-        total2 = total +  Number($(this).find("td:eq(5)").text());
+        total2++;
+        cantidades =Number($(this).find("td:eq(3)").children('input').val());
+        if ( cantidades == 0 ) {
+            alert("Ingrese una cantidad en la linea: "+total2);
+            validar_cantidad = 1;
+        }
     });
-    if (total2 != 0) {
+    if (total2 != 0 & validar_cantidad == 0) {
+
         document.getElementById("FormSalida").submit(); s
-    }else{
+    }else if(validar_cantidad!=1){
         alert("¡Ingrese los dato necesarios!");
     }
 }
@@ -78,7 +85,7 @@ $("#btn-agregar-abast").on("click", function(){
         html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioVenta[]' class='precio-salida' value='"+infoProducto[3]+"'></td>"; //precios
-        html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' max='"+infoProducto[6]+"' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
+        html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' name='cantidades[]' values='0' min='1' max='"+infoProducto[6]+"' pattern='^[0-9]+' class='cantidades'></td>"; //cantidades
         html += "<td><input type='hidden'  name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";

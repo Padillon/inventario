@@ -6,8 +6,8 @@
 </div> <br>
 <div class="row">
 	<div class="col-xs-6">	
-		<b>Compra de Producto</b><br>
-		<b>ID compra:</b> <?php echo $salida->id_salida;?> <br>
+		<b>Venta de productos</b><br>
+		<b>ID Salida:</b> <?php echo $salida->id_salida;?> <br>
 		<b>Fecha:</b> <?php echo $salida->fecha;?> <br>
 		<b>Encargado:</b> <?php echo $salida->usuario;?> <br>
 		<b>Cliente:</b> <?php echo $salida->nombre." ".$salida->apellido?> <br>

@@ -1,16 +1,51 @@
-//Validar formulario
+
+// ****************************** VALIDACIONES PROVEEDOR Y ENVIAR FORMULARIO VACÍO Y CATIDADES 0 ******************************
+
 function validarFormulario(){
     total = 0;
+    validar_cantidad = 0;
     $("#tbCompras tbody tr").each(function(){
-
-        total = total +  Number($(this).find("td:eq(5)").text());
+        total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
+        cantidades =Number($(this).find("td:eq(4)").children('input').val()); // revisamos en la columna que ningun valor sea 0
+        if ( cantidades == 0 ) {
+            alert("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
+            validar_cantidad = 1;
+        }
     });
-    if ($("#idProveedor").val() != "" & total != 0) {
+    if ($("#idProveedor").val() != "" & total != 0 & validar_cantidad == 0 ) {
         document.getElementById("FormCompra").submit(); s
-    }else{
-        alert("¡Ingrese los dato necesarios!");
+    }else if(validar_cantidad!=1){
+        alert("¡Ingrese los dato necesarios!"); // ************ Aqui iria tu modal konny
     }
 }
+
+//borrar el producto si ya ha sido seleccionado alguno
+$(document).ready(function(){
+	$("#autocompleteProducto").keydown(function(event){
+        if (event.which==8) {
+            $("#autocompleteProducto").val("");
+            $("#btn-agregar-abast").val("");
+            estado = 0;
+        }
+        if (event.which==13 & estado==1) {
+            document.getElementById("btn-agregar-abast").click();     
+            estado = 0;
+        }
+        //alert( String.fromCharCode(event.which) + " es: " + event.which);
+
+	}); 
+});
+//borrar proveedor si hay alguno seleccionado
+$(document).ready(function(){
+	$("#autocompleteProveedor").keydown(function(event){
+        if (event.which==8) {
+            $("#autocompleteProveedor").val("");
+            $("#idProveedor").val(null);
+        }
+	}); 
+});
+
+// ****************************** PARTE LÓGICA ******************************
 
 //Autocomplete proveedores
 var estado= 0;
@@ -63,22 +98,6 @@ $("#autocompleteProducto").autocomplete({
      $("#btn-agregar-abast").val(data); 
   },
 });
-//borrar el producto si ya ha sido seleccionado alguno
-$(document).ready(function(){
-	$("#autocompleteProducto").keydown(function(event){
-        if (event.which==8) {
-            $("#autocompleteProducto").val("");
-            $("#btn-agregar-abast").val("");
-            estado = 0;
-        }
-        if (event.which==13 & estado==1) {
-            document.getElementById("btn-agregar-abast").click();     
-            estado = 0;
-        }
-        //alert( String.fromCharCode(event.which) + " es: " + event.which);
-
-	}); 
-});
 
 //funcion para agregar el producto a comprar.
 $("#btn-agregar-abast").on("click", function(){
@@ -90,7 +109,7 @@ $("#btn-agregar-abast").on("click", function(){
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada' value='"+infoProducto[2]+"' required></td>"; //precios
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]' value='"+infoProducto[3]+"' required'></td>";//precio salida
-        html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
+        html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
         html += "<td><input type='hidden'  name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";
@@ -151,6 +170,7 @@ function sumarReabastecimiento(){
     $("#tbCompras tbody tr").each(function(){
 
         total = total +  Number($(this).find("td:eq(5)").text());
+        
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);

@@ -41,20 +41,18 @@ class Salidas extends CI_Controller {
     }
 //fncion para guardar las compras
     public function store(){
-		//$tipo_comprobante = $this->input->post('id_conprobante');
-	//	$numero =$this->input->post('numero');
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
 		$idCliente = $this->input->post("idCliente");
+		if ($idCliente == null) {
+			$idCliente = 1;
+		}
 		$precioVenta =$this->input->post("precioVenta");
 		$cantidades =$this->input->post("cantidades");
 		$importe =$this->input->post("importes");
 		$total = $this->input->post("total");
 		$idusuario = $this->session->userdata('id');
 		$descripcion = 'venta de producto';
-		/*$aumento= array(
-			'cantidad' => $numero+1,
-		);*/
 		$data = array(
 			'id_usuario' => $idusuario,
 			'id_cliente' => $idCliente,
@@ -66,7 +64,6 @@ class Salidas extends CI_Controller {
 		if ($this->Salidas_model->save($data)){
 			$idSalida = $this->Salidas_model->lastID(); 
 			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha); //guardando el detalle de la venta
-			//$this->Salidas_model->update_correlativo($tipo_comprobante,$aumento);
 			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 		} else {
 			redirect(base_url()."movimientos/entradas/add");

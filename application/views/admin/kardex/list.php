@@ -43,7 +43,7 @@
 
                      <thead  >
                                 <tr>
-                                    <th>#</th>
+                                    <th id="#">#</th>                                    
                                     <th>Fecha.</th>
                                     <th>Usuario.</th>
                                     <th>Transacción.</th>

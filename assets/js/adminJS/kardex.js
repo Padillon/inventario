@@ -1,3 +1,7 @@
+//Cargar de manera desc los datos de la tabla
+$(window).load(function () {
+    document.getElementById("#").click();     
+});
 
 function movimientoModal(){
     document.getElementById("movimiento_form").reset(); 
