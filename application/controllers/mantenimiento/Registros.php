@@ -15,4 +15,14 @@ class Registros extends CI_Controller {
         $this->load->view("layouts/footer");
     }
 
+    public function buscar(){
+        $valor = $this->input->post("valor");
+        $slSeleccionar = $this->input->post("slSeleccionar");
+
+        $data = array(
+            'consulta' = $this->Registros_model->getConsulta($valor, $slSeleccionar)
+        );
+
+        
+    }
 }

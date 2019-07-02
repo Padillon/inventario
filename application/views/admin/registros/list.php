@@ -35,8 +35,23 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Registros</h4>
-                        <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
-                            
+                        <div class="input-group">
+                            <div class="col-md-3">
+                            <label>Seleccionar:</label>
+                                <select id="slSeleccionar" class="form-control">
+                                    <option value="1">Proveedores</option>
+                                    <option value="2">Clientes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Valor:</label>
+                                <input type="text" class="form-control" id="txtValor">
+                            </div>
+                            <div class="col-md-3">
+                                <br>
+                                <button type="button" id="btnGenerar" class="btn btn-outline-primary mb-3">Generar PDF</button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -55,4 +70,4 @@
     $this->load->view('layouts/alert');
     ?>
 
-<script src="<?php echo base_url();?>assets/js/adminJS/proveedores.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/registros.js"></script>
