@@ -36,6 +36,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Registros</h4>
                         <div class="input-group">
+                        <form method="post" action="<?php echo base_url(); ?>mantenimiento/Registros/buscar">
                             <div class="col-md-3">
                             <label>Seleccionar:</label>
                                 <select id="slSeleccionar" class="form-control">
@@ -49,7 +50,7 @@
                             </div>
                             <div class="col-md-3">
                                 <br>
-                                <button type="button" id="btnGenerar" class="btn btn-outline-primary mb-3">Generar PDF</button>
+                                <button type="submit" id="btnGenerar" class="btn btn-outline-primary mb-3">Generar PDF</button>
                             </div>
                         </div>
                     </div>
