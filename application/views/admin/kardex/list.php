@@ -116,7 +116,7 @@
                                 </div>    
                                 <div class="col-md-12"> 
                                     <label>Descripción del movimiento:</label>
-                                    <input name="descripcion" class="form-control" type="text" id="descripcion" require>
+                                    <input name="descripcion" class="form-control" type="text" id="descripcion" required>
                                 </div>
                                 <div class="col-md-12"> 
                                     <br>
@@ -124,7 +124,7 @@
                                 <div class="col-md-12">
                                 <label class="col-form-control">Buscar Producto:</label>
                                     <div class="input-group">
-                                        <input name="autocompleteProducto" class="form-control" type="text" id="autocompleteProducto">
+                                        <input name="autocompleteProducto2" class="form-control" type="text" id="autocompleteProducto2">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-primary" id="btn-agregar-abast" type="button">Agregar</button>
                                         </div>
@@ -150,7 +150,7 @@
                                     </table>                       
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                        <button type='submite'class="btn btn-success">Aceptar</button>
+                                        <button type='button' onclick="validarFormulario()" class="btn btn-success">Aceptar</button>
                                     </div>
                             </div> 
                          </div>

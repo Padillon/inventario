@@ -91,7 +91,7 @@ public function getKardexProducto($id,$inicio,$fin){
 	}
 
 	public function getTipoTransaccion($id){
-		$this->db->select("tipo_transaccion");
+		$this->db->select("id_movimiento");
 		$this->db->where("id_movimiento",$id);
 		$resultado = $this->db->get("tipo_movimiento");
 		return $resultado->row();

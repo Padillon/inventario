@@ -1,4 +1,20 @@
-
+function validarFormulario(){
+    total = 0;
+    validar_cantidad = 0;
+    $("#tbCompras tbody tr").each(function(){
+        total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
+        cantidades =Number($(this).find("td:eq(2)").children('input').val()); // revisamos en la columna que ningun valor sea 0
+        if ( cantidades == 0 ) {
+            alert("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
+            validar_cantidad = 1;
+        }
+    });
+    if ( total != 0 & validar_cantidad == 0 ) {
+        document.getElementById("movimiento_form").submit(); 
+    }else if(validar_cantidad!=1){
+        alert("¡Ingrese los dato necesarios!"); // ************ Aqui iria tu modal konny
+    }
+}
 
 function movimientoModal(){
     document.getElementById("movimiento_form").reset(); 
@@ -48,8 +64,8 @@ $("#autocompleteProducto").autocomplete({
         });
     },
   });
-  
-  $("#autocompleteProducto2").autocomplete({
+//autocomplete para productos entrada
+$("#autocompleteProducto2").autocomplete({
     source: function(request, response){
         $.ajax({
             url: base_url+"movimientos/kardex/getProductos",
@@ -60,7 +76,7 @@ $("#autocompleteProducto").autocomplete({
                 response($.map(data, function (item) {
                     return {
                         label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                        id:item.id_producto,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias,
                     }
                 }))
             },
@@ -69,9 +85,10 @@ $("#autocompleteProducto").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
-       $("#btn-generar-producto").val(data); 
+       $("#btn-agregar-abast").val(data); 
     },
   });
+
 
   
   $("#btn-agregar-abast").on("click", function(){
