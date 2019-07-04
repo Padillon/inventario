@@ -11,6 +11,7 @@ class Proveedores extends CI_Controller {
         $this->permisos = $this->backend_lib->control();
         $this->load->model("Proveedores_model");
         $this->load->library('toastr');
+        $this->load->library("Pdf");
 }
     }
 
@@ -91,5 +92,52 @@ class Proveedores extends CI_Controller {
             'proveedores' => $this->Proveedores_model->getUltimos20(),
         );
         $this->load->view("admin/proveedores/tabla", $data);
+    }
+
+    public function getReporte(){
+        //trayendo informacion
+        $fecha = date("Y-m-d");
+        $empresa = $this->Proveedores_model->getAjustes();
+        //generando el pdf
+        $this->generarPdf($fecha, $empresa);
+    }
+
+    public function generarPdf($fecha, $empresa){
+        $link = base_url();
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->startPageGroup();
+        $pdf->AddPage();
+        $bloque1 = <<<EOF
+	<table>
+		<tr>
+			<td class="col-md-3"><img src="$link/assets/images/ajuste/$empresa->logo"></td>
+			<td style="background-color:white;" class="col-md-3">
+				<div class="col-md-12 align-items-end">
+                    <br>
+                    <br>
+                    <br>
+					<label class="form-control">$empresa->nombre</label>
+					<br>
+					<label class="form-control">$empresa->giro</label>
+				</div>
+			</td>
+			<td style="background-color:white;" class="col-md-3">
+				<div class="col-md-12 align-items-end">
+                    <br>
+                    <br>
+                    <br>
+					<label class="form-control">Teléfono: $empresa->telefono</label>
+					<br>
+					<label class="form-control">$empresa->direccion</label>
+				</div>
+			</td>
+            <td style="background-color:white; text-align:center; color:red" class="col-md-3">
+            <br><br><label class="form-control">Reporte de <br>Proveedores</td></label>
+		</tr>
+	</table>
+EOF;
+
+        $pdf->writeHTML($bloque1, false, false, false, false, '');
+        $pdf->Output('factura.pdf', 'I');
     }
 }

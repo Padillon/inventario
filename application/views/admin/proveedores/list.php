@@ -47,7 +47,7 @@
                                         <input class="form-control" id="txtBuscarProveedor" onKeyUp="buscar()">
                                     </div>
                                     <div class="col-md-3" style="text-align: right;">
-                                        <button type="button" id="btnGenerar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Generar Reporte</button>
+                                        <button type="button" id="btnGenerar" class="btn btn-outline-primary mb-3"> Generar Reporte</button>
                                     </div>
                                 </div>
                                 <div class="data-tables">
