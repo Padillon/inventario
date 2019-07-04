@@ -1,7 +1,4 @@
-//Cargar de manera desc los datos de la tabla
-$(window).load(function () {
-    document.getElementById("#").click();     
-});
+
 
 function movimientoModal(){
     document.getElementById("movimiento_form").reset(); 
@@ -19,7 +16,7 @@ $("#autocompleteProducto").autocomplete({
                 response($.map(data, function (item) {
                     return {
                         label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias,
+                        id: item.id_producto,
                     }
                 }))
             },
@@ -28,9 +25,30 @@ $("#autocompleteProducto").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
-       $("#btn-agregar-abast").val(data); 
+       $.ajax({
+             url: base_url+"movimientos/kardex/getProductoKardex",
+            type: "POST",
+            dataType: "json",
+            data:{ id: data,fecha_inicio: $("#fecha_inicio").val(), fecha_final: $("#fecha_fin").val()},
+            success: function(data){
+                $("#table_of_items tr").remove(); 
+            for(var i = 0; i < data.length; i+=1){
+            // AQUÍ IRIA LO DEL PDF KONNY ******************
+                html = "<tr>";
+                html += "<td>"+data[i].id_kardex+"</td>";//id del producto
+                html += "<td>"+data[i].fecha+"</td>";//id del producto
+                html += "<td>"+data[i].precio+"</td>";//id del producto
+                html += "<td>"+data[i].cantidad+"</td>";//id del producto
+                html += "<td>"+data[i].total+"</td>";//id del producto
+                html += "</tr>";
+                $("#tabla_kardex tbody").append(html);
+            }
+            $('#autocompleteProducto').val(null);
+            },
+        });
     },
   });
+  
   $("#autocompleteProducto2").autocomplete({
     source: function(request, response){
         $.ajax({
@@ -54,6 +72,8 @@ $("#autocompleteProducto").autocomplete({
        $("#btn-generar-producto").val(data); 
     },
   });
+
+  
   $("#btn-agregar-abast").on("click", function(){
     data = $(this).val();
     if (data != 0){
@@ -103,4 +123,17 @@ $(document).on("click", ".btn-remove-producto", function(){
     contador = contador - 1;
     f=0;
     sumar();
+});
+
+$(document).on("click", ".btn-view-moviiento", function(){
+    valor_id = $(this).val();
+    $.ajax({
+        url: base_url+"movimientos/kardex/view",
+        type:"POST",
+        dataType: "html",
+        data:{id_entr:valor_id},
+        success: function(data){
+            $("#Modalview .modal-body").html(data);
+        }
+    });
 });

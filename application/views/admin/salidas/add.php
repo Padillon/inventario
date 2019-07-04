@@ -64,7 +64,7 @@
                                                 </div>
                                             </div>                           
                                             <br>
-                                            <table id="tbCompras" class="table table-bordered table-striped table-hover">
+                                            <table id="tbCompras" class="table table-bordered table-striped table-hover table-responsives">
                                                 <thead>
                                                     <tr>
                                                         <th>Codigo.</th>

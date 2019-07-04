@@ -53,12 +53,13 @@ public function getKardexProducto($id,$inicio,$fin){
 	public function getKardex(){
 		//$quey = "select * from kardex where month(fecha) = ".date('m');
 			//	if($resultado = $this->db->query($quey)){
-				$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento,p.nombre as producto");
+				$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento");
 				$this->db->from("kardex k");
 				$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
 				$this->db->join("productos p" , "p.id_producto = k.id_producto");
 				$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
 				$this->db->where('month(k.fecha)',date('m'));
+				$this->db->group_by(array("id_entrada", "id_salida"));  
 				$this ->db->order_by( 'id_kardex' , 'asc' );
 		if($resultado = $this->db->get()){
 			return $resultado->result();
@@ -94,6 +95,26 @@ public function getKardexProducto($id,$inicio,$fin){
 		$this->db->where("id_movimiento",$id);
 		$resultado = $this->db->get("tipo_movimiento");
 		return $resultado->row();
+	}
+
+	public function getProductoKardex($id,$inicio,$final){
+		$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento");
+		$this->db->from("kardex k");
+		$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
+		$this->db->join("productos p" , "p.id_producto = k.id_producto");
+		$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
+		$this->db->where("k.id_producto",$id);
+		$this->db->where(" fecha >='".$inicio."' AND fecha <='".$final."'");
+		$this ->db->order_by( 'k.id_kardex' , 'desc' );
+
+		/*$this->db->where('month(k.fecha)',date('m'));
+		$this->db->group_by(array("id_entrada", "id_salida"));  
+		$this ->db->order_by( 'id_kardex' , 'asc' );*/
+if($resultado = $this->db->get()){
+	return $resultado->result();
+}else{
+	return 0;
+}
 	}
 
 }

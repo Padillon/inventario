@@ -118,4 +118,12 @@ class Kardex extends CI_Controller {
 		}
 		redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas
 	}
+
+	public function getProductoKardex(){
+		$valor = $this->input->post("id");
+		$inicio = $this->input->post('fecha_inicio');
+		$final = $this->input->post("fecha_final");
+		$producto = $this->Kardex_model->getProductoKardex($valor,$inicio,$final);
+		echo json_encode($producto);
+	}
 }

@@ -30,7 +30,7 @@
     <div class="main-content-inner">
                     <div class="row">
                         <!-- busqueda de producto -->
-                        <div class="col-8 mt-5">
+                        <div class="col-9 mt-5">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'  >
@@ -55,7 +55,7 @@
                                                 </div>
                                             </div>                           
                                             <br>
-                                            <table id="tbCompras"class="table table-striped  table-responsive table-bordered" style="width:100%">
+                                            <table id="tbCompras"class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th>Codigo</th>
@@ -82,12 +82,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 mt-5">
+                    <div class="col-3 mt-5">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-control">
                                         <table id="tbTotal" class="table table-striped  table-responsive table-bordered">
-                                             <tr >
+                                             <tr>
                                              <td class="alert alert-success">TOTAL:</td>
                                              <td id="total_sub" class="alert alert-success">$</td>
                                              </tr>
