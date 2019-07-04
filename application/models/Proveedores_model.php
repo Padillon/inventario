@@ -22,6 +22,7 @@ class Proveedores_model extends CI_Model {
 		$resultado = $this->db->get("proveedores");
 		return $resultado->row();
 	}
+<<<<<<< HEAD
 
 	public function buscar($valor){
 		$this->db->where("estado", 1);
@@ -43,4 +44,6 @@ class Proveedores_model extends CI_Model {
 		$resultado = $this->db->get("ajustes");
 		return $resultado->row();
 	}
+=======
+>>>>>>> parent of 73b4c43... cambio buscador proveedores
 }

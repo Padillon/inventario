@@ -16,10 +16,13 @@ class Proveedores extends CI_Controller {
     }
 
     public function index(){
-        
+        $data = array(
+            'permisos' => $this->permisos,
+            'proveedores' => $this->Proveedores_model->getProveedores(),
+        );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
-        $this->load->view("admin/proveedores/list");
+        $this->load->view("admin/proveedores/list",$data);
         $this->load->view("layouts/footer");
     }
 
@@ -77,6 +80,7 @@ class Proveedores extends CI_Controller {
             redirect(base_url()."mantenimiento/proveedores");
         } 
     }
+<<<<<<< HEAD
 
     public function buscar(){
         $valor = $this->input->post("valor");
@@ -140,4 +144,6 @@ EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, '');
         $pdf->Output('factura.pdf', 'I');
     }
+=======
+>>>>>>> parent of 73b4c43... cambio buscador proveedores
 }
