@@ -90,7 +90,6 @@ class Clientes extends CI_Controller {
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/clientes");
         }
-        
     }
 	
 }

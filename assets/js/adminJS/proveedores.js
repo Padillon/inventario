@@ -34,4 +34,44 @@ function deleteProveedor(num){
     $("#empresaDelete").val(datos[2]);
 };
 
+function buscar(){
+    var valor = $("#txtBuscarProveedor").val();
+        if(valor != ""){
+            $.ajax({
+                url: base_url+"mantenimiento/proveedores/buscar",
+                type: "POST",
+                dataType: "html",
+                data: {valor: valor},
+                success: function(data){
+                    $("#example tbody").html(data);
+                }
+            });
+        } else {
+            $.ajax({
+                url: base_url+"mantenimiento/proveedores/getUltimos",
+                type: "POST",
+                dataType: "html",
+                data: {valor: valor},
+                success: function(data){
+                    $("#example tbody").html(data);
+                }
+            });
+        }   
+};
 
+$(window).load(function() {
+    valor = "";
+    $.ajax({
+        url: base_url+"mantenimiento/proveedores/getUltimos",
+        type: "POST",
+        dataType: "html",
+        data: {valor: valor},
+        success: function(data){
+            $("#example tbody").html(data);
+        }
+    });
+});
+
+$("#btnGenerar").click(function(){
+    window.open(base_url+"mantenimiento/proveedores/getReporte", "_blank");
+});

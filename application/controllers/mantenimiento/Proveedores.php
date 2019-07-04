@@ -15,13 +15,10 @@ class Proveedores extends CI_Controller {
     }
 
     public function index(){
-        $data = array(
-            'permisos' => $this->permisos,
-            'proveedores' => $this->Proveedores_model->getProveedores(),
-        );
+        
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
-        $this->load->view("admin/proveedores/list",$data);
+        $this->load->view("admin/proveedores/list");
         $this->load->view("layouts/footer");
     }
 
@@ -78,5 +75,21 @@ class Proveedores extends CI_Controller {
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/proveedores");
         } 
+    }
+
+    public function buscar(){
+        $valor = $this->input->post("valor");
+
+        $data = array(
+            'proveedores' => $this->Proveedores_model->buscar($valor),
+        );
+        $this->load->view("admin/proveedores/tabla", $data);
+    }
+
+    public function getUltimos(){
+        $data = array(
+            'proveedores' => $this->Proveedores_model->getUltimos20(),
+        );
+        $this->load->view("admin/proveedores/tabla", $data);
     }
 }
