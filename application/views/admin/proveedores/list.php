@@ -61,24 +61,14 @@ if ($permisos->insert == 1) {
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Proveedores</h4>
-<<<<<<< HEAD
                                 <div class="input-group">
                                     <div class="col-md-3">
                                         <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
                                     </div>
                                     <div class="col-md-3" style="text-align: right;">
-                                        <label>Buscar:</label>
-                                    </div>
-                                    <div class="col-md-3" style="text-align: right;">
-                                        <input class="form-control" id="txtBuscarProveedor" onKeyUp="buscar()">
-                                    </div>
-                                    <div class="col-md-3" style="text-align: right;">
                                         <button type="button" id="btnGenerar" class="btn btn-outline-primary mb-3"> Generar Reporte</button>
                                     </div>
                                 </div>
-=======
-                                <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
->>>>>>> parent of 73b4c43... cambio buscador proveedores
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
