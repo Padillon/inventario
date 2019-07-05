@@ -81,42 +81,80 @@ class Proveedores extends CI_Controller {
         } 
     }
 
-    public function generarPdf($fecha, $empresa){
+    public function getReporte(){
+        //trayendo informacion
+        $fecha = date("d-m-Y");
+        $empresa = $this->Proveedores_model->getAjustes();
+        
+        $idusuario = $this->session->userdata('id');
+        $nomUsuario = $this->Proveedores_model->getUsuario($idusuario);
+        //generando el pdf
+        $this->generarPdf($fecha, $empresa, $nomUsuario);
+    }
+
+    public function generarPdf($fecha, $empresa, $nomUsuario){
         $link = base_url();
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->startPageGroup();
         $pdf->AddPage();
         $bloque1 = <<<EOF
+        <table>
+        <tr>
+            <td rowspan="3" style="width:130px"><img src="$link/assets/images/ajuste/$empresa->logo"></td>
+            <td colspan="1" style="font-size:14px; text-align:center;">
+                $empresa->nombre 
+                <br>
+                $empresa->giro
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color:white; width:140px">
+                <div style="font-size:10px; text-align:right; line-height:15px;">
+                    <br>
+                    NIT: $empresa->registro
+                    <br>
+                    Dirección: $empresa->direccion
+                </div>
+            </td>
+            <td style="background-color:white; width:140px">
+                <div style="font-size:10px; text-align:right; line-height:15px;">
+                    <br>
+                    Teléfono: $empresa->telefono
+                    <br>
+                    $empresa->correo
+                </div>
+            </td>
+        </tr>
+	</table>
+EOF;
+        $pdf->writeHTML($bloque1, false, false, false, false, '');
+
+        $bloque2 = <<<EOF
 	<table>
 		<tr>
-			<td class="col-md-3"><img src="$link/assets/images/ajuste/$empresa->logo"></td>
-			<td style="background-color:white;" class="col-md-3">
-				<div class="col-md-12 align-items-end">
-                    <br>
-                    <br>
-                    <br>
-					<label class="form-control">$empresa->nombre</label>
-					<br>
-					<label class="form-control">$empresa->giro</label>
-				</div>
+			<td style="width:540px"><img src="images/back.jpg"></td>
+		</tr>
+	</table>
+	<table style="font-size:10px; padding:5px 10px;">
+		<tr>
+            <td style="background-color:white; width:150px; text-align: left; color:red;">
+                Reporte de Proveedores
+            </td>
+			<td style="background-color:white; width:150px; text-align:right">
+				Fecha: $fecha
 			</td>
-			<td style="background-color:white;" class="col-md-3">
-				<div class="col-md-12 align-items-end">
-                    <br>
-                    <br>
-                    <br>
-					<label class="form-control">Teléfono: $empresa->telefono</label>
-					<br>
-					<label class="form-control">$empresa->direccion</label>
-				</div>
-			</td>
-            <td style="background-color:white; text-align:center; color:red" class="col-md-3">
-            <br><br><label class="form-control">Reporte de <br>Proveedores</td></label>
+		</tr>
+		<tr>
+			<td style="background-color:white; width:540px">Encargado: $nomUsuario->usuario</td>
+		</tr>
+		<tr>
+		<td style="border-bottom: 1px solid #666; background-color:white; width:540px"></td>
 		</tr>
 	</table>
 EOF;
 
-        $pdf->writeHTML($bloque1, false, false, false, false, '');
+        $pdf->writeHTML($bloque2, false, false, false, false, '');
         $pdf->Output('factura.pdf', 'I');
     }
 }

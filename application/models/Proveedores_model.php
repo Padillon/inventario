@@ -27,4 +27,10 @@ class Proveedores_model extends CI_Model {
 		$resultado = $this->db->get("ajustes");
 		return $resultado->row();
 	}
+
+	public function getUsuario($id){
+		$this->db->where("id_usuario",$id);
+		$resultado = $this->db->get("usuarios");
+		return $resultado->row();
+	}
 }

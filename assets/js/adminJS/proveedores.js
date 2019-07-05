@@ -34,4 +34,6 @@ function deleteProveedor(num){
     $("#empresaDelete").val(datos[2]);
 };
 
-
+$("#btnGenerar").click(function(){
+    window.open(base_url+"mantenimiento/proveedores/getReporte", "_blank");
+});
