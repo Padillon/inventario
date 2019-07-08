@@ -1,7 +1,11 @@
 <?php
+
+
+
 $cont = 0;
 $link = base_url();
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
 $pdf->startPageGroup();
 $pdf->AddPage();
 $estilos = <<<EOF
@@ -25,27 +29,25 @@ $bloque1 = <<<EOF
                     <br>
                     NIT: $empresa->registro
                     <br>
-                    Dirección: $empresa->direccion
+                    Direcci&oacute;n: $empresa->direccion
                     <br>
-                    Teléfono: $empresa->telefono
+                    Tel&eacute;fono: $empresa->telefono
                     <br>
                     $empresa->correo
             </td>
-            <td style="background-color:white; width:150px; text-align: left; color:red;">
-                Reporte de <br> Proveedores
+        </tr>
+        <tr>
+            <br>
+            <td style="background-color:white; text-align: center; color:red;">
+                Reporte de Proveedores
             </td>
         </tr>
 	</table>
 EOF;
 $bloque1=utf8_encode($bloque1);
-$pdf->writeHTML($bloque1, false, false, false, false, '');
+$pdf->writeHTML(utf8_decode($bloque1), false, false, false, false, '');
 
 $bloque2 = <<<EOF
-	<table>
-		<tr>
-			<td style="width:540px"><img src="images/back.jpg"></td>
-		</tr>
-	</table>
 	<table style="font-size:12px; padding:5px 10px;">
 		<tr>
             <td style="background-color:white; width:50%">Encargado: $nomUsuario->usuario</td>
@@ -53,38 +55,42 @@ $bloque2 = <<<EOF
 				Fecha: $fecha
 			</td>
 		</tr>
+    </table>
+    <table>
 		<tr>
-		<td style="border-bottom: 1px solid #666; background-color:white; width:100%"></td>
+			<td style="width:540px"><img src="images/back.jpg"></td>
 		</tr>
 	</table>
 EOF;
 $bloque2=utf8_encode($bloque2);
-$pdf->writeHTML($bloque2, false, false, false, false, '');
+$pdf->writeHTML(utf8_decode($bloque2), false, false, false, false, '');
         
-$tabla =" 
-    <table style='width: 100%; border: 1px;'>
-        <thead>   
+$tabla = <<<EOF
+    <br>
+    <table border="1" cellpadding="2">   
             <tr>
-                <th style='width: 15%;'>#</th>
-                <th style='width: 29%;'>Nombre</th>
-                <th style='width: 28%;'>Empresa</th>
-                <th style='width: 28%;'>Telefono</th>
+                <th width="10%" align="center" bgcolor="lightgray">#</th>
+                <th width="30%" align="center" bgcolor="lightgray">Nombre</th>
+                <th width="30%" align="center" bgcolor="lightgray">Empresa</th>
+                <th width="30%" align="center" bgcolor="lightgray">Telefono</th>
             </tr>
-        </thead>
-        <tbody>";
+EOF;
 $cont = 0;
 foreach($proveedores as $prov){
-    $tabla .="<tr>
-            <td style='width: 15%;'>".$cont++."</td>
-            <td style='width: 29%;'>".$prov->nombre."</td>
-            <td style='width: 28%;'>".$prov->empresa."</td>
-            <td style='width: 28%;'>".$prov->telefono."</td>
-        </tr>";
+    $cont++;
+    $tabla .= <<<EOF
+        <tr>
+            <td>$cont</td>
+            <td>$prov->nombre</td>
+            <td>$prov->empresa</td>
+            <td>$prov->telefono</td>
+        </tr>
+EOF;
 }
-$tabla .= "
-        </tbody>
-        </table>";
+$tabla .= <<<EOF
+        </table>
+EOF;
 $tabla=utf8_encode($tabla);
-$pdf->writeHTML($tabla, false, false, false, false, '');
+$pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
 $pdf->Output('factura.pdf', 'I');
