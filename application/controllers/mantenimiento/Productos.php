@@ -14,6 +14,7 @@ class Productos extends CI_Controller {
         $this->load->model("Presentacion_model");
         $this->load->model("Marcas_model");
         $this->load->library('toastr');
+        $this->load->library("Pdf");
     }
     }
 
@@ -21,6 +22,7 @@ class Productos extends CI_Controller {
         $data = array(
             'permisos' => $this->permisos,
             'producto' => $this->Productos_model->getProductos(), 
+            'marcas' => $this->Marcas_model->getMarcas(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -150,5 +152,48 @@ class Productos extends CI_Controller {
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/productos");
         }
+    }
+
+    public function getReporteActivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Productos_model->getAjustes(),
+            'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
+            'productos' => $this->Productos_model->getProductos(),
+            'estado' => "Activos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/productos", $data);
+    }
+
+    public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Productos_model->getAjustes(),
+            'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
+            'productos' => $this->Productos_model->getProductosInactivos(),
+            'estado' => "Inactivos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/productos", $data);
+    }
+
+    public function getReporteMarca(){
+        $valor = $this->input->get("valor");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Productos_model->getAjustes(),
+            'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
+            'productos' => $this->Productos_model->getProductosMarca($valor),
+            'estado' => "Por Marca"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/productos", $data);
     }
 }

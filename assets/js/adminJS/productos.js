@@ -86,3 +86,17 @@ $(document).on('click', '.edit_data', function(){
     var id = $(this).attr("id");
     document.getElementById("id-pro-edit").value=id;
 });
+
+$("#btnGenerarActivos").click(function(){
+    window.open(base_url+"mantenimiento/productos/getReporteActivos", "_blank");
+});
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"mantenimiento/productos/getReporteInactivos", "_blank");
+});
+
+$("#btnElegirMarca").on("click", function(){
+    valor = $("#elegirMarca").val();
+    window.open(base_url+"mantenimiento/productos/getReporteMarca?valor="+valor, "_blank");
+     
+});
