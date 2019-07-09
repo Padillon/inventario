@@ -9,6 +9,7 @@ class Categorias extends CI_Controller {
     } else{
         $this->load->model("Categorias_model");
         $this->load->library('toastr');
+        $this->load->library("Pdf");
     }
 	}
 
@@ -71,5 +72,33 @@ class Categorias extends CI_Controller {
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/categorias");
         }
+    }
+
+    public function getReporteActivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Categorias_model->getAjustes(),
+            'nomUsuario' => $this->Categorias_model->getUsuario($idusuario),
+            'categorias' => $this->Categorias_model->getCategorias(),
+            'estado' => "Activas"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/categorias", $data);
+    }
+
+    public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Categorias_model->getAjustes(),
+            'nomUsuario' => $this->Categorias_model->getUsuario($idusuario),
+            'categorias' => $this->Categorias_model->getCategoriasInactivos(),
+            'estado' => "Inactivas"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/categorias", $data);
     }
 }

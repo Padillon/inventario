@@ -13,3 +13,10 @@ function deleteCategoria(num){ //carga datos del modal borrar Categoria
     $("#nombre").val(datos[1]);
 };
 
+$("#btnGenerarActivos").click(function(){
+    window.open(base_url+"mantenimiento/categorias/getReporteActivos", "_blank");
+});
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"mantenimiento/categorias/getReporteInactivos", "_blank");
+});

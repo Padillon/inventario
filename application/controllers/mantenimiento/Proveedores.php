@@ -88,7 +88,22 @@ class Proveedores extends CI_Controller {
             'fecha' => date("d-m-Y"),
             'empresa' => $this->Proveedores_model->getAjustes(),
             'nomUsuario' => $this->Proveedores_model->getUsuario($idusuario),
-            'proveedores' => $this->Proveedores_model->getProveedores()
+            'proveedores' => $this->Proveedores_model->getProveedores(),
+            'estado' => "Activos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/proveedores", $data);
+    }
+
+    public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Proveedores_model->getAjustes(),
+            'nomUsuario' => $this->Proveedores_model->getUsuario($idusuario),
+            'proveedores' => $this->Proveedores_model->getProveedoresInactivos(),
+            'estado' => "Inactivos"
         );
         //generando el pdf
         $this->load->view("admin/reportes/proveedores", $data);

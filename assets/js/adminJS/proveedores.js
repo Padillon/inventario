@@ -37,3 +37,8 @@ function deleteProveedor(num){
 $("#btnGenerar").click(function(){
     window.open(base_url+"mantenimiento/proveedores/getReporte", "_blank");
 });
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"mantenimiento/proveedores/getReporteInactivos", "_blank");
+});
+

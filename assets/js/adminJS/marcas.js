@@ -22,3 +22,11 @@ $("#form1").validate({
         form.submit();
     }
 });
+
+$("#btnGenerarActivos").click(function(){
+    window.open(base_url+"mantenimiento/marcas/getReporteActivos", "_blank");
+});
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"mantenimiento/marcas/getReporteInactivos", "_blank");
+});
