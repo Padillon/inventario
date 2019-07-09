@@ -98,5 +98,16 @@ $("#btnGenerarInactivos").click(function(){
 $("#btnElegirMarca").on("click", function(){
     valor = $("#elegirMarca").val();
     window.open(base_url+"mantenimiento/productos/getReporteMarca?valor="+valor, "_blank");
-     
+});
+
+$("#btnElegirCategoria").on("click", function(){
+    valor = $("#elegirCategoria").val();
+    window.open(base_url+"mantenimiento/productos/getReporteCategoria?valor="+valor, "_blank");
+});
+
+$("#btnelegirStock").on("click", function(){
+    valorCategoria = $("#elegirCategoriaStock").val();
+    valorMarca = $("#elegirMarcaStock").val();
+    alert(valorCategoria+''+valorMarca);
+    window.open(base_url+"mantenimiento/productos/getReporteStock?valorCat="+valorCategoria+"&valorMar="+valorMarca, "_blank");
 });
