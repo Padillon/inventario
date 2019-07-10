@@ -2,6 +2,15 @@ if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
 
+function serie(){
+    $("#barcode").barcode(
+        "12345670", // Valor del codigo de barras
+        "ean8" // tipo (cadena)
+        );
+
+    alert('hola');
+}
+
 function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
