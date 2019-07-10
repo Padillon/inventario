@@ -44,6 +44,13 @@ class Productos extends CI_Controller {
         $this->load->view("layouts/footer");
     }
 
+    public function getSerie(){
+        $marca =$this->input->post('marca');
+        $categoria =$this->input->post('categoria');
+        $resultado = $this->Productos_model->getSerie($marca,$categoria);
+        echo json_encode($resultado);
+    }
+
     public function store(){
         $config['upload_path'] = "assets/images/productos/";
         $config['allowed_types'] = 'gif|jpg|png|jpeg';

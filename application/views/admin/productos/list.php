@@ -1,5 +1,4 @@
 
-
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -64,7 +63,7 @@ if ($permisos->insert == 1) {
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Productos</a>
+                                            <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Productos+</a>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="btn-group" role="group" style="text-align: right;">

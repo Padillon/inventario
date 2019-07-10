@@ -1,15 +1,67 @@
+//codigo de buarra generador
+
+var marca = document.getElementById('create_marca');
+var categoria = document.getElementById('create_categoria');
+marca.addEventListener('change',
+  function(){
+    var marcaOption = this.options[marca.selectedIndex];
+    var categoriaOption = this.options[categoria.selectedIndex];
+      $.ajax({  
+        url: base_url+"mantenimiento/productos/getSerie",
+        type: "POST",
+        dataType: "json",
+        data:{ marca: marcaOption.value, categoria: categoriaOption.value},
+        success: function(data){
+            var serie = data[0].cuenta;
+            serie++;
+              //fragmento marca
+            var long_marca = marcaOption.value.length ; // conseguimos la longitud de marca
+            var marca_cod = "";
+            if(long_marca <= 1){
+                marca_cod = "000"+marcaOption.value;
+            }else if(long_marca <= 2){
+                marca_cod = "00"+marcaOption.value;
+            }else if(long_marca <= 3){
+                marca_cod = "0"+marcaOption.value;
+            }else{
+                marca_cod = marcaOption.value;
+            }
+            // fragmento categoria
+            var long_marca = categoriaOption.value.length ; // conseguimos la longitud de marca
+            var categoria_cod = "";
+            if(long_marca <= 1){
+                categoria_cod = "000"+categoriaOption.value;
+            }else if(long_marca <= 2){
+                categoria_cod = "00"+categoriaOption.value;
+            }else if(long_marca <= 3){
+                categoria_cod = "0"+categoriaOption.value;
+            }else{
+                categoria_cod = categoriaOption.value;
+            }
+            
+            //fragmento serie
+            var long_serie = serie.length; // conseguimos la longitud de marca
+            var serie_cod = "";
+            
+            if(serie <= 9){
+                serie_cod = "000"+serie;
+            }else if(serie <= 99){
+                serie_cod = "00"+serie;
+            }else if(serie <= 999){
+                serie_cod = "0"+serie;
+            }else{
+                serie_cod = serie;
+            }
+            JsBarcode("#barcode", String(marca_cod)+String(categoria_cod)+String(serie_cod));
+        },
+    });
+
+  });
+
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
 
-function serie(){
-    $("#barcode").barcode(
-        "12345670", // Valor del codigo de barras
-        "ean8" // tipo (cadena)
-        );
-
-    alert('hola');
-}
 
 function resete(){
     $('#create_nombre').val('');

@@ -53,7 +53,13 @@ class Productos_model extends CI_Model {
 		$resultado = $this->db->get("usuarios");
 		return $resultado->row();
 	}
-
+	public function getSerie($marca,$categoria){
+		$select = "select count(*) as cuenta from productos where id_categoria = $categoria and id_marca = $marca";
+		//$this->db->where("id_categoria",$categoria);
+		//$this->db->where("id_marca",$marca);
+		$resultado = $this->db->query($select);
+		return $resultado->result();
+	}
 	public function getProductosInactivos(){
 		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion");
 		$this->db->from("productos p");

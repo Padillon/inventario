@@ -1,5 +1,4 @@
-<script src="//code.jquery.com/jquery-latest.min.js"></script>
- <script type="text/javascript" src="jquery-barcode.min.js"></script>
+
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -38,8 +37,6 @@
                         
                             <form class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data'>
                                 <div class="input-group">   
-                                                                                 
-
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>
                                                 <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
@@ -47,7 +44,7 @@
 
                                          <div class="col-md-3">
                                                 <label for="create_categoria">Marca.</label>         
-                                                <select name='create_marca' id='create_marca' class='custom-select' required onclick="tipoEntrada()">
+                                                <select name='create_marca' id='create_marca' class='custom-select' required >
                                                     <?php foreach($marcas as $marca):?>
                                                     <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>
                                                     <?php endforeach;?>
@@ -63,10 +60,13 @@
                                                 </select>
                                         </div>
 
-                                        <div class="col-md-3">
+                                    <!--    <div class="col-md-3">
                                             <label for="create_codigo">Codigo.</label>
                                             <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
-                                        </div>
+                                        </div> -->
+                                        <div class="col-md-3">
+                                             <svg id="barcode"></svg>  
+                                        </div>            
                                         <div class="col-md-12"> 
                                             <br>
                                         </div> 
