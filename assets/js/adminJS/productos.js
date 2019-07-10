@@ -108,6 +108,5 @@ $("#btnElegirCategoria").on("click", function(){
 $("#btnelegirStock").on("click", function(){
     valorCategoria = $("#elegirCategoriaStock").val();
     valorMarca = $("#elegirMarcaStock").val();
-    alert(valorCategoria+''+valorMarca);
     window.open(base_url+"mantenimiento/productos/getReporteStock?valorCat="+valorCategoria+"&valorMar="+valorMarca, "_blank");
 });

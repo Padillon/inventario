@@ -1,5 +1,49 @@
 <?php
 class Mypdf extends TCPDF {
+    public $link;
+    public $nombre;
+    public $giro;
+    public $estado;
+
+    public function setLogo($link, $nombre, $giro, $estado){
+        $this->link = $link;
+        $this->nombre = $nombre;
+        $this->giro = $giro;
+        $this->estado = $estado;
+    }
+
+    public function Header() {
+        // Set font
+        $this->SetFont('helvetica', 'B', 14);
+        $link2 = base_url();
+        $html = <<<EOF
+        
+        <table width="100%">
+            <tr>
+                <td rowspan="3" style="width:10%;">
+                <br><br>
+                <img src="$link2/assets/images/ajuste/$this->link">
+                </td>
+                <td width="25%">
+                    <br>
+                    <br>
+                    $this->nombre 
+                    <br>
+                    $this->giro
+                </td>
+                <td width="45%" style="background-color:white; text-align: center; color:red;">
+                    <br>
+                    <br>
+                    Reporte de Marcas $this->estado
+                </td>
+            </tr>
+        </table>
+EOF;
+        $thml=utf8_encode($html);
+        $this->writeHTML(utf8_decode($html), false, false, false, false, '');
+        //$this->Cell(0, 45, $html, 0, false, 'L', 0, '', 0, false, 'M', 'M');
+    }
+
     public function Footer(){
         $this->SetY(-20);
         $this->SetFont('helvetica', 'I', 8);
@@ -12,45 +56,15 @@ $cont = 0;
 $link = base_url();
 $pdf = new Mypdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_RIGHT);
+
+$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$pdf->setLogo($empresa->logo, $empresa->nombre, $empresa->giro, $estado);
+
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->startPageGroup();
 
 $pdf->AddPage();
-
-$bloque1 = <<<EOF
-    <table>
-        <tr>
-            <td rowspan="3" style="width:150px; height=100px"><img src="$link/assets/images/ajuste/$empresa->logo"></td>
-            <td colspan="1" style="font-size:14px; text-align:center;">
-                $empresa->nombre 
-                <br>
-                $empresa->giro
-            </td>
-        </tr>
-        <tr>
-            <td style="font-size:10px; background-color:white; text-align:center;">
-                    <br>
-                    NIT: $empresa->registro
-                    <br>
-                    Direcci&oacute;n: $empresa->direccion
-                    <br>
-                    Tel&eacute;fono: $empresa->telefono
-                    <br>
-                    $empresa->correo
-            </td>
-        </tr>
-        <tr>
-            <br>
-            <td style="background-color:white; text-align: center; color:red;">
-                Reporte de Marcas $estado
-            </td>
-        </tr>
-	</table>
-EOF;
-$bloque1=utf8_encode($bloque1);
-$pdf->writeHTML(utf8_decode($bloque1), false, false, false, false, '');
 
 $bloque2 = <<<EOF
 	<table style="font-size:12px; padding:5px 10px;">
