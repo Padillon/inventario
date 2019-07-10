@@ -107,4 +107,38 @@ class Entradas_model extends CI_Model {
 		      $resultados = $this->db->get();
 		      return $resultados->result();
     }
+
+    public function getAjustes(){
+    $resultado = $this->db->get("ajustes");
+    return $resultado->row();
+  }
+
+  public function getUsuario($id){
+    $this->db->where("id_usuario",$id);
+    $resultado = $this->db->get("usuarios");
+    return $resultado->row();
+  }
+
+  public function getEntradasInactivos(){
+        $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
+        $this->db->from("entradas e");
+        $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
+        $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
+        $this->db->where("e.estado",0);
+        $resultados = $this->db->get();
+        return $resultados->result();
+  }
+
+  public function getEntradasFechas($fecha1, $fecha2){ 
+        $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
+        $this->db->from("entradas e");
+        $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
+        $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
+        $this->db->where("e.estado",1);
+        $this->db->where("e.fecha BETWEEN '$fecha1' AND '$fecha2'");
+        $resultados = $this->db->get();
+        return $resultados->result();
+    }
+
+
 }
