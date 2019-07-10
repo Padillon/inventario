@@ -16,4 +16,21 @@ class Clientes_model extends CI_Model {
 		$this->db->where("id_cliente",$id);
 		return $this->db->update("clientes",$data);
 	}
+
+	public function getAjustes(){
+		$resultado = $this->db->get("ajustes");
+		return $resultado->row();
+	}
+
+	public function getUsuario($id){
+		$this->db->where("id_usuario",$id);
+		$resultado = $this->db->get("usuarios");
+		return $resultado->row();
+	}
+
+	public function getClientesInactivos(){ 
+		$this->db->where("estado",0);
+		$resultados = $this->db->get("clientes");
+		return $resultados->result();
+	}
 }

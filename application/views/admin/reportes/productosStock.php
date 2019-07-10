@@ -17,13 +17,13 @@ $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->startPageGroup();
 
-$pdf->AddPage();
+$pdf->AddPage('L');
 
 $bloque1 = <<<EOF
-    <table>
+    <table width="100%">
         <tr>
-            <td rowspan="3" style="width:150px; height=100px"><img src="$link/assets/images/ajuste/$empresa->logo"></td>
-            <td colspan="1" style="font-size:14px; text-align:center;">
+            <td rowspan="3" style="width:20%;"><img src="$link/assets/images/ajuste/$empresa->logo"></td>
+            <td colspan="1" width="60%" style="font-size:14px; text-align:center;">
                 $empresa->nombre 
                 <br>
                 $empresa->giro
@@ -44,7 +44,7 @@ $bloque1 = <<<EOF
         <tr>
             <br>
             <td style="background-color:white; text-align: center; color:red;">
-                Reporte de Proveedores $estado
+                Reporte de Productos $estado
             </td>
         </tr>
 	</table>
@@ -72,23 +72,31 @@ $pdf->writeHTML(utf8_decode($bloque2), false, false, false, false, '');
         
 $tabla = <<<EOF
     <br>
-    <table border="1" cellpadding="2">   
+    <table border="1" cellpadding="2" width="100%">   
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
-                <th width="30%" align="center" bgcolor="lightgray">Nombre</th>
-                <th width="30%" align="center" bgcolor="lightgray">Empresa</th>
-                <th width="30%" align="center" bgcolor="lightgray">Telefono</th>
+                <th width="15%" align="center" bgcolor="lightgray">C&oacute;digo</th>
+                <th width="10%" align="center" bgcolor="lightgray">Presentaci&oacute;n</th>
+                <th width="15%" align="center" bgcolor="lightgray">Nombre</th>
+                <th width="15%" align="center" bgcolor="lightgray">Marca</th>
+                <th width="15%" align="center" bgcolor="lightgray">Categor&iacute;a</th>
+                <th width="10%" align="center" bgcolor="lightgray">Stock M&iacute;nimo</th>
+                <th width="10%" align="center" bgcolor="lightgray">Stock Actual</th>
             </tr>
 EOF;
 $cont = 0;
-foreach($proveedores as $prov){
+foreach($productos as $pro){
     $cont++;
     $tabla .= <<<EOF
         <tr>
             <td>$cont</td>
-            <td>$prov->nombre</td>
-            <td>$prov->empresa</td>
-            <td>$prov->telefono</td>
+            <td>$pro->codigo</td>
+            <td>$pro->presentacion</td>
+            <td>$pro->nombre</td>
+            <td>$pro->marca</td>
+            <td>$pro->categoria</td>
+            <td>$pro->stock_minimo</td>
+            <td>$pro->stock_actual</td>
         </tr>
 EOF;
 }
@@ -97,4 +105,4 @@ $tabla .= <<<EOF
 EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
-$pdf->Output('reporteProveedores'.$estado.$fecha.'.pdf', 'D');
+$pdf->Output('reporteProductos'.$fecha.'.pdf', 'I');

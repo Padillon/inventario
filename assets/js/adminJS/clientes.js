@@ -43,5 +43,12 @@ function deleteCliente(num){
     $("#apellidoDelete").val(datos[2]);
 };
 
+$("#btnGenerarActivos").click(function(){
+    window.open(base_url+"mantenimiento/clientes/getReporteActivos", "_blank");
+});
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"mantenimiento/clientes/getReporteInactivos", "_blank");
+});
 
 

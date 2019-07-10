@@ -61,8 +61,27 @@ if ($permisos->insert == 1) {
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Productos</h4>
-                                 <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Productos</a>
-
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="col-md-2">
+                                            <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Productos</a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="btn-group" role="group" style="text-align: right;">
+                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Reporte
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                    <button type="button" id="btnGenerarActivos" class="dropdown-item">Activos</button>
+                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Inactivos</button>
+                                                    <button type="button" id="btnGenerarMarca" class="dropdown-item" data-toggle="modal" data-target="#PDFPorMarca">Por Marca</button>
+                                                    <button type="button" id="btnGenerarCategoria" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCategoria">Por Categoria</button>
+                                                    <button type="button" id="btnGenerarStock" class="dropdown-item" data-toggle="modal" data-target="#PDFPorStock">Con Stock</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -226,47 +245,135 @@ if ($permisos->insert == 1) {
   </div>
 </div>
 
- <!-- Modal delete-->
- <div class="modal fade" id="delete">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ti-cabeza">Eliminar</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                               <form action="<?php echo base_url();?>mantenimiento/productos/delete" method="POST">
-                                               <h4 id="titulo"></H4>
-                                               <input id="id-pro-delete" name="id-pro-delete" type="hidden" class="form-control" >
-                                               <input id="estado-pro-delete" name="estado-pro-delete" type="hidden" class="form-control" >
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="g-delete" name="g-delete" class="btn btn-primary">Aceptar</button>
-                                           </form> </div>
-                                        </div>
-                                    </div>
-                                </div>
-    <!-- Modal para asegurar la edicion-->
-    <div class="modal fade" id="edit">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ti-cabeza">Editar</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                               <form action="<?php echo base_url();?>mantenimiento/productos/edit_get" method="POST">
-                                               <h4 id="titulo">Está seguro de editar este producto?</H4>
-                                               <input id="id-pro-edit" name="id-pro-edit" type="hidden" class="form-control" >
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
-                                           </form> </div>
-                                        </div>
-                                    </div>
+<!-- Modal delete-->
+<div class="modal fade" id="delete">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Eliminar</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url();?>mantenimiento/productos/delete" method="POST">
+                    <h4 id="titulo"></H4>
+                    <input id="id-pro-delete" name="id-pro-delete" type="hidden" class="form-control" >
+                    <input id="estado-pro-delete" name="estado-pro-delete" type="hidden" class="form-control" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="g-delete" name="g-delete" class="btn btn-primary">Aceptar</button>
+                </form> 
+            </div>
+        </div>
     </div>
+</div>
 
+    <!-- Modal para asegurar la edicion-->
+<div class="modal fade" id="edit">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Editar</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url();?>mantenimiento/productos/edit_get" method="POST">
+                    <h4 id="titulo">Está seguro de editar este producto?</H4>
+                    <input id="id-pro-edit" name="id-pro-edit" type="hidden" class="form-control" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <!-- Modal para elegir la marca-->
+ <div class="modal fade" id="PDFPorMarca">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <label for="elegirMarca">Elija la marca:</label>        
+                <select name='elegirMarca' id='elegirMarca' class='custom-select' required>
+                    <?php foreach($marcas as $marca):?>
+                        <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnElegirMarca" name="btnElegirMarca" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal para elegir la categoria-->
+ <div class="modal fade" id="PDFPorCategoria">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <label for="elegirCategoria">Elija la Categoria:</label>        
+                <select name='elegirCategoria' id='elegirCategoria' class='custom-select' required>
+                    <?php foreach($categoria as $cat):?>
+                        <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnElegirCategoria" name="btnElegirCategoria" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal para elegir Stock-->
+ <div class="modal fade" id="PDFPorStock">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-auto">
+                <label for="elegirMarca">Elija la marca:</label>        
+                <select id='elegirMarcaStock' class='custom-select' required>
+                    <option value="b">Todos</option>
+                    <?php foreach($marcas as $marca):?>
+                        <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>
+                    <?php endforeach;?>
+                </select>
+                </div>
+                <div class="col-md-auto">
+                <br>
+                <label for="elegirCategoria">Elija la Categoria:</label>        
+                <select id='elegirCategoriaStock' class='custom-select' required>
+                    <option value="a">Todos</option>
+                    <?php foreach($categoria as $cat):?>
+                        <option value='<?php echo $cat->id_categoria;?>'><?php echo $cat->nombre;?></option>
+                    <?php endforeach;?>
+                </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnelegirStock" name="btnelegirStock" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
    
 <script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>

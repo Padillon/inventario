@@ -11,6 +11,7 @@ class Marcas extends CI_Controller {
             $this->permisos = $this->backend_lib->control();
             $this->load->model("Marcas_model");
             $this->load->library('toastr');
+            $this->load->library("Pdf");
         }
 	}
 
@@ -80,5 +81,33 @@ class Marcas extends CI_Controller {
         $this->load->view('layouts/aside');
         $this->load->view("admin/marcas/list",$data);
         $this->load->view("layouts/footer");
+    }
+
+    public function getReporteActivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Marcas_model->getAjustes(),
+            'nomUsuario' => $this->Marcas_model->getUsuario($idusuario),
+            'marcas' => $this->Marcas_model->getMarcas(),
+            'estado' => "Activas"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/marcas", $data);
+    }
+
+    public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Marcas_model->getAjustes(),
+            'nomUsuario' => $this->Marcas_model->getUsuario($idusuario),
+            'marcas' => $this->Marcas_model->getMarcasInactivos(),
+            'estado' => "Inactivas"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/marcas", $data);
     }
 }

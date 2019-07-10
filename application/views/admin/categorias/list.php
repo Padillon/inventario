@@ -36,8 +36,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Categorias</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
-
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
+                                        </div> 
+                                        <div class="col-md-2">
+                                            <div class="btn-group" role="group" style="text-align: right;">
+                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Reporte
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                    <button type="button" id="btnGenerarActivos" class="dropdown-item">Activos</button>
+                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Inactivos</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="data-tables">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
 

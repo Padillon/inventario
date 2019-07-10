@@ -2,10 +2,10 @@
 -- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2019 a las 22:27:36
--- Versión del servidor: 10.1.25-MariaDB
--- Versión de PHP: 7.1.7
+-- Host: 127.0.0.1
+-- Generation Time: Jul 09, 2019 at 05:39 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `inventario`
+-- Database: `inventario`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ajustes`
+-- Table structure for table `ajustes`
 --
 
 CREATE TABLE `ajustes` (
@@ -40,7 +40,7 @@ CREATE TABLE `ajustes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `ajustes`
+-- Dumping data for table `ajustes`
 --
 
 INSERT INTO `ajustes` (`id`, `nombre`, `direccion`, `registro`, `giro`, `logo`, `telefono`, `correo`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `ajustes` (`id`, `nombre`, `direccion`, `registro`, `giro`, `logo`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
+-- Table structure for table `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -59,11 +59,11 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `categoria`
+-- Dumping data for table `categoria`
 --
 
 INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
-(1, 'Calzoncillo de hombre', 1),
+(1, 'Calzoncillo de hombreeee', 1),
 (2, 'Blusas', 1),
 (3, 'Faldas', 1),
 (4, 'Bloomer', 1),
@@ -81,12 +81,14 @@ INSERT INTO `categoria` (`id_categoria`, `nombre`, `estado`) VALUES
 (16, 'Camiseta', 1),
 (17, 'Centro', 1),
 (18, 'Mantel', 1),
-(19, 'Vestidos', 1);
+(19, 'Vestidos', 1),
+(20, 'kkkkk}}{}++', 0),
+(21, 'ddddddddddddddd', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -101,16 +103,20 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `clientes`
+-- Dumping data for table `clientes`
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre`, `apellido`, `nit`, `telefono`, `registro`, `direccion`, `estado`) VALUES
-(1, 'varios', '', '', '', '', '', 1);
+(1, 'varios', '', '', '', '', '', 1),
+(2, '', '', '', '', '', '', 0),
+(3, '', '', '', '', '', '', 0),
+(4, '', '', '', '', '', '', 0),
+(5, 'Abigail', 'Mejia', '', '', '', 'San Antonio Silva', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detalle_entrada`
+-- Table structure for table `detalle_entrada`
 --
 
 CREATE TABLE `detalle_entrada` (
@@ -125,7 +131,7 @@ CREATE TABLE `detalle_entrada` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `detalle_entrada`
+-- Dumping data for table `detalle_entrada`
 --
 
 INSERT INTO `detalle_entrada` (`id_detalle_entrada`, `cantidad`, `id_producto`, `precio`, `iva`, `subtotal`, `id_entrada`, `estado`) VALUES
@@ -210,12 +216,30 @@ INSERT INTO `detalle_entrada` (`id_detalle_entrada`, `cantidad`, `id_producto`, 
 (79, 12, 48, 0.75, 0, 9, 20, 1),
 (80, 12, 49, 0.58, 0, 6.96, 20, 1),
 (81, 4, 50, 2.75, 0, 11, 21, 1),
-(82, 6, 39, 0.83, 0, 4.98, 22, 1);
+(82, 6, 39, 0.83, 0, 4.98, 22, 1),
+(83, 3, 8, 1.66, 0, 4.98, 23, 1),
+(84, 3, 7, 2, 0, 6, 23, 1),
+(85, 6, 35, 1.75, 0, 10.5, 23, 1),
+(86, 6, 6, 2.5, 0, 15, 23, 1),
+(87, 4, 9, 1.66, 0, 6.64, 24, 1),
+(88, 12, 37, 1.75, 0, 21, 24, 1),
+(89, 12, 21, 0.41, 0, 4.92, 24, 1),
+(90, 12, 39, 0.83, 0, 9.96, 24, 1),
+(91, 12, 44, 0.83, 0, 9.96, 24, 1),
+(92, 12, 8, 1.66, 0, 19.92, 25, 1),
+(93, 12, 12, 0.83, 0, 9.96, 25, 1),
+(94, 12, 19, 0.41, 0, 4.92, 25, 1),
+(95, 12, 1, 1.42, 0, 17.04, 25, 1),
+(96, 12, 37, 1.75, 0, 21, 25, 1),
+(97, 12, 35, 1.75, 0, 21, 25, 1),
+(98, 12, 36, 1.5, 0, 18, 25, 1),
+(99, 33, 16, 0.42, 0, 13.86, 26, 1),
+(100, 34, 1, 1.42, 0, 48.28, 26, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detalle_salida`
+-- Table structure for table `detalle_salida`
 --
 
 CREATE TABLE `detalle_salida` (
@@ -229,17 +253,23 @@ CREATE TABLE `detalle_salida` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `detalle_salida`
+-- Dumping data for table `detalle_salida`
 --
 
 INSERT INTO `detalle_salida` (`id_detalle_salida`, `cantidad`, `id_producto`, `precio_venta`, `iva`, `subtotal`, `id_salida`) VALUES
 (1, 3, 6, 3, 0, 9, 1),
-(2, 6, 1, 1.66, 0, 9.96, 2);
+(2, 6, 1, 1.66, 0, 9.96, 2),
+(3, 12, 1, 1.66, 0, 19.92, 3),
+(4, 1, 22, 0.66, 0, 0.66, 4),
+(5, 2, 13, 1.04, 0, 2.08, 4),
+(6, 1, 16, 0.66, 0, 0.66, 4),
+(7, 12, 28, 1.04, 0, 12.48, 4),
+(8, 12, 24, 0.66, 0, 7.92, 4);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `entradas`
+-- Table structure for table `entradas`
 --
 
 CREATE TABLE `entradas` (
@@ -253,11 +283,11 @@ CREATE TABLE `entradas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `entradas`
+-- Dumping data for table `entradas`
 --
 
 INSERT INTO `entradas` (`id_entrada`, `id_usuario`, `id_movimiento`, `fecha`, `total`, `id_proveedor`, `estado`) VALUES
-(1, 1, 1, '2019-06-07', 17.04, 2, 1),
+(1, 1, 1, '2019-06-07', 17.04, 2, 0),
 (2, 1, 1, '2019-06-07', 162.6, 2, 1),
 (3, 1, 1, '2019-06-07', 138.6, 2, 1),
 (4, 1, 1, '2019-06-07', 90, 5, 1),
@@ -278,12 +308,16 @@ INSERT INTO `entradas` (`id_entrada`, `id_usuario`, `id_movimiento`, `fecha`, `t
 (19, 1, 1, '2019-06-08', 23.12, 5, 1),
 (20, 1, 1, '2019-06-08', 62.4, 5, 1),
 (21, 1, 1, '2019-06-08', 11, 5, 0),
-(22, 1, 1, '2019-06-08', 4.98, 5, 0);
+(22, 1, 1, '2019-06-08', 4.98, 5, 0),
+(23, 1, 0, '2019-06-28', 36.48, 5, 1),
+(24, 1, 0, '2019-06-28', 52.48, 5, 1),
+(25, 1, 0, '2019-06-28', 111.84, 5, 1),
+(26, 1, 0, '2019-06-28', 62.14, 5, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `kardex`
+-- Table structure for table `kardex`
 --
 
 CREATE TABLE `kardex` (
@@ -302,7 +336,7 @@ CREATE TABLE `kardex` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `kardex`
+-- Dumping data for table `kardex`
 --
 
 INSERT INTO `kardex` (`id_kardex`, `id_movimiento`, `fecha`, `descripcion`, `id_producto`, `cantidad`, `precio`, `total`, `saldo`, `id_entrada`, `id_salida`, `id_usuario`) VALUES
@@ -392,12 +426,38 @@ INSERT INTO `kardex` (`id_kardex`, `id_movimiento`, `fecha`, `descripcion`, `id_
 (84, 3, '2019-06-08', 'Compra anulada.', 39, 6, 0.83, 4.98, 19.92, 22, 0, 1),
 (85, 3, '2019-06-08', 'Compra anulada.', 50, 4, 2.75, 11, 0, 21, 0, 1),
 (86, 2, '2019-06-08', 'Salida', 1, 6, 1.66, 9.96, 7.08, 0, 2, 1),
-(87, 4, '2019-06-08', 'Venta anulada.', 1, 6, 1.66, 9.96, -2.88, 0, 2, 1);
+(87, 4, '2019-06-08', 'Venta anulada.', 1, 6, 1.66, 9.96, -2.88, 0, 2, 1),
+(88, 1, '2019-06-28', 'Compra de producto.', 8, 3, 1.66, 4.98, 44.82, 23, 0, 1),
+(89, 1, '2019-06-28', 'Compra de producto.', 7, 3, 2, 6, 30, 23, 0, 1),
+(90, 1, '2019-06-28', 'Compra de producto.', 35, 6, 1.75, 10.5, 21, 23, 0, 1),
+(91, 1, '2019-06-28', 'Compra de producto.', 6, 6, 2.5, 15, 66, 23, 0, 1),
+(92, 1, '2019-06-28', 'Compra de producto.', 9, 4, 1.66, 6.64, 46.48, 24, 0, 1),
+(93, 1, '2019-06-28', 'Compra de producto.', 37, 12, 1.75, 21, 63, 24, 0, 1),
+(94, 1, '2019-06-28', 'Compra de producto.', 21, 12, 0.41, 4.92, 24.6, 24, 0, 1),
+(95, 1, '2019-06-28', 'Compra de producto.', 39, 12, 0.83, 9.96, 29.88, 24, 0, 1),
+(96, 1, '2019-06-28', 'Compra de producto.', 44, 12, 0.83, 9.96, 19.92, 24, 0, 1),
+(97, 1, '2019-06-28', 'Compra de producto.', 8, 12, 1.66, 19.92, 64.74, 25, 0, 1),
+(98, 1, '2019-06-28', 'Compra de producto.', 12, 12, 0.83, 9.96, 29.88, 25, 0, 1),
+(99, 1, '2019-06-28', 'Compra de producto.', 19, 12, 0.41, 4.92, 24.6, 25, 0, 1),
+(100, 1, '2019-06-28', 'Compra de producto.', 1, 12, 1.42, 17.04, 14.16, 25, 0, 1),
+(101, 1, '2019-06-28', 'Compra de producto.', 37, 12, 1.75, 21, 84, 25, 0, 1),
+(102, 1, '2019-06-28', 'Compra de producto.', 35, 12, 1.75, 21, 42, 25, 0, 1),
+(103, 1, '2019-06-28', 'Compra de producto.', 36, 12, 1.5, 18, 81, 25, 0, 1),
+(104, 1, '2019-06-28', 'Compra de producto.', 16, 33, 0.42, 13.86, 23.94, 26, 0, 1),
+(105, 1, '2019-06-28', 'Compra de producto.', 1, 34, 1.42, 48.28, 62.44, 26, 0, 1),
+(106, 3, '2019-06-28', 'Compra anulada.', 1, 12, 1.42, 17.04, 0, 1, 0, 1),
+(107, 2, '2019-06-28', 'Salida', 1, 12, 1.66, 19.92, -19.92, 0, 3, 1),
+(108, 4, '2019-06-28', 'Venta anulada.', 1, 12, 1.66, 19.92, -39.84, 0, 3, 1),
+(109, 2, '2019-06-28', 'Salida', 22, 1, 0.66, 0.66, 28.86, 0, 4, 1),
+(110, 2, '2019-06-28', 'Salida', 13, 2, 1.04, 2.08, 17.84, 0, 4, 1),
+(111, 2, '2019-06-28', 'Salida', 16, 1, 0.66, 0.66, 23.28, 0, 4, 1),
+(112, 2, '2019-06-28', 'Salida', 28, 12, 1.04, 12.48, 17.4, 0, 4, 1),
+(113, 2, '2019-06-28', 'Salida', 24, 12, 0.66, 7.92, 11.76, 0, 4, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `marcas`
+-- Table structure for table `marcas`
 --
 
 CREATE TABLE `marcas` (
@@ -407,7 +467,7 @@ CREATE TABLE `marcas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `marcas`
+-- Dumping data for table `marcas`
 --
 
 INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
@@ -460,12 +520,16 @@ INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
 (47, 'Colar', 1),
 (48, 'Milavista', 1),
 (49, 'Lady Vusques', 1),
-(50, 'Varios', 1);
+(50, 'Varios', 1),
+(51, 'Viquelsy', 0),
+(52, 'ñ+{}{}+{+\'´+¿´+{', 1),
+(53, 'ssssssssssssssss', 0),
+(54, 'tggggggggggggggg', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
@@ -475,7 +539,7 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `menu`
+-- Dumping data for table `menu`
 --
 
 INSERT INTO `menu` (`id_menu`, `nombre`, `link`) VALUES
@@ -495,7 +559,7 @@ INSERT INTO `menu` (`id_menu`, `nombre`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `permisos`
+-- Table structure for table `permisos`
 --
 
 CREATE TABLE `permisos` (
@@ -509,7 +573,7 @@ CREATE TABLE `permisos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `permisos`
+-- Dumping data for table `permisos`
 --
 
 INSERT INTO `permisos` (`id_permiso`, `menu_id`, `rol_id`, `read`, `insert`, `update`, `delete`) VALUES
@@ -529,7 +593,7 @@ INSERT INTO `permisos` (`id_permiso`, `menu_id`, `rol_id`, `read`, `insert`, `up
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `presentacion`
+-- Table structure for table `presentacion`
 --
 
 CREATE TABLE `presentacion` (
@@ -539,21 +603,22 @@ CREATE TABLE `presentacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `presentacion`
+-- Dumping data for table `presentacion`
 --
 
 INSERT INTO `presentacion` (`id_presentacion`, `nombre`, `estado`) VALUES
 (1, 'Unidad', 0),
-(2, 'Caja', 1),
-(3, 'Estuche', 1),
+(2, 'Caja', 0),
+(3, 'Estuche', 0),
 (4, 'unidad', 1),
 (5, 'pieza', 1),
-(6, 'Docena', 1);
+(6, 'Docena', 1),
+(7, 'ñ', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Table structure for table `productos`
 --
 
 CREATE TABLE `productos` (
@@ -574,7 +639,7 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `productos`
+-- Dumping data for table `productos`
 --
 
 INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `nombre`, `descripcion`, `precio_compra`, `precio_venta`, `imagen`, `inventariable`, `id_presentacion`, `perecedero`, `estado`, `id_marca`) VALUES
@@ -593,13 +658,13 @@ INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `n
 (13, 4, 'K17-YTF3529P', 13, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
 (14, 4, 'C18-HY3810P', 14, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
 (15, 4, 'K17-YTF3536P', 15, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
-(16, 4, '1126', 16, 'Bloomer', 'Bloomer chino tela fria', 0.42, 0.66, '', 0, 5, 0, 1, 9),
+(16, 4, '1126', 16, 'Bloomer', 'Bloomer chino tela fria', 0.42, 0.66, '', 0, 5, 0, 0, 9),
 (17, 4, 'GB/T8878-2002', 17, 'Bloomer', 'Bloomer chino tela fria', 0.42, 0.66, '', 0, 5, 0, 1, 9),
 (18, 4, 'GB/T8878-2009 ', 18, 'Bloomer', 'Bloomer chino tela fria', 0.42, 0.66, '', 0, 5, 0, 1, 9),
 (19, 4, 'GB18401-2010B', 19, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
 (20, 4, '206', 20, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
 (21, 4, '3319', 21, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
-(22, 4, '2003', 22, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
+(22, 4, '2003', 22, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 0, 9),
 (23, 4, '3358', 23, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
 (24, 4, 'PLS13120', 24, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
 (25, 4, '9483', 25, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
@@ -607,7 +672,7 @@ INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `n
 (27, 4, '8347', 27, 'Bloomer', 'Bloomer chino tela fria', 0.41, 0.66, '', 0, 5, 0, 1, 9),
 (28, 4, 'C18-HY3814P', 28, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
 (29, 4, 'E18-LGQ4011P', 29, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
-(30, 4, '050', 30, 'Bloomer', 'Bloomer Algodon', 0.66, 0.83, '', 0, 5, 0, 1, 40),
+(30, 4, '050', 30, 'Bloomer', 'Bloomer Algodon', 0.66, 0.83, '', 0, 5, 0, 0, 40),
 (31, 4, 'C18-HY3827P', 31, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
 (32, 4, 'C18-HY3812P', 32, 'Bloomer', 'Bloomer Algodon', 0.83, 1.04, '', 0, 5, 0, 1, 1),
 (33, 4, 'HF56', 33, 'Bloomer', 'Bloomer Algodon estampado', 0.58, 0.75, '', 0, 5, 0, 1, 41),
@@ -632,7 +697,7 @@ INSERT INTO `productos` (`id_producto`, `id_categoria`, `codigo`, `id_stock`, `n
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proveedores`
+-- Table structure for table `proveedores`
 --
 
 CREATE TABLE `proveedores` (
@@ -644,7 +709,7 @@ CREATE TABLE `proveedores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `proveedores`
+-- Dumping data for table `proveedores`
 --
 
 INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `empresa`, `telefono`, `estado`) VALUES
@@ -652,12 +717,41 @@ INSERT INTO `proveedores` (`id_proveedor`, `nombre`, `empresa`, `telefono`, `est
 (2, 'Lisseth', 'Distribuidora Latina', '7232-6342', 1),
 (3, 'Javier', 'Lavable', '7932-8000', 1),
 (4, 'Francisco Guerra Hers', 'HERS', '', 1),
-(5, 'Zulma', 'Bazar Zulma', '', 1);
+(5, 'Zulma', 'Bazar Zulma', '', 1),
+(6, '', '', '', 0),
+(7, '', '', '', 0),
+(8, '', '', '', 0),
+(9, 'KK', 'acción', '9', 1),
+(10, 'HKJDHS', 'GHJ', '8', 1),
+(11, 'HGJH', 'HJGJHG', '555', 1),
+(12, 'GFFDDF', 'DFG', '', 1),
+(13, 'HGHG', 'UYFHGF', '', 0),
+(14, 'JHJHG', 'HJGJH', '', 0),
+(15, 'HJHGHJ', 'JGHJH', '', 0),
+(16, 'JGDJHSG', 'DJHSGJ', '', 0),
+(17, 'HJJ', 'HGHG', '', 0),
+(18, 'SDA', 'AFD', '', 1),
+(19, 'JHGDH', 'JHGJHG', '', 1),
+(20, 'KHKDHJS', 'HKJHKJH', '5465', 1),
+(21, 'JJHHKJH', 'KJHKJH', '55', 1),
+(22, 'lkmlk', 'klk', 'klk', 1),
+(23, 'radarada', 'gombal', '666666666', 0),
+(24, 'holaño', 'pipian', '111', 1),
+(25, 'ola', 'piopio', 'pipio', 1),
+(26, 'hugo', 'jugitos de helado', '666666', 1),
+(27, 'kony', 'pony salvaje', '2121 2828', 1),
+(28, 'niña zulma', 'niña zulma', 'niña zulma', 1),
+(29, 'jordy wile', 'xvideos', '21212828', 1),
+(30, 'khalifa', 'xvieos', '3333336', 1),
+(31, 'coma', 'lapa', '1212', 1),
+(32, 'ss', '', '', 1),
+(33, 'jdklkj', '', '', 1),
+(34, 'djksajkjh', '', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -666,7 +760,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id_rol`, `nombre`) VALUES
@@ -676,7 +770,7 @@ INSERT INTO `roles` (`id_rol`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `salidas`
+-- Table structure for table `salidas`
 --
 
 CREATE TABLE `salidas` (
@@ -691,17 +785,19 @@ CREATE TABLE `salidas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `salidas`
+-- Dumping data for table `salidas`
 --
 
 INSERT INTO `salidas` (`id_salida`, `id_usuario`, `id_cliente`, `fecha`, `total`, `descripcion`, `id_movimiento`, `estado`) VALUES
 (1, 1, 1, '2019-06-07', 9, 'venta de producto', 2, 1),
-(2, 1, 1, '2019-06-08', 9.96, 'venta de producto', 2, 0);
+(2, 1, 1, '2019-06-08', 9.96, 'venta de producto', 2, 0),
+(3, 1, 1, '2019-06-28', 19.92, 'venta de producto', 0, 0),
+(4, 1, 1, '2019-06-28', 23.8, 'venta de producto', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `stock`
+-- Table structure for table `stock`
 --
 
 CREATE TABLE `stock` (
@@ -712,54 +808,54 @@ CREATE TABLE `stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `stock`
+-- Dumping data for table `stock`
 --
 
 INSERT INTO `stock` (`id_stock`, `stock_actual`, `stock_inicial`, `stock_minimo`) VALUES
-(1, 12, 0, 0),
+(1, 46, 0, 0),
 (2, 72, 0, 0),
 (3, 36, 0, 0),
 (4, 36, 0, 0),
 (5, 36, 0, 0),
-(6, 21, 0, 0),
-(7, 12, 0, 0),
-(8, 24, 0, 0),
-(9, 24, 0, 0),
+(6, 27, 0, 0),
+(7, 15, 0, 0),
+(8, 39, 0, 0),
+(9, 28, 0, 0),
 (10, 24, 0, 0),
 (11, 24, 0, 0),
-(12, 24, 0, 0),
-(13, 24, 0, 0),
+(12, 36, 0, 0),
+(13, 22, 0, 0),
 (14, 24, 0, 0),
 (15, 22, 0, 0),
-(16, 24, 0, 0),
+(16, 56, 0, 0),
 (17, 48, 0, 0),
 (18, 48, 0, 0),
-(19, 48, 0, 0),
+(19, 60, 0, 0),
 (20, 48, 0, 0),
-(21, 48, 0, 0),
-(22, 72, 0, 0),
+(21, 60, 0, 0),
+(22, 71, 0, 0),
 (23, 48, 0, 0),
-(24, 48, 0, 0),
+(24, 36, 0, 0),
 (25, 48, 0, 0),
 (26, 48, 0, 0),
 (27, 48, 0, 0),
-(28, 36, 0, 0),
+(28, 24, 0, 0),
 (29, 12, 0, 0),
 (30, 24, 0, 0),
 (31, 24, 0, 0),
 (32, 12, 0, 0),
 (33, 12, 0, 0),
 (34, 105, 0, 0),
-(35, 6, 0, 0),
-(36, 42, 0, 0),
-(37, 24, 0, 0),
+(35, 24, 0, 0),
+(36, 54, 0, 0),
+(37, 48, 0, 0),
 (38, 24, 0, 0),
-(39, 24, 0, 0),
+(39, 36, 0, 0),
 (40, 72, 0, 0),
 (41, 72, 0, 0),
 (42, 8, 0, 0),
 (43, 2, 0, 0),
-(44, 12, 0, 0),
+(44, 24, 0, 0),
 (45, 36, 0, 1),
 (46, 48, 0, 0),
 (47, 60, 0, 0),
@@ -770,7 +866,7 @@ INSERT INTO `stock` (`id_stock`, `stock_actual`, `stock_inicial`, `stock_minimo`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_movimiento`
+-- Table structure for table `tipo_movimiento`
 --
 
 CREATE TABLE `tipo_movimiento` (
@@ -780,7 +876,7 @@ CREATE TABLE `tipo_movimiento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `tipo_movimiento`
+-- Dumping data for table `tipo_movimiento`
 --
 
 INSERT INTO `tipo_movimiento` (`id_movimiento`, `tipo_transaccion`, `nombre`) VALUES
@@ -796,7 +892,7 @@ INSERT INTO `tipo_movimiento` (`id_movimiento`, `tipo_transaccion`, `nombre`) VA
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -809,37 +905,38 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `rol`, `usuario`, `correo`, `estado`, `password`) VALUES
 (1, 1, 'Hugo', 'hugoale_ab2@hotmail.com', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997'),
-(5, 1, 'Edward', 'baionz_hg@hotmail.com', 1, 'e3240071674a2d3febf0c612c4c60a0498e2375b');
+(5, 1, 'Edward', 'baionz_hg@hotmail.com', 1, 'e3240071674a2d3febf0c612c4c60a0498e2375b'),
+(6, 2, 'Konny', 'pinchehugochan@gmail.com', 1, '9cdc0d9d072d2a1ed2f5d2c2af594c39c5f1d51c');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `ajustes`
+-- Indexes for table `ajustes`
 --
 ALTER TABLE `ajustes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `categoria`
+-- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Indices de la tabla `clientes`
+-- Indexes for table `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `detalle_entrada`
+-- Indexes for table `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
   ADD PRIMARY KEY (`id_detalle_entrada`),
@@ -847,7 +944,7 @@ ALTER TABLE `detalle_entrada`
   ADD KEY `id_entrada` (`id_entrada`);
 
 --
--- Indices de la tabla `detalle_salida`
+-- Indexes for table `detalle_salida`
 --
 ALTER TABLE `detalle_salida`
   ADD PRIMARY KEY (`id_detalle_salida`),
@@ -857,7 +954,7 @@ ALTER TABLE `detalle_salida`
   ADD KEY `id_salida` (`id_salida`) USING BTREE;
 
 --
--- Indices de la tabla `entradas`
+-- Indexes for table `entradas`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`id_entrada`),
@@ -866,7 +963,7 @@ ALTER TABLE `entradas`
   ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
--- Indices de la tabla `kardex`
+-- Indexes for table `kardex`
 --
 ALTER TABLE `kardex`
   ADD PRIMARY KEY (`id_kardex`),
@@ -875,31 +972,31 @@ ALTER TABLE `kardex`
   ADD KEY `id_movimiento` (`id_movimiento`);
 
 --
--- Indices de la tabla `marcas`
+-- Indexes for table `marcas`
 --
 ALTER TABLE `marcas`
   ADD PRIMARY KEY (`id_marca`);
 
 --
--- Indices de la tabla `menu`
+-- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
--- Indices de la tabla `permisos`
+-- Indexes for table `permisos`
 --
 ALTER TABLE `permisos`
   ADD PRIMARY KEY (`id_permiso`);
 
 --
--- Indices de la tabla `presentacion`
+-- Indexes for table `presentacion`
 --
 ALTER TABLE `presentacion`
   ADD PRIMARY KEY (`id_presentacion`);
 
 --
--- Indices de la tabla `productos`
+-- Indexes for table `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`),
@@ -909,19 +1006,19 @@ ALTER TABLE `productos`
   ADD KEY `id_marca` (`id_marca`);
 
 --
--- Indices de la tabla `proveedores`
+-- Indexes for table `proveedores`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id_proveedor`);
 
 --
--- Indices de la tabla `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id_rol`);
 
 --
--- Indices de la tabla `salidas`
+-- Indexes for table `salidas`
 --
 ALTER TABLE `salidas`
   ADD PRIMARY KEY (`id_salida`),
@@ -930,130 +1027,130 @@ ALTER TABLE `salidas`
   ADD KEY `id_cliente` (`id_cliente`);
 
 --
--- Indices de la tabla `stock`
+-- Indexes for table `stock`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`id_stock`);
 
 --
--- Indices de la tabla `tipo_movimiento`
+-- Indexes for table `tipo_movimiento`
 --
 ALTER TABLE `tipo_movimiento`
   ADD PRIMARY KEY (`id_movimiento`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `ajustes`
+-- AUTO_INCREMENT for table `ajustes`
 --
 ALTER TABLE `ajustes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de la tabla `categoria`
+-- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
--- AUTO_INCREMENT de la tabla `clientes`
+-- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT de la tabla `detalle_entrada`
+-- AUTO_INCREMENT for table `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
-  MODIFY `id_detalle_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id_detalle_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
--- AUTO_INCREMENT de la tabla `detalle_salida`
+-- AUTO_INCREMENT for table `detalle_salida`
 --
 ALTER TABLE `detalle_salida`
-  MODIFY `id_detalle_salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detalle_salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT de la tabla `entradas`
+-- AUTO_INCREMENT for table `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
--- AUTO_INCREMENT de la tabla `kardex`
+-- AUTO_INCREMENT for table `kardex`
 --
 ALTER TABLE `kardex`
-  MODIFY `id_kardex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id_kardex` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 --
--- AUTO_INCREMENT de la tabla `marcas`
+-- AUTO_INCREMENT for table `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
--- AUTO_INCREMENT de la tabla `menu`
+-- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT de la tabla `permisos`
+-- AUTO_INCREMENT for table `permisos`
 --
 ALTER TABLE `permisos`
   MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT de la tabla `presentacion`
+-- AUTO_INCREMENT for table `presentacion`
 --
 ALTER TABLE `presentacion`
-  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_presentacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT de la tabla `productos`
+-- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
--- AUTO_INCREMENT de la tabla `proveedores`
+-- AUTO_INCREMENT for table `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
--- AUTO_INCREMENT de la tabla `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de la tabla `salidas`
+-- AUTO_INCREMENT for table `salidas`
 --
 ALTER TABLE `salidas`
-  MODIFY `id_salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de la tabla `stock`
+-- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
   MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
--- AUTO_INCREMENT de la tabla `tipo_movimiento`
+-- AUTO_INCREMENT for table `tipo_movimiento`
 --
 ALTER TABLE `tipo_movimiento`
   MODIFY `id_movimiento` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `detalle_entrada`
+-- Constraints for table `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
   ADD CONSTRAINT `detalle_entrada_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
   ADD CONSTRAINT `detalle_entrada_ibfk_2` FOREIGN KEY (`id_entrada`) REFERENCES `entradas` (`id_entrada`);
 
 --
--- Filtros para la tabla `kardex`
+-- Constraints for table `kardex`
 --
 ALTER TABLE `kardex`
   ADD CONSTRAINT `kardex_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`),
@@ -1061,7 +1158,7 @@ ALTER TABLE `kardex`
   ADD CONSTRAINT `kardex_ibfk_5` FOREIGN KEY (`id_movimiento`) REFERENCES `tipo_movimiento` (`id_movimiento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `salidas`
+-- Constraints for table `salidas`
 --
 ALTER TABLE `salidas`
   ADD CONSTRAINT `salidas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);

@@ -11,6 +11,7 @@ class Clientes extends CI_Controller {
 		$this->permisos = $this->backend_lib->control();
         $this->load->model("Clientes_model");
         $this->load->library('toastr');
+        $this->load->library("Pdf");
     }
 	}
 
@@ -90,7 +91,34 @@ class Clientes extends CI_Controller {
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/clientes");
         }
-        
+    }
+
+    public function getReporteActivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Clientes_model->getAjustes(),
+            'nomUsuario' => $this->Clientes_model->getUsuario($idusuario),
+            'clientes' => $this->Clientes_model->getClientes(),
+            'estado' => "Activos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/clientes", $data);
+    }
+
+    public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Clientes_model->getAjustes(),
+            'nomUsuario' => $this->Clientes_model->getUsuario($idusuario),
+            'clientes' => $this->Clientes_model->getClientesInactivos(),
+            'estado' => "Inactivos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/clientes", $data);
     }
 	
 }

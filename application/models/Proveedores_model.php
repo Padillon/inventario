@@ -34,9 +34,10 @@ class Proveedores_model extends CI_Model {
 		return $resultado->row();
 	}
 
-	public function getProveedoresJson(){ 
-		$this->db->where("estado",1);
+	public function getProveedoresInactivos(){ 
+		$this->db->where("estado",0);
 		$resultados = $this->db->get("proveedores");
-			return json_encode($resultados->result());
+			return $resultados->result();
 	}
+
 }

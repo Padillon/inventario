@@ -44,7 +44,7 @@ $bloque1 = <<<EOF
         <tr>
             <br>
             <td style="background-color:white; text-align: center; color:red;">
-                Reporte de Proveedores $estado
+                Reporte de Clientes $estado
             </td>
         </tr>
 	</table>
@@ -72,23 +72,30 @@ $pdf->writeHTML(utf8_decode($bloque2), false, false, false, false, '');
         
 $tabla = <<<EOF
     <br>
-    <table border="1" cellpadding="2">   
+    <table border="1" cellpadding="2" width="100%">   
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
-                <th width="30%" align="center" bgcolor="lightgray">Nombre</th>
-                <th width="30%" align="center" bgcolor="lightgray">Empresa</th>
-                <th width="30%" align="center" bgcolor="lightgray">Telefono</th>
+                <th width="15%" align="center" bgcolor="lightgray">Nombre</th>
+                <th width="15%" align="center" bgcolor="lightgray">Apellido</th>
+                <th width="15%" align="center" bgcolor="lightgray">Nit</th>
+                <th width="15%" align="center" bgcolor="lightgray">Registro</th>
+                <th width="15%" align="center" bgcolor="lightgray">Tel&eacute;fono</th>
+                <th width="15%" align="center" bgcolor="lightgray">Direcci&oacute;n</th>
             </tr>
 EOF;
 $cont = 0;
-foreach($proveedores as $prov){
+foreach($clientes as $cli){
     $cont++;
     $tabla .= <<<EOF
         <tr>
             <td>$cont</td>
-            <td>$prov->nombre</td>
-            <td>$prov->empresa</td>
-            <td>$prov->telefono</td>
+            <td>$cli->nombre</td>
+            <td>$cli->apellido</td>
+            <td>$cli->direccion</td>
+            <td>$cli->nit</td>
+            <td>$cli->registro</td>
+            <td>$cli->telefono</td>
+            <td>$cli->direccion</td>
         </tr>
 EOF;
 }
@@ -97,4 +104,4 @@ $tabla .= <<<EOF
 EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
-$pdf->Output('reporteProveedores'.$estado.$fecha.'.pdf', 'D');
+$pdf->Output('reporteClientes'.$estado.$fecha.'.pdf', 'D');
