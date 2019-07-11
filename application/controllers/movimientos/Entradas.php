@@ -217,7 +217,7 @@ class Entradas extends CI_Controller {
             'estado' => "Inactivos"
         );
         //generando el pdf
-        $this->load->view("admin/reportes/entradas", $data);
+        $this->load->view("admin/reportes/entradasAnuladas", $data);
     }
 
     public function getReporteFecha(){
@@ -229,9 +229,10 @@ class Entradas extends CI_Controller {
             'fecha' => date("d-m-Y"),
             'empresa' => $this->Entradas_model->getAjustes(),
             'nomUsuario' => $this->Entradas_model->getUsuario($idusuario),
-            'entradas' => $this->Entradas_model->getEntradasFechas($fecha1, $fecha2),
+			'entradas' => $this->Entradas_model->getEntradasFechas($fecha1, $fecha2),
+			'totalCompras' => $this->Entradas_model->totalEntradasFechas($fecha1, $fecha2),
             'estado' => "Por Fechas"
-        );
+		);
         //generando el pdf
         $this->load->view("admin/reportes/entradas", $data);
     }

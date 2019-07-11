@@ -140,5 +140,15 @@ class Entradas_model extends CI_Model {
         return $resultados->result();
     }
 
+    public function totalEntradasFechas($fecha1, $fecha2){
+      
+      $resultado = $this->db->query("
+                      select truncate(sum(total), 3) as totalTotal
+                      from entradas
+                      where estado = 1
+                      and fecha between cast('$fecha1' as date) and cast('$fecha2' as date)
+                      ");
+      return $resultado->row();
+    }
 
 }
