@@ -35,7 +35,7 @@
                     <div class="card">
                         <div class="card-body">
                         
-                            <form class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data'>
+                            <form class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' >
                                 <div class="input-group">   
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>
@@ -60,11 +60,12 @@
                                                 </select>
                                         </div>
 
-                                    <!--    <div class="col-md-3">
+                                             <!--    <div class="col-md-3">
                                             <label for="create_codigo">Codigo.</label>
                                             <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
                                         </div> -->
                                         <div class="col-md-3">
+                                            <input name='create_codigo' id="create_codigo" type='hidden' >
                                              <svg id="barcode"></svg>  
                                         </div>            
                                         <div class="col-md-12"> 
@@ -134,11 +135,78 @@
     $this->load->view('layouts/alert');
     ?>
 
-<script src="<?php echo base_url();?>assets/js/adminJS/productos.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/productos.js">
+
+</script>
 <script>
- /* if(4<5){
-        alert("jolas");
-        $('#create_perecedero').val('1');
-        $("#create_perecedero").prop('checked', true);
-    }*/
+    
+//codigo de buarra generador
+
+var marca = document.getElementById('create_marca');
+var categoria = document.getElementById('create_categoria');
+codigoBarra();
+marca.addEventListener('change',
+  function(){
+      codigoBarra();
+  });
+categoria.addEventListener('change',
+function(){
+    codigoBarra();
+});
+
+function codigoBarra(){
+    var marcaOption = marca.options[marca.selectedIndex];
+    var categoriaOption = categoria.options[categoria.selectedIndex];
+      $.ajax({  
+        url: base_url+"mantenimiento/productos/getSerie",
+        type: "POST",
+        dataType: "json",
+        data:{ marca: marcaOption.value, categoria: categoriaOption.value},
+        success: function(data){
+            var serie = data[0].cuenta;
+            serie++;
+              //fragmento marca
+            var long_marca = marcaOption.value.length ; // conseguimos la longitud de marca
+            var marca_cod = "";
+            if(long_marca <= 1){
+                marca_cod = "000"+marcaOption.value;
+            }else if(long_marca <= 2){
+                marca_cod = "00"+marcaOption.value;
+            }else if(long_marca <= 3){
+                marca_cod = "0"+marcaOption.value;
+            }else{
+                marca_cod = marcaOption.value;
+            }
+            // fragmento categoria
+            var long_marca = categoriaOption.value.length ; // conseguimos la longitud de marca
+            var categoria_cod = "";
+            if(long_marca <= 1){
+                categoria_cod = "000"+categoriaOption.value;
+            }else if(long_marca <= 2){
+                categoria_cod = "00"+categoriaOption.value;
+            }else if(long_marca <= 3){
+                categoria_cod = "0"+categoriaOption.value;
+            }else{
+                categoria_cod = categoriaOption.value;
+            }
+            
+            //fragmento serie
+            var long_serie = serie.length; // conseguimos la longitud de marca
+            var serie_cod = "";
+            
+            if(serie <= 9){
+                serie_cod = "000"+serie;
+            }else if(serie <= 99){
+                serie_cod = "00"+serie;
+            }else if(serie <= 999){
+                serie_cod = "0"+serie;
+            }else{
+                serie_cod = serie;
+            }
+            JsBarcode("#barcode", String(marca_cod)+String(categoria_cod)+String(serie_cod));
+           $('#create_codigo').val(String(marca_cod)+String(categoria_cod)+String(serie_cod));
+        },
+    });
+}
+
 </script>
