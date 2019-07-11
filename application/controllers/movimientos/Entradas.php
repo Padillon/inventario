@@ -13,6 +13,7 @@ class Entradas extends CI_Controller {
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
 		$this->load->model("Kardex_model");
+		$this->load->library("Pdf");
 	}
 	}
 
@@ -204,4 +205,35 @@ class Entradas extends CI_Controller {
 		);
 		$this->load->view("admin/entradas/view", $data);
 	}
+
+    public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Entradas_model->getAjustes(),
+            'nomUsuario' => $this->Entradas_model->getUsuario($idusuario),
+            'entradas' => $this->Entradas_model->getEntradasInactivos(),
+            'estado' => "Inactivos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/entradas", $data);
+    }
+
+    public function getReporteFecha(){
+        $fecha1 = $this->input->get("fecha1");
+        $fecha2 = $this->input->get("fecha2");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Entradas_model->getAjustes(),
+            'nomUsuario' => $this->Entradas_model->getUsuario($idusuario),
+            'entradas' => $this->Entradas_model->getEntradasFechas($fecha1, $fecha2),
+            'estado' => "Por Fechas"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/entradas", $data);
+    }
+        
 }

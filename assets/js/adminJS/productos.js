@@ -1,3 +1,4 @@
+
 //codigo de buarra generador
 
 var marca = document.getElementById('create_marca');
@@ -57,6 +58,7 @@ marca.addEventListener('change',
     });
 
   });
+
 
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
@@ -169,6 +171,5 @@ $("#btnElegirCategoria").on("click", function(){
 $("#btnelegirStock").on("click", function(){
     valorCategoria = $("#elegirCategoriaStock").val();
     valorMarca = $("#elegirMarcaStock").val();
-    alert(valorCategoria+''+valorMarca);
     window.open(base_url+"mantenimiento/productos/getReporteStock?valorCat="+valorCategoria+"&valorMar="+valorMarca, "_blank");
 });

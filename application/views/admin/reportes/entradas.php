@@ -34,7 +34,7 @@ class Mypdf extends TCPDF {
                 <td width="45%" style="background-color:white; text-align: center; color:red;">
                     <br>
                     <br>
-                    Reporte de Clientes $this->estado
+                    Reporte de Compras $this->estado
                 </td>
             </tr>
         </table>
@@ -66,19 +66,19 @@ $pdf->startPageGroup();
 $pdf->AddPage();
 
 $bloque2 = <<<EOF
-	<table style="font-size:12px; padding:5px 10px;">
-		<tr>
+    <table style="font-size:12px; padding:5px 10px;">
+        <tr>
             <td style="background-color:white; width:50%">Encargado: $nomUsuario->usuario</td>
             <td style="background-color:white; width:50%; text-align:right">
-				Fecha: $fecha
-			</td>
-		</tr>
+                Fecha: $fecha
+            </td>
+        </tr>
     </table>
     <table>
-		<tr>
-			<td style="width:540px"><img src="images/back.jpg"></td>
-		</tr>
-	</table>
+        <tr>
+            <td style="width:540px"><img src="images/back.jpg"></td>
+        </tr>
+    </table>
 EOF;
 $bloque2=utf8_encode($bloque2);
 $pdf->writeHTML(utf8_decode($bloque2), false, false, false, false, '');
@@ -88,27 +88,23 @@ $tabla = <<<EOF
     <table border="1" cellpadding="2" width="100%">   
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
-                <th width="15%" align="center" bgcolor="lightgray">Nombre</th>
-                <th width="15%" align="center" bgcolor="lightgray">Apellido</th>
-                <th width="15%" align="center" bgcolor="lightgray">Nit</th>
-                <th width="15%" align="center" bgcolor="lightgray">Registro</th>
-                <th width="15%" align="center" bgcolor="lightgray">Tel&eacute;fono</th>
-                <th width="15%" align="center" bgcolor="lightgray">Direcci&oacute;n</th>
+                <th width="22%" align="center" bgcolor="lightgray">Fecha</th>
+                <th width="22%" align="center" bgcolor="lightgray">Proveedor</th>
+                <th width="22%" align="center" bgcolor="lightgray">Encargado</th>
+                <th width="22%" align="center" bgcolor="lightgray">Total</th>
             </tr>
 EOF;
 $cont = 0;
-foreach($clientes as $cli){
+$acumuador = 0;
+foreach($entradas as $ent){
     $cont++;
     $tabla .= <<<EOF
         <tr>
             <td>$cont</td>
-            <td>$cli->nombre</td>
-            <td>$cli->apellido</td>
-            <td>$cli->direccion</td>
-            <td>$cli->nit</td>
-            <td>$cli->registro</td>
-            <td>$cli->telefono</td>
-            <td>$cli->direccion</td>
+            <td>$ent->fecha</td>
+            <td>$ent->id_proveedor</td>
+            <td>$ent->id_usuario</td>
+            <td>$ent->total</td>
         </tr>
 EOF;
 }
@@ -118,3 +114,6 @@ EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 $pdf->Output('reporteClientes'.$estado.$fecha.'.pdf', 'I');
+
+
+

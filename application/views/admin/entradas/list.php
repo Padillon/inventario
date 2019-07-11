@@ -35,7 +35,24 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Compras</h4>
-                                <a href="<?php echo base_url();?>movimientos/entradas/add" class="btn btn-outline-primary mb-3">Comprar +</a>
+                                 <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="col-md-2">
+                                            <a href="<?php echo base_url();?>movimientos/entradas/add" class="btn btn-outline-primary mb-3">Comprar +</a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="btn-group" role="group" style="text-align: right;">
+                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Reporte
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Fechas</button>
+                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -167,45 +184,32 @@
      </div>
     </div>
 
-    <!-- Modal Exito-->
-<div class="modal fade" id="modalExito">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formExito">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Exito!</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
+ <!-- Modal para elegir Fechas-->
+ <div class="modal fade" id="PDFPorFecha">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Del:</label>        
+                    <input type="date" class="form-control" id="fecha1">
                 </div>
-                <div class='modal-body'>
-                    <label>La operación se realizo con exito</label>
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Al:</label>        
+                    <input type="date" class="form-control" id="fecha2">
                 </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary' data-dismiss='modal' id="btnExito">Aceptar</button>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnelegirFecha" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
         </div>
-     </div>
     </div>
+</div>
 
-<!-- Modal Error-->
-<div class="modal fade" id="modalError">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formError">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Error!</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>La operación no pudo compleatarse satisfactoriamente</label>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary' data-dismiss='modal' id="btnError">Aceptar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
 <script>//Cargar de manera desc los datos de la tabla

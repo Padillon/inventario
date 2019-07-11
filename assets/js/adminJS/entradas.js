@@ -1,4 +1,4 @@
-
+ 
 // ****************************** VALIDACIONES PROVEEDOR Y ENVIAR FORMULARIO VACÍO Y CATIDADES 0 ******************************
 
 function validarFormulario(){
@@ -177,3 +177,13 @@ function sumarReabastecimiento(){
     document.getElementById("total_sub").innerHTML=total.toFixed(2);
     
 }
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"movimientos/entradas/getReporteInactivos", "_blank");
+});
+
+$("#btnelegirFecha").on("click", function(){
+    fecha1 = $("#fecha1").val();
+    fecha2 = $("#fecha2").val();
+    window.open(base_url+"movimientos/entradas/getReporteFecha?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+});

@@ -231,7 +231,7 @@ class Productos extends CI_Controller {
                     'fecha' => date("d-m-Y"),
                     'empresa' => $this->Productos_model->getAjustes(),
                     'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
-                    'estado' => "Por Stock",
+                    'estado' => "Con Stock",
                     'productos' => $this->Productos_model->getProductos(),
                 );
             } else {
@@ -239,7 +239,7 @@ class Productos extends CI_Controller {
                     'fecha' => date("d-m-Y"),
                     'empresa' => $this->Productos_model->getAjustes(),
                     'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
-                    'estado' => "Por Stock",
+                    'estado' => "Con Stock",
                     'productos' => $this->Productos_model->getProductosMarca($valorMarca),
                 );
             }
@@ -249,7 +249,7 @@ class Productos extends CI_Controller {
                     'fecha' => date("d-m-Y"),
                     'empresa' => $this->Productos_model->getAjustes(),
                     'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
-                    'estado' => "Por Stock",
+                    'estado' => "Con Stock",
                     'productos' => $this->Productos_model->getProductosCategoria($valorCat),
                 );
             } else {
@@ -257,7 +257,7 @@ class Productos extends CI_Controller {
                     'fecha' => date("d-m-Y"),
                     'empresa' => $this->Productos_model->getAjustes(),
                     'nomUsuario' => $this->Productos_model->getUsuario($idusuario),
-                    'estado' => "Por Stock",
+                    'estado' => "Con Stock",
                     'productos' => $this->Productos_model->getProductosCategoriaMarca($valorCat, $valorMarca),
                 );
             }

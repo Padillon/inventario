@@ -35,20 +35,19 @@
                                 <div class="card-body">
                                     <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'  >
                                     <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
-                                        <div class='input-group'>
-                                        <div class='col-md-6'>
-                                        <label class="col-form-control">Buscar Producto:</label>
-                                            <div class="input-group">
+                                        <div class='input-group'> 
+                                            <div class='col-md-3'>
+                                                <label>Del:</label>
+                                                <input name='fecha_inicio' id='fecha_inicio' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                            </div>
+                                            <div class='col-md-3'>
+                                                <label>Al:</label>
+                                                <input name='fecha_fin' id='fecha_fin' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <label class="col-form-control">Buscar Producto:</label>
                                                 <input name="autocompleteProducto" class="form-control" type="text" id="autocompleteProducto">
                                             </div>           
-                                        </div> 
-                                            <div class='col-md-3'>
-                                            <label>Fecha:</label>
-                                            <input name='fecha_inicio' id='fecha_inicio' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
-                                        </div>
-                                        <div class='col-md-3'>
-                                            <label>Fecha:</label>
-                                            <input name='fecha_fin' id='fecha_fin' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
                                         </div>                       
                                         <br>
                                         <div class="col-md-12">                
