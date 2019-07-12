@@ -3,9 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Salidas_model extends CI_Model {
 	
     public function getSalidas(){ 
-      $this->db->select("s.* , u.usuario as usuario");
+      $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
       $this->db->from("salidas s");
-      $this->db->join("usuarios u","u.id_usuario = s.id_usuario");
+      $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+      $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
       $this->db->where('s.estado',1);
       $resultados = $this->db->get();
       return $resultados->result();
@@ -114,7 +115,7 @@ class Salidas_model extends CI_Model {
     }
 
     public function getSalidasFechas($fecha1, $fecha2){
-      $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
+      $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
       $this->db->from("salidas s");
       $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
       $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
@@ -125,7 +126,7 @@ class Salidas_model extends CI_Model {
     }
 
     public function getSalidasCliente($fecha1, $fecha2, $cli){
-        $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
+        $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
         $this->db->from("salidas s");
         $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
         $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
@@ -137,7 +138,7 @@ class Salidas_model extends CI_Model {
       }
 
     public function getSalidasInactivos(){
-      $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
+      $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
       $this->db->from("salidas s");
       $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
       $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
@@ -147,12 +148,23 @@ class Salidas_model extends CI_Model {
     }
   
     public function totalSalidasFechas($fecha1, $fecha2){
-    $resultado = $this->db->query("
-                        select truncate(sum(total), 3) as totalTotal
-                        from salidas
-                        where estado = 1
-                        and fecha between cast('$fecha1' as date) and cast('$fecha2' as date)
-                        ");
+        $resultado = $this->db->query("
+            select truncate(sum(total), 3) as totalTotal
+            from salidas
+            where estado = 1
+            and fecha between cast('$fecha1' as date) and cast('$fecha2' as date)
+        ");
         return $resultado->row();
-      }
+    }
+
+    public function resumenDiario($fecha1, $fecha2){
+        $resultado = $this->db->query("
+            select date_format(fecha, '%d-%m-%Y') as fecha, sum(total) as totalDia 
+            from salidas 
+            where estado = 1
+            and fecha between cast('$fecha1' as date) and cast('$fecha2' as date) 
+            group by fecha
+        ");
+        return $resultado->result();
+    }
 }

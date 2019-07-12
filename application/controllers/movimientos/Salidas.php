@@ -214,8 +214,8 @@ class Salidas extends CI_Controller {
     }
 
 	public function getReporteCliente(){
-        $fecha1 = $this->input->get("fecha1Cli");
-		$fecha2 = $this->input->get("fecha2Cli");
+        $fecha1 = $this->input->get("fecha1");
+		$fecha2 = $this->input->get("fecha2");
 		$cli = $this->input->get("cli");
         $idusuario = $this->session->userdata('id');
         //trayendo informacion
@@ -228,5 +228,22 @@ class Salidas extends CI_Controller {
 		);
 		//generando el pdf
         $this->load->view("admin/reportes/salidas", $data);
+	}
+	
+	public function getResumen(){
+        $fecha1 = $this->input->get("fecha1");
+		$fecha2 = $this->input->get("fecha2");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Salidas_model->getAjustes(),
+            'nomUsuario' => $this->Salidas_model->getUsuario($idusuario),
+			'salidas' => $this->Salidas_model->resumenDiario($fecha1, $fecha2),
+			'totalVenta' => $this->Salidas_model->totalSalidasFechas($fecha1, $fecha2),
+            'estado' => "Resumen Diario"
+		);
+		//generando el pdf
+        $this->load->view("admin/reportes/salidasResumen", $data);
     }
 }

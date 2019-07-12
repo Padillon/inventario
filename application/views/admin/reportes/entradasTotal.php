@@ -107,13 +107,14 @@ EOF;
 $cont = 0;
 foreach($entradas as $ent){
     $cont++;
+    $total = number_format($ent->total, 2, ".", " ");
     $tabla .= <<<EOF
         <tr>
-            <td>$cont</td>
-            <td>$ent->fecha</td>
+            <td align="center">$cont</td>
+            <td align="center">$ent->fecha</td>
             <td>$ent->id_proveedor</td>
             <td>$ent->id_usuario</td>
-            <td>$ent->total</td>
+            <td align="right">$total</td>
         </tr>
 EOF;
 }

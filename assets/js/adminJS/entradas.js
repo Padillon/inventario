@@ -194,3 +194,9 @@ $("#btnelegirProveedor").on("click", function(){
     prov = $("#elegirProveedor").val();
     window.open(base_url+"movimientos/entradas/getReporteProveedor?fecha1="+fecha1+"&fecha2="+fecha2+"&prov="+prov, "_blank");
 });
+
+$("#btnResumen").on("click", function(){
+    fecha1 = $("#fecha1Res").val();
+    fecha2 = $("#fecha2Res").val();
+    window.open(base_url+"movimientos/entradas/getResumen?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+});

@@ -253,6 +253,23 @@ class Entradas extends CI_Controller {
 		);
         //generando el pdf
         $this->load->view("admin/reportes/entradas", $data);
-    }
+	}
+	
+	public function getResumen(){
+        $fecha1 = $this->input->get("fecha1");
+        $fecha2 = $this->input->get("fecha2");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Entradas_model->getAjustes(),
+            'nomUsuario' => $this->Entradas_model->getUsuario($idusuario),
+			'entradas' => $this->Entradas_model->getResumenDiario($fecha1, $fecha2),
+			'totalCompras' => $this->Entradas_model->totalEntradasFechas($fecha1, $fecha2),
+            'estado' => "Resumen Diario"
+		);
+        //generando el pdf
+        $this->load->view("admin/reportes/entradasResumen", $data);
+	}
         
 }

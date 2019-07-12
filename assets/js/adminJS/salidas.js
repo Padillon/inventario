@@ -193,3 +193,9 @@ $("#btnelegirCliente").on("click", function(){
     cli = $("#txtElegirCliente").val();
     window.open(base_url+"movimientos/salidas/getReporteCliente?fecha1="+fecha1+"&fecha2="+fecha2+"&cli="+cli, "_blank");
 });
+
+$("#btnResumen").on("click", function(){
+    fecha1 = $("#fecha1Res").val();
+    fecha2 = $("#fecha2Res").val();
+    window.open(base_url+"movimientos/salidas/getResumen?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+});

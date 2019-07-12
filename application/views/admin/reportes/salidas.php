@@ -108,13 +108,14 @@ $cont = 0;
 foreach($salidas as $sal){
     $cont++;
     $cliente = $sal->nombre." ".$sal->apellido;
+    $total = number_format($sal->total, 2, ".", " ");
     $tabla .= <<<EOF
         <tr>
-            <td>$cont</td>
-            <td>$sal->fecha</td>
+            <td align="center">$cont</td>
+            <td align="center">$sal->fecha</td>
             <td>$cliente</td>
             <td>$sal->usuario</td>
-            <td>$sal->total</td>
+            <td align="right">$total</td>
         </tr>
 EOF;
 }
@@ -124,6 +125,6 @@ EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
-$pdf->Output('reporteEntradas'.$fecha.'.pdf', 'I');
+$pdf->Output('reporteSalida'.$fecha.'.pdf', 'I');
 
 

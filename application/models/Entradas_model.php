@@ -20,11 +20,6 @@ class Entradas_model extends CI_Model {
     }
 
     public function getDetalle($id){ 
-      //$this->db->select("d.*,p.nombre nombreP,p.codigo codigoP,p.id_producto id_productoP,p.precio_venta precioSalidaP");
-      //$this->db->from("detalle_entrada d");
-      //$this->db->join("productos p","p.id_producto = d.id_producto");
-      //$this->db->where("id_entrada",$id);
-      //$resultados = $this->db->get("detalle_entrada");
       $this->db->where("id_entrada",$id);
       $resultados = $this->db->get("detalle_entrada");
       return $resultados->result();
@@ -128,7 +123,7 @@ class Entradas_model extends CI_Model {
   }
 
   public function getEntradasInactivos(){
-        $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
+        $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total,u.usuario as id_usuario, pro.empresa as id_proveedor");
         $this->db->from("entradas e");
         $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
         $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
@@ -138,7 +133,7 @@ class Entradas_model extends CI_Model {
   }
 
   public function getEntradasFechas($fecha1, $fecha2){ 
-        $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
+        $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total, u.usuario as id_usuario, pro.empresa as id_proveedor");
         $this->db->from("entradas e");
         $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
         $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
@@ -160,7 +155,7 @@ class Entradas_model extends CI_Model {
     }
 
     public function getEntradasProveedor($fecha1, $fecha2, $prov){ 
-      $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
+      $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total, u.usuario as id_usuario, pro.empresa as id_proveedor");
       $this->db->from("entradas e");
       $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
       $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
@@ -170,5 +165,16 @@ class Entradas_model extends CI_Model {
       $resultados = $this->db->get();
       return $resultados->result();
   }
+
+  public function getResumenDiario($fecha1, $fecha2){
+    $resultado = $this->db->query("
+        select date_format(fecha, '%d-%m-%Y') as fecha, sum(total) as totalDia 
+        from entradas 
+        where estado = 1
+        and fecha between cast('$fecha1' as date) and cast('$fecha2' as date) 
+        group by fecha
+    ");
+    return $resultado->result();
+}
 
 }

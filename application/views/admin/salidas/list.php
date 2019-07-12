@@ -48,6 +48,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
                                                     <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
                                                     <button type="button" id="btnGenerarCliente" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCliente">Por Cliente</button>
+                                                    <button type="button" id="btnGenerarResumen" class="dropdown-item" data-toggle="modal" data-target="#PDFTotalResumen">Resumen</button>
                                                     <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
                                                 </div>
                                             </div>
@@ -60,7 +61,8 @@
                      <thead  >
                                 <tr>
                                 <th id="#">#</th>
-                                    <th>Fecha.</th>
+                                    <th>Fecha</th>
+                                    <th>Cliente</th>
                                     <th>Encargado</th>
                                     <th>Total</th>
                                     <th>Estado</th>
@@ -75,6 +77,7 @@
                                         <tr>
                                             <td><?php echo $sal->id_salida;?></td>
                                             <td><?php echo $sal->fecha;?></td>
+                                            <td><?php echo $sal->nombre." ".$sal->apellido;?></td>
                                             <td><?php echo $sal->usuario;?></td>
                                             <td><?php echo $sal->total;?></td>
                                             <?php if($sal->estado == 1){?>
@@ -239,6 +242,32 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="button" id="btnelegirCliente" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal para elegir Fechas para agrupar por dia-->
+ <div class="modal fade" id="PDFTotalResumen">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Del:</label>        
+                    <input type="date" class="form-control" id="fecha1Res" required>
+                </div>
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Al:</label>        
+                    <input type="date" class="form-control" id="fecha2Res" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnResumen" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
