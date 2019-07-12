@@ -35,9 +35,27 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Salidas</h4>
-                                <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
-                                <div class="data-tables">
-                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <div class="col-md-2">
+                                            <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="btn-group" role="group" style="text-align: right;">
+                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Reporte
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
+                                                    <button type="button" id="btnGenerarCliente" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCliente">Por Cliente</button>
+                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    <div class="data-tables">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
 
                      <thead  >
                                 <tr>
@@ -101,10 +119,10 @@
         </div>
         <!-- main content area end -->
 
-    <!-- Modal Agregar-->
-    <div class="modal fade" id="modalAgregar">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
+<!-- Modal Agregar-->
+<div class="modal fade" id="modalAgregar">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
             <form class="form-control" id="formAgregar">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Agregar</h5>
@@ -121,12 +139,12 @@
             </form>
         </div>
      </div>
-    </div>
+</div>
 
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalView">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
+<!-- Modal Editar-->
+<div class="modal fade" id="modalView">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
             <form class="form-control" id="formEditar">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Informacion</h5>
@@ -142,91 +160,89 @@
             </form>
         </div>
      </div>
-    </div>
+</div>
 
 <!-- Modal Delete-->
 <div class="modal fade" id="eliminar">
-<div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ti-cabeza">Eliminar</h5>
-                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                            </div>
-                                            <div class="modal-body">
-                                               <form action="<?php echo base_url();?>movimientos/salidas/eliminar" method="POST">
-                                               <h4 id="titulo">Está seguro de anular esta venta?</H4>
-                                               <input id="id-salida-delete" name="id-salida-delete" type="hidden" class="form-control" >
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
-                                           </form> </div>
-                                        </div>
-                                    </div>
-    </div>
-    
-<!-- Modal Active-->
-<div class="modal fade" id="modalActive">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formActive">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Activar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='nombreActive' id='nombreActive' type='text' class='form-control'>
-                    <input name='idCategoriaActive' id='idCategoriaActive' type='hidden' class='form-control'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnActive">Guardar</button>
-                </div>
-            </form>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Eliminar</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url();?>movimientos/salidas/eliminar" method="POST">
+                    <h4 id="titulo">Está seguro de anular esta venta?</H4>
+                    <input id="id-salida-delete" name="id-salida-delete" type="hidden" class="form-control" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" id="g-edit" name="g-edit"class="btn btn-primary">Aceptar</button>
+                </form> 
+            </div>
         </div>
-     </div>
     </div>
+</div>
 
-    <!-- Modal Exito-->
-<div class="modal fade" id="modalExito">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formExito">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Exito!</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
+ <!-- Modal para elegir Fechas-->
+<div class="modal fade" id="PDFPorFecha">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Del:</label>        
+                    <input type="date" class="form-control" id="fecha1" required>
                 </div>
-                <div class='modal-body'>
-                    <label>La operación se realizo con exito</label>
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Al:</label>        
+                    <input type="date" class="form-control" id="fecha2" required>
                 </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary' data-dismiss='modal' id="btnExito">Aceptar</button>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnelegirFecha" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
         </div>
-     </div>
     </div>
+</div>
 
-<!-- Modal Error-->
-<div class="modal fade" id="modalError">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formError">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Error!</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
+ <!-- Modal para elegir Clientes-->
+ <div class="modal fade" id="PDFPorCliente">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-auto">
+                    <label>Del:</label>        
+                    <input type="date" class="form-control" id="fecha1Cli" required>
                 </div>
-                <div class='modal-body'>
-                    <label>La operación no pudo compleatarse satisfactoriamente</label>
+                <div class="col-md-auto">
+                    <label>Al:</label>        
+                    <input type="date" class="form-control" id="fecha2Cli" required>
                 </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary' data-dismiss='modal' id="btnError">Aceptar</button>
+                <div class="col-md-auto">
+                    <label>Elija el Cliente:</label>        
+                    <select id='txtElegirCliente' class='custom-select' required>
+                            <?php foreach($clientes as $cli):?>
+                                <option value='<?php echo $cli->id_cliente;?>'><?php echo $cli->nombre." ".$cli->apellido;?></option>
+                            <?php endforeach;?>
+                </select>
                 </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnelegirCliente" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
         </div>
-     </div>
     </div>
+</div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/salidas.js">
 </script>

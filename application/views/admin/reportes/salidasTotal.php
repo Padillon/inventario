@@ -44,7 +44,7 @@ class Mypdf extends TCPDF {
                 <td width="45%" style="background-color:white; text-align: center; color:red;">
                     <br>
                     <br>
-                    Reporte de Compras $this->estado
+                    Reporte de Ventas $this->estado
                 </td>
             </tr>
         </table>
@@ -99,21 +99,22 @@ $tabla = <<<EOF
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
                 <th width="22%" align="center" bgcolor="lightgray">Fecha</th>
-                <th width="22%" align="center" bgcolor="lightgray">Proveedor</th>
+                <th width="22%" align="center" bgcolor="lightgray">Cliente</th>
                 <th width="22%" align="center" bgcolor="lightgray">Encargado</th>
                 <th width="22%" align="center" bgcolor="lightgray">Total</th>
             </tr>
 EOF;
 $cont = 0;
-foreach($entradas as $ent){
+foreach($salidas as $sal){
     $cont++;
+    $cliente = $sal->nombre." ".$sal->apellido;
     $tabla .= <<<EOF
         <tr>
             <td>$cont</td>
-            <td>$ent->fecha</td>
-            <td>$ent->id_proveedor</td>
-            <td>$ent->id_usuario</td>
-            <td>$ent->total</td>
+            <td>$sal->fecha</td>
+            <td>$cliente</td>
+            <td>$sal->usuario</td>
+            <td>$sal->total</td>
         </tr>
 EOF;
 }
@@ -122,6 +123,17 @@ $tabla .= <<<EOF
 EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
+
+$tablaTotal = <<<EOF
+    <table border="1" align="center" cellpadding="2" width="100%">
+        <tr>
+            <td>Total de Ventas: $totalVenta->totalTotal</td>
+        </tr>
+    </table>
+
+EOF;
+$tablaTotal=utf8_encode($tablaTotal);
+$pdf->writeHTML(utf8_decode($tablaTotal), true, false, false, false, '');
 
 $pdf->Output('reporteEntradas'.$fecha.'.pdf', 'I');
 

@@ -46,7 +46,8 @@
                                                     Reporte
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Fechas</button>
+                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
+                                                    <button type="button" id="btnGenerarProveedor" class="dropdown-item" data-toggle="modal" data-target="#PDFPorProveedor">Por Proveedor</button>
                                                     <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
                                                 </div>
                                             </div>
@@ -195,11 +196,11 @@
             <div class="modal-body">
                 <div class="col-md-auto">
                     <label for="elegirMarca">Del:</label>        
-                    <input type="date" class="form-control" id="fecha1">
+                    <input type="date" class="form-control" id="fecha1" required>
                 </div>
                 <div class="col-md-auto">
                     <label for="elegirMarca">Al:</label>        
-                    <input type="date" class="form-control" id="fecha2">
+                    <input type="date" class="form-control" id="fecha2" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -210,6 +211,39 @@
     </div>
 </div>
 
+ <!-- Modal para elegir Proveedor-->
+ <div class="modal fade" id="PDFPorProveedor">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Del:</label>        
+                    <input type="date" class="form-control" id="fecha1Prov" required>
+                </div>
+                <div class="col-md-auto">
+                    <label for="elegirMarca">Al:</label>        
+                    <input type="date" class="form-control" id="fecha2Prov" required>
+                </div>
+                <div class="col-md-auto">
+                    <label for="elegirProveedor">Elija la Categoria:</label>        
+                    <select id='elegirProveedor' class='custom-select' required>
+                        <?php foreach($proveedores as $pro):?>
+                            <option value='<?php echo $pro->id_proveedor;?>'><?php echo $pro->nombre." - ".$pro->empresa;?></option>
+                        <?php endforeach;?>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnelegirProveedor" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
 <script>//Cargar de manera desc los datos de la tabla

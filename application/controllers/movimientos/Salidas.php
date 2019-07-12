@@ -12,13 +12,15 @@ class Salidas extends CI_Controller {
 		$this->load->model("Salidas_model");
 		$this->load->model("Productos_model");
 		$this->load->model("Kardex_model");
+		$this->load->library("Pdf");
 	}
 	}
 
 	public function index(){
         $data = array(
 			'permisos' => $this->permisos,
-            'salidas' => $this->Salidas_model->getSalidas(),
+			'salidas' => $this->Salidas_model->getSalidas(),
+			'clientes' => $this->Salidas_model->getClientesTodos(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -180,4 +182,51 @@ class Salidas extends CI_Controller {
 		echo json_encode($cli);
 	}
 
+	public function getReporteInactivos(){
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Salidas_model->getAjustes(),
+            'nomUsuario' => $this->Salidas_model->getUsuario($idusuario),
+            'salidas' => $this->Salidas_model->getSalidasInactivos(),
+            'estado' => "Inactivos"
+        );
+        //generando el pdf
+        $this->load->view("admin/reportes/salidas", $data);
+    }
+
+    public function getReporteFecha(){
+        $fecha1 = $this->input->get("fecha1");
+        $fecha2 = $this->input->get("fecha2");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Salidas_model->getAjustes(),
+            'nomUsuario' => $this->Salidas_model->getUsuario($idusuario),
+			'salidas' => $this->Salidas_model->getSalidasFechas($fecha1, $fecha2),
+			'totalVenta' => $this->Salidas_model->totalSalidasFechas($fecha1, $fecha2),
+            'estado' => "Por Fechas"
+		);
+        //generando el pdf
+        $this->load->view("admin/reportes/salidasTotal", $data);
+    }
+
+	public function getReporteCliente(){
+        $fecha1 = $this->input->get("fecha1Cli");
+		$fecha2 = $this->input->get("fecha2Cli");
+		$cli = $this->input->get("cli");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Salidas_model->getAjustes(),
+            'nomUsuario' => $this->Salidas_model->getUsuario($idusuario),
+			'salidas' => $this->Salidas_model->getSalidasCliente($fecha1, $fecha2, $cli),
+            'estado' => "Por Cliente"
+		);
+		//generando el pdf
+        $this->load->view("admin/reportes/salidas", $data);
+    }
 }
