@@ -124,6 +124,18 @@ EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
+$tablaTotal = <<<EOF
+    <table border="1" align="center" cellpadding="2" width="100%">
+        <tr>
+            <td>Total de Compras: $totalCompras->totalTotal</td>
+        </tr>
+    </table>
+
+EOF;
+$tablaTotal=utf8_encode($tablaTotal);
+$pdf->writeHTML(utf8_decode($tablaTotal), true, false, false, false, '');
+
 $pdf->Output('reporteEntradas'.$fecha.'.pdf', 'I');
+
 
 

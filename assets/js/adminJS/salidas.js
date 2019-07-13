@@ -165,7 +165,6 @@ $("#autocompleteCliente").autocomplete({
     },
   });
 
-
   //funcion para sumar el costo total
 function sumarReabastecimiento(){
     total = 0;
@@ -176,5 +175,27 @@ function sumarReabastecimiento(){
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
     document.getElementById("total_sub").innerHTML=total.toFixed(2);
-    
 }
+
+$("#btnGenerarInactivos").click(function(){
+    window.open(base_url+"movimientos/salidas/getReporteInactivos", "_blank");
+});
+
+$("#btnelegirFecha").on("click", function(){
+    fecha1 = $("#fecha1").val();
+    fecha2 = $("#fecha2").val();
+    window.open(base_url+"movimientos/salidas/getReporteFecha?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+});
+
+$("#btnelegirCliente").on("click", function(){
+    fecha1 = $("#fecha1Cli").val();
+    fecha2 = $("#fecha2Cli").val();
+    cli = $("#txtElegirCliente").val();
+    window.open(base_url+"movimientos/salidas/getReporteCliente?fecha1="+fecha1+"&fecha2="+fecha2+"&cli="+cli, "_blank");
+});
+
+$("#btnResumen").on("click", function(){
+    fecha1 = $("#fecha1Res").val();
+    fecha2 = $("#fecha2Res").val();
+    window.open(base_url+"movimientos/salidas/getResumen?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+});

@@ -44,7 +44,7 @@ class Mypdf extends TCPDF {
                 <td width="45%" style="background-color:white; text-align: center; color:red;">
                     <br>
                     <br>
-                    Reporte de Compras $this->estado
+                    Reporte de Ventas $this->estado
                 </td>
             </tr>
         </table>
@@ -99,21 +99,22 @@ $tabla = <<<EOF
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
                 <th width="22%" align="center" bgcolor="lightgray">Fecha</th>
-                <th width="22%" align="center" bgcolor="lightgray">Proveedor</th>
+                <th width="22%" align="center" bgcolor="lightgray">Cliente</th>
                 <th width="22%" align="center" bgcolor="lightgray">Encargado</th>
                 <th width="22%" align="center" bgcolor="lightgray">Total</th>
             </tr>
 EOF;
 $cont = 0;
-foreach($entradas as $ent){
+foreach($salidas as $sal){
     $cont++;
-    $total = number_format($ent->total, 2, ".", " ");
+    $cliente = $sal->nombre." ".$sal->apellido;
+    $total = number_format($sal->total, 2, ".", " ");
     $tabla .= <<<EOF
         <tr>
             <td align="center">$cont</td>
-            <td align="center">$ent->fecha</td>
-            <td>$ent->id_proveedor</td>
-            <td>$ent->id_usuario</td>
+            <td align="center">$sal->fecha</td>
+            <td>$cliente</td>
+            <td>$sal->usuario</td>
             <td align="right">$total</td>
         </tr>
 EOF;
@@ -124,6 +125,6 @@ EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
-$pdf->Output('reporteEntradas'.$fecha.'.pdf', 'I');
+$pdf->Output('reporteSalida'.$fecha.'.pdf', 'I');
 
 

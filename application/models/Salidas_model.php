@@ -3,9 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Salidas_model extends CI_Model {
 	
     public function getSalidas(){ 
-      $this->db->select("s.* , u.usuario as usuario");
+      $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
       $this->db->from("salidas s");
-      $this->db->join("usuarios u","u.id_usuario = s.id_usuario");
+      $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+      $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
       $this->db->where('s.estado',1);
       $resultados = $this->db->get();
       return $resultados->result();
@@ -19,6 +20,14 @@ class Salidas_model extends CI_Model {
       $resultados = $this->db->get();
       return $resultados->result_array();
     }
+
+    public function getClientesTodos(){
+        $this->db->select("id_cliente, nombre, apellido");
+        $this->db->from("clientes");
+        $this->db->where("estado", 1);
+        $resultados = $this->db->get();
+        return $resultados->result();
+      }
 
     public function getProductos($valor){
     $this->db->select("p.*,c.nombre as id_categoria, pre.nombre as id_presentacion");
@@ -91,5 +100,71 @@ class Salidas_model extends CI_Model {
       $this->db->where("id_salida",$id);		
       $this->db->update("salidas",$data);
       return 0;
+    }
+
+    public function getAjustes(){
+      $resultado = $this->db->get("ajustes");
+      return $resultado->row();
+    }
+  
+    public function getUsuario($id){
+        $this->db->select("usuario");
+      $this->db->where("id_usuario",$id);
+      $resultado = $this->db->get("usuarios");
+      return $resultado->row();
+    }
+
+    public function getSalidasFechas($fecha1, $fecha2){
+      $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
+      $this->db->from("salidas s");
+      $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+      $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
+      $this->db->where("s.estado",1);
+      $this->db->where("s.fecha BETWEEN '$fecha1' AND '$fecha2'");
+      $resultado = $this->db->get();
+      return $resultado->result();
+    }
+
+    public function getSalidasCliente($fecha1, $fecha2, $cli){
+        $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
+        $this->db->from("salidas s");
+        $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+        $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
+        $this->db->where("s.id_cliente", $cli);
+        $this->db->where("s.estado", 1);
+        $this->db->where("s.fecha BETWEEN '$fecha1' AND '$fecha2'");
+        $resultado = $this->db->get();
+        return $resultado->result();
+      }
+
+    public function getSalidasInactivos(){
+      $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
+      $this->db->from("salidas s");
+      $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+      $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
+      $this->db->where("s.estado",0);
+      $resultado = $this->db->get();
+      return $resultado->result();
+    }
+  
+    public function totalSalidasFechas($fecha1, $fecha2){
+        $resultado = $this->db->query("
+            select truncate(sum(total), 3) as totalTotal
+            from salidas
+            where estado = 1
+            and fecha between cast('$fecha1' as date) and cast('$fecha2' as date)
+        ");
+        return $resultado->row();
+    }
+
+    public function resumenDiario($fecha1, $fecha2){
+        $resultado = $this->db->query("
+            select date_format(fecha, '%d-%m-%Y') as fecha, sum(total) as totalDia 
+            from salidas 
+            where estado = 1
+            and fecha between cast('$fecha1' as date) and cast('$fecha2' as date) 
+            group by fecha
+        ");
+        return $resultado->result();
     }
 }

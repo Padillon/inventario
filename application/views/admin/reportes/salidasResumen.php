@@ -44,7 +44,7 @@ class Mypdf extends TCPDF {
                 <td width="45%" style="background-color:white; text-align: center; color:red;">
                     <br>
                     <br>
-                    Reporte de Compras $this->estado
+                    Reporte de Ventas $this->estado
                 </td>
             </tr>
         </table>
@@ -98,22 +98,18 @@ $tabla = <<<EOF
     <table border="1" cellpadding="2" width="100%">   
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
-                <th width="22%" align="center" bgcolor="lightgray">Fecha</th>
-                <th width="22%" align="center" bgcolor="lightgray">Proveedor</th>
-                <th width="22%" align="center" bgcolor="lightgray">Encargado</th>
-                <th width="22%" align="center" bgcolor="lightgray">Total</th>
+                <th width="45%" align="center" bgcolor="lightgray">Fecha</th>
+                <th width="45%" align="center" bgcolor="lightgray">Total</th>
             </tr>
 EOF;
 $cont = 0;
-foreach($entradas as $ent){
+foreach($salidas as $sal){
     $cont++;
-    $total = number_format($ent->total, 2, ".", " ");
+    $total = number_format($sal->totalDia, 2, ".", " ");
     $tabla .= <<<EOF
         <tr>
             <td align="center">$cont</td>
-            <td align="center">$ent->fecha</td>
-            <td>$ent->id_proveedor</td>
-            <td>$ent->id_usuario</td>
+            <td align="center">$sal->fecha</td>
             <td align="right">$total</td>
         </tr>
 EOF;
@@ -124,6 +120,17 @@ EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
-$pdf->Output('reporteEntradas'.$fecha.'.pdf', 'I');
+$tablaTotal = <<<EOF
+    <table border="1" align="center" cellpadding="2" width="100%">
+        <tr>
+            <td>Total de Ventas: $totalVenta->totalTotal</td>
+        </tr>
+    </table>
+
+EOF;
+$tablaTotal=utf8_encode($tablaTotal);
+$pdf->writeHTML(utf8_decode($tablaTotal), true, false, false, false, '');
+
+$pdf->Output('reporteSalida'.$fecha.'.pdf', 'I');
 
 

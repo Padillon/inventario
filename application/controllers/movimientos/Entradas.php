@@ -20,7 +20,8 @@ class Entradas extends CI_Controller {
 	public function index(){
         $data = array(
 			'permisos' => $this->permisos,
-            'entradas' => $this->Entradas_model->getEntradas(),
+			'entradas' => $this->Entradas_model->getEntradas(),
+			'proveedores' => $this->Entradas_model->getProveedoresTodos(),
         );
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
@@ -227,7 +228,7 @@ class Entradas extends CI_Controller {
             'estado' => "Inactivos"
         );
         //generando el pdf
-        $this->load->view("admin/reportes/entradasAnuladas", $data);
+        $this->load->view("admin/reportes/entradas", $data);
     }
 
     public function getReporteFecha(){
@@ -244,7 +245,41 @@ class Entradas extends CI_Controller {
             'estado' => "Por Fechas"
 		);
         //generando el pdf
+        $this->load->view("admin/reportes/entradasTotal", $data);
+	}
+	
+	public function getReporteProveedor(){
+        $fecha1 = $this->input->get("fecha1");
+		$fecha2 = $this->input->get("fecha2");
+		$prov = $this->input->get("prov");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Entradas_model->getAjustes(),
+            'nomUsuario' => $this->Entradas_model->getUsuario($idusuario),
+			'entradas' => $this->Entradas_model->getEntradasProveedor($fecha1, $fecha2, $prov),
+            'estado' => "Por Proveedor"
+		);
+        //generando el pdf
         $this->load->view("admin/reportes/entradas", $data);
-    }
+	}
+	
+	public function getResumen(){
+        $fecha1 = $this->input->get("fecha1");
+        $fecha2 = $this->input->get("fecha2");
+        $idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Entradas_model->getAjustes(),
+            'nomUsuario' => $this->Entradas_model->getUsuario($idusuario),
+			'entradas' => $this->Entradas_model->getResumenDiario($fecha1, $fecha2),
+			'totalCompras' => $this->Entradas_model->totalEntradasFechas($fecha1, $fecha2),
+            'estado' => "Resumen Diario"
+		);
+        //generando el pdf
+        $this->load->view("admin/reportes/entradasResumen", $data);
+	}
         
 }

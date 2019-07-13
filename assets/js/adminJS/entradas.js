@@ -192,3 +192,16 @@ $("#btnelegirFecha").on("click", function(){
     fecha2 = $("#fecha2").val();
     window.open(base_url+"movimientos/entradas/getReporteFecha?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
 });
+
+$("#btnelegirProveedor").on("click", function(){
+    fecha1 = $("#fecha1Prov").val();
+    fecha2 = $("#fecha2Prov").val();
+    prov = $("#elegirProveedor").val();
+    window.open(base_url+"movimientos/entradas/getReporteProveedor?fecha1="+fecha1+"&fecha2="+fecha2+"&prov="+prov, "_blank");
+});
+
+$("#btnResumen").on("click", function(){
+    fecha1 = $("#fecha1Res").val();
+    fecha2 = $("#fecha2Res").val();
+    window.open(base_url+"movimientos/entradas/getResumen?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+});
