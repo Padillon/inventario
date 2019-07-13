@@ -38,7 +38,7 @@
                                         <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
                                         </div>
                                         <div class="col-md-3">
-                                            <a href="<?php echo base_url();?>movimientos/entradas/buscar"  calss="btn btn-outline-primary mb-3 btnBuscar" class="btn btn-outline-primary mb-3">Buscar Producto</a>
+                                            <a href="<?php echo base_url();?>movimientos/entradas/buscar" class="btn btn-outline-primary mb-3">Buscar Producto</a>
                                         </div>
                                         <div class="col-md-3">
                                             <a id="btnReporte" class="btn btn-success" data-toggle="modal" onclick="movimientoModal()" data-target="#mdReporte">Reporte</a>

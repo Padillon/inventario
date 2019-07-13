@@ -76,6 +76,14 @@ public function getKardexProducto($id,$inicio,$fin){
       return $resultados->result_array();
     }
 
+    public function getProducto($valor){
+    $this->db->select("codigo, nombre");
+      $this->db->from("productos");
+      $this->db->where("id_producto", $valor);
+      $resultados = $this->db->get();
+      return $resultados->row();
+    }
+
 	public function  getTipoMovimiento(){
 		$resultados = $this->db->get("tipo_movimiento");
 		return $resultados->result();
@@ -93,23 +101,43 @@ public function getKardexProducto($id,$inicio,$fin){
 	}
 
 	public function getProductoKardex($id,$inicio,$final){
-		$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento");
+		$this->db->select("k.*, t.nombre as movimiento, t.tipo_transaccion, p.codigo, p.nombre");
 		$this->db->from("kardex k");
-		$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
 		$this->db->join("productos p" , "p.id_producto = k.id_producto");
+		$this->db->join("stock s" , "p.id_stock = s.id_stock");
 		$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
 		$this->db->where("k.id_producto",$id);
-		$this->db->where(" fecha >='".$inicio."' AND fecha <='".$final."'");
+		$this->db->where("k.fecha >='".$inicio."' AND k.fecha <='".$final."'");
 		$this ->db->order_by( 'k.id_kardex' , 'desc' );
-
-		/*$this->db->where('month(k.fecha)',date('m'));
-		$this->db->group_by(array("id_entrada", "id_salida"));  
-		$this ->db->order_by( 'id_kardex' , 'asc' );*/
-if($resultado = $this->db->get()){
-	return $resultado->result();
-}else{
-	return 0;
-}
+		if($resultado = $this->db->get()){
+			return $resultado->result();
+		}else{
+			return 0;
+		}
 	}
+
+	public function getProdInicial($id, $fecha1){
+		$this->db->select("cantidad");
+		$this->db->from("kardex");
+		$this->db->where("id_producto",$id);
+		$this->db->where("fecha",$fecha1);
+		if($resultado = $this->db->get()){
+			return $resultado->result();
+		}else{
+			return 0;
+		}
+	}
+
+	public function getAjustes(){
+    $resultado = $this->db->get("ajustes");
+    return $resultado->row();
+  }
+
+  public function getUsuario($id){
+  	$this->db->select("usuario");
+    $this->db->where("id_usuario",$id);
+    $resultado = $this->db->get("usuarios");
+    return $resultado->row();
+  }
 
 }

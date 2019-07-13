@@ -1,40 +1,28 @@
 <?php
-
-//No pueden haber espacios en blanco despues del <<<"bloque"
-//Ni tampoco espacios en blanco ni tabulador en en "bloque";
-//este ultimo tiene que estar al inicio de la linea por fuerza
-//Los estilos y atributos de html deben estar con doble comilla
-//el html debe etar bien escrito y bien estructurado
-//no lolee si falta una etiqueta
-//Los acentos no los lee, por eso se codifica y decodifica en utf8 antes de mostrar
-//El margen del header se especifica en el config de tcphp variable MARGIN_TOP
-
 class Mypdf extends TCPDF {
     public $link;
     public $nombre;
     public $giro;
     public $estado;
 
-    public function setLogo($link, $nombre, $giro, $estado){
+     public function setLogo($link, $nombre, $giro, $codigo, $nombreProd){
         $this->link = $link;
         $this->nombre = $nombre;
         $this->giro = $giro;
-        $this->estado = $estado;
+        $this->codigo = $codigo;
+        $this->nombreProd = $nombreProd;
     }
 
     public function Header() {
         // Set font
-        $this->SetFont('helvetica', 'B', 14);
+        $this->SetFont('helvetica', 'B', 15);
         $link2 = base_url();
         $html = <<<EOF
         
         <table width="100%">
             <tr>
-                <td rowspan="3" style="width:10%;">
-                <br><br>
-                <img src="$link2/assets/images/ajuste/$this->link">
-                </td>
-                <td width="25%">
+                <td rowspan="3" style="width:10%;"><img src="$link2/assets/images/ajuste/$this->link"></td>
+                <td width="20%">
                     <br>
                     <br>
                     $this->nombre 
@@ -44,7 +32,7 @@ class Mypdf extends TCPDF {
                 <td width="45%" style="background-color:white; text-align: center; color:red;">
                     <br>
                     <br>
-                    Reporte de Compras <br> $this->estado
+                    Kardex $this->codigo $this->nombreProd
                 </td>
             </tr>
         </table>
@@ -53,6 +41,7 @@ EOF;
         $this->writeHTML(utf8_decode($html), false, false, false, false, '');
         //$this->Cell(0, 45, $html, 0, false, 'L', 0, '', 0, false, 'M', 'M');
     }
+
     public function Footer(){
         $this->SetY(-20);
         $this->SetFont('helvetica', 'I', 8);
@@ -67,13 +56,13 @@ $pdf = new Mypdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->setLogo($empresa->logo, $empresa->nombre, $empresa->giro, $estado);
+$pdf->setLogo($empresa->logo, $empresa->nombre, $empresa->giro, $producto->codigo, $producto->nombre);
 
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->startPageGroup();
 
-$pdf->AddPage();
+$pdf->AddPage('L');
 
 $bloque2 = <<<EOF
     <table style="font-size:12px; padding:5px 10px;">
@@ -93,48 +82,45 @@ EOF;
 $bloque2=utf8_encode($bloque2);
 $pdf->writeHTML(utf8_decode($bloque2), false, false, false, false, '');
         
-$tabla = <<<EOF
-    <div style="margin-left: 60px">
+    $tabla = <<<EOF
     <br>
-    <table border="1" cellpadding="2" >   
+    <table border="1" cellpadding="2" width="100%">   
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
-                <th width="45%" align="center" bgcolor="lightgray">Fecha</th>
-                <th width="45%" align="center" bgcolor="lightgray">Total</th>
+                <th width="15%" align="center" bgcolor="lightgray">Fecha</th>
+                <th width="15%" align="center" bgcolor="lightgray">Tipo</th>
+                <th width="15%" align="center" bgcolor="lightgray">Descripcion</th>
+                <th width="15%" align="center" bgcolor="lightgray">Encargado</th>
+                <th width="15%" align="center" bgcolor="lightgray">Cantidad</th>
+                <th width="15%" align="center" bgcolor="lightgray">Saldo</th>
             </tr>
-
 EOF;
 $cont = 0;
-foreach($entradas as $ent){
+$saldoK = $stockActual->cantidad;
+foreach($kardex as $kar){
     $cont++;
-    $total = number_format($ent->totalDia, 2, ".", " ");
+    if($kar->tipo_transaccion == 1){
+        $saldoK += $kar->cantidad;
+    } else {
+        $saldoK -= $kar->cantidad;
+    }
+
     $tabla .= <<<EOF
         <tr>
             <td align="center">$cont</td>
-            <td align="center">$ent->fecha</td>
-            <td align="right">$total</td>
+            <td align="center">$kar->fecha</td>
+            <td>$kar->movimiento</td>
+            <td>$kar->descripcion</td>
+            <td>$kar->id_usuario</td>
+            <td>$kar->cantidad</td>
+            <td>$saldoK</td>
         </tr>
 EOF;
 }
 $tabla .= <<<EOF
         </table>
-         </div>
 EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
-$tablaTotal = <<<EOF
-    <table border="1" align="center" cellpadding="2" width="100%">
-        <tr>
-            <td>Total de Compras: $totalCompras->totalTotal</td>
-        </tr>
-    </table>
-
-EOF;
-$tablaTotal=utf8_encode($tablaTotal);
-$pdf->writeHTML(utf8_decode($tablaTotal), true, false, false, false, '');
-
-$pdf->Output('reporteEntradas'.$fecha.'.pdf', 'I');
-
-
-
+$pdf->Output('reporteProductos'.$fecha.'.pdf', 'I');

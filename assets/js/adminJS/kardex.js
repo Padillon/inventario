@@ -176,3 +176,10 @@ $(document).on("click", ".btn-view-moviiento", function(){
         }
     });
 });
+
+$("#btnResumen").on("click", function(){
+    fecha1 = $("#fecha1").val();
+    fecha2 = $("#fecha2").val();
+    prod = $("#txtProducto").val();
+    window.open(base_url+"movimientos/kardex/getProductoKardex?fecha1="+fecha1+"&fecha2="+fecha2+"&prod="+prod, "_blank");
+});

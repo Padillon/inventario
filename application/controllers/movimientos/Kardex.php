@@ -13,6 +13,7 @@ class Kardex extends CI_Controller {
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
 		$this->load->model("Kardex_model");
+		$this->load->library("Pdf");
 	}
 	}
 
@@ -127,10 +128,24 @@ class Kardex extends CI_Controller {
 	}
 
 	public function getProductoKardex(){
-		$valor = $this->input->post("id");
-		$inicio = $this->input->post('fecha_inicio');
-		$final = $this->input->post("fecha_final");
-		$producto = $this->Kardex_model->getProductoKardex($valor,$inicio,$final);
-		echo json_encode($producto);
+		$valor = $this->input->get("prod");
+		$inicio = $this->input->get('fecha1');
+		$final = $this->input->get("fecha2");
+		$idusuario = $this->session->userdata('id');
+        //trayendo informacion
+        $data = array(
+            'fecha' => date("d-m-Y"),
+            'empresa' => $this->Kardex_model->getAjustes(),
+            'nomUsuario' => $this->Kardex_model->getUsuario($idusuario),
+			'kardex' => $this->Kardex_model->getProductoKardex($valor, $inicio, $final),
+            'stockActual' => $this->Kardex_model->getProdInicial($valor, $inicio),
+            'producto' => $this->Kardex_model->getProducto($valor),
+		);
+
+        print_r($data);
+		//generando pdf
+		//$this->load->view("admin/reportes/kardex", $data);
 	}
+
+
 }
