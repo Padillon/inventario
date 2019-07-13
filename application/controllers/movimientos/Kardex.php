@@ -17,23 +17,23 @@ class Kardex extends CI_Controller {
 	}
 
     public function index(){
+		$fecha = date("Y-m-d");
         $data = array(
 			'permisos' => $this->permisos,
-			'kardex' => $this->Kardex_model->getKardex(),
+			'kardex' => $this->Kardex_model->getKardexDia($fecha),
 			'movimientos' => $this->Kardex_model->getTipoMovimiento(),
-			
-        );
+		);
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');
-        $this->load->view("admin/kardex/list",$data);
+        $this->load->view("admin/kardex/inicio", $data);
         $this->load->view("layouts/footer");
 	}
+
 	//funcion para mandar a traer los movimiento de un producto en concreto
 	public function getKardexProducto(){
 		$id = $this->input->post("id");
 		$inicio = $this->input->post("fecha_inicio");
 		$final = $this->input->post("fecha_final");
-
 		$producto = $this->Kardex_model->getKardexProducto($id,$inicio,$final);
 		echo json_encode($producto);
     }

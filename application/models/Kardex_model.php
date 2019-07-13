@@ -25,13 +25,11 @@ public function update($data,$id){
 }
 
 public function getKardexProducto($id,$inicio,$fin){
-	//$query="select * from kardex where between '".$inicio."' and '".$fin."' and id_producto =".$id;
 	$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento,p.nombre as producto");
-				$this->db->from("kardex k");
-				$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
-				$this->db->join("productos p" , "p.id_producto = k.id_producto");
-				$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
-//	$this->db->where("k.fecha between '".$inicio."' and '".$fin."' and id_producto =".$id);
+	$this->db->from("kardex k");
+	$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
+	$this->db->join("productos p" , "p.id_producto = k.id_producto");
+	$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
 	$start_date=$inicio;
 	$end_date=$fin;
 	
@@ -50,17 +48,13 @@ public function getKardexProducto($id,$inicio,$fin){
 		}
 	}
 
-	public function getKardex(){
-		//$quey = "select * from kardex where month(fecha) = ".date('m');
-			//	if($resultado = $this->db->query($quey)){
-				$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento");
-				$this->db->from("kardex k");
-				$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
-				$this->db->join("productos p" , "p.id_producto = k.id_producto");
-				$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
-				$this->db->where('month(k.fecha)',date('m'));
-				$this->db->group_by(array("id_entrada", "id_salida"));  
-				$this ->db->order_by( 'id_kardex' , 'asc' );
+	public function getKardexDia($fecha){
+		$this->db->select("k.*, t.nombre as movimiento, p.codigo, p.nombre");
+		$this->db->from("kardex k");
+		$this->db->join("productos p" , "p.id_producto = k.id_producto");
+		$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
+		$this->db->where("fecha", $fecha); 
+		$this ->db->order_by( 'fecha' , 'desc' );
 		if($resultado = $this->db->get()){
 			return $resultado->result();
 		}else{

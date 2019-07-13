@@ -55,13 +55,13 @@
                                             <table id="tabla_kardex"class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Codigo</th>
+                                                        <th>Fecha</th>
                                                         <th>Nombre</th>
-                                                        <th>Precio Entrada</th>
-                                                        <th>Precio Salida</th>
+                                                        <th>Tipo</th>
+                                                        <th>Entrada</th>
                                                         <th>Cantidad</th>
-                                                        <th>Importes</th>
-                                                        <th>Opciones</th>
+                                                        <th>Salida</th>
+                                                        <th>Saldo</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>                               
