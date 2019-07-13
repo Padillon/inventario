@@ -29,6 +29,13 @@ class Kardex extends CI_Controller {
         $this->load->view("layouts/footer");
 	}
 
+	public function buscar(){
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/kardex/list");
+        $this->load->view("layouts/footer");
+    }
+
 	//funcion para mandar a traer los movimiento de un producto en concreto
 	public function getKardexProducto(){
 		$id = $this->input->post("id");

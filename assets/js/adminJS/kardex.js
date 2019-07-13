@@ -89,7 +89,29 @@ $("#autocompleteProducto2").autocomplete({
     },
   });
 
-
+  $("#autocompleteProducto3").autocomplete({
+    source: function(request, response){
+        $.ajax({
+            url: base_url+"movimientos/kardex/getProductos",
+            type: "POST",
+            dataType: "json",
+            data:{ autocompleteProducto: request.term},
+            success: function(data){
+                response($.map(data, function (item) {
+                    return {
+                        label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
+                        id: item.id_producto,
+                    }
+                }))
+            },
+        });
+    }, //indica la informacion a mostrar al momento de comenzar a llenar el campo
+    minLength:2, //caracteres que activan el autocomplete
+    select: function(event, ui){
+       data = ui.item.id;
+       $("#txtProducto").val(data); 
+    },
+  });
   
   $("#btn-agregar-abast").on("click", function(){
     data = $(this).val();

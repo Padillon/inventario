@@ -33,8 +33,7 @@
                         <div class="col-12 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'  >
-                                    <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
+                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'>
                                         <div class='input-group'> 
                                             <div class='col-md-3'>
                                                 <label>Del:</label>
@@ -56,15 +55,15 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Fecha</th>
-                                                        <th>Nombre</th>
                                                         <th>Tipo</th>
-                                                        <th>Entrada</th>
+                                                        <th>Descripción</th>
+                                                        <th>Producto</th>
                                                         <th>Cantidad</th>
-                                                        <th>Salida</th>
                                                         <th>Saldo</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>                               
+                                                <tbody>
+                                                                               
                                                 </tbody>
                                             </table>
                                         </div>             
@@ -82,83 +81,4 @@
     </div>
 </div>
 
-   <!-- Modal para movimiento-->
-   <div id='movimiento' class="modal fade bd-example-modal-lg" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-
-            <div class='modal-body'>
-                <form action="<?php echo base_url();?>movimientos/kardex/addMovimiento" id="movimiento_form" method="POST">
-                    <div class='row'>  
-                        <div class="col-md-12 mt-4">
-                            <div class='input-group'>
-                                <div class="col-md-4">
-                                    <label>Fecha:</label>
-                                    <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="id_movimiento">Movimientos: </label>         
-                                    <select name='id_movimiento' id='id_movimiento' class='custom-select' required>
-                                        <?php foreach($movimientos as $mov):?>
-                                            <?php if ($mov->id_movimiento>=4){?>
-                                                <option value='<?php echo $mov->id_movimiento;?>'><?php echo $mov->nombre;?></option>
-                                            <?php } ?>
-                                        <?php endforeach;?>
-                                    </select>
-                                </div>
-                                <div class="col-md-12"> 
-                                    <br>
-                                </div>    
-                                <div class="col-md-12"> 
-                                    <label>Descripción del movimiento:</label>
-                                    <input name="descripcion" class="form-control" type="text" id="descripcion" required>
-                                </div>
-                                <div class="col-md-12"> 
-                                    <br>
-                                </div>  
-                                <div class="col-md-12">
-                                <label class="col-form-control">Buscar Producto:</label>
-                                    <div class="input-group">
-                                        <input name="autocompleteProducto2" class="form-control" type="text" id="autocompleteProducto2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-primary" id="btn-agregar-abast" type="button">Agregar</button>
-                                        </div>
-                                    </div>                         
-                                </div>
-                                <div class="col-md-12"> 
-                                    <br>
-                                </div>
-                                <div class = "table-responsive-sm col-md-12"> 
-                                
-                                    <table id="tbCompras" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Código.</th>
-                                                <th>Nombre.</th>
-                                                <th>Cantidad.</th>
-                                                <th>Precio.</th>
-                                                <th>Opciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>                               
-                                        </tbody>
-                                    </table>                       
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                                        <button type='button' onclick="validarFormulario()" class="btn btn-success">Aceptar</button>
-                                    </div>
-                            </div> 
-                         </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
-    <script src="<?php echo base_url();?>assets/js/adminJS/kardex.js"></script>
+<script src="<?php echo base_url();?>assets/js/adminJS/kardex.js"></script>
