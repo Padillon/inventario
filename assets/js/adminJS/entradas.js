@@ -1,6 +1,8 @@
  
 // ****************************** VALIDACIONES PROVEEDOR Y ENVIAR FORMULARIO VACÍO Y CATIDADES 0 ******************************
+$('#fecha').datepicker({
 
+});
 function validarFormulario(){
     total = 0;
     validar_cantidad = 0;
@@ -85,7 +87,7 @@ $("#autocompleteProducto").autocomplete({
               response($.map(data, function (item) {
                   return {
                       label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                      id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion,
+                      id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.perecedero,
                   }
               }))
           },
@@ -111,6 +113,9 @@ $("#btn-agregar-abast").on("click", function(){
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]' value='"+infoProducto[3]+"' required'></td>";//precio salida
         html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' name='cantidades[]' values='0' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
         html += "<td><input type='hidden'  name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
+
+         html += "<td><input type='date' value= '<?php echo date(Y-m-d);?>' class='form-control' ></td>";
+
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";
         $("#tbCompras tbody").append(html);
