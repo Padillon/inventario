@@ -35,7 +35,7 @@
                     <div class="card">
                         <div class="card-body">
                         
-                            <form class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' >
+                            <form class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data' >
                                 <div class="input-group">   
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>

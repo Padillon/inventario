@@ -49,6 +49,7 @@ class Entradas extends CI_Controller {
     }
 				//fncion para guardar las compras
     public function store(){
+		$fecha_caducidad = $this->input->post('fechaCaducidad');
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
 		$nuevoPrecio =$this->input->post("nuevoPrecio");
@@ -68,7 +69,7 @@ class Entradas extends CI_Controller {
 
 		if ($this->Entradas_model->save($data)){
 			$idEntrada = $this->Entradas_model->lastID(); 
-			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha); //guardando el detalle de la venta
+			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad); //guardando el detalle de la venta
 			redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
 		} else {
 			redirect(base_url()."movimientos/entradas/add");
@@ -76,7 +77,7 @@ class Entradas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha ){
+	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad ){
 		for ($i=0; $i < count($productos); $i++) { 
 				$data = array(
 					'id_entrada' => $idEntrada,
@@ -85,6 +86,15 @@ class Entradas extends CI_Controller {
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
 				);
+				if ($fecha_caducidad[$i]!=0) {
+					$lote = array(
+						'id_producto' => $productos[$i],
+						'cantidad' => $cantidades[$i],
+						'fecha_entrada' => $fecha,
+						'fecha_caducidad' => $fecha_caducidad 
+					);
+				}
+				$this->Entradas_model->save_lote($lote);
 	//kardex
 				$saldo = $this->Kardex_model->get($productos[$i]) ;
 				

@@ -30,14 +30,14 @@
     <div class="main-content-inner">
                     <div class="row">
                         <!-- busqueda de producto -->
-                        <div class="col-9 mt-5">
+                        <div class="col-12 mt-5">
                             <div class="card">
                                 <div class="card-body">
                                     <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'  >
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
-                                            <input name='fecha' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                            <input name='fecha' id="fecha" type="text"  value="<?php echo date('Y-m-d');?>" class='form-control' >
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
@@ -55,22 +55,32 @@
                                                 </div>
                                             </div>                           
                                             <br>
+                                            
                                             <table id="tbCompras"class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Codigo</th>
-                                                        <th>Nombre</th>
-                                                        <th>Precio Entrada</th>
-                                                        <th>Precio Salida</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Importes</th>
-                                                        <th>Opciones</th>
+                                                    <tr class=>
+                                                        <th class="col-md-1">Codigo</th>
+                                                        <th class="col-md-1">Nombre</th>
+                                                        <th class="col-md-1">Precio Entrada</th>
+                                                        <th class="col-md-1">Precio Salida</th>
+                                                        <th class="col-md-1">Cantidad</th>
+                                                        <th class="col-md-1">Importes</th>
+                                                        <th class="col-md-1">Fecha de caducidad</th>
+                                                        <th class="col-md-1">Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>                               
                                                 </tbody>
                                             </table>
-                                        </div>             
+                                        </div> 
+                                        <div class="col-md-5">
+                                        <table id="tbTotal" class="table table-striped  table-responsive table-bordered">
+                                             <tr>
+                                             <td class="alert alert-success">TOTAL:</td>
+                                             <td id="total_sub" class="alert alert-success">$</td>
+                                             </tr>
+                                        </table>
+                                    </div>                         
 
                                         <div class="form-group">
                                             <div class="col-md-12">
@@ -82,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 mt-5">
+                   <!-- <div class="col-3 mt-5">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-control">
@@ -95,7 +105,7 @@
                                     </div>                               
                                 </div>
                             </div>
-                    </div>
+                    </div>-->
     </div>
 </div>
 
