@@ -37,7 +37,8 @@
                                         <div class='input-group'>
                                             <div class='col-md-3'>
                                             <label>Fecha:</label>
-                                            <input name='fecha' id="fecha" type="text"  value="<?php echo date('Y-m-d');?>" class='form-control' >
+                                            <input name='fecha' id="fecha" type="text" value="<?php echo date('Y-m-d');?>" class='form-control datepicker' >
+
                                         </div>
                                         <div class='col-md-9'>
                                             <label>Proveedor: </label>
@@ -56,7 +57,7 @@
                                             </div>                           
                                             <br>
                                             
-                                            <table id="tbCompras"class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
+                                            <table id="tbCompras" class=" tabla-contenido table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
                                                     <tr class=>
                                                         <th class="col-md-1">Codigo</th>

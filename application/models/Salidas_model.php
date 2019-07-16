@@ -29,18 +29,32 @@ class Salidas_model extends CI_Model {
         return $resultados->result();
       }
 
-    public function getProductos($valor){
-    $this->db->select("p.*,c.nombre as id_categoria, pre.nombre as id_presentacion");
-      $this->db->from("productos p");
-      $this->db->join("categoria c","p.id_categoria = c.id_categoria");
-      //$this->db->join("marcas m","p.id_marca = m.id_marca");
-      $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
-     // $this->db->join("proveedores pr","p.id_proveedor = pr.id_proveedor");
-      $this->db->where("p.estado",1);
-      $this->db->like("p.nombre", $valor);
-      $this->db->or_like("p.codigo", $valor);
-      $resultados = $this->db->get();
-      return $resultados->result_array();
+  
+      public function getProductos($valor){
+        $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote");
+          $this->db->from("productos p");
+          $this->db->join("marcas m","p.id_marca = m.id_marca");
+          $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
+          $this->db->join("stock s","p.id_stock = s.id_stock");
+          $this->db->join("lotes lt", "p.id_producto = lt.id_producto", 'left');
+          $this->db->where("p.estado","1");
+          $this->db->where("lt.cantidad > 0");
+          $this->db->like("p.nombre", $valor);
+          $this->db->or_like("p.codigo", $valor);
+          $this->db->order_by("lt.fecha_caducidad", "asc");
+          $resultados = $this->db->get();
+          return $resultados->result_array();
+        }
+    
+    public function getLote($id){
+      $this->db->where("id_lote",$id);
+      $resultados = $this->db->get('lotes');
+      return $resultados->row();	
+    }
+    public function updateLote($id,$data){
+      $this->db->where("id_lote",$id);		
+      $this->db->update("lotes",$data);
+      return 0;
     }
 
     public function save($data){

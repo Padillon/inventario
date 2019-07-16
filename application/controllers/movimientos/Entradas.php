@@ -91,10 +91,11 @@ class Entradas extends CI_Controller {
 						'id_producto' => $productos[$i],
 						'cantidad' => $cantidades[$i],
 						'fecha_entrada' => $fecha,
-						'fecha_caducidad' => $fecha_caducidad 
+						'fecha_caducidad' => $fecha_caducidad[$i] 
 					);
+					$this->Entradas_model->save_lote($lote);
 				}
-				$this->Entradas_model->save_lote($lote);
+				
 	//kardex
 				$saldo = $this->Kardex_model->get($productos[$i]) ;
 				
