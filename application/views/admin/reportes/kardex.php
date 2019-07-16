@@ -32,7 +32,7 @@ class Mypdf extends TCPDF {
                 <td width="45%" style="background-color:white; text-align: center; color:red;">
                     <br>
                     <br>
-                    Kardex $this->codigo $this->nombreProd
+                    Kardex <br> $this->codigo $this->nombreProd
                 </td>
             </tr>
         </table>
@@ -68,8 +68,30 @@ $bloque2 = <<<EOF
     <table style="font-size:12px; padding:5px 10px;">
         <tr>
             <td style="background-color:white; width:50%">Encargado: $nomUsuario->usuario</td>
-            <td style="background-color:white; width:50%; text-align:right">
-                Fecha: $fecha
+            <td style="background-color:white; width:50%; text-align:right"> Fecha Generado: $fecha</td>
+        </tr>
+        <tr>
+            <td align="center" width="100%">
+                <b>Informacion del Producto</b>
+                <br>
+                <table border="1">
+                    <tr>
+                        <td bgcolor="Gold"><b>C&oacute;digo</b></td>
+                        <td bgcolor="Gold"><b>Nombre</b></td>
+                        <td bgcolor="Gold"><b>Marca</b></td>
+                        <td bgcolor="Gold"><b>Presentaci&oacute;n</b></td>
+                        <td bgcolor="Gold"><b>Descripci&oacute;n</b></td>
+                        <td bgcolor="Gold"><b>Estado</b></td>
+                    </tr>
+                    <tr>
+                        <td>$producto->codigo</td>
+                        <td>$producto->nombre</td>
+                        <td>$producto->marca</td>
+                        <td>$producto->presentacion</td>
+                        <td>$producto->descripcion</td>
+                        <td>$producto->estado</td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -87,16 +109,16 @@ $pdf->writeHTML(utf8_decode($bloque2), false, false, false, false, '');
     <table border="1" cellpadding="2" width="100%">   
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
-                <th width="15%" align="center" bgcolor="lightgray">Fecha</th>
-                <th width="15%" align="center" bgcolor="lightgray">Tipo</th>
-                <th width="15%" align="center" bgcolor="lightgray">Descripcion</th>
-                <th width="15%" align="center" bgcolor="lightgray">Encargado</th>
+                <th width="10%" align="center" bgcolor="lightgray">Fecha</th>
+                <th width="10%" align="center" bgcolor="lightgray">Tipo</th>
+                <th width="20%" align="center" bgcolor="lightgray">Descripci&oacute;n</th>
+                <th width="20%" align="center" bgcolor="lightgray">Encargado</th>
                 <th width="15%" align="center" bgcolor="lightgray">Cantidad</th>
                 <th width="15%" align="center" bgcolor="lightgray">Saldo</th>
             </tr>
 EOF;
 $cont = 0;
-$saldoK = $stockActual->cantidad;
+$saldoK = 0;
 foreach($kardex as $kar){
     $cont++;
     if($kar->tipo_transaccion == 1){
@@ -109,11 +131,11 @@ foreach($kardex as $kar){
         <tr>
             <td align="center">$cont</td>
             <td align="center">$kar->fecha</td>
-            <td>$kar->movimiento</td>
+            <td align="center">$kar->movimiento</td>
             <td>$kar->descripcion</td>
-            <td>$kar->id_usuario</td>
-            <td>$kar->cantidad</td>
-            <td>$saldoK</td>
+            <td>$kar->usuario</td>
+            <td align="center">$kar->cantidad</td>
+            <td align="center">$saldoK</td>
         </tr>
 EOF;
 }
@@ -123,4 +145,4 @@ EOF;
 $tabla=utf8_encode($tabla);
 $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 
-$pdf->Output('reporteProductos'.$fecha.'.pdf', 'I');
+$pdf->Output('reporteKardex'.$fecha.'.pdf', 'I');

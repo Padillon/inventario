@@ -69,7 +69,7 @@ public function getKardexProducto($id,$inicio,$fin){
       $this->db->join("marcas m","p.id_marca = m.id_marca");
       $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
       $this->db->join("stock s","p.id_stock = s.id_stock");
-      $this->db->where("p.estado","1");
+      $this->db->where("p.estado",1);
       $this->db->like("p.nombre", $valor);
       $this->db->or_like("p.codigo", $valor);
       $resultados = $this->db->get();
@@ -77,8 +77,10 @@ public function getKardexProducto($id,$inicio,$fin){
     }
 
     public function getProducto($valor){
-    $this->db->select("codigo, nombre");
-      $this->db->from("productos");
+    $this->db->select("p.codigo, p.nombre, p.descripcion, if(p.estado = 0, 'Inactivo', 'Activo') as estado, m.nombre as marca, pre.nombre as presentacion");
+	$this->db->from("productos p");
+	$this->db->join("marcas m","p.id_marca = m.id_marca");
+	$this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
       $this->db->where("id_producto", $valor);
       $resultados = $this->db->get();
       return $resultados->row();
@@ -101,26 +103,15 @@ public function getKardexProducto($id,$inicio,$fin){
 	}
 
 	public function getProductoKardex($id,$inicio,$final){
-		$this->db->select("k.*, t.nombre as movimiento, t.tipo_transaccion, p.codigo, p.nombre");
+		$this->db->select("date_format(k.fecha, '%d-%m-%Y') as fecha, k.descripcion, k.cantidad, u.usuario, t.tipo_transaccion, if(t.tipo_transaccion = 1, 'Entrada', 'Salida') as movimiento, p.codigo, p.nombre");
 		$this->db->from("kardex k");
 		$this->db->join("productos p" , "p.id_producto = k.id_producto");
 		$this->db->join("stock s" , "p.id_stock = s.id_stock");
 		$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
+		$this->db->join("usuarios u" , "u.id_usuario = k.id_usuario");
 		$this->db->where("k.id_producto",$id);
 		$this->db->where("k.fecha >='".$inicio."' AND k.fecha <='".$final."'");
-		$this ->db->order_by( 'k.id_kardex' , 'desc' );
-		if($resultado = $this->db->get()){
-			return $resultado->result();
-		}else{
-			return 0;
-		}
-	}
-
-	public function getProdInicial($id, $fecha1){
-		$this->db->select("cantidad");
-		$this->db->from("kardex");
-		$this->db->where("id_producto",$id);
-		$this->db->where("fecha",$fecha1);
+		$this ->db->order_by( 'k.id_kardex' , 'asc' );
 		if($resultado = $this->db->get()){
 			return $resultado->result();
 		}else{

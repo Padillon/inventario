@@ -138,13 +138,11 @@ class Kardex extends CI_Controller {
             'empresa' => $this->Kardex_model->getAjustes(),
             'nomUsuario' => $this->Kardex_model->getUsuario($idusuario),
 			'kardex' => $this->Kardex_model->getProductoKardex($valor, $inicio, $final),
-            'stockActual' => $this->Kardex_model->getProdInicial($valor, $inicio),
             'producto' => $this->Kardex_model->getProducto($valor),
 		);
 
-        print_r($data);
 		//generando pdf
-		//$this->load->view("admin/reportes/kardex", $data);
+		$this->load->view("admin/reportes/kardex", $data);
 	}
 
 

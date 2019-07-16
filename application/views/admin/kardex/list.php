@@ -33,7 +33,6 @@
                         <div class="col-12 mt-5">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-control" action="<?php echo base_url();?>movimientos/entradas/store" id="FormCompra" method='post'>
                                         <div class='input-group'> 
                                             <div class='col-md-3'>
                                                 <label>Del:</label>
@@ -73,7 +72,6 @@
                                                 <button type="button" onclick="validarFormulario()" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
                                             </div>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
