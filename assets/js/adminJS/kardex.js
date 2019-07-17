@@ -5,14 +5,15 @@ function validarFormulario(){
         total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
         cantidades =Number($(this).find("td:eq(2)").children('input').val()); // revisamos en la columna que ningun valor sea 0
         if ( cantidades == 0 ) {
-            alert("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
+            //alert("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
+            toastr.error("Ingrese una cantidad en la linea: "+total);
             validar_cantidad = 1;
         }
     });
     if ( total != 0 & validar_cantidad == 0 ) {
         document.getElementById("movimiento_form").submit(); 
     }else if(validar_cantidad!=1){
-        alert("¡Ingrese los dato necesarios!"); // ************ Aqui iria tu modal konny
+        toastr.error("¡Ingrese los dato necesarios!");
     }
 }
 
@@ -32,7 +33,7 @@ $("#autocompleteProducto").autocomplete({
                 response($.map(data, function (item) {
                     return {
                         label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.id_producto,
+                        id: item.id_producto+"*"+item.codigo+"*"+item.nombre+'*'+ item.id_marca,
                     }
                 }))
             },
@@ -41,25 +42,37 @@ $("#autocompleteProducto").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
+       valor = data.split("*");
        $.ajax({
-             url: base_url+"movimientos/kardex/getProductoKardex",
+             url: base_url+"movimientos/kardex/getKardexBuscar",
             type: "POST",
             dataType: "json",
-            data:{ id: data,fecha_inicio: $("#fecha_inicio").val(), fecha_final: $("#fecha_fin").val()},
+            data:{ id: valor[0],fecha_inicio: $("#fecha_inicio").val(), fecha_final: $("#fecha_fin").val()},
             success: function(data){
-                $("#table_of_items tr").remove(); 
+                $("#tabla_kardex tr").remove();
+                saldoK = Number(0);
+                cont = 0;
             for(var i = 0; i < data.length; i+=1){
-            // AQUÍ IRIA LO DEL PDF KONNY ******************
+                if(data[i].tipo_transaccion == 1){
+                    saldoK += Number(data[i].cantidad);
+                } else {
+                    saldoK -= Number(data[i].cantidad);
+                }
+                cont++;
+
                 html = "<tr>";
-                html += "<td>"+data[i].id_kardex+"</td>";//id del producto
+                html += "<td>"+cont+"</td>";//id del producto
                 html += "<td>"+data[i].fecha+"</td>";//id del producto
-                html += "<td>"+data[i].precio+"</td>";//id del producto
+                html += "<td>"+data[i].movimiento+"</td>";//id del producto
+                html += "<td>"+data[i].descripcion+"</td>";//id del producto
+                html += "<td>"+data[i].usuario+"</td>";//id del producto
                 html += "<td>"+data[i].cantidad+"</td>";//id del producto
-                html += "<td>"+data[i].total+"</td>";//id del producto
+                html += "<td>"+saldoK+"</td>";//id del producto
                 html += "</tr>";
                 $("#tabla_kardex tbody").append(html);
             }
             $('#autocompleteProducto').val(null);
+            $("#txtProd").val(valor[1] + " " + valor[2] + " " + valor[3]);
             },
         });
     },

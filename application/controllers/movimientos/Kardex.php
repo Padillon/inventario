@@ -38,12 +38,13 @@ class Kardex extends CI_Controller {
     }
 
 	//funcion para mandar a traer los movimiento de un producto en concreto
-	public function getKardexProducto(){
+	public function getKardexBuscar(){
 		$id = $this->input->post("id");
 		$inicio = $this->input->post("fecha_inicio");
 		$final = $this->input->post("fecha_final");
-		$producto = $this->Kardex_model->getKardexProducto($id,$inicio,$final);
+		$producto = $this->Kardex_model->getKardexBuscar($id,$inicio,$final);
 		echo json_encode($producto);
+		//print_r(json_encode($producto));
     }
 
 	public function getProductos(){

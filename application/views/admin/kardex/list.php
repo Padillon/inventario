@@ -48,15 +48,20 @@
                                             </div>           
                                         </div>                       
                                         <br>
+                                        <div class='col-md-6'>
+                                                <label class="col-form-control">Producto:</label>
+                                                <input class="form-control" type="text" id="txtProd" disabled>
+                                            </div>
                                         <div class="col-md-12">                
                                             <br>
                                             <table id="tabla_kardex"class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
                                                     <tr>
+                                                        <th>#</th>
                                                         <th>Fecha</th>
                                                         <th>Tipo</th>
-                                                        <th>Descripción</th>
-                                                        <th>Producto</th>
+                                                        <th>Descripcion</th>
+                                                        <th>Encargado</th>
                                                         <th>Cantidad</th>
                                                         <th>Saldo</th>
                                                     </tr>
@@ -66,12 +71,6 @@
                                                 </tbody>
                                             </table>
                                         </div>             
-
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <button type="button" onclick="validarFormulario()" id="procesar" class="btn btn-outline-primary mb-3">Procesar</button>
-                                            </div>
-                                        </div>
                                 </div>
                             </div>
                         </div>

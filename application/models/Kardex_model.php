@@ -24,16 +24,16 @@ public function update($data,$id){
 	return 0;
 }
 
-public function getKardexProducto($id,$inicio,$fin){
-	$this->db->select("k.*,u.usuario as usuario, t.nombre as movimiento,p.nombre as producto");
+public function getKardexBuscar($id,$inicio,$fin){
+	$this->db->select("date_format(k.fecha, '%d-%m-%Y') as fecha, k.descripcion, k.cantidad, u.usuario, t.tipo_transaccion, if(t.tipo_transaccion = 1, 'Entrada', 'Salida') as movimiento, p.codigo, p.nombre");
 	$this->db->from("kardex k");
-	$this->db->join("usuarios u", "k.id_usuario = u.id_usuario");
 	$this->db->join("productos p" , "p.id_producto = k.id_producto");
+	$this->db->join("stock s" , "p.id_stock = s.id_stock");
 	$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
-	$start_date=$inicio;
-	$end_date=$fin;
-	
-	$this->db->where('k.fecha BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+	$this->db->join("usuarios u" , "u.id_usuario = k.id_usuario");
+	$this->db->where("k.id_producto",$id);
+	$this->db->where("k.fecha >='".$inicio."' AND k.fecha <='".$fin."'");
+	$this ->db->order_by( 'k.id_kardex' , 'asc' );
 	$resultados = $this->db->get();
 	return $resultados->result();
 }
