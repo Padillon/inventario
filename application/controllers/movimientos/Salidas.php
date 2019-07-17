@@ -38,7 +38,7 @@ class Salidas extends CI_Controller {
 
     public function getProductos(){
         $valor = $this->input->post("autocompleteProducto");
-		$producto = $this->Entradas_model->getProductos($valor);
+		$producto = $this->Salidas_model->getProductos($valor);
 		echo json_encode($producto);
     }
 //fncion para guardar las compras
@@ -46,6 +46,8 @@ class Salidas extends CI_Controller {
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
 		$idCliente = $this->input->post("idCliente");
+		$estados = $this->input->post('estados');
+		$lotes = $this->input->post('lotes');
 		if ($idCliente == null) {
 			$idCliente = 1;
 		}
@@ -65,7 +67,7 @@ class Salidas extends CI_Controller {
 
 		if ($this->Salidas_model->save($data)){
 			$idSalida = $this->Salidas_model->lastID(); 
-			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha); //guardando el detalle de la venta
+			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha,$estados,$lotes); //guardando el detalle de la venta
 			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 		} else {
 			redirect(base_url()."movimientos/entradas/add");
@@ -73,7 +75,7 @@ class Salidas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha){
+	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha,$estados,$lotes){
 		for ($i=0; $i < count($productos); $i++) { 
 				$data = array(
 					'id_salida' => $idSalida,
@@ -83,7 +85,13 @@ class Salidas extends CI_Controller {
 					'subtotal' => $importes[$i],
 				);
 				$saldo = $this->Kardex_model->get($productos[$i]) ;
-				
+				if ($estados[$i] == 1) {
+						$loteActual = $this->Salidas_model->getLote($lotes[$i]);
+						$data2 = array(
+							'cantidad' => $loteActual->cantidad - $cantidades[$i],
+						);
+						$this->Salidas_model->updateLote($lotes[$i], $data2);
+					}
 				$kardex = array(
 					'fecha' =>$fecha , 
 					'id_movimiento' => 2,
