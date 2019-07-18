@@ -77,21 +77,32 @@ class Salidas extends CI_Controller {
 	//funcion para guardar el detalle de la venta
 	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha,$estados,$lotes){
 		for ($i=0; $i < count($productos); $i++) { 
+			$id_lote=0; //variable que contendera el id del estado si es necesario
+				if ($estados[$i] == 1) {
+						$loteActual = $this->Salidas_model->getLote($lotes[$i]);
+						if ($loteActual->cantidad == $cantidades[$i]) {
+							$data2 = array(
+								'estado' => 0,
+								'cantidad' => $loteActual->cantidad - $cantidades[$i],
+							);
+							
+						}else{
+							$data2 = array(
+								'cantidad' => $loteActual->cantidad - $cantidades[$i],
+							);
+						}
+						$this->Salidas_model->updateLote($lotes[$i], $data2);
+						$id_lote = $lotes[$i];
+					}
 				$data = array(
 					'id_salida' => $idSalida,
 					'precio_venta' => $precioVentas[$i],
 					'id_producto' => $productos[$i],
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
+					'id_lote' => $id_lote,
 				);
 				$saldo = $this->Kardex_model->get($productos[$i]) ;
-				if ($estados[$i] == 1) {
-						$loteActual = $this->Salidas_model->getLote($lotes[$i]);
-						$data2 = array(
-							'cantidad' => $loteActual->cantidad - $cantidades[$i],
-						);
-						$this->Salidas_model->updateLote($lotes[$i], $data2);
-					}
 				$kardex = array(
 					'fecha' =>$fecha , 
 					'id_movimiento' => 2,
@@ -153,6 +164,7 @@ class Salidas extends CI_Controller {
 			'estado' =>0,
 		);
 		$this->Salidas_model->updateSalida($id, $data);
+		$lote  = $this->Salidas_model->getLote($id);
 		//eliminas la venta en kardex
 		$salidas = $this->Kardex_model->get_venta($id);
 		foreach($salidas as $sa){
@@ -180,6 +192,14 @@ class Salidas extends CI_Controller {
 				'stock_actual' => $nuevoValor,
 			);
 			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
+			if ($det->id_lote != 0) {
+				$loteActual = $this->Salidas_model->getLote($det->id_lote);
+				$data = array(
+					'cantidad' => $loteActual->cantidad + $det->cantidad,
+					'estado' =>1,
+				);
+				$this->Salidas_model->updateLote($det->id_lote, $data);
+			}
 		endforeach;
 		redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 	}

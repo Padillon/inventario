@@ -88,6 +88,7 @@ class Entradas extends CI_Controller {
 				);
 				if ($fecha_caducidad[$i]!=0) {
 					$lote = array(
+						'id_entrada' => $idEntrada,
 						'id_producto' => $productos[$i],
 						'cantidad' => $cantidades[$i],
 						'fecha_entrada' => $fecha,
@@ -175,8 +176,8 @@ class Entradas extends CI_Controller {
 		$data = array(
 			'estado' =>0,
 		);
-		$this->Entradas_model->updateEntrada($id, $data);
-		//eliminas la venta en kardex
+		$this->Entradas_model->updateEntrada($id, $data);//eliminas la venta en kardex
+		$this->Entradas_model->updateLote($id, $data);//eliminamos del lote si es necesario
 		$entradas = $this->Kardex_model->get_compra($id);
 		foreach($entradas as $entr){
 
@@ -195,7 +196,6 @@ class Entradas extends CI_Controller {
 			$this->Kardex_model->add($kardex);
 		}
 		
-
 		foreach( $detalle as $det ):
 			$productoActual = $this->Productos_model->get($det->id_producto);
 			$stock = $this->Productos_model->getStock($productoActual->id_stock);

@@ -87,6 +87,12 @@ class Entradas_model extends CI_Model {
       return 0;
     }
 
+    public function updateLote($id, $data){
+      $this->db->where("id_entrada",$id);		
+      $this->db->update("lotes",$data);
+      return 0;
+    }
+
     public function get_productosDetalle($id){
       $this->db->select("p.nombre nombre,p.codigo codigo,p.id_producto id_producto");
       $this->db->from("detalle_entrada d");

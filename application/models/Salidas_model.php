@@ -39,6 +39,7 @@ class Salidas_model extends CI_Model {
           $this->db->join("lotes lt", "p.id_producto = lt.id_producto", 'left');
           $this->db->where("p.estado","1");
           $this->db->where("lt.cantidad > 0");
+          $this->db->where("lt.estado = 1");
           $this->db->like("p.nombre", $valor);
           $this->db->or_like("p.codigo", $valor);
           $this->db->order_by("lt.fecha_caducidad", "asc");
@@ -50,11 +51,6 @@ class Salidas_model extends CI_Model {
       $this->db->where("id_lote",$id);
       $resultados = $this->db->get('lotes');
       return $resultados->row();	
-    }
-    public function updateLote($id,$data){
-      $this->db->where("id_lote",$id);		
-      $this->db->update("lotes",$data);
-      return 0;
     }
 
     public function save($data){
@@ -82,6 +78,11 @@ class Salidas_model extends CI_Model {
     public function update_correlativo($id,$cantidad){
       $this->db->where("id_tipo_comprobante",$id);		
       $this->db->update("tipo_comprobante",$cantidad);
+      return 0;
+    }
+    public function updateLote($id, $data){
+      $this->db->where("id_lote",$id);		
+      $this->db->update("lotes",$data);
       return 0;
     }
 
