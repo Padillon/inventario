@@ -8,7 +8,7 @@ function validarFormulario(){
         total2++;
         cantidades =Number($(this).find("td:eq(3)").children('input').val());
         if ( cantidades == 0 ) {
-            alert("Ingrese una cantidad en la linea: "+total2);
+            toastr.warning('ingrese una cantidad en la linea: '+total2);
             validar_cantidad = 1;
         }
     });
@@ -16,7 +16,7 @@ function validarFormulario(){
 
         document.getElementById("FormSalida").submit(); s
     }else if(validar_cantidad!=1){
-        alert("¡Ingrese los dato necesarios!");
+        toastr.warning('¡Ingrese los datos necesarios!');
     }
 }
 var estado= 0;
@@ -41,7 +41,6 @@ $(document).ready(function(){
 function serie_numero(){
    //var x = document.getElementById("mySelect").value;
     var valor = document.getElementById('create_comprobante').value;
-    alert(valor);
     var valores = valor.split('*');
     $('#serie').val(Number(valores[1])+1);
     $('#numero').val(Number(valores[2])+1);
@@ -107,7 +106,7 @@ $("#btn-agregar-abast").on("click", function(){
         $('#btn-agregar-abast').val('');
         $('#autocompleteProducto').val(null);
     } else {
-        alert("seleccione un producto");
+        toastr.info('Seleccione un roducto','Agregar');
     }
 });
 

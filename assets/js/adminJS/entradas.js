@@ -15,12 +15,12 @@ function validarFormulario(){
         fechaCaducidad =Number($(this).find("td:eq(6)").children('input').val()); // validar que este lleno la fecha de caducidad   
 
         if (fechaCaducidad == 0 & valor_p_caducidad != 0) {
-            alert("Ingrese una fecha de caducidad en la linea: "+total);
+            toastr.warning("Ingrese una fecha de caducidad en la linea: "+total);
             validar_fecha = 1;
         }
 
-        if ( cantidades == 0 ) {
-            alert("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
+        if ( cantidades == 0 ) {    
+            toastr.warning("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
             validar_cantidad = 1;
         }
     });
@@ -29,7 +29,7 @@ function validarFormulario(){
     }else if(validar_fecha == 1){
 
     }else if(validar_cantidad!=1){
-        alert("¡Ingrese los dato necesarios!"); // ************ Aqui iria tu modal konny
+        toastr.warning('!Ingrese los datos necesario¡');
     }
 }
 
@@ -137,7 +137,7 @@ $("#btn-agregar-abast").on("click", function(){
         $('#btn-agregar-abast').val('');
         $('#autocompleteProducto').val(null);
     } else {
-        alert("seleccione un producto");
+        toastr.info('Seleccione un producto.','Agregar');
     }
 });
 //procesamiento al ingresar otra cantidad de compra

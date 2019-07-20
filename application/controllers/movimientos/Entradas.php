@@ -13,6 +13,8 @@ class Entradas extends CI_Controller {
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
 		$this->load->model("Kardex_model");
+        $this->load->library('toastr');
+
 		$this->load->library("Pdf");
 	}
 	}
@@ -282,5 +284,8 @@ class Entradas extends CI_Controller {
         //generando el pdf
         $this->load->view("admin/reportes/entradasResumen", $data);
 	}
-        
+	public function error(){
+
+		$this->toastr->success('blablaba!');  
+	}
 }
