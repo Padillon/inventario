@@ -33,12 +33,6 @@
      <script src="<?php echo base_url();?>assets/js/jquery.validate.js"></script>
      <script src="<?php echo base_url();?>assets/js/JsBarcode.all.min.js"></script>
 
-     
-    <script src="<?php echo base_url();?>assets/js/additional-methods.js"></script>
-    <script src="<?php echo base_url();?>assets/js/picker.js"></script>
-    <script src="<?php echo base_url();?>assets/js/legacy.js"></script>
-    <script src="<?php echo base_url();?>assets/js/picker.date.js"></script>
-    <script src="<?php echo base_url();?>assets/js/picker.time.js"></script>
     
 
      <script type="text/javascript"> 

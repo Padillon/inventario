@@ -205,7 +205,16 @@ $("#btnGenerarInactivos").click(function(){
 $("#btnelegirFecha").on("click", function(){
     fecha1 = $("#fecha1").val();
     fecha2 = $("#fecha2").val();
-    window.open(base_url+"movimientos/entradas/getReporteFecha?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+    if (fecha1 == "" || fecha2 =="") {
+        toastr.warning('Ingrese las fechas.');
+        $("#PDFPorFecha").modal()
+    }else{
+        if (fecha1<fecha2) {
+            window.open(base_url+"movimientos/entradas/getReporteFecha?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
+        }else{
+            toastr.warning('La primera fecha tiene que ser menor a la segunda');
+        }
+    }
 });
 
 $("#btnelegirProveedor").on("click", function(){
