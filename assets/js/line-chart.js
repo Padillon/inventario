@@ -170,62 +170,79 @@ if ($('#coin_sales3').length) {
 
 /*--------------  overview-chart start ------------*/
 if ($('#verview-shart').length) {
-    var myConfig = {
-        "type": "line",
+    $.ajax({
+        url: base_url+"dashboard/getVentas",
+        type: "POST",
+        dataType: "json",
+        success: function(data){
+            fechas= ['No venta','No venta','No venta','No venta','No venta','No venta','No venta'];
+            valores=[0,0,0,0,0,0,0];
 
-        "scale-x": { //X-Axis
-            "labels": ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],
-            "label": {
-                "font-size": 14,
-                "offset-x": 0,
-            },
-            "item": { //Scale Items (scale values or labels)
-                "font-size": 10,
-            },
-            "guide": { //Guides
-                "visible": false,
-                "line-style": "solid", //"solid", "dotted", "dashed", "dashdot"
-                "alpha": 1
-            }
-        },
-        "plot": { "aspect": "spline" },
-        "series": [{
-                "values": [20, 25, 30, 35, 45, 40, 40, 35, 25, 17, 40, 50],
-                "line-color": "#F0B41A",
-                /* "dotted" | "dashed" */
-                "line-width": 5 /* in pixels */ ,
-                "marker": { /* Marker object */
-                    "background-color": "#D79D3B",
-                    /* hexadecimal or RGB value */
-                    "size": 5,
-                    /* in pixels */
-                    "border-color": "#D79D3B",
-                    /* hexadecimal or RBG value */
-                }
-            },
-            {
-                "values": [40, 45, 30, 20, 30, 35, 45, 55, 40, 30, 55, 30],
-                "line-color": "#0884D9",
-                /* "dotted" | "dashed" */
-                "line-width": 5 /* in pixels */ ,
-                "marker": { /* Marker object */
-                    "background-color": "#067dce",
-                    /* hexadecimal or RGB value */
-                    "size": 5,
-                    /* in pixels */
-                    "border-color": "#067dce",
-                    /* hexadecimal or RBG value */
-                }
-            }
-        ]
-    };
+            for (var i = 0; i < data.length; i++) {
+                    fechas[i] = data[i].fecha;
+                    valores[i] = data[i].suma;
+             }
 
-    zingchart.render({
-        id: 'verview-shart',
-        data: myConfig,
-        height: "100%",
-        width: "100%"
+
+            var myConfig = {
+                "type": "line",       
+                "scale-x": { //X-Axis
+                    "labels":[fechas[0],fechas[1],fechas[2],fechas[3],fechas[4],fechas[5],fechas[6]],
+                    "label": {
+                        "font-size": 14,
+                        "offset-x": 0,
+                    },
+                    "item": { //Scale Items (scale values or labels)
+                        "font-size": 15,
+                    },
+                    "guide": { //Guides
+                        "visible": false,
+                        "line-style": "solid", //"solid", "dotted", "dashed", "dashdot"
+                        "alpha": 1
+                    }
+                },
+        
+                "plot": { "aspect": "spline" },
+                "series": [{
+                        "values": [parseFloat(valores[0]),parseFloat(valores[1]),parseFloat(valores[2]),parseFloat(valores[3]),parseFloat(valores[4]),parseFloat(valores[5]),parseFloat(valores[6]),],
+                        "line-color": "#6a56a5",
+                        /* "dotted" | "dashed" */
+                        "line-width": 5 /* in pixels */ ,
+                        "marker": { /* Marker object */
+                            "background-color": "##7801ff;",
+                            /* hexadecimal or RGB value */
+                            "size": 5,
+                            /* in pixels */
+                            "border-color": "##7801ff;",
+                            /* hexadecimal or RBG value */
+                        }
+                    },
+                   // {
+                     //   "values": [valores[0], 45, 30, 20, 30, 35, 45, 55, 40],
+                       // "line-color": "#0884D9",
+                        /* "dotted" | "dashed" */
+                       // "line-width": 5 /* in pixels */ ,
+                        //"marker": { /* Marker object */
+                          //  "background-color": "#067dce",
+                            /* hexadecimal or RGB value */
+                            //"size": 5,
+                            /* in pixels */
+                           // "border-color": "#067dce",
+                            /* hexadecimal or RBG value */
+                        //}
+                   // }
+                ]
+            };
+        
+            zingchart.render({
+                id: 'verview-shart',
+                data: myConfig,
+                height: "100%",
+                width: "100%"
+            });
+        }
     });
+   
 }
 
 /*--------------  overview-chart END ------------*/

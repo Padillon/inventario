@@ -19,17 +19,84 @@
                                 <li><span>pricing</span></li>
                             </ul>
                         </div>
+                        
                     </div>
                     
                 </div>
             </div>
             <!-- page title area end -->
+             <div class="main-content-inner">
+                <div class="row">
+                    <!-- seo fact area start -->
+                    <div class="col-lg-12">
+                        <div class="row">
+
+                            <div class="col-md-3 mt-md-5 mb-3">
+                                <div class="card">
+                                    <div class="seo-fact sbg1">
+                                        <div class="p-4 d-flex ventas justify-content-between align-items-center">
+                                            <div class="seofct-icon"><i class="fa fa-money"></i> Ventas</div>
+                                            <h2>2,315</h2>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mt-md-5 mb-3">
+                                <div class="card">
+                                    <div class="seo-fact sbg1">
+                                        <div class="p-4 d-flex compras justify-content-between align-items-center">
+                                            <div class="seofct-icon"><i class="fa fa-shopping-cart"></i> Compras</div>
+                                            <h2>3,984</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mt-md-5 mb-3">
+                                <div class="card">
+                                    <div class="seo-fact sbg1">
+                                        <div class="p-4 d-flex justify-content-between align-items-center">
+                                            <div class="seofct-icon"><i class="fa fa-user"></i> Usuario</div>
+                                            <h2>3,984</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mt-md-5 mb-3">
+                                <div class="card">
+                                    <div class="seo-fact sbg1">
+                                        <div class="p-4 d-flex justify-content-between align-items-center">
+                                            <div class="seofct-icon"><i class="fa fa-cog    "></i> Confn.</div>
+                                            <h2>3,984</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                     <h4 class="header-title mb-0">Últimos 7 días de venta.</h4>
+                                  
+                                </div>
+                                <div id="verview-shart" value=></div>
+                            </div>
+                        </div>
+                    </div>
+
+                                 <!-- overview area start -->                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
      </div>
-       
+
     
     <!-- page container area end -->
-
-    
-
-
+    <script src="<?php echo base_url();?>assets/js/adminJS/dashboard.js">
