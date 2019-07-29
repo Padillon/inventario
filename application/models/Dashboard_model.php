@@ -25,4 +25,11 @@ class Dashboard_model extends CI_Model {
     $resultado = $this->db->query($sql);
     return $resultado->row();
   }
+
+  public function stock(){
+    $this->db->select('stock_actual as actual, stock_minimo minimo');
+	$resultados = $this->db->get('stock');
+		return $resultados->result();
+	}
+
 }

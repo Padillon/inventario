@@ -89,6 +89,7 @@ if ($permisos->insert == 1) {
                                     <th>Codigo</th>
                                     <th>Nombre</th>
                                     <th>Marca</th>
+                                    <th>Stock</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -102,6 +103,15 @@ if ($permisos->insert == 1) {
                                             <td><?php echo $pro->codigo;?></td>
                                             <td><?php echo $pro->nombre;?></td>
                                             <td><?php echo $pro->marca;?></td>
+                                            <?php if($pro->stock_actual > $pro->stock_minimo){?>
+                                                <td>
+                                                <span class="badge badge-success"><?php echo $pro->stock_actual;?></span>
+                                                </td>
+                                            <?php }else{?>
+                                                <td>
+                                                <span class="badge badge-danger"><?php echo $pro->stock_actual;?></span>
+                                                </td>
+                                            <?php }?>
                                             <?php if($pro->estado == 1){?>
                                                 <td>
                                                 <span class="badge badge-success">Activo</span>

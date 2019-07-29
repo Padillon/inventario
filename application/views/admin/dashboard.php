@@ -4,7 +4,6 @@
     </div>
     <!-- preloader area end -->
     <!-- page container area start -->
-   
        <!-- main content area start -->
     <div class="main-content">
         <div class="header-area">
@@ -57,7 +56,7 @@
                             <div class="col-md-3 mt-md-5 mb-3">
                                 <div class="card">
                                     <div class="seo-fact sbg1">
-                                        <div class="p-4 d-flex justify-content-between usuario align-items-center">
+                                        <div class="p-4 d-flex justify-content-between kardex align-items-center">
                                             <div class="seofct-icon"><i class="fa fa-book"></i> Kardex</div>
                                             <h2><?php echo $kardex->contador; ?></h2>
                                         </div>
@@ -65,28 +64,49 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3 mt-md-5 mb-3">
-                                <div class="card">
-                                    <div class="seo-fact sbg1">
-                                        <div class="p-4 d-flex justify-content-between conf align-items-center">
-                                            <div class="seofct-icon"><i class="fa fa-cog    "></i> Configuración</div>
+                            <?php if($this->session->userdata('rol') == 1){ ?>
+
+                                <div class="col-md-3 mt-md-5 mb-3">
+                                    <div class="card">
+                                        <div class="seo-fact sbg1">
+                                            <div class="p-4 d-flex configuracion justify-content-between conf align-items-center">
+                                                <div class="seofct-icon"><i class="fa fa-cog    "></i> Configuración</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php } ?>
 
-                            <div class="col-xl-12 col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                     <h4 class="header-title mb-0">Últimos 7 días de venta.</h4>
-                                  
+                                <?php $stock_minimos = 0;                                    
+                                    foreach( $stock as $sto){
+                                        if($sto->actual <= $sto->minimo){
+                                            $stock_minimos++;
+                                        }
+                                    }
+                                ?>
+                                <div class="col-md-3 mt-md-5 mb-3">
+                                    <div class="card">
+                                        <div class="seo-fact sbg1">
+                                            <div class="p-4 d-flex productos justify-content-between conf align-items-center">
+                                                <div class="seofct-icon"><i class="fa fa-cog"></i> Stock bajo</div>
+                                                <h2><?php echo $stock_minimos; ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="verview-shart" value=></div>
-                            </div>
-                        </div>
-                    </div>
 
+                        <?php if($this->session->userdata('rol') == 1){ ?>
+                            <div class="col-xl-12 col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h4 class="header-title mb-0">Últimos 7 días de venta.</h4>         
+                                        </div>
+                                        <div id="verview-shart" value=></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
                                  <!-- overview area start -->                            
                         </div>
                     </div>

@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
                         'compras' => $this->Dashboard_model->compras(),
                         'ventas' => $this->Dashboard_model->ventas(),
                         'kardex' => $this->Dashboard_model->kardex(),
+                        'stock'=> $this->Dashboard_model->stock(),
                 );
         $this->load->view('layouts/header');
         $this->load->view('layouts/aside');
