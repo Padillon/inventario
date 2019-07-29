@@ -11,12 +11,14 @@ class Dashboard extends CI_Controller {
         }
 	
 	public function index(){     
-             /*   $data = array(
-                        'fechas' => $this->Dashboard_model->getVentas(),
-                );*/
+               $data = array(
+                        'compras' => $this->Dashboard_model->compras(),
+                        'ventas' => $this->Dashboard_model->ventas(),
+                  //      'kardex' => $this->Dashboard_model->kardex(),
+                );
         $this->load->view('layouts/header');
         $this->load->view('layouts/aside');
-        $this->load->view('admin/dashboard');
+        $this->load->view('admin/dashboard',$data);
         $this->load->view('layouts/footer');
         }
 

@@ -9,4 +9,20 @@ class Dashboard_model extends CI_Model {
 
       return $resultados->result();
     }
+
+  public function compras (){
+    $sql = "select count(fecha) contador from entradas where fecha ='".date('Y-m-d')."'";
+    $resultado = $this->db->query($sql);
+    return $resultado->row();
+  }
+  public function ventas (){
+    $sql = "select count(fecha) contador from salidas where fecha ='".date('Y-m-d')."'";
+    $resultado = $this->db->query($sql);
+    return $resultado->row();
+  }
+ /* public function Kardex (){
+    $sql = "select count(fecha) contador from kardex where fecha ='".date('Y-m-d')."'";
+    $resultado = $this->db->query($sql);
+    return $resultado->row();
+  }*/
 }

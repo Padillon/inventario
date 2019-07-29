@@ -49,7 +49,7 @@ $("#autocompleteProducto").autocomplete({
             dataType: "json",
             data:{ id: valor[0],fecha_inicio: $("#fecha_inicio").val(), fecha_final: $("#fecha_fin").val()},
             success: function(data){
-                $("#tabla_kardex tr").remove();
+             //   $("#tabla_kardex tr").remove();
                 saldoK = Number(0);
                 cont = 0;
             for(var i = 0; i < data.length; i+=1){

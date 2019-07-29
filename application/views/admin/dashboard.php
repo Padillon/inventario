@@ -36,7 +36,7 @@
                                     <div class="seo-fact sbg1">
                                         <div class="p-4 d-flex ventas justify-content-between align-items-center">
                                             <div class="seofct-icon"><i class="fa fa-money"></i> Ventas</div>
-                                            <h2>2,315</h2>
+                                            <h2><?php echo $ventas->contador; ?></h2>
                                         </div>
 
                                     </div>
@@ -48,6 +48,17 @@
                                     <div class="seo-fact sbg1">
                                         <div class="p-4 d-flex compras justify-content-between align-items-center">
                                             <div class="seofct-icon"><i class="fa fa-shopping-cart"></i> Compras</div>
+                                            <h2><?php echo $compras->contador; ?></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 mt-md-5 mb-3">
+                                <div class="card">
+                                    <div class="seo-fact sbg1">
+                                        <div class="p-4 d-flex justify-content-between usuario align-items-center">
+                                            <div class="seofct-icon"><i class="fa fa-book"></i> Kardex</div>
                                             <h2>3,984</h2>
                                         </div>
                                     </div>
@@ -57,20 +68,8 @@
                             <div class="col-md-3 mt-md-5 mb-3">
                                 <div class="card">
                                     <div class="seo-fact sbg1">
-                                        <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="fa fa-user"></i> Usuario</div>
-                                            <h2>3,984</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 mt-md-5 mb-3">
-                                <div class="card">
-                                    <div class="seo-fact sbg1">
-                                        <div class="p-4 d-flex justify-content-between align-items-center">
-                                            <div class="seofct-icon"><i class="fa fa-cog    "></i> Confn.</div>
-                                            <h2>3,984</h2>
+                                        <div class="p-4 d-flex justify-content-between conf align-items-center">
+                                            <div class="seofct-icon"><i class="fa fa-cog    "></i> Configuración</div>
                                         </div>
                                     </div>
                                 </div>

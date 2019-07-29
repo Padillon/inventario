@@ -54,16 +54,16 @@
                                             </div>
                                         <div class="col-md-12">                
                                             <br>
-                                            <table id="tabla_kardex"class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
+                                            <table id="tabla_kardex"   class="table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>Fecha</th>
-                                                        <th>Tipo</th>
-                                                        <th>Descripcion</th>
-                                                        <th>Encargado</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Saldo</th>
+                                                        <th class='col-md-2'>#</th>
+                                                        <th class='col-md-2'>Fecha</th>
+                                                        <th class='col-md-2'>Tipo</th>
+                                                        <th class='col-md-2'>Descripcion</th>
+                                                        <th class='col-md-2'>Encargado</th>
+                                                        <th class='col-md-2'>Cantidad</th>
+                                                        <th class='col-md-2'>Saldo</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
