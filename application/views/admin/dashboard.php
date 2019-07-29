@@ -59,7 +59,7 @@
                                     <div class="seo-fact sbg1">
                                         <div class="p-4 d-flex justify-content-between usuario align-items-center">
                                             <div class="seofct-icon"><i class="fa fa-book"></i> Kardex</div>
-                                            <h2>3,984</h2>
+                                            <h2><?php echo $kardex->contador; ?></h2>
                                         </div>
                                     </div>
                                 </div>

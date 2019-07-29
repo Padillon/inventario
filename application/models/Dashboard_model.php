@@ -20,9 +20,9 @@ class Dashboard_model extends CI_Model {
     $resultado = $this->db->query($sql);
     return $resultado->row();
   }
- /* public function Kardex (){
+  public function Kardex (){
     $sql = "select count(fecha) contador from kardex where fecha ='".date('Y-m-d')."'";
     $resultado = $this->db->query($sql);
     return $resultado->row();
-  }*/
+  }
 }
