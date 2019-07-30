@@ -31,4 +31,11 @@ class Usuarios_model extends CI_Model {
 	public function save($data){
 		return $this->db->insert("usuarios",$data);
 	}
+
+	
+	public function update($id,$data){
+		$this->db->where("id_usuario",$id);
+		return $this->db->update("usuarios",$data);
+	}
+
 }

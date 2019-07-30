@@ -110,29 +110,32 @@
  <div class="modal fade" id="modalAgregar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form method="POST" action="<?php echo base_url();?>admin/usuarios/store">
+            <form id="formAgregar" method="POST" action="<?php echo base_url();?>mantenimiento/usuarios/store">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Agregar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
                 </div>
-                <input name='id_usuario' id='id_usuario' type='hidden' class='form-control'>
+                <div class='modal-body'>
                     <div class='form-group'><label>Nombre:</label>
                         <input name='nombre' id='nombre' type='text' class='form-control' ></div>
                                                     
                     <div class='form-group'><label>Correo:</label>
                         <input name='correo' id='correo' type='text' class='form-control' ></div>
                     <div class='form-group'>
-                    <div>
-                    <input name='cargo_actualE' id='cargo_actualE' type='hidden' class='form-control' ></div>
-                    <label for="create_categoriaE">Cargo.</label>         
-                                    <select name='cargoE' id='cargoE' class='form-control'  >
+                    <label for="create_categoria">Cargo.</label>         
+                                    <select name='cargo' id='cargo' class='form-control'  >
                                         <?php foreach($roles as $rol):?>
                                             <option value='<?php echo $rol->id_rol;?>'><?php echo $rol->nombre;?></option>
                                         <?php endforeach;?>
                                     </select>
                     </div>
+                    
                     <div class='form-group'><label>Password:</label>
-                        <input name='passE' id='passE' type='password' class='form-control' ></div>
+                        <input name='pass' id='pass' type='password' class='form-control' ></div>
+                        <div class='form-group'><label>Confirmar Password:</label>
+                        <input name='pass2' id='pass2' type='password' class='form-control' ></div>
+                    </div>
+                    
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                     <button type='submit' id="btnGuardar" class='btn btn-primary'>Guardar</button>
@@ -167,7 +170,7 @@
     <div class="modal fade" id="modalEditar">
      <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
-            <form method="POST" action="<?php echo base_url();?>admin/usuarios/update">
+            <form method="POST" action="<?php echo base_url();?>mantenimiento/usuarios/update">
                 <div class='modal-header'>
                     <h5 class='modal-title'>Editar</h5>
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
@@ -181,8 +184,8 @@
                     <div class='form-group'>
                     <div>
                     <input name='cargo_actualE' id='cargo_actualE' type='hidden' class='form-control' ></div>
-                    <label for="create_categoria">Cargo.</label>         
-                                    <select name='cargo' id='cargo' class='form-control'  >
+                    <label for="create_categoriaE">Cargo.</label>         
+                                    <select name='cargoE' id='cargoE' class='form-control' required >
                                     <option value=''></option>
                                         <?php foreach($roles as $rol):?>
                                             <option value='<?php echo $rol->id_rol;?>'><?php echo $rol->nombre;?></option>
@@ -208,7 +211,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form action="<?php echo base_url();?>admin/usuarios/delete" method="POST">
+                                               <form action="<?php echo base_url();?>mantenimiento/usuarios/delete" method="POST">
                                                <h4>Está seguro de eliminar este usuario?</H4>
                                                <input id="id_usuario_delete" name="id_usuario_delete" type="hidden" class="form-control" >
                                                
@@ -230,7 +233,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               <form action="<?php echo base_url();?>admin/usuarios/active" method="POST">
+                                               <form action="<?php echo base_url();?>mantenimiento/usuarios/active" method="POST">
                                                <h4>Está seguro de activar este usuario?</H4>
                                                <input id="id_usuario_active" name="id_usuario_active" type="hidden" class="form-control" >
                                                

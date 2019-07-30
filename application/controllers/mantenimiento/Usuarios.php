@@ -10,6 +10,7 @@ class Usuarios extends CI_Controller {
     } else{
         $this->permisos = $this->backend_lib->control();
         $this->load->model("Usuarios_model");
+        $this->load->library('toastr');
     }
 	}
 
@@ -25,53 +26,60 @@ class Usuarios extends CI_Controller {
         $this->load->view("layouts/footer");
     }
 
+  
     public function store(){
-        $usuario  = $this->input->post("usuario");
+        $nombre  = $this->input->post("nombre");
         $correo  = $this->input->post("correo");
-        $id_rol  = $this->input->post("id_rol");
-        $pswd  = $this->input->post("passwordU");
-        
-        $data  = array(
-            'rol' => $id_rol,
-            'usuario' => $usuario,
+        $cargo  = $this->input->post("cargo");
+        $usuario = $this->session->userdata('id');
+        $PASSWORD = sha1($this->input->post("pass"));
+        $data = array(
+            'id_usuario_creacion' => $usuario,
+            'rol' => $cargo,
+            'usuario' => $nombre,
             'correo' => $correo,
-            'password' => sha1($pswd),
+            'password' => $PASSWORD,
             'estado' => 1,
         );
- 
-        $result = $this->Usuarios_model->save($data);
-        if($result)
+        
+        if($result = $this->Usuarios_model->save($data)){
+        
         redirect(base_url()."mantenimiento/usuarios");
-        else 
-        redirect(base_url()."mantenimiento/usuarios");
+
+		
+		}else{
+			redirect(base_url()."dashboard");
+		}
+
     }
 
+    
     public function update(){
-        $id = $this->input->post("idCliente");
-        $nombre  = $this->input->post("nombre");
-        $apellido  = $this->input->post("apellido");
-        $nit  = $this->input->post("nit");
-        $telefono  = $this->input->post("telefono");
-        $registro  = $this->input->post("registro");
-        $direccion  = $this->input->post("direccion");
+        $id = $this->input->post('id_usuarioE');
+        $usuario = $this->input->post("nombreE");
+        $rol  = $this->input->post("cargoE");
+        $correo  = $this->input->post("correoE");
+
 
         $data = array(
-            'nombre' => $nombre,
-            'apellido' => $apellido,
-            'nit' => $nit,
-            'telefono' => $telefono,
-            'registro' => $registro,
-            'direccion' => $direccion,
+            'usuario' => $usuario,
+            'rol' => $rol,
+            'correo' => $correo,
         );
         $result = $this->Usuarios_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        echo $result;
+        if($result){
+            $this->toastr->success($result);
+            redirect(base_url()."mantenimiento/productos");
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+          //  redirect(base_url()."mantenimiento/usuario");
+        }
     }
 
     public function delete(){
-        $id = $this->input->post("idClienteDelete");
+        $id = $this->input->post("id_usuario_delete");
         $data = array(
             'estado' =>0, 
         );
@@ -83,7 +91,7 @@ class Usuarios extends CI_Controller {
     }
 
     public function active(){
-        $id = $this->input->post("idClienteActive");
+        $id = $this->input->post("id_usuario_active");
         $data = array(
             'estado' =>1, 
         );

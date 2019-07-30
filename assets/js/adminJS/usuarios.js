@@ -1,13 +1,14 @@
-$('#passwordU').keyup(function(){
+$('#pass').keyup(function(){
     pasword();
 });
 
-$('#cfmPassword').keyup(function(){
+$('#pass2').keyup(function(){
     pasword();
 });
+
 function pasword(){
-    var pass_1 = $('#passwordU').val();
-    var pass_2 = $('#cfmPassword').val();
+    var pass_1 = $('#pass').val();
+    var pass_2 = $('#pass2').val();
     if(pass_1 != "" & pass_2 != ""){
         if(pass_1 != pass_2){
             $('#btnGuardar').prop('disabled',true);
@@ -19,16 +20,13 @@ function pasword(){
 }
 $("#formAgregar").validate({
     rules: {
-        password: { 
+        pass: { 
           required: true,
              minlength: 6,
-
-
         } , 
-
-            cfmPassword: { 
-              equalTo: "#passwordU",
-              minlength: 6,
+         pass2: { 
+         equalTo: "#pass",
+         minlength: 6,
         },
         correo: {
             required: true,
@@ -39,15 +37,13 @@ $("#formAgregar").validate({
 
     },
 messages:{
-  password: { 
+    pass: { 
           required:"Password Requerido",
           minlength: "Minimo 6 caracteres",
           maxlength: "Maximo 10 caracteres"
         },
-cfmPassword: { 
-  equalTo: "El password debe ser igual al anterior",
-  minlength: "Minimo 6 caracteres",
-  maxlength: "Maximo 10 caracteres"
+    pass2: { 
+    equalTo: "No coinciden las contraseñas",
 },
 correo: {
     required:"Correo requerido!",
@@ -57,10 +53,10 @@ correo: {
 });
 
 function resete(){
-    $('#usuario').val('');
+    $('#nombre').val('');
     $('#correo').val('');
-    $('#passwordU').val('');
-    $('#uscPassword').val('');
+    $('#pass').val('');
+  //  $('#uscPassword').val('');
 }
 function viewCliente(num){
     valores = $("#view"+num).val();
@@ -85,11 +81,8 @@ function editCliente(num){
     valores = $("#edit"+num).val();
     datos = valores.split("*");
     $("#id_usuarioE").val(datos[0]);
-    $("#nombreE").val(datos[1]);
-    $("#apellidoE").val(datos[2]);
-    $("#telefonoE").val(datos[3]);
-    $("#correoE").val(datos[4]);
-    $("#cargo_actualE").val(datos[5]);
+    $("#nombreE").val(datos[2]);
+    $("#correoE").val(datos[3]);
     
 };
 function usuarioDelete($num){
