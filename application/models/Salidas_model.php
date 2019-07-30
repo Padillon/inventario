@@ -39,7 +39,9 @@ class Salidas_model extends CI_Model {
           $this->db->join("lotes lt", "p.id_producto = lt.id_producto", 'left');
           $this->db->where("p.estado","1");
           $this->db->where("lt.cantidad > 0");
+          $this->db->or_where("lt.cantidad",null);
           $this->db->where("lt.estado = 1");
+          $this->db->or_where("lt.estado ",null);
           $this->db->like("p.nombre", $valor);
           $this->db->or_like("p.codigo", $valor);
           $this->db->order_by("lt.fecha_caducidad", "asc");
