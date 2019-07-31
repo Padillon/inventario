@@ -106,6 +106,10 @@
         </div>
         <!-- main content area end -->
     <!-- page container area end -->
+    <?php
+    $this->load->view('layouts/alert');
+    ?>
+
  <!-- Modal Agregar-->
  <div class="modal fade" id="modalAgregar">
      <div class="modal-dialog modal-dialog-centered" role="document">

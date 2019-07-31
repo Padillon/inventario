@@ -10,8 +10,11 @@ class Usuarios_model extends CI_Model {
 			return $resultados->result();
 	}
 	
-	public function login($correo, $password){ 
-		$this->db->where("correo", $correo); 
+	public function login($correo, $password){
+		$this->db->group_start();
+		$this->db->where("correo", $correo);
+		$this->db->or_where('usuario',$correo);
+		$this->db->group_end();
 		$this->db->where("password", $password);
 
 			$resultados = $this->db->get("usuarios");
@@ -37,5 +40,12 @@ class Usuarios_model extends CI_Model {
 		$this->db->where("id_usuario",$id);
 		return $this->db->update("usuarios",$data);
 	}
-
+	public function comprobar($nombre){
+		$this->db->group_start();
+		$this->db->where("usuario", $nombre);
+		$this->db->or_where('correo',$nombre);
+		$this->db->group_end();
+		$resultados = $this->db->get("usuarios");
+		return $resultados->row();
+	  }
 }

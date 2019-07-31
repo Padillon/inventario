@@ -69,12 +69,12 @@ class Usuarios extends CI_Controller {
         $result = $this->Usuarios_model->update($id, $data);
         echo $result;
         if($result){
-            $this->toastr->success($result);
-            redirect(base_url()."mantenimiento/productos");
+            $this->toastr->success('Cambios guardados.');
+            redirect(base_url()."mantenimiento/usuarios");
         }
         else{
             $this->toastr->error('No se pudo completar la operación.');
-          //  redirect(base_url()."mantenimiento/usuario");
+            redirect(base_url()."mantenimiento/usuario");
         }
     }
 
@@ -84,10 +84,14 @@ class Usuarios extends CI_Controller {
             'estado' =>0, 
         );
         $result = $this->Usuarios_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($result){
+            $this->toastr->success('Cambios guardados.');
+            redirect(base_url()."mantenimiento/usuarios");
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/usuario");
+        }
     }
 
     public function active(){
@@ -96,10 +100,21 @@ class Usuarios extends CI_Controller {
             'estado' =>1, 
         );
         $result = $this->Usuarios_model->update($id, $data);
-        if($result)
-            echo json_encode(array('status'=>true));
-        else 
-            echo json_encode(array('status'=>false)); 
+        if($result){
+            $this->toastr->success('Cambios guardados.');
+            redirect(base_url()."mantenimiento/usuarios");
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."mantenimiento/usuario");
+        }
+    }
+
+    public function comprobar(){
+        $nombre = $this->input->post('nombre');
+        $result = $this->Usuarios_model->comprobar($nombre);
+
+        echo json_encode($result);
     }
 	
 }

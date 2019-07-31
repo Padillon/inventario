@@ -53,15 +53,11 @@
                             <span></span>
                         </div>
                      </div>
-                    <div>
-                        <img class="avatar user-thumb" src="<?php echo base_url();?>assets/images/author/avatar.png" alt="avatar">
-                    </div>
                     <div class="clearfix">
                         <ul class="notification-area pull-right">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown" style=" color: #000000;">
                                 <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
                                 <a class="dropdown-item" href="<?php echo base_url();?>Auth/logout">Cerrar Sesion</a>
                             </div>

@@ -16,7 +16,7 @@ function validarFormulario(){
 
         document.getElementById("FormSalida").submit(); s
     }else if(validar_cantidad!=1){
-        toastr.warning('¡Ingrese los datos necesarios!');
+        toastr.erorr('¡Ingrese los datos necesarios!');
     }
 }
 var estado= 0;
@@ -30,6 +30,15 @@ $(document).ready(function(){
         }
         if (event.which==13 & estado==1) {
             document.getElementById("btn-agregar-abast").click();     
+            estado = 0;
+        }
+        //alert( String.fromCharCode(event.which) + " es: " + event.which);
+
+    }); 
+    $("#autocompleteCliente").keydown(function(event){
+        if (event.which==8) {
+            $("#autocompleteCliente").val("");
+            $("#idCliente").val("");
             estado = 0;
         }
         //alert( String.fromCharCode(event.which) + " es: " + event.which);

@@ -16,7 +16,25 @@ function validarFormulario(){
         toastr.error("¡Ingrese los dato necesarios!");
     }
 }
+var estado= 0;
+//borrar el producto si ya ha sido seleccionado alguno
+$(document).ready(function(){
+	$("#autocompleteProducto2").keydown(function(event){
+        if (event.which==8) {
+            $("#autocompleteProducto2").val("");
+            $("#btn-agregar-abast").val("");
+            estado = 0;
+        }
+        if (event.which==13 & estado==1) {
+            document.getElementById("btn-agregar-abast").click(); 
+            $("#autocompleteProducto2").val(""); 
+            $("#btn-agregar-abast").val("");
+            estado = 0;
+        }
+        //alert( String.fromCharCode(event.which) + " es: " + event.which);
 
+	}); 
+});
 function movimientoModal(){
     document.getElementById("movimiento_form").reset(); 
 }
@@ -98,6 +116,7 @@ $("#autocompleteProducto2").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
+       estado =1;
        $("#btn-agregar-abast").val(data); 
     },
   });

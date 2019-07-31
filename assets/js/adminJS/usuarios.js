@@ -1,3 +1,4 @@
+var unico='variablesolamaneteparacomparar';
 $('#pass').keyup(function(){
     pasword();
 });
@@ -18,8 +19,27 @@ function pasword(){
         }
     }
 }
+$('#nombre').keyup(function(){
+                $.ajax({
+                    url: base_url+"mantenimiento/usuarios/comprobar",
+                    type: "POST",
+                    dataType: "json",
+                    data:{ nombre: $('#nombre').val()},
+                    success: function(data){
+                        if (data != null) {
+                            unico = data.usuario;
+                        }
+                    },
+                });
+
+
+});
 $("#formAgregar").validate({
     rules: {
+        nombre:
+        {
+            noEqual: 'Edward',
+        },
         pass: { 
           required: true,
              minlength: 6,
@@ -37,6 +57,9 @@ $("#formAgregar").validate({
 
     },
 messages:{
+    nombre: { 
+        noEqual: 'entro',
+      },
     pass: { 
           required:"Password Requerido",
           minlength: "Minimo 6 caracteres",

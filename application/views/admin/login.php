@@ -51,7 +51,7 @@
             <?php endif; ?>
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="email" id="exampleInputEmail1" name="correo">
+                            <input type="input" id="exampleInputEmail1" name="correo">
                             <i class="ti-email"></i>
                         </div>
                         <div class="form-gp">
@@ -59,30 +59,12 @@
                             <input type="password" id="exampleInputPassword1" name="pass">
                             <i class="ti-lock"></i>
                         </div>
-                        <div class="row mb-4 rmber-area">
-                            <div class="col-6">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                    <label class="custom-control-label" for="customControlAutosizing">Recordar</label>
-                                </div>
-                            </div>
-                            <div class="col-6 text-right">
-                                <a href="#">Has olvidado tu contraseña?</a>
-                            </div>
-                        </div>
                         <div class="submit-btn-area">
                             <button id="form_submit" type="submit">Entrar <i class="ti-arrow-right"></i></button>
-                            <div class="login-other row mt-4">
-                                <div class="col-6">
-                                    <a class="fb-login" href="#">Iniciar con <i class="fa fa-facebook"></i></a>
-                                </div>
-                                <div class="col-6">
-                                    <a class="google-login" href="#">Iniciar con <i class="fa fa-google"></i></a>
-                                </div>
-                            </div>
+                           
                         </div>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">No tienes cuenta? <a href="register.html">Registrate</a></p>
+                            <p class="text-muted">Contario 2019.</p>
                         </div>
                     </div>
                 </form>

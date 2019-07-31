@@ -52,6 +52,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php if($this->session->userdata('rol') == 1){ ?>
 
                             <div class="col-md-3 mt-md-5 mb-3">
                                 <div class="card">
@@ -63,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <?php } ?>
                             <?php if($this->session->userdata('rol') == 1){ ?>
 
                                 <div class="col-md-3 mt-md-5 mb-3">
