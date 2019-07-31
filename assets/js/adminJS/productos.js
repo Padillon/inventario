@@ -1,4 +1,4 @@
-
+var producto_existete=undefined;
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
@@ -20,6 +20,43 @@ function resete(){
     $("#create_perecedero").prop('checked', false);
     $("#create_perecedero").val('0');
 }
+$('#create_nombre').keyup(function(){
+
+    $.ajax({
+        url: base_url+"mantenimiento/productos/getExistente",
+        type: "POST",
+        dataType: "json",
+        data:{ getExistente: $('#create_nombre').val()},
+        success: function(data){
+            if (data != null) {
+                producto_existete = data.nombre;
+            }
+        },
+    });
+});
+
+jQuery.validator.addMethod("productoE",
+function(value, element) {
+    if (value == producto_existete){     
+        return false;
+     } else {
+        return true;
+     }       
+},
+"Producto ya existe."
+);
+
+$("#formularioAgregar").validate({
+    rules: {
+        create_nombre:
+        {
+             required:true,
+             productoE:'#create_nombre',
+        },
+    },
+});
+
+
 
 function viewProducto(num){
     valores = $("#viewPro"+num).val();

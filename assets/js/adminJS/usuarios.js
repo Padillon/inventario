@@ -1,4 +1,5 @@
 var unico='variablesolamaneteparacomparar';
+var correo='variablesolamaneteparacomparar';
 $('#pass').keyup(function(){
     pasword();
 });
@@ -31,14 +32,49 @@ $('#nombre').keyup(function(){
                         }
                     },
                 });
-
-
 });
+$('#correo').keyup(function(){
+    $.ajax({
+        url: base_url+"mantenimiento/usuarios/comprobar",
+        type: "POST",
+        dataType: "json",
+        data:{ nombre: $('#correo').val()},
+        success: function(data){
+            if (data != null) {
+                correo = data.correo;
+            }
+        },
+    });
+});
+
+
+    jQuery.validator.addMethod("usuarioE",
+    function(value, element) {
+        if (value == unico){     
+            return false;
+         } else {
+            return true;
+         }       
+    },
+"Usuario ya existe."
+);
+jQuery.validator.addMethod("correoE",
+function(value, element) {
+    if (value == correo){     
+        return false;
+     } else {
+        return true;
+     }       
+},
+"Correo ya existe."
+);
+
 $("#formAgregar").validate({
     rules: {
         nombre:
         {
-            noEqual: 'Edward',
+             required:true,
+             usuarioE:'#nombre',
         },
         pass: { 
           required: true,
@@ -50,7 +86,8 @@ $("#formAgregar").validate({
         },
         correo: {
             required: true,
-            email: true
+            email: true,
+            correoE: "#correo"
           }
       
 

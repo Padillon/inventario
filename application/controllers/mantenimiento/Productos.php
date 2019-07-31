@@ -270,4 +270,11 @@ class Productos extends CI_Controller {
         //generando el pdf
         $this->load->view("admin/reportes/productosStock", $data);
     }
+
+    public function getExistente(){
+        $nombre = $this->input->post('getExistente');
+        $result = $this->Productos_model->getExistente($nombre);
+
+        echo json_encode($result);
+    }
 }

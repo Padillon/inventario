@@ -120,7 +120,7 @@
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
                 </div>
                 <div class='modal-body'>
-                    <div class='form-group'><label>Nombre:</label>
+                    <div class='form-group'><label>Nombre de usuario:</label>
                         <input name='nombre' id='nombre' type='text' class='form-control' ></div>
                                                     
                     <div class='form-group'><label>Correo:</label>

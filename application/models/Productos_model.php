@@ -116,4 +116,9 @@ class Productos_model extends CI_Model {
 		$resultados = $this->db->get();
 		return $resultados->result();
 	}
+	public function getExistente($nombre){
+		$this->db->where("nombre", $nombre);
+		$resultados = $this->db->get("productos");
+		return $resultados->row();
+	  }
 }
