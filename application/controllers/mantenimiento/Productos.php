@@ -84,17 +84,21 @@ class Productos extends CI_Controller {
         }
         
         $data_in['id_presentacion'] = $this->input->post('create_presentacion');
+        
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+                if($id != ""){
+                    if ($this->Productos_model->updateStock($id_stock,$data_stock)) {
+                        $producto = $this->Productos_model->update($id,$data_in);
+                    }
+                }else{
+                    $id_stock=$this->Productos_model->addStok($data_stock);
+                    $data_in['id_stock'] =$id_stock;
+                    $producto = $this->Productos_model->add($data_in);
+                }
+        $this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
 
-        if($id != ""){
-            if ($this->Productos_model->updateStock($id_stock,$data_stock)) {
-                $producto = $this->Productos_model->update($id,$data_in);
-            }
-        }else{
-            $id_stock=$this->Productos_model->addStok($data_stock);
-            $data_in['id_stock'] =$id_stock;
-            $producto = $this->Productos_model->add($data_in);
-        }
-        if($producto){
+        
+        if($this->db->trans_status()){ // ******************************************************** iniciamos transaccion **************************************
             $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/productos");
         }
