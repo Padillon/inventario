@@ -141,7 +141,7 @@ $("#autocompleteProducto2").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
-       $("#txtProducto").val(data); 
+       $("#txtProducto").val(data);
     },
   });
   

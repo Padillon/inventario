@@ -68,9 +68,11 @@ class Salidas extends CI_Controller {
 		if ($this->Salidas_model->save($data)){
 			$idSalida = $this->Salidas_model->lastID(); 
 			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha,$estados,$lotes); //guardando el detalle de la venta
-			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
 		} else {
-			redirect(base_url()."movimientos/entradas/add");
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."movimientos/entradas/add");
 		}
 	}
 

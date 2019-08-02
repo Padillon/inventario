@@ -33,14 +33,14 @@
 					<td><?php echo $detalle->nombre;?></td>
 					<td><?php echo $detalle->precio_compra;?></td>
 					<td><?php echo $detalle->cantidad;?></td>
-					<td><?php echo $detalle->subtotal;?></td>
+					<td><?php echo "$ ".$detalle->subtotal;?></td>
 				</tr>
 				<?php } ?>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td colspan="4" class="text-right"><strong>Total:</strong></td>
-					<td><?php echo $entrada->total;?></td>
+					<td><?php echo "$ ".$entrada->total;?></td>
 				</tr>
 			</tfoot>
 		</table>

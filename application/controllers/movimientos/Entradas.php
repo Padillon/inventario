@@ -72,8 +72,10 @@ class Entradas extends CI_Controller {
 		if ($this->Entradas_model->save($data)){
 			$idEntrada = $this->Entradas_model->lastID(); 
 			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad); //guardando el detalle de la venta
-			redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+            $this->toastr->success('Registro guardado!');
+            redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
 		} else {
+            $this->toastr->error('No se pudo completar la operación.');
 			redirect(base_url()."movimientos/entradas/add");
 		}
 	}

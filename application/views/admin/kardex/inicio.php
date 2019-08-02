@@ -44,6 +44,8 @@
                                             <a id="btnReporte" class="btn btn-success" data-toggle="modal" onclick="movimientoModal()" data-target="#mdReporte">Reporte</a>
                                         </div>
                                     </div>
+
+
                                     <div class="data-tables">
                                             <table id="example" class="table table-striped table-bordered " style="width:100%">
                                                 <thead>
@@ -54,7 +56,7 @@
                                                         <th>Descripción</th>
                                                         <th>Producto</th>
                                                         <th>Cantidad</th>
-                                                        <th>Saldo Stock</th>
+                                                        <th>Encargado</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody> 
@@ -67,7 +69,7 @@
                                                         <td><?php echo $kar->descripcion;?></td>
                                                         <td><?php echo $kar->codigo." ".$kar->nombre;?></td>
                                                         <td><?php echo $kar->cantidad;?></td>
-                                                        <td><?php echo $kar->stock_actual;?></td> 
+                                                        <td><?php echo $kar->usuario; ?></td> 
                                                     </tr>
                                                     <?php }; ?> 
                                                 <?php }; ?> 

@@ -79,7 +79,7 @@
                                             <td><?php echo $sal->fecha;?></td>
                                             <td><?php echo $sal->nombre." ".$sal->apellido;?></td>
                                             <td><?php echo $sal->usuario;?></td>
-                                            <td><?php echo $sal->total;?></td>
+                                            <td><?php echo "$ ".$sal->total;?></td>
                                             <?php if($sal->estado == 1){?>
                                                 <td>
                                                     <div class="alert alert-primary" role="alert">
@@ -121,6 +121,9 @@
             </div>
         </div>
         <!-- main content area end -->
+        <?php
+    $this->load->view('layouts/alert');
+    ?>
 
 <!-- Modal Agregar-->
 <div class="modal fade" id="modalAgregar">

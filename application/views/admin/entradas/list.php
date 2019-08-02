@@ -79,7 +79,7 @@
                                             <td><?php echo $entrada->fecha;?></td>
                                             <td><?php echo $entrada->id_proveedor;?></td>
                                             <td><?php echo $entrada->id_usuario;?></td>
-                                            <td><?php echo $entrada->total;?></td>
+                                            <td><?php echo "$ ".$entrada->total;?></td>
                                             <?php if($entrada->estado == 1){?>
                                                 <td>
                                                     <div class="alert alert-primary" role="alert">
@@ -122,6 +122,10 @@
             </div>
         </div>
         <!-- main content area end -->
+
+        <?php
+    $this->load->view('layouts/alert');
+    ?>
 
  <!-- Modal para asegurar la edicion-->
     <div class="modal fade" id="Modalview">
