@@ -12,6 +12,8 @@ class Salidas extends CI_Controller {
 		$this->load->model("Salidas_model");
 		$this->load->model("Productos_model");
 		$this->load->model("Kardex_model");
+        $this->load->library('toastr');
+
 		$this->load->library("Pdf");
 	}
 	}

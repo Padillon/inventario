@@ -1,6 +1,7 @@
 
-//Validar formulario
+//Validar formulario *******************************************
 $('#fecha').datepicker({}); //calendario mas chingon 
+
 function validarFormulario(){
     total2 = 0;
     validar_cantidad = 0;
@@ -12,13 +13,24 @@ function validarFormulario(){
             validar_cantidad = 1;
         }
     });
-    if (total2 != 0 & validar_cantidad == 0) {
+    if (total2 != 0 & validar_cantidad == 5) {
 
         document.getElementById("FormSalida").submit(); s
     }else if(validar_cantidad!=1){
-        toastr.erorr('¡Ingrese los datos necesarios!');
+        toastr.warning('¡Ingrese los datos necesarios!');
     }
+    alerta();
 }
+//verificamos si ingresan un valor mayor a la cantidad maxima *********************
+$(document).on("change", ".max", function(){
+
+    cantidades =Number($(this).closest("tr").find("td:eq(3)").children('input').val());
+    max =Number($(this).closest("tr").find("td:eq(3)").children('input').prop('max'));
+   if (cantidades > max) {
+    toastr.warning('¡Cantidad maxima disponible ' + max + ' !');
+    $(this).closest("tr").find("td:eq(3)").children('input').val(0);
+  }
+});
 var estado= 0;
 //borrar el producto si ya ha sido seleccionado alguno
 $(document).ready(function(){
@@ -104,9 +116,9 @@ $("#btn-agregar-abast").on("click", function(){
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioVenta[]' class='precio-salida' value='"+infoProducto[3]+"'></td>"; //precios
         if (infoProducto[7]==1) {
-            html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' name='cantidades[]' values='0' min='1' max='"+infoProducto[8]+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
+            html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' class='max' name='cantidades[]' values='0' min='1' max='"+infoProducto[8]+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
         }else{
-            html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' name='cantidades[]' values='0' min='1' max='"+infoProducto[6]+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
+            html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' class='max'name='cantidades[]' values='0' min='1' max='"+infoProducto[6]+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
         }
         html += "<td><input type='hidden'  name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
