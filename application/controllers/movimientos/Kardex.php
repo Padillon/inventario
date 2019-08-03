@@ -13,6 +13,7 @@ class Kardex extends CI_Controller {
 		$this->load->model("Productos_model");
 		$this->load->model("Proveedores_model");
 		$this->load->model("Kardex_model");
+		$this->load->library('toastr');
 		$this->load->library("Pdf");
 	}
 	}
@@ -57,32 +58,28 @@ class Kardex extends CI_Controller {
 		$fecha = $this->input->post("fecha");
 		$id_movimiento = $this->input->post("id_movimiento");
 		$descripcion = $this->input->post("descripcion");
-		$id_productos = $this->input->post("id_productos");
+		$id_productos = $this->input->post("idProductos");
 		$cantidades = $this->input->post("cantidades");
-		$cantidades2 = $this->input->post("cantidades2");
-		$precioCompra =	 $this->input->post("precioCompra");
-		if ($cantidades2 != "0"){
-			$cantidades2 = $cantidades;
-		}else {
-			$cantidades = $cantidades;
-		}
+		$precio =	 $this->input->post("nuevoPrecio");
+		$fecha_caducidad = $this->input->post('fechaCaducidad');
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
 
 		$tipoTransaccion = $this->Kardex_model->getTipoTransaccion($id_movimiento);
 
 		for ($i=0; $i < count($id_productos); $i++) { 
 			$saldo = $this->Kardex_model->get($id_productos[$i]);
 			//condicones para saber que accion tomar en el saldo
-			if ($tipoTransaccion=='1') { // tipo entrada, entonces suma
-				$nuevoValor = $saldo->saldo + ($cantidades[$i]* $precioCompra[$i]);
+			if ($tipoTransaccion->tipo=='1') { // tipo entrada, entonces suma
+				//$nuevoValor = $saldo->saldo + ($cantidades[$i]* $precio[$i]);
 				$data = array(
 					'id_movimiento' => $id_movimiento,
 					'fecha' => $fecha,
 					'descripcion' => $descripcion,
 					'id_producto' => $id_productos[$i],
 					'cantidad' => $cantidades[$i],
-					'precio' => $precioCompra[$i],
-					'total' => $cantidades[$i]* $precioCompra[$i],
-					'saldo' => $nuevoValor,
+					'precio' => $precio[$i],
+					'total' => $cantidades[$i]* $precio[$i],
+				//	'saldo' => $nuevoValor,
 					'id_usuario' => $this->session->userdata('id'),
 				); 
 				//actualizamos el stock
@@ -91,8 +88,17 @@ class Kardex extends CI_Controller {
 				'stock_actual' => $stock->stock_actual + $cantidades[$i],
 				);
 				$this->Productos_model->updateStock( $id_productos[$i], $data2);
-
-			}else if($tipoTransaccion=='2'){ //tipo salida, entonces resta 
+				if ($fecha_caducidad[$i]!=0) {
+					$lote = array(
+						'id_entrada' => $idEntrada,
+						'id_producto' => $productos[$i],
+						'cantidad' => $cantidades[$i],
+						'fecha_entrada' => $fecha,
+						'fecha_caducidad' => $fecha_caducidad[$i] 
+					);
+					$this->Entradas_model->save_lote($lote);
+				}
+			}else if($tipoTransaccion->tipo=='2'){ //tipo salida, entonces resta 
 				$nuevoValor = $saldo->saldo - ($cantidades[$i]* $precioCompra[$i]);
 				$data = array(
 					'id_movimiento' => $id_movimiento,
@@ -100,8 +106,8 @@ class Kardex extends CI_Controller {
 					'descripcion' => $descripcion,
 					'id_producto' => $id_productos[$i],
 					'cantidad' => $cantidades[$i],
-					'precio' => $precioCompra[$i],
-					'total' => $cantidades[$i]* $precioCompra[$i],
+					'precio' => $precio[$i],
+					'total' => $cantidades[$i]* $precio[$i],
 					'saldo' => $nuevoValor,
 					'id_usuario' => $this->session->userdata('id'),
 				);
@@ -111,21 +117,22 @@ class Kardex extends CI_Controller {
 				'stock_actual' => $stock->stock_actual - $cantidades[$i],
 				);
 				$this->Productos_model->updateStock( $id_productos[$i], $data2); 
-			}else{
-				$data = array(
-					'id_movimiento' => $id_movimiento,
-					'fecha' => $fecha,
-					'descripcion' => $descripcion,
-					'id_producto' => $id_productos[$i],
-					'cantidad' => $cantidades[$i],
-					'precio' => $precioCompra[$i],
-					'id_usuario' => $this->session->userdata('id'),
-				);
-			}		
+			}	
 			
 			$this->Kardex_model->save($data);
 		}
+        $this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
+		if($this->db->trans_status()){ // ******************************************************** iniciamos transaccion **************************************
+            $this->toastr->success('Registro guardado!');
 		redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas
+           
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+		redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas
+          
+        }
+	//	redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas
 	}
 
 	public function getProductoKardex(){

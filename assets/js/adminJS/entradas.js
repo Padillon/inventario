@@ -11,8 +11,8 @@ function validarFormulario(){
     $("#tbCompras tbody tr").each(function(){
         total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
         cantidades =Number($(this).find("td:eq(4)").children('input').val()); // revisamos en la columna que ningun valor sea 0
-        valor_p_caducidad =Number($(this).find("td:eq(6)").children('p').val()); //saber si se agrego un un producto perecedero
-        fechaCaducidad =Number($(this).find("td:eq(6)").children('input').val()); // validar que este lleno la fecha de caducidad   
+        valor_p_caducidad =Number($(this).find("td:eq(4)").children('p').val()); //saber si se agrego un un producto perecedero
+        fechaCaducidad =Number($(this).find("td:eq(4)").children('input').val()); // validar que este lleno la fecha de caducidad   
 
         if (fechaCaducidad == 0 & valor_p_caducidad != 0) {
             toastr.warning("Ingrese una fecha de caducidad en la linea: "+total);
@@ -128,7 +128,7 @@ $("#btn-agregar-abast").on("click", function(){
         if (infoProducto[6]==1) {
             html += "<td>  <input name='fechaCaducidad[]' values='1' type='date' required class='form-control' ></td>";
         }else{
-                html += "<td><input name='fechaCaducidad[]'  type='hidden' required class='form-control' ><p value='1' >- - - - - - - - - - - - - -</p></td>";
+            html += "<td><input name='fechaCaducidad[]'  type='hidden' required class='form-control' ><p value='1' >- - - - - - - - - - - - - -</p></td>";
         }
 
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";

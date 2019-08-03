@@ -1,16 +1,24 @@
 function validarFormulario(){
     total = 0;
     validar_cantidad = 0;
+    validar_fecha = 0;
     $("#tbCompras tbody tr").each(function(){
         total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
         cantidades =Number($(this).find("td:eq(2)").children('input').val()); // revisamos en la columna que ningun valor sea 0
+        valor_p_caducidad =Number($(this).find("td:eq(4)").children('p').val()); //saber si se agrego un un producto perecedero
+        fechaCaducidad =Number($(this).find("td:eq(4)").children('input').val()); // validar que este lleno la fecha de caducidad   
+        if (fechaCaducidad == 0 & valor_p_caducidad != 0) {
+            toastr.warning("Ingrese una fecha de caducidad en la linea: "+total);
+            validar_fecha = 1;
+        }
         if ( cantidades == 0 ) {
             //alert("Ingrese una cantidad en la linea: "+total); // ************ Aqui iria el mensaje que ingrese cantidad de producto
             toastr.error("Ingrese una cantidad en la linea: "+total);
             validar_cantidad = 1;
         }
     });
-    if ( total != 0 & validar_cantidad == 0 ) {
+
+    if ( total != 0 & validar_cantidad == 0  & validar_fecha == 0) {
         document.getElementById("movimiento_form").submit(); 
     }else if(validar_cantidad!=1){
         toastr.error("¡Ingrese los dato necesarios!");
@@ -27,8 +35,7 @@ $(document).ready(function(){
         }
         if (event.which==13 & estado==1) {
             document.getElementById("btn-agregar-abast").click(); 
-            $("#autocompleteProducto2").val(""); 
-            $("#btn-agregar-abast").val("");
+
             estado = 0;
         }
         //alert( String.fromCharCode(event.which) + " es: " + event.which);
@@ -107,7 +114,7 @@ $("#autocompleteProducto2").autocomplete({
                 response($.map(data, function (item) {
                     return {
                         label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero,
                     }
                 }))
             },
@@ -147,17 +154,21 @@ $("#autocompleteProducto2").autocomplete({
   
   $("#btn-agregar-abast").on("click", function(){
     data = $(this).val();
+    $("#autocompleteProducto2").val(""); 
+    $("#btn-agregar-abast").val("");
     if (data != 0){
         infoProducto = data.split("*");
         html = "<tr>";
         html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
         html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
-        if(infoProducto[6] == '0'){
-            html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades2[]' values='0' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
-        } else{
-            html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' max='"+infoProducto[6]+"' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
-        }
+        html += "<td><input type='number' style='width:100px' placeholder='Ingrese numero entero' name='cantidades[]' values='0' max='"+infoProducto[6]+"' min='1' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
         html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada ' value='"+infoProducto[2]+"'></td>"; //precios    
+        if(infoProducto[7] == '1'){
+            html += "<td><input name='fechaCaducidad[]' values='1' type='date' required class='form-control' ></td>";           
+        } else{
+            html += "<td><input name='fechaCaducidad[]'  type='hidden' required class='form-control' ><p value='1' >- - - - - - - - - - - - - -</p></td>";
+           
+        }
         html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
         html += "</tr>";
         $("#tbCompras tbody").append(html);

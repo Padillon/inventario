@@ -7,7 +7,9 @@
     </div>
     <!-- preloader area end -->
     <!-- page container area start -->
-
+    <?php
+    $this->load->view('layouts/alert');
+    ?>
        <!-- main content area start -->
         <div class="main-content">
         <div class="header-area">
@@ -136,14 +138,15 @@
                                 </div>
                                 <div class = "table-responsive-sm col-md-12"> 
                                 
-                                    <table id="tbCompras" class="table">
+                                    <table  id="tbCompras" class="table table-responsive">
                                         <thead>
                                             <tr>
-                                                <th>Código.</th>
-                                                <th>Nombre.</th>
-                                                <th>Cantidad.</th>
-                                                <th>Precio.</th>
-                                                <th>Opciones</th>
+                                                <th class="col-md-1">Código.</th>
+                                                <th class="col-md-2">Nombre.</th>
+                                                <th class="col-md-2">Cantidad.</th>
+                                                <th class="col-md-1">Precio.</th>
+                                                <th class="col-md-1">Fecha caducidad.</th>
+                                                <th class="col-md-1">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>                               
