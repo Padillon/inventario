@@ -173,6 +173,20 @@ $(document).on("click", ".btn-view-salida", function(){
     });
 });
 
+$(document).on("click", ".btnIr", function(){
+    fecha1 = $("#fecha_inicio").val();
+    fecha2 = $("#fecha_fin").val();
+    if (fecha1 == "" || fecha2 =="") {
+        toastr.warning('Ingrese las fechas.');
+    }else{
+        if (fecha1<fecha2 || fecha1 == fecha2) {
+            ("#formFechas").submit();
+        }else{
+            toastr.warning('La primera fecha tiene que ser menor a la segunda.');
+        }
+    }    
+});
+
 $("#autocompleteCliente").autocomplete({
     source: function(request, response){
         $.ajax({
@@ -201,7 +215,6 @@ $("#autocompleteCliente").autocomplete({
 function sumarReabastecimiento(){
     total = 0;
     $("#tbCompras tbody tr").each(function(){
-
         total = total +  Number($(this).find("td:eq(4)").text());
     });
     total2 = parseFloat(total).toFixed(2);

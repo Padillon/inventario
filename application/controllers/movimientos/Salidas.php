@@ -19,9 +19,10 @@ class Salidas extends CI_Controller {
 	}
 
 	public function index(){
+        $fecha = date("Y-m-d");
         $data = array(
 			'permisos' => $this->permisos,
-			'salidas' => $this->Salidas_model->getSalidas(),
+			'salidas' => $this->Salidas_model->getSalidasDia($fecha),
 			'clientes' => $this->Salidas_model->getClientesTodos(),
         );
         $this->load->view("layouts/header");
@@ -37,12 +38,34 @@ class Salidas extends CI_Controller {
         $this->load->view("layouts/footer");
     }
 
-
     public function getProductos(){
         $valor = $this->input->post("autocompleteProducto");
 		$producto = $this->Salidas_model->getProductos($valor);
 		echo json_encode($producto);
     }
+
+    public function buscar(){
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/salidas/buscar");
+        $this->load->view("layouts/footer");
+    }
+
+    public function getResultados(){
+        $fecha1 = $this->input->post("fecha_inicio");
+        $fecha2 = $this->input->post("fecha_fin");
+        $data = array(
+            'salidas' => $this->Salidas_model->getSalidasFechas($fecha1, $fecha2),
+            'fecha1' => $fecha1,
+            'fecha2' => $fecha2,
+        );
+
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/salidas/buscar", $data);
+        $this->load->view("layouts/footer");
+    }
+
 //fncion para guardar las compras
     public function store(){
 		$fecha = $this->input->post("fecha");

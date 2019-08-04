@@ -34,27 +34,33 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Compras</h4>
+                                <h4 class="header-title">Buscar - Compras</h4>
                                  <div class="col-md-12">
                                     <div class="input-group">
-                                        <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>movimientos/entradas/add" class="btn btn-outline-primary mb-3">Comprar +</a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>movimientos/entradas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="btn-group" role="group" style="text-align: right;">
-                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Reporte
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
-                                                    <button type="button" id="btnGenerarProveedor" class="dropdown-item" data-toggle="modal" data-target="#PDFPorProveedor">Por Proveedor</button>
-                                                    <button type="button" id="btnGenerarResumen" class="dropdown-item" data-toggle="modal" data-target="#PDFResumen">Resumen</button>
-                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
-                                                </div>
+                                    <div class='col-md-3'>
+                                            <form method="POST"  action="<?php echo base_url();?>movimientos/salidas/getResultados" id="formFechas">
+                                                <label>Del:</label>
+                                                <?php if(!empty($fecha1)){ ?>
+                                                    <input name='fecha_inicio' id='fecha_inicio' type="date" value="<?php echo $fecha1;?>" class='form-control' >
+                                                    </div>
+                                                    <div class='col-md-3'>
+                                                    <label>Al:</label>
+                                                    <input name='fecha_fin' id='fecha_fin' type="date" value="<?php echo $fecha2;?>" class='form-control' >
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <input name='fecha_inicio' id='fecha_inicio' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                                    </div>
+                                                    <div class='col-md-3'>
+                                                        <label>Al:</label>
+                                                        <input name='fecha_fin' id='fecha_fin' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                                    </div>
+                                                <?php }; ?>
+                                                
+                                            <div class="col-md-2">
+                                                <br>
+                                                <button class="btn btn-outline-primary mb-3 btnIr" type="submit" >Ir</button>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -169,115 +175,6 @@
                                         </div>
                                     </div>
     </div>
-    
-<!-- Modal Active-->
-<div class="modal fade" id="modalActive">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <form class="form-control" id="formActive">
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Activar</h5>
-                    <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
-                </div>
-                <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
-                    <input name='nombreActive' id='nombreActive' type='text' class='form-control'>
-                    <input name='idCategoriaActive' id='idCategoriaActive' type='hidden' class='form-control'>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                    <button type='button' class='btn btn-primary' id="btnActive">Guardar</button>
-                </div>
-            </form>
-        </div>
-     </div>
-    </div>
-
- <!-- Modal para elegir Fechas-->
- <div class="modal fade" id="PDFPorFecha">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Del:</label>        
-                    <input type="date" class="form-control" id="fecha1" required>
-                </div>
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Al:</label>        
-                    <input type="date" class="form-control" id="fecha2" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnelegirFecha" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
- <!-- Modal para elegir Proveedor-->
- <div class="modal fade" id="PDFPorProveedor">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Del:</label>        
-                    <input type="date" class="form-control" id="fecha1Prov" required>
-                </div>
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Al:</label>        
-                    <input type="date" class="form-control" id="fecha2Prov" required>
-                </div>
-                <div class="col-md-auto">
-                    <label for="elegirProveedor">Elija la Categoria:</label>        
-                    <select id='elegirProveedor' class='custom-select' required>
-                        <?php foreach($proveedores as $pro):?>
-                            <option value='<?php echo $pro->id_proveedor;?>'><?php echo $pro->nombre." - ".$pro->empresa;?></option>
-                        <?php endforeach;?>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnelegirProveedor" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
- <!-- Modal para elegir Fechas-->
- <div class="modal fade" id="PDFResumen">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Del:</label>        
-                    <input type="date" class="form-control" id="fecha1Res" required>
-                </div>
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Al:</label>        
-                    <input type="date" class="form-control" id="fecha2Res" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnResumen" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
 <script>//Cargar de manera desc los datos de la tabla

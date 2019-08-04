@@ -188,9 +188,7 @@ $(document).on("click", ".btn-view-entrada", function(){
 function sumarReabastecimiento(){
     total = 0;
     $("#tbCompras tbody tr").each(function(){
-
         total = total +  Number($(this).find("td:eq(5)").text());
-        
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
@@ -208,7 +206,7 @@ $("#btnelegirFecha").on("click", function(){
     if (fecha1 == "" || fecha2 =="") {
         toastr.warning('Ingrese las fechas.');
     }else{
-        if (fecha1<fecha2) {
+        if (fecha1<fecha2 || fecha1 == fecha) {
             window.open(base_url+"movimientos/entradas/getReporteFecha?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
         }else{
             toastr.warning('La primera fecha tiene que ser menor a la segunda.');
@@ -224,7 +222,7 @@ $("#btnelegirProveedor").on("click", function(){
     if (fecha1 == "" || fecha2 =="") {
         toastr.warning('Ingrese las fechas.');
     }else{
-        if (fecha1<fecha2) {
+        if (fecha1<fecha2 || fecha1 == fecha) {
             prov = $("#elegirProveedor").val();
             window.open(base_url+"movimientos/entradas/getReporteProveedor?fecha1="+fecha1+"&fecha2="+fecha2+"&prov="+prov, "_blank");
         }else{
@@ -233,13 +231,27 @@ $("#btnelegirProveedor").on("click", function(){
     }
 });
 
+$(document).on("click", ".btnIr", function(){
+    fecha1 = $("#fecha_inicio").val();
+    fecha2 = $("#fecha_fin").val();
+    if (fecha1 == "" || fecha2 =="") {
+        toastr.warning('Ingrese las fechas.');
+    }else{
+        if (fecha1<fecha2 || fecha1 == fecha) {
+            ("#formFechas").submit();
+        }else{
+            toastr.warning('La primera fecha tiene que ser menor a la segunda.');
+        }
+    }    
+});
+
 $("#btnResumen").on("click", function(){
     fecha1 = $("#fecha1Res").val();
     fecha2 = $("#fecha2Res").val();
     if (fecha1 == "" || fecha2 =="") {
         toastr.warning('Ingrese las fechas.');
     }else{
-        if (fecha1<fecha2) {
+        if (fecha1<fecha2 || fecha1 == fecha) {
             prov = $("#elegirProveedor").val();
             window.open(base_url+"movimientos/entradas/getResumen?fecha1="+fecha1+"&fecha2="+fecha2, "_blank");
         }else{

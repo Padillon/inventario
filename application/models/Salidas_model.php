@@ -2,14 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Salidas_model extends CI_Model {
 	
-    public function getSalidas(){ 
-      $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
-      $this->db->from("salidas s");
-      $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
-      $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
-      $this->db->where('s.estado',1);
-      $resultados = $this->db->get();
-      return $resultados->result();
+    public function getSalidasDia($fecha){ 
+        $this->db->select("s.*, u.usuario, c.nombre, c.apellido");
+        $this->db->from("salidas s");
+        $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
+        $this->db->join("clientes c", "s.id_cliente = c.id_cliente");
+        $this->db->where('s.estado',1);
+        $this->db->where("s.fecha", $fecha); 
+        $this ->db->order_by( 's.fecha' , 'desc' );
+        $resultados = $this->db->get();
+        return $resultados->result();
     }
 
     public function getClientes($valor){
@@ -138,7 +140,7 @@ class Salidas_model extends CI_Model {
     }
 
     public function getSalidasFechas($fecha1, $fecha2){
-      $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido");
+      $this->db->select("date_format(s.fecha, '%d-%m-%Y') as fecha, s.total, u.usuario, c.nombre, c.apellido, s.*");
       $this->db->from("salidas s");
       $this->db->join("usuarios u", "s.id_usuario = u.id_usuario");
       $this->db->join("clientes c", "s.id_cliente = c.id_cliente");

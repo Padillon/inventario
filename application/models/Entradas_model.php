@@ -2,12 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Entradas_model extends CI_Model {
 	
-    public function getEntradas(){ 
+    public function getEntradasDia($fecha){ 
       $this->db->select("e.*,u.usuario as id_usuario, pro.empresa as id_proveedor");
         $this->db->from("entradas e");
         $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
         $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  
         $this->db->where("e.estado",1);
+        $this->db->where("e.fecha", $fecha); 
+        $this ->db->order_by( 'e.fecha' , 'desc' );
 		$resultados = $this->db->get();
 			return $resultados->result();
     }
@@ -142,7 +144,7 @@ class Entradas_model extends CI_Model {
   }
 
   public function getEntradasFechas($fecha1, $fecha2){ 
-        $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total, u.usuario as id_usuario, pro.empresa as id_proveedor");
+        $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total, u.usuario as id_usuario, pro.empresa as id_proveedor, e.*");
         $this->db->from("entradas e");
         $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
         $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  

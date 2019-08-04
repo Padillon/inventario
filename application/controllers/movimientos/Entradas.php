@@ -20,9 +20,10 @@ class Entradas extends CI_Controller {
 	}
 
 	public function index(){
+        $fecha = date("Y-m-d");
         $data = array(
 			'permisos' => $this->permisos,
-			'entradas' => $this->Entradas_model->getEntradas(),
+			'entradas' => $this->Entradas_model->getEntradasDia($fecha),
 			'proveedores' => $this->Entradas_model->getProveedoresTodos(),
         );
         $this->load->view("layouts/header");
@@ -30,7 +31,29 @@ class Entradas extends CI_Controller {
         $this->load->view("admin/entradas/list",$data);
         $this->load->view("layouts/footer");
 	}
-	
+    
+    public function buscar(){
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/entradas/buscar");
+        $this->load->view("layouts/footer");
+    }
+
+    public function getResultados(){
+        $fecha1 = $this->input->post("fecha_inicio");
+        $fecha2 = $this->input->post("fecha_fin");
+        $data = array(
+            'salidas' => $this->Entradas_model->getEntradasFechas($fecha1, $fecha2),
+            'fecha1' => $fecha1,
+            'fecha2' => $fecha2,
+        );
+
+        $this->load->view("layouts/header");
+        $this->load->view('layouts/aside');
+        $this->load->view("admin/entradas/buscar", $data);
+        $this->load->view("layouts/footer");
+    }
+
 	public function add(){
         $this->load->view("layouts/header");
         $this->load->view('layouts/aside');

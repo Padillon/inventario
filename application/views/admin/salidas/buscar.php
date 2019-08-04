@@ -34,34 +34,38 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Salidas</h4>
+                                <h4 class="header-title">Buscar - Salidas</h4>
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>movimientos/salidas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="btn-group" role="group" style="text-align: right;">
-                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Reporte
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
-                                                    <button type="button" id="btnGenerarCliente" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCliente">Por Cliente</button>
-                                                    <button type="button" id="btnGenerarResumen" class="dropdown-item" data-toggle="modal" data-target="#PDFTotalResumen">Resumen</button>
-                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
-                                                </div>
+                                        <div class='col-md-3'>
+                                            <form method="POST"  action="<?php echo base_url();?>movimientos/salidas/getResultados" id="formFechas">
+                                                <label>Del:</label>
+                                                <?php if(!empty($fecha1)){ ?>
+                                                    <input name='fecha_inicio' id='fecha_inicio' type="date" value="<?php echo $fecha1;?>" class='form-control' >
+                                                    </div>
+                                                    <div class='col-md-3'>
+                                                    <label>Al:</label>
+                                                    <input name='fecha_fin' id='fecha_fin' type="date" value="<?php echo $fecha2;?>" class='form-control' >
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <input name='fecha_inicio' id='fecha_inicio' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                                    </div>
+                                                    <div class='col-md-3'>
+                                                        <label>Al:</label>
+                                                        <input name='fecha_fin' id='fecha_fin' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                                    </div>
+                                                <?php }; ?>
+                                                
+                                            <div class="col-md-2">
+                                                <br>
+                                                <button class="btn btn-outline-primary mb-3 btnIr" type="submit" >Ir</button>
                                             </div>
+                                            </form>
                                         </div>
-                                    </div>
                                 </div>
                     <div class="data-tables">
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
-
-                     <thead  >
+                     <thead>
                                 <tr>
                                 <th id="#">#</th>
                                     <th>Fecha</th>
@@ -74,11 +78,11 @@
                             </thead>
                             <tbody>
                             <?php $cont = 0;?>
-                                <?php if(!empty($salidas)):?>
-                                    <?php foreach($salidas as $sal):?>
-                                    <?php $cont++;?>
+<?php if(!empty($salidas)):?>
+    <?php foreach($salidas as $sal):?>
+        <?php $cont++;?>
                                         <tr>
-                                            <td><?php echo $sal->id_salida;?></td>
+                                            <td><?php echo $cont?></td>
                                             <td><?php echo $sal->fecha;?></td>
                                             <td><?php echo $sal->nombre." ".$sal->apellido;?></td>
                                             <td><?php echo $sal->usuario;?></td>
@@ -171,94 +175,7 @@
     </div>
 </div>
 
- <!-- Modal para elegir Fechas-->
-<div class="modal fade" id="PDFPorFecha">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Del:</label>        
-                    <input type="date" class="form-control" id="fecha1" required>
-                </div>
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Al:</label>        
-                    <input type="date" class="form-control" id="fecha2" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnelegirFecha" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
- <!-- Modal para elegir Clientes-->
- <div class="modal fade" id="PDFPorCliente">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-auto">
-                    <label>Del:</label>        
-                    <input type="date" class="form-control" id="fecha1Cli" required>
-                </div>
-                <div class="col-md-auto">
-                    <label>Al:</label>        
-                    <input type="date" class="form-control" id="fecha2Cli" required>
-                </div>
-                <div class="col-md-auto">
-                    <label>Elija el Cliente:</label>        
-                    <select id='txtElegirCliente' class='custom-select' required>
-                            <?php foreach($clientes as $cli):?>
-                                <option value='<?php echo $cli->id_cliente;?>'><?php echo $cli->nombre." ".$cli->apellido;?></option>
-                            <?php endforeach;?>
-                </select>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnelegirCliente" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
- <!-- Modal para elegir Fechas para agrupar por dia-->
- <div class="modal fade" id="PDFTotalResumen">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ti-cabeza">Reporte</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Del:</label>        
-                    <input type="date" class="form-control" id="fecha1Res" required>
-                </div>
-                <div class="col-md-auto">
-                    <label for="elegirMarca">Al:</label>        
-                    <input type="date" class="form-control" id="fecha2Res" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnResumen" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="<?php echo base_url();?>assets/js/adminJS/salidas.js">
-</script>
+<script src="<?php echo base_url();?>assets/js/adminJS/salidas.js"></script>
 
 <script>//Cargar de manera desc los datos de la tabla
 $(window).load(function () {
