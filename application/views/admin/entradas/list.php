@@ -157,7 +157,7 @@ if ($permisos->update == 1){
     $this->load->view('layouts/alert');
     ?>
 
- <!-- Modal para asegurar la edicion-->
+ <!-- Modal view-->
     <div class="modal fade" id="Modalview">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
@@ -166,7 +166,7 @@ if ($permisos->update == 1){
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                               
+                                      
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
