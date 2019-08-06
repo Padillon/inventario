@@ -29,6 +29,32 @@
                 </div>
             </div>
 </div>
+<!--permisos ***************************************** -->
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}
+$habilitado_insert ="disabled";
+$habilitado_update="disabled";
+$habilitado_delete="disabled";
+$habilitado_edit = "disabled";
+
+if ($permisos->update == 1) {
+    $habilitado_update ="enabled";
+}
+
+if ($permisos->delete == 1) {
+    $habilitado_delete = "enabled";
+}
+if ($permisos->insert == 1) {
+    $habilitado_insert = "enabled";
+}
+
+if ($permisos->update == 1){
+    $habilitado_edit = "enabled";
+}
+
+?>
 <div class="main-content-inner">
                     <div class="row">
                         <!-- busqueda de producto -->
@@ -37,7 +63,7 @@
                                 <div class="card-body">
                                     <div class="input-group">
                                         <div class="col-md-3">
-                                        <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
+                                        <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
                                         </div>
                                         <div class="col-md-3">
                                             <a href="<?php echo base_url();?>movimientos/kardex/buscar" class="btn btn-outline-primary mb-3">Buscar Producto</a>

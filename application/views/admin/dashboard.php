@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         <?php } ?>
-                        <?php $stock_minimos = 0;                                    
+                        <?php $stock_minimos = 0; $arreglo;                                    
                             foreach( $stock as $sto){
                                 if($sto->actual <= $sto->minimo){
                                     $stock_minimos++;
@@ -86,7 +86,7 @@
                             <div class="card">
                                 <div class="seo-fact sbg1">
                                     <div class="p-4 d-flex productos justify-content-between conf align-items-center">
-                                        <div class="seofct-icon"><i class="fa fa-cog"></i> Stock bajo
+                                        <div class="seofct-icon"><i class="fa fa-exclamation"></i> Stock bajo
                                         </div>
                                         <h2><?php echo $stock_minimos; ?></h2>
                                     </div>

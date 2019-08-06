@@ -64,15 +64,15 @@
                                                 </div>
                                             </div>                           
                                             <br>
-                                            <table id="tbCompras" class="table table-bordered table-striped table-hover table-responsives">
+                                            <table id="tbCompras" class="table table-bordered table-striped table-hover table-responsive">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Codigo.</th>
-                                                        <th>Producto.</th>
-                                                        <th>Precio Venta.</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Importes</th>
-                                                        <th>Opciones</th>
+                                                    <tr >
+                                                        <th WIDTH="20%">Codigo.</th>
+                                                        <th WIDTH="20%" >Producto.</th>
+                                                        <th WIDTH="20%">Precio Venta.</th>
+                                                        <th WIDTH="20%">Cantidad</th>
+                                                        <th WIDTH="20%">Importes</th>
+                                                        <th WIDTH="20%">Eliminar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>                               

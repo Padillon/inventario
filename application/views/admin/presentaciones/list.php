@@ -62,7 +62,12 @@ if ($permisos->insert == 1) {
                             <div class="card-body">
                             
                                 <h4 class="header-title">Lista - Presentaciones</h4>
-                                <button type="button" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#add"> Agregar+</button>
+                                <div class="input-group">
+                                    <div class="col-md-2">
+                                         <button type="button" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#add"> Agregar+</button>
+                                    </div>
+                                </div>
+                            
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                             

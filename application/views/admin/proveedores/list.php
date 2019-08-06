@@ -61,10 +61,10 @@ if ($permisos->insert == 1) {
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Proveedores</h4>
-                                <div class="col-md-12">
+
                                 <div class="input-group">
                                     <div class="col-md-2">
-                                        <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
+                                        <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
                                     </div>
                                     <div class="col-md-2">
                                     <div class="btn-group" role="group" style="text-align: right;">
@@ -77,7 +77,7 @@ if ($permisos->insert == 1) {
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+
                                 </div>
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -121,11 +121,9 @@ if ($permisos->insert == 1) {
                                                 <button id="edit<?php echo $cont;?>" type="button" onclick="editProveedor(<?php echo $cont;?>)" <?php echo $habilitado_update ?> class="btn btn-warning" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                     <span span class="fa fa-pencil" style="color: #fff"></span>
                                                 </button>
-                                                <?php if($pro->estado == 1){?>
-                                                    <button id="delete<?php echo $cont; ?>" onclick="deleteProveedor(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                 <button id="delete<?php echo $cont; ?>" onclick="deleteProveedor(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
-                                                <?php }?>
                                                 </div>
                                             </td>
                                         </tr>

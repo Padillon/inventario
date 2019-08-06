@@ -16,5 +16,5 @@ $(document).on('click','.configuracion',function(){
 });
 
 $(document).on('click','.productos',function(){
-    window.location = base_url+"mantenimiento/productos";
+    window.location = base_url+"mantenimiento/productos/stock_minimo";
 });

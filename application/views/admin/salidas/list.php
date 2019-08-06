@@ -28,6 +28,32 @@
                 </div>
             </div>
 </div>
+<!--permisos ***************************************** -->
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}
+$habilitado_insert ="disabled";
+$habilitado_update="disabled";
+$habilitado_delete="disabled";
+$habilitado_edit = "disabled";
+
+if ($permisos->update == 1) {
+    $habilitado_update ="enabled";
+}
+
+if ($permisos->delete == 1) {
+    $habilitado_delete = "enabled";
+}
+if ($permisos->insert == 1) {
+    $habilitado_insert = "enabled";
+}
+
+if ($permisos->update == 1){
+    $habilitado_edit = "enabled";
+}
+
+?>
 <div class="main-content-inner">
                 <div class="row">
                     <!-- data table start -->
@@ -35,10 +61,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Salidas</h4>
-                                <div class="col-md-12">
-                                    <div class="input-group">
+                            <div class="input-group">
                                         <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>movimientos/salidas/add" class="btn btn-outline-primary mb-3">Vender +</a>
+                                            <a href="<?php echo base_url();?>movimientos/salidas/add"  <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Vender +</a>
                                         </div>
                                         <div class="col-md-2">
                                             <a href="<?php echo base_url();?>movimientos/salidas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
@@ -57,7 +82,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                     <div class="data-tables">
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -102,7 +126,7 @@
                                                 <button value="<?php echo $sal->id_salida;?>" type="button" class="btn btn-info btn-view-salida" data-toggle="modal" data-target="#modalView">
                                                     <span span class="fa fa-search" style="color: #fff"></span>
                                                 </button>
-                                                <button name='eliminar' id="<?php echo $sal->id_salida;?>" type="button" class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" >
+                                                <button name='eliminar' id="<?php echo $sal->id_salida;?>" type="button"  <?php echo $habilitado_delete?> class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
                                                 </div>

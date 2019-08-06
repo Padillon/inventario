@@ -59,32 +59,17 @@ if ($permisos->insert == 1) {
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Lista - Productos</h4>
-
-                                    <div class="input-group">
-                                        <div class="col-md-2">
-                                            <a href="<?php echo base_url();?>mantenimiento/productos/agregar" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Productos+</a>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="btn-group" role="group" style="text-align: right;">
-                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Reporte
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                                    <button type="button" id="btnGenerarActivos" class="dropdown-item">Activos</button>
-                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Inactivos</button>
-                                                    <button type="button" id="btnGenerarMarca" class="dropdown-item" data-toggle="modal" data-target="#PDFPorMarca">Por Marca</button>
-                                                    <button type="button" id="btnGenerarCategoria" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCategoria">Por Categoria</button>
-                                                    <button type="button" id="btnGenerarStock" class="dropdown-item" data-toggle="modal" data-target="#PDFPorStock">Con Stock</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <h4 class="header-title">Lista - Productos bajos en stock</h4>                              
+                     
+                                <div class="input-group">
+                                    <div class="col-md-2">
+                                    <a href="<?php echo base_url();?>movimientos/entradas/add" class="btn btn-outline-primary mb-3">Comprar +</a>
+                                    </div>           
+                                </div>  
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 
-                     <thead  >
+                                 <thead  >
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Nombre</th>
@@ -98,20 +83,13 @@ if ($permisos->insert == 1) {
                             <?php $cont = 0;?>
                                 <?php if(!empty($producto)):?>
                                     <?php foreach($producto as $pro):?>
+                                    <?php if($pro->stock_actual <= $pro->stock_minimo) { ?>
                                     <?php $cont++;?>
                                         <tr>
                                             <td><?php echo $pro->codigo;?></td>
                                             <td><?php echo $pro->nombre;?></td>
                                             <td><?php echo $pro->marca;?></td>
-                                            <?php if($pro->stock_actual > $pro->stock_minimo){?>
-                                                <td>
-                                                <span class="badge badge-success"><?php echo $pro->stock_actual;?></span>
-                                                </td>
-                                            <?php }else{?>
-                                                <td>
-                                                <span class="badge badge-danger"><?php echo $pro->stock_actual;?></span>
-                                                </td>
-                                            <?php }?>
+                                            <td><span class="badge badge-danger"><?php echo $pro->stock_actual;?></span></td>
                                             <?php if($pro->estado == 1){?>
                                                 <td>
                                                 <span class="badge badge-success">Activo</span>
@@ -130,18 +108,20 @@ if ($permisos->insert == 1) {
                                                 <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
                                                 $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
                                                 .$pro->marca."*".$pro->stock_actual; ?> 
-
-
+                                                <?php if($pro->estado == 1){?>
                                                     <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
                                                     <span class="fa fa-search" style="color: #fff"></span>
                                                     </button>
                                                     <button id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#delete" value="<?php echo $data;?>" >
                                                         <span class="fa fa-times" style="color: #fff"></span>
                                                     </button>
+                                                <?php }?>
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endforeach;?>
+                                        <?php } ?>
+                                        <?php endforeach;?>
+                                   
                                 <?php endif;?>
                             </tbody>
                         </table>

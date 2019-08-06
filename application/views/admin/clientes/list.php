@@ -64,7 +64,7 @@ if ($permisos->update == 1){
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Clientes</h4>
-                                <div class="col-md-12">
+
                                     <div class="input-group">
                                         <div class="col-md-2">
                                             <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
@@ -81,7 +81,7 @@ if ($permisos->update == 1){
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
 

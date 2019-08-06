@@ -60,14 +60,14 @@
                                             <table id="tbCompras" class=" tabla-contenido table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                 <thead>
                                                     <tr class=>
-                                                        <th class="col-md-1">Codigo</th>
-                                                        <th class="col-md-1">Nombre</th>
-                                                        <th class="col-md-1">Precio Entrada</th>
-                                                        <th class="col-md-1">Precio Salida</th>
-                                                        <th class="col-md-1">Cantidad</th>
-                                                        <th class="col-md-1">Importes</th>
-                                                        <th class="col-md-1">Fecha de caducidad</th>
-                                                        <th class="col-md-1">Opciones</th>
+                                                        <th  WIDTH="15%">Codigo</th>
+                                                        <th  WIDTH="15%">Nombre</th>
+                                                        <th  WIDTH="15%">Precio Entrada</th>
+                                                        <th  WIDTH="15%">Precio Salida</th>
+                                                        <th  WIDTH="15%">Cantidad</th>
+                                                        <th  WIDTH="15%">Importes</th>
+                                                        <th  WIDTH="15%">Fecha de caducidad</th>
+                                                        <th  WIDTH="15%">Opciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>                               

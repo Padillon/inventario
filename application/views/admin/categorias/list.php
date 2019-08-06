@@ -29,6 +29,32 @@
                 </div>
             </div>
 </div>
+<!--permisos ***************************************** -->
+<?php if ($permisos->read!=1) {
+    # code...
+    redirect(base_url(),"dashboard");
+}
+$habilitado_insert ="disabled";
+$habilitado_update="disabled";
+$habilitado_delete="disabled";
+$habilitado_edit = "disabled";
+
+if ($permisos->update == 1) {
+    $habilitado_update ="enabled";
+}
+
+if ($permisos->delete == 1) {
+    $habilitado_delete = "enabled";
+}
+if ($permisos->insert == 1) {
+    $habilitado_insert = "enabled";
+}
+
+if ($permisos->update == 1){
+    $habilitado_edit = "enabled";
+}
+
+?>
 <div class="main-content-inner">
                 <div class="row">
                     <!-- data table start -->
@@ -36,10 +62,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Categorias</h4>
-                                <div class="col-md-12">
+
                                     <div class="input-group">
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
+                                            <button type="button" class="btn btn-outline-primary mb-3" data-toggle="modal"  <?php echo $habilitado_insert?> data-target="#modalAgregar"> Agregar+</button>
                                         </div> 
                                         <div class="col-md-2">
                                             <div class="btn-group" role="group" style="text-align: right;">
@@ -53,7 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
                                 <div class="data-tables">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
 
@@ -80,10 +106,10 @@
                                                     </td>
                                                     <td>
                                                     <div class="btn-group">
-                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
+                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)"  <?php echo $habilitado_edit?> class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>
-                                                        <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                        <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
                                                             <span class="fa fa-times" style="color: #fff"></span>
                                                         </button>
                                                     </div>
