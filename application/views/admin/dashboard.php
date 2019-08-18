@@ -1,13 +1,6 @@
 
-<div id="preloader">
-    <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-       <!-- main content area start -->
-<div class="main-content">
-    <div class="header-area">
         <!-- page title area start -->
+
         <div class="page-title-area">
             <div class="row align-items-center">
                 <div class="col-sm-6">
@@ -19,11 +12,21 @@
                         </ul>
                     </div>    
                 </div>
+                <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">                         
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
+                                <a class="dropdown-item" href="<?php echo base_url();?>Auth/logout">Cerrar Sesion</a>
+                              </div>
+                         </div>
+                </div>
             </div>
         </div>
                 <!-- page title area end -->
         <div class="main-content-inner">
-            <div class="row">
+        <div class="mt-5 ">     
+                <div class="card">
                 <!-- seo fact area start -->
                 <div class="col-lg-12">
                     <div class="row">
@@ -108,7 +111,8 @@
                         <?php }; ?>                           
                     </div>
                 </div>
-            </div>    
+            </div>   
+            </div>  
         </div>
     </div>
 </div>

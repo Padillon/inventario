@@ -41,31 +41,6 @@
     </script>
 </head>
 
-<body>
- <div class="page-container">
-            <!-- header area start -->
-     <div class="header-area">
-        <div class="row align-items-center">
-                    <!-- nav and search button -->
-                     <div class="col-md-10 col-sm-8 clearfix">
-                        <div class="nav-btn pull-left">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                     </div>
-                    <div class="clearfix">
-                        <ul class="notification-area pull-right">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown" style=" color: #000000;">
-                                <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
-                                <a class="dropdown-item" href="<?php echo base_url();?>Auth/logout">Cerrar Sesion</a>
-                            </div>
-                        </div>
-        </div>
-                    <!-- profile info & task notification -->              
-     </div>
- 
-            <!-- header area end -->
+
+          
 

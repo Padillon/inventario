@@ -1,17 +1,4 @@
 
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-
-       <!-- main content area start -->
-        <div class="main-content">
-        <div class="header-area">
             <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
@@ -24,10 +11,19 @@
                             </ul>
                         </div>
                     </div>
-
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                         
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
+                                <a class="dropdown-item" href="<?php echo base_url();?>Auth/logout">Cerrar Sesion</a>
+                              </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-</div>
+           </div>
+
 <!--permisos ***************************************** -->
 <?php if ($permisos->read!=1) {
     # code...
@@ -61,14 +57,15 @@ if ($permisos->update == 1){
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Salidas</h4>
-                            <div class="input-group">
-                                        <div class="col-md-2">
+                            <div class="col-md-6">
+                            <div class="input-group">      
+                                        <div class="col">
                                             <a href="<?php echo base_url();?>movimientos/salidas/add"  <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Vender +</a>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col">
                                             <a href="<?php echo base_url();?>movimientos/salidas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col">
                                             <div class="btn-group" role="group" style="text-align: right;">
                                                 <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Reporte
@@ -81,7 +78,11 @@ if ($permisos->update == 1){
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                         
+                            </div>
+                            </div>
+                        </div>
+
                     <div class="data-tables">
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
 

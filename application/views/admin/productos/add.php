@@ -1,33 +1,28 @@
-
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- preloader area start -->
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
-
-    <!-- main content area start -->
-    <div class="main-content">
-        <div class="header-area">
             <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Agregar Productos</h4>
+                            <h4 class="page-title pull-left">Agregar producto</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
-                                <li><span>Movimientos</span></li>
+                                <li><span>mantenimiento</span></li>
                             </ul>
                         </div>
                     </div>
-
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                         
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
+                                <a class="dropdown-item" href="<?php echo base_url();?>Auth/logout">Cerrar Sesion</a>
+                              </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+           </div>
+
         <div class="main-content-inner">
             <div class="row">
                 <!-- busqueda de producto -->
@@ -42,7 +37,7 @@
                                                 <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
                                         </div>  
 
-                                         <div class="col-md-3">
+                                         <div class="col-md-3 mt-1">
                                                 <label for="create_categoria">Marca.</label>         
                                                 <select name='create_marca' id='create_marca' class='custom-select' required >
                                                     <?php foreach($marcas as $marca):?>
@@ -51,7 +46,7 @@
                                                 </select>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 mt-1">
                                                 <label for="create_categoria">categoria.</label>         
                                                 <select name='create_categoria' id='create_categoria' class='custom-select' required>
                                                     <?php foreach($categoria as $cat):?>
@@ -103,7 +98,12 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-2"> 
+                                        <div class="col-md-3 mt-4">
+                                        <label>Imagen:</label>
+                                            <label for="create_img" class="custom-file-label">Seleccione una imagen.</label><br>
+                                            <input name='create_img' id='create_img' type='file' class='custom-file-input' ><br>      
+                                        </div>      
+                                        <div class="col-md-2 mt-1"> 
                                             <label>Perecedero</label>                     
                                             <div class="s-swtich">                          
                                                 <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input">
@@ -111,14 +111,10 @@
                                             </div>
                                         </div>      
 
-                                        <div class="col-md-3 ">
-                                        <label>Imagen:</label>
-                                            <label for="create_img" class="custom-file-label">Seleccione una imagen.</label><br>
-                                            <input name='create_img' id='create_img' type='file' class='custom-file-input' ><br>      
-                                        </div>      
                                         <div class="col-md-12"> 
                                             <br>
-                                        </div>               
+                                        </div>       
+                                                
                                 </div>
                                <button type="submit" class="btn btn-success" name="btn-create" >Guardar</button>                                 
                             </form> 
