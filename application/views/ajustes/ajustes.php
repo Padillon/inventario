@@ -1,25 +1,24 @@
-<div id="preloader">
-        <div class="loader"></div>
-    </div>
-    <!-- preloader area end -->
-    <!-- page container area start -->
 
-       <!-- main content area start -->
-        <div class="main-content">
-        <div class="header-area">
             <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Ajustes de la Empresa</h4>
-                            
+                            <h4 class="page-title pull-left">Ajustes de la empresa</h4>
                         </div>
                     </div>
-
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                         
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
+                                <a class="dropdown-item" href="<?php echo base_url();?>Auth/logout">Cerrar Sesion</a>
+                              </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-</div>
+           </div>
 <?php if ($permisos->read!=1) {
     # code...
     redirect(base_url(),"dashboard");
@@ -80,7 +79,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                    </div>
                         <div class="col-md-4 mt-4">
                             <div class="card card-bordered">
                                 <img class="card-img-top img-fluid" src="<?php echo base_url()?>assets/images/ajuste/<?=$ajuste->logo;?>" alt="image">                              
@@ -88,16 +87,17 @@
                         </div>
                                     <?php endif;?>
                 </div>
+    </div>
+        
+
+        <div class="modal fade" id="modalAjuste">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+            </div>
             </div>
         </div>
-
-         <div class="modal fade" id="modalAjuste">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-
-        </div>
-     </div>
-    </div>
+                                    </div> </div>
     <?php
     $this->load->view('layouts/alert');
     ?>

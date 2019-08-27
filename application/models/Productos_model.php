@@ -55,8 +55,7 @@ class Productos_model extends CI_Model {
 	}
 	public function getSerie($marca,$categoria){
 		$select = "select count(*) as cuenta from productos where id_categoria = $categoria and id_marca = $marca";
-		//$this->db->where("id_categoria",$categoria);
-		//$this->db->where("id_marca",$marca);
+
 		$resultado = $this->db->query($select);
 		return $resultado->result();
 	}
@@ -120,4 +119,9 @@ class Productos_model extends CI_Model {
 		$resultados = $this->db->get("productos");
 		return $resultados->row();
 	  }
+	public function getExistenteCod($nombre){
+		$this->db->where("codigo", $nombre);
+		$resultados = $this->db->get("productos");
+		return $resultados->row();
+	}
 }

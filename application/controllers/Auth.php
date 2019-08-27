@@ -6,6 +6,7 @@ class Auth extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("Usuarios_model");
+		$this->load->model("Ajustes_model");
 		
 	}
     public function index()
@@ -18,6 +19,7 @@ class Auth extends CI_Controller {
         $correo = $this->input->post("correo");
         $contraseña = $this->input->post("pass");
 		$res = $this->Usuarios_model->login($correo, sha1($contraseña));
+		$ajuste =$this->Ajustes_model->getAjustes();
 
 
 		if (!$res) {
@@ -32,6 +34,8 @@ class Auth extends CI_Controller {
 				'usuario_log' => $res->usuario,
 				'rol' => $res->rol,
 				'login' => TRUE,
+				'logo' => $ajuste->logo,
+				
 			);
 			$this->session->set_userdata($data);
 			redirect(base_url()."Dashboard");

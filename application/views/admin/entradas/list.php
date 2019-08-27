@@ -13,6 +13,7 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
+                            <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                       
                          
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
@@ -59,14 +60,14 @@ if ($permisos->update == 1){
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Compras</h4>
                                     <div class="input-group">
-                                        <div class="col-md-2">
+                                        <div class="col">
                                         
                                             <a href="<?php echo base_url();?>movimientos/entradas/add" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Comprar +</a>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col">
                                             <a href="<?php echo base_url();?>movimientos/entradas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col">
                                             <div class="btn-group" role="group" style="text-align: right;">
                                                 <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Reporte
@@ -143,10 +144,6 @@ if ($permisos->update == 1){
                      </div>
                 </div>
             </div>
-
-
-            </div>
-        </div>
         <!-- main content area end -->
 
         <?php
@@ -301,7 +298,7 @@ if ($permisos->update == 1){
         </div>
     </div>
 </div>
-
+                                            </div>
 <script src="<?php echo base_url();?>assets/js/adminJS/entradas.js"></script>
 <script>//Cargar de manera desc los datos de la tabla
 $(window).load(function () {

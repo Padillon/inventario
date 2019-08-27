@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                         
+                            <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                       
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
@@ -61,81 +61,74 @@ if ($permisos->insert == 1) {
                                         <button type="button" id="btnAgregar" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#modalAgregar"> Agregar+</button>
                                     </div>
                                     <div class="col-md-2">
-                                    <div class="btn-group" role="group" style="text-align: right;">
-                                        <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Reporte
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                            <button type="button" id="btnGenerar" class="dropdown-item">Activos</button>
-                                            <button type="button" id="btnGenerarInactivos" class="dropdown-item">Inactivos</button>
+                                        <div class="btn-group" role="group" style="text-align: right;">
+                                            <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Reporte
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                <button type="button" id="btnGenerar" class="dropdown-item">Activos</button>
+                                                <button type="button" id="btnGenerarInactivos" class="dropdown-item">Inactivos</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                </div>
                                 <div class="data-tables">
-                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Empresa</th>
+                                                <th>Telefono</th>
+                                                <th>Estado</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $cont = 0;?>
+                                            <?php if(!empty($proveedores)):?>
+                                                <?php foreach($proveedores as $pro):?>
+                                                <?php $cont++;?>
+                                                    <tr>
+                                                        <td><?php echo $pro->id_proveedor;?></td>
+                                                        <td><?php echo $pro->nombre;?></td>
+                                                        <td><?php echo $pro->empresa;?></td>
+                                                        <td><?php echo $pro->telefono;?></td>
+                                                        <?php if($pro->estado == 1){?>
+                                                            <td>
+                                                            <span class="badge badge-success">Activo</span>
+                                                            </td>
+                                                        <?php }else{?>
+                                                            <td>
+                                                            <span class="badge badge-danger">Inactivo</span>
+                                                            </td>
+                                                        <?php }?>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                            <?php $data = $pro->id_proveedor."*".$pro->nombre."*".$pro->empresa.
+                                                                "*".$pro->telefono."*".$pro->estado; ?>
+                                                            <button id="view<?php echo $cont;?>" type="button" onclick="viewProveedor(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
+                                                                <span class="fa fa-search" style="color: #fff"></span>
+                                                            </button>
+                                                            <button id="edit<?php echo $cont;?>" type="button" onclick="editProveedor(<?php echo $cont;?>)" <?php echo $habilitado_update ?> class="btn btn-warning" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
+                                                                <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                            </button>
+                                                            <button id="delete<?php echo $cont; ?>" onclick="deleteProveedor(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
+                                                                    <span class="fa fa-times" style="color: #fff"></span>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach;?>
+                                            <?php endif;?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                     <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Empresa</th>
-                                    <th>Telefono</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php $cont = 0;?>
-                                <?php if(!empty($proveedores)):?>
-                                    <?php foreach($proveedores as $pro):?>
-                                    <?php $cont++;?>
-                                        <tr>
-                                            <td><?php echo $pro->id_proveedor;?></td>
-                                            <td><?php echo $pro->nombre;?></td>
-                                            <td><?php echo $pro->empresa;?></td>
-                                            <td><?php echo $pro->telefono;?></td>
-                                            <?php if($pro->estado == 1){?>
-                                                <td>
-                                                <span class="badge badge-success">Activo</span>
-                                                </td>
-                                            <?php }else{?>
-                                                <td>
-                                                <span class="badge badge-danger">Inactivo</span>
-                                                </td>
-                                            <?php }?>
-                                            <td>
-                                                <div class="btn-group">
-                                                <?php $data = $pro->id_proveedor."*".$pro->nombre."*".$pro->empresa.
-                                                    "*".$pro->telefono."*".$pro->estado; ?>
-                                                <button id="view<?php echo $cont;?>" type="button" onclick="viewProveedor(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
-                                                    <span class="fa fa-search" style="color: #fff"></span>
-                                                </button>
-                                                <button id="edit<?php echo $cont;?>" type="button" onclick="editProveedor(<?php echo $cont;?>)" <?php echo $habilitado_update ?> class="btn btn-warning" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
-                                                    <span span class="fa fa-pencil" style="color: #fff"></span>
-                                                </button>
-                                                 <button id="delete<?php echo $cont; ?>" onclick="deleteProveedor(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >
-                                                        <span class="fa fa-times" style="color: #fff"></span>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach;?>
-                                <?php endif;?>
-                            </tbody>
-                        </table>
-</div>
-</div>
-
-                       </div>
-                     </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-
-            </div>
-        </div>
         <!-- main content area end -->
     <!-- page container area end -->
     <?php
@@ -239,5 +232,5 @@ if ($permisos->insert == 1) {
         </div>
      </div>
     </div>
-
+</div></div>    
 <script src="<?php echo base_url();?>assets/js/adminJS/proveedores.js"></script>

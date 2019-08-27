@@ -14,7 +14,7 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                         
+                            <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                       
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
@@ -62,61 +62,54 @@ if ($permisos->insert == 1) {
                                     <div class="col-md-2">
                                          <button type="button" class="btn btn-outline-primary mb-3" <?php echo $habilitado_insert?> data-toggle="modal" data-target="#add"> Agregar+</button>
                                     </div>
-                                </div>
-                            
+                                </div>                           
                                 <div class="data-tables">
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                             
-                     <thead  >
-                                <tr>
-                                    <th>#</th>
-                                    <th>Presentacion</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody> 
-                                <?php $cont = 0;?>
-                                <?php if(!empty($presentacion)):?>
-                                    <?php  foreach($presentacion as $pre):?>
-                                    <?php $cont++;?>
-                                        <tr> 
-                                            <td><?php echo $cont;?></td>
-                                            <td><?php echo $pre->nombre;?></td>
-                                            <?php $presentacionData = $pre->id_presentacion."*".$pre->nombre; ?>
-                                            <?php if($pre->estado == 1){?>
-                                            <td>
-                                                <span class="badge badge-success">Activo</span>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" <?php echo $habilitado_update ?> type="button" class="btn btn-info btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
-                                                        <span span class="fa fa-pencil" style="color: #fff"></span>
-                                                    </button>                           
-                                                    <button id="del_presentacion<?php echo $cont; ?>" onclick="presentacionDelete(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_presentacion" value="<?php echo $presentacionData;?>" >
-                                                        <span class="fa fa-times" style="color: #fff"></span>
-                                                    </button>                  
-                                                </div>
-                                            </td>
-                                            <?php } ?>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Presentacion</th>
+                                            <th>Estado</th>
+                                            <th>Opciones</th>
                                         </tr>
-                                        
-                                    <?php endforeach;?>
-                                    <?php endif;?>
-                            </tbody>
-                        </table>
-</div>
-</div>
-                       </div>
-                     </div>
+                                    </thead>
+                                    <tbody> 
+                                        <?php $cont = 0;?>
+                                        <?php if(!empty($presentacion)):?>
+                                            <?php  foreach($presentacion as $pre):?>
+                                            <?php $cont++;?>
+                                                <tr> 
+                                                    <td><?php echo $cont;?></td>
+                                                    <td><?php echo $pre->nombre;?></td>
+                                                    <?php $presentacionData = $pre->id_presentacion."*".$pre->nombre; ?>
+                                                    <?php if($pre->estado == 1){?>
+                                                    <td>
+                                                        <span class="badge badge-success">Activo</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button id="up_presentacion<?php echo $cont; ?>" onclick="presentacionUpdate(<?php echo $cont; ?>)" <?php echo $habilitado_update ?> type="button" class="btn btn-warning btn-view-producto" data-toggle="modal" data-target="#edit_presentacion" value="<?php echo $presentacionData;?>">
+                                                                <span span class="fa fa-pencil" style="color: #fff"></span>
+                                                            </button>                           
+                                                            <button id="del_presentacion<?php echo $cont; ?>" onclick="presentacionDelete(<?php echo $cont; ?>)" <?php echo $habilitado_delete ?> type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target="#delete_presentacion" value="<?php echo $presentacionData;?>" >
+                                                                <span class="fa fa-times" style="color: #fff"></span>
+                                                            </button>                  
+                                                        </div>
+                                                    </td>
+                                                    <?php } ?>
+                                                </tr>
+                                                
+                                            <?php endforeach;?>
+                                            <?php endif;?>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>              
-                    
-            
-            </div>
-        </div>
-
-        <?php
+    <?php
     $this->load->view('layouts/alert');
     ?>
 
@@ -185,6 +178,8 @@ if ($permisos->insert == 1) {
                     </div>
             </div>
         </div>
+</div>
+</div>
 
 <script src="<?php echo base_url();?>assets/js/adminJS/presentaciones.js"></script>
 

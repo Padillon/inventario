@@ -277,6 +277,11 @@ class Productos extends CI_Controller {
 
         echo json_encode($result);
     }
+    public function getExistenteCod(){
+        $nombre = $this->input->post('getExistente');
+        $result = $this->Productos_model->getExistenteCod($nombre);
+        echo json_encode($result);
+    }
 
     public function stock_minimo(){
         $data = array(

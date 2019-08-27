@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                         
+                            <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                       
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
@@ -126,9 +126,6 @@ if ($permisos->update == 1){
                 </div>
             </div>
 
-
-            </div>
-        </div>
         <!-- main content area end -->
     <!-- page container area end -->
     <?php
@@ -273,7 +270,7 @@ if ($permisos->update == 1){
                                            </form> </div>
                                         </div>
                                     </div>
-                                </div>
-
+</div>
+</div>
     <script src="<?php echo base_url();?>assets/js/adminJS/usuarios.js"></script>
 

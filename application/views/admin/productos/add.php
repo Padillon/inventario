@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                         
+                            <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                                               
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
@@ -31,7 +31,21 @@
                         <div class="card-body">
                         
                             <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data' >
-                                <div class="input-group">   
+                                <div class="input-group">
+                                    <div class="col-md-3  mt-1"> 
+                                                <label>Ingresar código manualmente.</label>                    
+                                                <div class="s-swtich">                          
+                                                    <input type="checkbox" id="activar_cod_manual" name="activar_cod_manual" class="form-check-input">
+                                                    <label for="activar_cod_manual" class="form-check-label">Perecedero.</label>
+                                                </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                                <label for="">Ingrese código.</label>
+                                                <input name='codigo_manual' id='codigo_manual' disabled type='text' class='form-control'>
+                                        </div> 
+                                </div>
+                                <div class="input-group mt-4">
+                                                        
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>
                                                 <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
@@ -54,11 +68,6 @@
                                                     <?php endforeach;?>
                                                 </select>
                                         </div>
-
-                                             <!--    <div class="col-md-3">
-                                            <label for="create_codigo">Codigo.</label>
-                                            <input name='create_codigo' id="create_codigo" type='text' class='form-control' placeholder='Ingrese codigo'>
-                                        </div> -->
                                         <div class="col-md-3">
                                             <input name='create_codigo' id="create_codigo" type='hidden' >
                                              <svg id="barcode"></svg>  
@@ -98,13 +107,12 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-3 mt-4">
-                                        <label>Imagen:</label>
-                                            <label for="create_img" class="custom-file-label">Seleccione una imagen.</label><br>
-                                            <input name='create_img' id='create_img' type='file' class='custom-file-input' ><br>      
+                                        <div class="col-md-3">
+                                        <label>Seleccione una imagen:</label>
+                                            <input name='create_img' id='create_img' type='file' class='form-control' ><br>      
                                         </div>      
                                         <div class="col-md-2 mt-1"> 
-                                            <label>Perecedero</label>                     
+                                            <label>Producto perecedero.</label>                     
                                             <div class="s-swtich">                          
                                                 <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input">
                                                 <label for="create_perecedero" class="form-check-label">Perecedero.</label>
@@ -149,7 +157,7 @@ categoria.addEventListener('change',
 function(){
     codigoBarra();
 });
-
+var cod_generado;
 function codigoBarra(){
     var marcaOption = marca.options[marca.selectedIndex];
     var categoriaOption = categoria.options[categoria.selectedIndex];
@@ -199,8 +207,9 @@ function codigoBarra(){
             }else{
                 serie_cod = serie;
             }
-            JsBarcode("#barcode", String(marca_cod)+String(categoria_cod)+String(serie_cod));
-           $('#create_codigo').val(String(marca_cod)+String(categoria_cod)+String(serie_cod));
+            cod_generado = String(marca_cod)+String(categoria_cod)+String(serie_cod);
+            JsBarcode("#barcode", cod_generado,{height:40});
+            $('#create_codigo').val(cod_generado);
         },
     });
 }

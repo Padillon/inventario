@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                         
+                            <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                       
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
@@ -99,7 +99,7 @@ if ($permisos->update == 1){
                                                     </td>
                                                     <td>
                                                     <div class="btn-group">
-                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)"  <?php echo $habilitado_edit?> class="btn btn-info" data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
+                                                    <button id="edit<?php echo $cont;?>" type="button" onclick="editCategoria(<?php echo $cont;?>)"  <?php echo $habilitado_edit?> class="btn btn-warning"  data-toggle="modal" data-target="#modalEditar" value="<?php echo $data;?>">
                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                     </button>
                                                         <button id="delete<?php echo $cont; ?>" onclick="deleteCategoria(<?php echo $cont; ?>)" <?php echo $habilitado_delete?> type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" value="<?php echo $data;?>" >

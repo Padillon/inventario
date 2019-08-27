@@ -13,7 +13,8 @@
                     </div>
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                         
+                        <img src="<?php echo base_url()?>assets/images/ajuste/<?php echo $this->session->userdata('logo')?>" class="avatar user-thumb" alt="avatar">                                       
+
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown"> <?php echo $this->session->userdata("usuario_log")?> <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?php echo base_url();?>ajustes/ajustes/index">Ajustes</a>
@@ -57,97 +58,88 @@ if ($permisos->update == 1){
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="header-title">Lista - Salidas</h4>
-                            <div class="col-md-6">
-                            <div class="input-group">      
-                                        <div class="col">
-                                            <a href="<?php echo base_url();?>movimientos/salidas/add"  <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Vender +</a>
-                                        </div>
-                                        <div class="col">
-                                            <a href="<?php echo base_url();?>movimientos/salidas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
-                                        </div>
-                                        <div class="col">
-                                            <div class="btn-group" role="group" style="text-align: right;">
-                                                <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Reporte
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                                    <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
-                                                    <button type="button" id="btnGenerarCliente" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCliente">Por Cliente</button>
-                                                    <button type="button" id="btnGenerarResumen" class="dropdown-item" data-toggle="modal" data-target="#PDFTotalResumen">Resumen</button>
-                                                    <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
+                                    <div class="input-group">      
+                                                <div class="col">
+                                                    <a href="<?php echo base_url();?>movimientos/salidas/add"  <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Vender +</a>
                                                 </div>
-                                            </div>
-                                        </div>
-                         
+                                                <div class="col">
+                                                    <a href="<?php echo base_url();?>movimientos/salidas/buscar" class="btn btn-outline-primary mb-3">Buscar</a>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="btn-group" role="group" style="text-align: right;">
+                                                        <button id="btnGroupDrop2" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Reporte
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                            <button type="button" id="btnGenerarFecha" class="dropdown-item" data-toggle="modal" data-target="#PDFPorFecha">Por Fechas</button>
+                                                            <button type="button" id="btnGenerarCliente" class="dropdown-item" data-toggle="modal" data-target="#PDFPorCliente">Por Cliente</button>
+                                                            <button type="button" id="btnGenerarResumen" class="dropdown-item" data-toggle="modal" data-target="#PDFTotalResumen">Resumen</button>
+                                                            <button type="button" id="btnGenerarInactivos" class="dropdown-item">Anuladas</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                
+                                    </div>
+                                <div class="data-tables">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+
+                                            <thead>
+                                                <tr>
+                                                <th id="#">#</th>
+                                                    <th>Fecha</th>
+                                                    <th>Cliente</th>
+                                                    <th>Encargado</th>
+                                                    <th>Total</th>
+                                                    <th>Estado</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $cont = 0;?>
+                                                    <?php if(!empty($salidas)):?>
+                                                        <?php foreach($salidas as $sal):?>
+                                                        <?php $cont++;?>
+                                                            <tr>
+                                                                <td><?php echo $sal->id_salida;?></td>
+                                                                <td><?php echo $sal->fecha;?></td>
+                                                                <td><?php echo $sal->nombre." ".$sal->apellido;?></td>
+                                                                <td><?php echo $sal->usuario;?></td>
+                                                                <td><?php echo "$ ".$sal->total;?></td>
+                                                                <?php if($sal->estado == 1){?>
+                                                                    <td>
+                                                                        <div class="alert alert-primary" role="alert">
+                                                                        <strong>Activo</strong>
+                                                                        </div>
+                                                                    </td>
+                                                                <?php }else{?>
+                                                                    <td>
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                        <strong>Inactivo</strong>
+                                                                        </div>
+                                                                    </td>
+                                                                <?php }?>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                    <?php $data = $sal->id_salida; ?>
+                                                                    <button value="<?php echo $sal->id_salida;?>" type="button" class="btn btn-info btn-view-salida" data-toggle="modal" data-target="#modalView">
+                                                                        <span span class="fa fa-search" style="color: #fff"></span>
+                                                                    </button>
+                                                                    <button name='eliminar' id="<?php echo $sal->id_salida;?>" type="button"  <?php echo $habilitado_delete?> class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" >
+                                                                            <span class="fa fa-times" style="color: #fff"></span>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach;?>
+                                                    <?php endif;?>
+                                            </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            </div>
+
                         </div>
-
-                    <div class="data-tables">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-
-                     <thead  >
-                                <tr>
-                                <th id="#">#</th>
-                                    <th>Fecha</th>
-                                    <th>Cliente</th>
-                                    <th>Encargado</th>
-                                    <th>Total</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php $cont = 0;?>
-                                <?php if(!empty($salidas)):?>
-                                    <?php foreach($salidas as $sal):?>
-                                    <?php $cont++;?>
-                                        <tr>
-                                            <td><?php echo $sal->id_salida;?></td>
-                                            <td><?php echo $sal->fecha;?></td>
-                                            <td><?php echo $sal->nombre." ".$sal->apellido;?></td>
-                                            <td><?php echo $sal->usuario;?></td>
-                                            <td><?php echo "$ ".$sal->total;?></td>
-                                            <?php if($sal->estado == 1){?>
-                                                <td>
-                                                    <div class="alert alert-primary" role="alert">
-                                                    <strong>Activo</strong>
-                                                    </div>
-                                                </td>
-                                            <?php }else{?>
-                                                <td>
-                                                    <div class="alert alert-danger" role="alert">
-                                                    <strong>Inactivo</strong>
-                                                    </div>
-                                                </td>
-                                            <?php }?>
-                                            <td>
-                                                <div class="btn-group">
-                                                <?php $data = $sal->id_salida; ?>
-                                                <button value="<?php echo $sal->id_salida;?>" type="button" class="btn btn-info btn-view-salida" data-toggle="modal" data-target="#modalView">
-                                                    <span span class="fa fa-search" style="color: #fff"></span>
-                                                </button>
-                                                <button name='eliminar' id="<?php echo $sal->id_salida;?>" type="button"  <?php echo $habilitado_delete?> class="btn btn-danger eliminar_data" data-toggle="modal" data-target="#eliminar" >
-                                                        <span class="fa fa-times" style="color: #fff"></span>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach;?>
-                                <?php endif;?>
-                            </tbody>
-                        </table>
-</div>
-</div>
-
-                       </div>
-                     </div>
+                    </div>
                 </div>
-            </div>
-
-
-            </div>
-        </div>
         <!-- main content area end -->
         <?php
     $this->load->view('layouts/alert');
@@ -282,6 +274,7 @@ if ($permisos->update == 1){
     </div>
 </div>
 
+                                                                </div></div>
 <script src="<?php echo base_url();?>assets/js/adminJS/salidas.js">
 </script>
 

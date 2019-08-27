@@ -1,4 +1,6 @@
-var producto_existete=undefined;
+var producto_existente=undefined;
+var cod_existente=undefined;
+
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
@@ -20,6 +22,21 @@ function resete(){
     $("#create_perecedero").prop('checked', false);
     $("#create_perecedero").val('0');
 }
+//verificar si exite producto o código
+$('#codigo_manual').keyup(function(){
+    $.ajax({
+        url: base_url+"mantenimiento/productos/getExistenteCod",
+        type: "POST",
+        dataType: "json",
+        data:{ getExistente: $('#codigo_manual').val()},
+        success: function(data){
+            if (data != null) {
+                cod_existente = data.codigo;           
+            }
+        },
+    });
+});
+
 $('#create_nombre').keyup(function(){
 
     $.ajax({
@@ -28,8 +45,9 @@ $('#create_nombre').keyup(function(){
         dataType: "json",
         data:{ getExistente: $('#create_nombre').val()},
         success: function(data){
-            if (data != null) {
-                producto_existete = data.nombre;
+            if (data != null) {             
+                producto_existente = data.nombre;
+                
             }
         },
     });
@@ -37,13 +55,23 @@ $('#create_nombre').keyup(function(){
 
 jQuery.validator.addMethod("productoE",
 function(value, element) {
-    if (value == producto_existete){     
+    if (value == producto_existente){     
         return false;
      } else {
         return true;
      }       
 },
 "Producto ya existe."
+);
+jQuery.validator.addMethod("codE",
+function(value, element) {
+    if (value == cod_existente){     
+        return false;
+     } else {
+        return true;
+     }       
+},
+"Código ya existe."
 );
 
 $("#formularioAgregar").validate({
@@ -53,6 +81,11 @@ $("#formularioAgregar").validate({
              required:true,
              productoE:'#create_nombre',
         },
+        codigo_manual:{
+            required:true,
+            codE:'#codigo_manual',
+        }
+
     },
 });
 
@@ -98,15 +131,32 @@ function viewProducto(num){
 }
 
 $(document).ready(function(){
-    $('input[type="checkbox"]').on('change', function(e){
-      
-       // var val = $(this).attr("value"); 
-        //alert(val);
+     //Para saber si el roducto es perecedero
+    $('#create_perecedero').on('change', function(e){     
         if( $("#create_perecedero").prop('checked')){
             $('#create_perecedero').val('1');
         }else{
         $('#create_perecedero').val('0');
-        }
+        }      
+    });
+
+     //Activar entrada de codigo manual
+     $('#activar_cod_manual').on('change', function(e){     
+        if( $("#activar_cod_manual").prop('checked')){
+            $('#codigo_manual').val('');
+            $('#codigo_manual').prop('disabled',false);
+            $('#create_codigo').val("");
+            JsBarcode("#barcode",0,{height:40});
+        }else{
+            $('#codigo_manual').prop('disabled',true);
+            $('#codigo_manual').val('');
+            codigoBarra();
+        }      
+    });
+
+    $('#codigo_manual').on('change',function(){     
+        JsBarcode("#barcode", $(this).val(),{height:40});
+        $('#create_codigo').val($(this).val());
     });
 });
 
