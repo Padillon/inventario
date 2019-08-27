@@ -53,7 +53,7 @@
                                                     
                                                 <div class="col-md-2">
                                                     <br>
-                                                    <button class="btn btn-outline-primary mb-3 btnIr" type="submit" >Ir</button>
+                                                    <button class="btn btn-outline-primary mb-3 btnIr" type="button" >Ir</button>
                                                 </div>
                                             </div>
                                                                   

@@ -179,7 +179,7 @@ $(document).on("click", ".btnIr", function(){
     if (fecha1 == "" || fecha2 =="") {
         toastr.warning('Ingrese las fechas.');
     }else{
-        if (fecha1<fecha2 || fecha1 == fecha2) {
+        if (fecha2 >= fecha1 || fecha1 === fecha2) {
             ("#formFechas").submit();
         }else{
             toastr.warning('La primera fecha tiene que ser menor a la segunda.');

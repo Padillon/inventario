@@ -43,7 +43,7 @@ class Entradas extends CI_Controller {
         $fecha1 = $this->input->post("fecha_inicio");
         $fecha2 = $this->input->post("fecha_fin");
         $data = array(
-            'salidas' => $this->Entradas_model->getEntradasFechas($fecha1, $fecha2),
+            'entradas' => $this->Entradas_model->getEntradasFechas($fecha1, $fecha2),
             'fecha1' => $fecha1,
             'fecha2' => $fecha2,
         );
