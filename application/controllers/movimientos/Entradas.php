@@ -91,16 +91,23 @@ class Entradas extends CI_Controller {
 			'id_usuario' => $idusuario,
 			'id_proveedor' => $idProveedor,
 		);
-
-		if ($this->Entradas_model->save($data)){
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+		
+			$this->Entradas_model->save($data);
 			$idEntrada = $this->Entradas_model->lastID(); 
 			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad); //guardando el detalle de la venta
-            $this->toastr->success('Registro guardado!');
+		
+		$this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
+			
+		if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
+			$this->toastr->success('Registro guardado!');
             redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
-		} else {
+        }
+        else{
             $this->toastr->error('No se pudo completar la operación.');
 			redirect(base_url()."movimientos/entradas/add");
-		}
+        }
+		
 	}
 
 	//funcion para guardar el detalle de la venta
@@ -160,23 +167,6 @@ class Entradas extends CI_Controller {
 		$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 	}
 
-	//funcion para actualizar caja
-	protected function updateCaja($idcaja,$subtotal,$tipo){
-
-		$saldoActual = $this->Cajas_model->getSaldo($idcaja-1);
-		if ($tipo == 1) {
-			# code...
-			$data = array(
-			'saldo' => $saldoActual->saldo + $subtotal,
-		);
-		}else{
-			$data = array(
-				'saldo' => $saldoActual->saldo - $subtotal,
-			);
-		}
-		$this->Cajas_model->updateCaja($idcaja, $data);
-	}
-
 	public function edit_get(){
         $id = $this->input->post('id-entrada-edit');
         $entrada = $this->Entradas_model->get($id);
@@ -203,6 +193,8 @@ class Entradas extends CI_Controller {
 		$data = array(
 			'estado' =>0,
 		);
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+
 		$this->Entradas_model->updateEntrada($id, $data);//eliminas la venta en kardex
 		$this->Entradas_model->updateLote($id, $data);//eliminamos del lote si es necesario
 		$entradas = $this->Kardex_model->get_compra($id);
@@ -233,7 +225,17 @@ class Entradas extends CI_Controller {
 			);
 			$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 		endforeach;
-		redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+        $this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
+
+		if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
+            $this->toastr->success('Registro eliminado!');
+			redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."movimientos/entradas"); //redirigiendo a la lista de ventas
+        }
+	
 	}
 
 	public function view(){

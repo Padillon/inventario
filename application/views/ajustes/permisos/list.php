@@ -23,6 +23,8 @@
                     </div>
                 </div>
            </div>
+          <?php $this->load->view('layouts/alert');
+    ?>
 <div class="main-content-inner">
                 <div class="row">
                     <!-- data table start -->

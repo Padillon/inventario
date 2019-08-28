@@ -32,11 +32,15 @@ class Marcas extends CI_Controller {
         $data  = array(
             'nombre' => $nombre, 
         );
-        //we keep the new brand.
-        if ($this->Marcas_model->save($data)) {
+
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+        $this->Marcas_model->save($data)) 
+
+        $this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
+              
+        if($this->db->trans_status()){ // ******************************************************** iniciamos transaccion **************************************
             $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/marcas");
-            
         }
         else{
             $this->toastr->error('No se pudo completar la operación.');

@@ -95,10 +95,10 @@ class Productos extends CI_Controller {
                     $data_in['id_stock'] =$id_stock;
                     $producto = $this->Productos_model->add($data_in);
                 }
-        $this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
+        $this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
 
         
-        if($this->db->trans_status()){ // ******************************************************** iniciamos transaccion **************************************
+        if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
             $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/productos");
         }

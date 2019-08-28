@@ -9,7 +9,9 @@ class Permisos extends CI_Controller {
 			redirect(base_url());
 	} else{
 		$this->permisos = $this->backend_lib->control();
-		$this->load->model("Permisos_model"); 
+		$this->load->model("Permisos_model");
+        $this->load->library('toastr');
+
 	}
 		
 	}
@@ -40,11 +42,15 @@ class Permisos extends CI_Controller {
 			   'update' => $actualizar,
 			   'delete' => $eliminar,
 			  );
-		
-		if ($this->Permisos_model->insertar($data,$id_permiso)) {
-			# code...
-			redirect(base_url()."ajustes/permisos");
-		}
+
+		if($this->Permisos_model->insertar($data,$id_permiso)){ // ******************************************************** Evaluamos estado **************************************
+            $this->toastr->success('Registro guardado!');
+			redirect(base_url()."ajustes/permisos");          
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+			redirect(base_url()."ajustes/permisos");          
+        }
 	}
 
 }

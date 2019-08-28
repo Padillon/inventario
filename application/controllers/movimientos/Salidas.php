@@ -167,22 +167,6 @@ class Salidas extends CI_Controller {
 		$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 	}
 
-	//funcion para actualizar caja
-	protected function updateCaja($idcaja,$subtotal,$tipo){
-		$saldoActual = $this->Cajas_model->getSaldo($idcaja-1);
-		if ($tipo == 1) {
-			# code...
-			$data = array(
-			'saldo' => $saldoActual->saldo + $subtotal,
-		);
-		}else{
-			$data = array(
-				'saldo' => $saldoActual->saldo - $subtotal,
-			);
-		}
-		$this->Cajas_model->updateCaja($idcaja, $data);
-	}
-
 	public function view(){
 		$id = $this->input->post("id");
 		$data = array(
@@ -199,6 +183,8 @@ class Salidas extends CI_Controller {
 		$data = array(
 			'estado' =>0,
 		);
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+
 		$this->Salidas_model->updateSalida($id, $data);
 		$lote  = $this->Salidas_model->getLote($id);
 		//eliminas la venta en kardex
@@ -237,7 +223,16 @@ class Salidas extends CI_Controller {
 				$this->Salidas_model->updateLote($det->id_lote, $data);
 			}
 		endforeach;
-		redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
+        $this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
+		
+		if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
+            $this->toastr->success('Registro eliminado!');
+			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+			redirect(base_url()."movimientos/salidas"); //redirigiendo a la lista de ventas
+        }
 	}
 
 	public function getClientes(){
