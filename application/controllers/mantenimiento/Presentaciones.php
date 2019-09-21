@@ -26,17 +26,18 @@ class Presentaciones extends CI_Controller {
     
     public function store(){
         $nombre  = $this->input->post("name");
+        $equi = $this->input->post('equi');
         
         $data  = array(
             'nombre' => $nombre, 
+            'equi_unidad' => $equi,
             'estado' =>1
         );
         //we keep the new brand.
         if ($this->Presentacion_model->save($data)) {
             $this->toastr->success('Registro guardado!');
             redirect(base_url()."mantenimiento/presentaciones");
-        }
-        else{
+        }else{
             $this->toastr->error('No se pudo completar la operación.');
             redirect(base_url()."mantenimiento/presentaciones");
         }
@@ -60,8 +61,10 @@ class Presentaciones extends CI_Controller {
     public function update(){
         $id = $this->input->post("id_presentacion_update");
         $nombre = $this->input->post("nombre_presentacion_update");
+        $equi = $this->input->post("equi_update");
         $data = array(
             'nombre' =>$nombre, 
+            'equi_unidad' => $equi,
         );
         if ($this->Presentacion_model->update($id, $data)) {
             $this->toastr->success('Registro guardado!');
