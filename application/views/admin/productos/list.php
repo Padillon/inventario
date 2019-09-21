@@ -200,8 +200,9 @@ if ($permisos->insert == 1) {
                                 </div>
                                 <div class="col-md-4">
                                     <br>
-                                    <label for="create_presentacion">Presentacion.</label>
-                                    <input id="viewPresentacion" type='text' class='form-control' disabled>
+                                    <label>Presentacion.</label>
+                                    <select id="selectEqui" class='custom-select'>
+                                    </select>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="create_precio_compra">Precio compra:</label>

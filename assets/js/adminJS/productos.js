@@ -5,7 +5,6 @@ if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
 
-
 function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
@@ -107,7 +106,7 @@ function viewProducto(num){
     equi = datos[15];
     total = Math.floor(stock_actual / equi);
 
-    $("#viewPresentacion").val(datos[11]);
+    $("#selectEqui").val(datos[11]);
     $("#viewStock_actual").val(total);
 
     $("#viewMarca").val(datos[13]);
