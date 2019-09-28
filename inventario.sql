@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2019 a las 06:11:32
+-- Tiempo de generación: 08-09-2019 a las 00:11:49
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -113,14 +113,15 @@ CREATE TABLE IF NOT EXISTS `detalle_entrada` (
   PRIMARY KEY (`id_detalle_entrada`),
   KEY `id_producto` (`id_producto`),
   KEY `id_entrada` (`id_entrada`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `detalle_entrada`
 --
 
 INSERT INTO `detalle_entrada` (`id_detalle_entrada`, `cantidad`, `id_producto`, `precio`, `iva`, `subtotal`, `id_entrada`, `estado`) VALUES
-(1, 10, 1, 14.45, 0, 144.5, 1, 1);
+(1, 10, 1, 14.45, 0, 144.5, 1, 1),
+(2, 1, 1, 14.45, 0, 14.45, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -142,14 +143,15 @@ CREATE TABLE IF NOT EXISTS `detalle_salida` (
   KEY `id_salida_2` (`id_salida`),
   KEY `id_salida_3` (`id_salida`),
   KEY `id_salida` (`id_salida`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `detalle_salida`
 --
 
 INSERT INTO `detalle_salida` (`id_detalle_salida`, `cantidad`, `id_producto`, `precio_venta`, `iva`, `subtotal`, `id_salida`, `id_lote`) VALUES
-(1, 3, 1, 0, 0, 0, 1, 1);
+(1, 3, 1, 0, 0, 0, 1, 1),
+(2, 1, 1, 0, 0, 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -169,14 +171,15 @@ CREATE TABLE IF NOT EXISTS `entradas` (
   KEY `id_usuario` (`id_usuario`,`id_movimiento`,`id_proveedor`),
   KEY `id_tipo_entrada` (`id_movimiento`),
   KEY `id_proveedor` (`id_proveedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `entradas`
 --
 
 INSERT INTO `entradas` (`id_entrada`, `id_usuario`, `id_movimiento`, `fecha`, `total`, `id_proveedor`, `estado`) VALUES
-(1, 1, 0, '2019-08-26', 144.5, 1, 1);
+(1, 1, 0, '2019-08-26', 144.5, 1, 1),
+(2, 1, 0, '2019-08-27', 14.45, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -201,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `kardex` (
   KEY `id_producto` (`id_producto`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_movimiento` (`id_movimiento`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `kardex`
@@ -209,7 +212,11 @@ CREATE TABLE IF NOT EXISTS `kardex` (
 
 INSERT INTO `kardex` (`id_kardex`, `id_movimiento`, `fecha`, `descripcion`, `id_producto`, `cantidad`, `precio`, `total`, `saldo`, `id_entrada`, `id_salida`, `id_usuario`) VALUES
 (1, 1, '2019-08-26', 'Compra de producto.', 1, 10, 14.45, 144.5, 144.5, 1, 0, 1),
-(2, 2, '2019-08-26', 'Salida', 1, 3, 0, 0, 144.5, 0, 1, 1);
+(2, 2, '2019-08-26', 'Salida', 1, 3, 0, 0, 144.5, 0, 1, 1),
+(3, 1, '2019-08-27', 'Compra de producto.', 1, 1, 14.45, 14.45, 158.95, 2, 0, 1),
+(4, 3, '2019-08-27', 'Compra anulada.', 1, 1, 14.45, 14.45, 144.5, 2, 0, 1),
+(5, 2, '2019-08-27', 'Salida', 1, 1, 0, 0, 144.5, 0, 2, 1),
+(6, 4, '2019-08-27', 'Venta anulada.', 1, 1, 0, 0, 144.5, 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -246,14 +253,15 @@ CREATE TABLE IF NOT EXISTS `marcas` (
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_marca`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `marcas`
 --
 
 INSERT INTO `marcas` (`id_marca`, `nombre`, `estado`) VALUES
-(1, 'Lactolac', 1);
+(1, 'Lactolac', 1),
+(2, 'Nike', 1);
 
 -- --------------------------------------------------------
 
@@ -448,14 +456,15 @@ CREATE TABLE IF NOT EXISTS `salidas` (
   KEY `id_usuario` (`id_usuario`,`id_movimiento`),
   KEY `id_tipo_salida` (`id_movimiento`),
   KEY `id_cliente` (`id_cliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `salidas`
 --
 
 INSERT INTO `salidas` (`id_salida`, `id_usuario`, `id_cliente`, `fecha`, `total`, `descripcion`, `id_movimiento`, `estado`) VALUES
-(1, 1, 1, '2019-08-26', 0, 'venta de producto', 0, 1);
+(1, 1, 1, '2019-08-26', 0, 'venta de producto', 0, 1),
+(2, 1, 1, '2019-08-27', 0, 'venta de producto', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -522,14 +531,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `usuario` (`usuario`),
   UNIQUE KEY `correo` (`correo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `id_usuario_creacion`, `rol`, `usuario`, `correo`, `estado`, `password`) VALUES
-(1, 0, 1, 'hugo', 'hugoale_ab2@hotmail.com', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997');
+(1, 0, 1, 'hugo', 'hugoale_ab2@hotmail.com', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(2, 1, 1, 'Edward', 'baionz_hg@hotmail.com', 1, 'e3240071674a2d3febf0c612c4c60a0498e2375b');
 
 --
 -- Restricciones para tablas volcadas
