@@ -5,7 +5,6 @@ if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
 
-
 function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
@@ -94,15 +93,22 @@ $("#formularioAgregar").validate({
 function viewProducto(num){
     valores = $("#viewPro"+num).val();
     datos = valores.split("*");
+    stock_actual = datos[14];
 
     $("#viewCodigo").val(datos[4]);
     $("#viewNombre").val(datos[1]);
     $("#viewDescripcion").val(datos[6]);
     $("#viewStock").val(datos[5]);
-    $("#viewStock_actual").val(datos[14]);
+    
     $("#viewCompra").val("$ "+datos[7]);
     $("#viewVenta").val("$ "+datos[8]);
-    $("#viewPresentacion").val(datos[11]);
+
+    equi = datos[15];
+    total = Math.floor(stock_actual / equi);
+
+    $("#selectEqui").val(datos[11]);
+    $("#viewStock_actual").val(total);
+
     $("#viewMarca").val(datos[13]);
     $("#viewCategoria").val(datos[3]);
     if (datos[12] != 1) {

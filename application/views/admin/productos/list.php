@@ -96,19 +96,20 @@ if ($permisos->insert == 1) {
                                                                 <td><?php echo $pro->nombre;?></td>
                                                                 <td><?php echo $pro->marca;?></td>
                                                                 <?php if($pro->stock_actual > $pro->stock_minimo){?>
+                                                                    <?php $stock =  floor($pro->stock_actual / $pro->equivalencia)?>
                                                                     <td>
-                                                                    <span class="badge badge-success"><?php echo $pro->stock_actual;?></span>
+                                                                    <span class="badge badge-success"><?php echo $stock." ".$pro->presentacion;?></span>
                                                                     </td>
-                                                                <?php }else{?>
+                                                                    <?php }else{?>
                                                                     <td>
-                                                                    <span class="badge badge-danger"><?php echo $pro->stock_actual;?></span>
+                                                                    <span class="badge badge-danger"><?php echo $pro->stock_actual." ".$pro->presentacion;?></span>
                                                                     </td>
                                                                 <?php }?>
                                                                 <?php if($pro->estado == 1){?>
                                                                     <td>
                                                                     <span class="badge badge-success">Activo</span>
                                                                     </td>
-                                                                <?php }else{?>
+                                                                    <?php }else{?>
                                                                     <td>
                                                                     <span class="badge badge-danger">Inactivo</span>
                                                                     </td>
@@ -121,7 +122,7 @@ if ($permisos->insert == 1) {
                                                                     </button>
                                                                     <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
                                                                     $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
-                                                                    .$pro->marca."*".$pro->stock_actual; ?> 
+                                                                    .$pro->marca."*".$pro->stock_actual."*".$pro->equivalencia; ?> 
 
 
                                                                         <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
@@ -199,8 +200,9 @@ if ($permisos->insert == 1) {
                                 </div>
                                 <div class="col-md-4">
                                     <br>
-                                    <label for="create_presentacion">Presentacion.</label>
-                                    <input id="viewPresentacion" type='text' class='form-control' disabled>
+                                    <label>Presentacion.</label>
+                                    <select id="selectEqui" class='custom-select'>
+                                    </select>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="create_precio_compra">Precio compra:</label>
