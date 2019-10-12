@@ -29,8 +29,16 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                        
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                            </li>
+                        </ul>
                             <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data' >
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="input-group">
                                     <div class="col-md-3  mt-1"> 
                                                 <label>Ingresar código manualmente.</label>                    
@@ -124,6 +132,44 @@
                                         </div>       
                                                 
                                 </div>
+                                
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Presentación</a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content mt-3" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <label>Agregar</label>
+                                        <table class="table-responsive-lg table-hover" width="100%" id="Circulante">
+                    <thead>
+                        <th>
+                         <div class=" col-md-12"><label>Codigo</label>
+                         <input type="text" id="autocompleteAC" name="autocompleteAC" class="form-control"></div>
+                        </th>
+                        <th> 
+                         <div class=" col-md-12">
+                    <label>Nombre</label>
+                    <input type="text" id="NOMBRE" name="" class="form-control"></div>
+                        </th>
+                        <th>
+                            <div class=" col-md-12">
+                    <label>Monto</label>
+                    <input type="text" name="" class="form-control" id="monto" ></div>
+                    </th>
+                    <th> 
+                <div class="col-md-12"><br>
+                <button type="button" class="btn btn-success " id="btnAgregar" > Agregar <span class="fa fa-plus"></span></button></div>  
+                 </th>
+                    </thead>
+                    <tbody >
+                        
+                    </tbody>
+                </table>
+                                    </div>
+                                <br>
+                                <br>
                                <button type="submit" class="btn btn-success" name="btn-create" >Guardar</button>                                 
                             </form> 
 
