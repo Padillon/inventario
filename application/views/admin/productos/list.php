@@ -81,6 +81,7 @@ if ($permisos->insert == 1) {
                                                         <th>Codigo</th>
                                                         <th>Nombre</th>
                                                         <th>Marca</th>
+                                                        <th>Presentacion principal</th>
                                                         <th>Stock</th>
                                                         <th>Estado</th>
                                                         <th>Opciones</th>
@@ -95,16 +96,18 @@ if ($permisos->insert == 1) {
                                                                 <td><?php echo $pro->codigo;?></td>
                                                                 <td><?php echo $pro->nombre;?></td>
                                                                 <td><?php echo $pro->marca;?></td>
+                                                                <td><?php echo $pro->presentacion;?></td>
                                                                 <?php if($pro->stock_actual > $pro->stock_minimo){?>
-                                                                    <?php $stock =  floor($pro->stock_actual / $pro->equivalencia)?>
-                                                                    <td>
-                                                                    <span class="badge badge-success"><?php echo $stock." ".$pro->presentacion;?></span>
-                                                                    </td>
+                                                                
+                                                                    <?php $stock =  floor($pro->stock_actual / $pro->valor)?>
+                                                                        <td>
+                                                                        <span class="badge badge-success"><?php echo $stock;?></span>
+                                                                        </td>
                                                                     <?php }else{?>
-                                                                    <td>
-                                                                    <span class="badge badge-danger"><?php echo $pro->stock_actual." ".$pro->presentacion;?></span>
-                                                                    </td>
-                                                                <?php }?>
+                                                                        <td>
+                                                                        <span class="badge badge-danger"><?php echo $pro->stock_actual;?></span>
+                                                                        </td>
+                                                                    <?php }?>
                                                                 <?php if($pro->estado == 1){?>
                                                                     <td>
                                                                     <span class="badge badge-success">Activo</span>
@@ -122,7 +125,7 @@ if ($permisos->insert == 1) {
                                                                     </button>
                                                                     <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
                                                                     $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
-                                                                    .$pro->marca."*".$pro->stock_actual."*".$pro->equivalencia; ?> 
+                                                                    .$pro->marca."*".$pro->stock_actual."*".$pro->valor; ?> 
 
 
                                                                         <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">

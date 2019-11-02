@@ -82,7 +82,7 @@ class Productos extends CI_Controller {
             $data_in['perecedero'] =0;
         }
         //$data_stock['stock_minimo'] = $this->input->post('create_stock_min');        
-        //$data_in['id_presentacion'] = $this->input->post('create_presentacion');
+        $data_in['id_presentacion'] = $this->input->post('presentaciones');
 
      
         //datos para agregar presentaciones del producto
@@ -113,15 +113,28 @@ class Productos extends CI_Controller {
                             
 
                     for ($i=0; $i < count($id_present) ; $i++) { 
-                        $data = array(
-                            'id_presentacion' => $id_present[$i],
-                            'id_producto' => $producto,
-                            'valor' => $valor_unidades[$i],
-                            'precio_compra' => $P_compra[$i],
-                            'precio_venta' => $P_venta[$i],
-                            'codigo' => $COD[$i],
+                        if ($id_present[$i] == $presentacion) {
+                            $data = array(
+                                'id_presentacion' => $id_present[$i],
+                                'id_producto' => $producto,
+                                'valor' => $valor_unidades[$i],
+                                'precio_compra' => $P_compra[$i],
+                                'precio_venta' => $P_venta[$i],
+                                'codigo' => $COD[$i],
+                                'equivalencia' =>1,
 
-                        );
+                            );
+                           }else{
+                            $data = array(
+                                'id_presentacion' => $id_present[$i],
+                                'id_producto' => $producto,
+                                'valor' => $valor_unidades[$i],
+                                'precio_compra' => $P_compra[$i],
+                                'precio_venta' => $P_venta[$i],
+                                'codigo' => $COD[$i],
+                                'equivalencia' =>0,
+                            );
+                         }
                         $this->Productos_model->addPresentacionesProducto($data);
                         
                     }

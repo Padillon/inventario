@@ -31,13 +31,17 @@ class Productos_model extends CI_Model {
 	}
 
 	public function getProductos(){
-		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion, pre.equi_unidad as equivalencia");
+		//$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion, pre.equi_unidad as equivalencia");
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo, pr.nombre as presentacion");
+	
 		$this->db->from("productos p");
 		$this->db->join("marcas m", "p.id_marca = m.id_marca");
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
 		$this->db->join("stock s", "p.id_stock = s.id_stock");
-		$this->db->join("presentacion pre", "p.id_presentacion = pre.id_presentacion");
+		$this->db->join("presentaciones_producto pre", "p.id_producto = pre.id_producto");
+		$this->db->join("presentacion pr", "pr.id_presentacion = pre.id_presentacion");
 		$this->db->where("p.estado",1);
+		$this->db->where("pre.equivalencia",1);
 		$this->db->order_by("categoria");
 		$resultados = $this->db->get();
 		return $resultados->result();
