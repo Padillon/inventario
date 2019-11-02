@@ -69,22 +69,37 @@ class Productos extends CI_Controller {
 
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');
-        $data_stock['stock_minimo'] = $this->input->post('create_stock_min');
         $data_in['id_marca'] = $this->input->post('create_marca');
         $data_in['id_categoria'] = $this->input->post('create_categoria');
-        $data_in['codigo'] = $this->input->post('create_codigo');
+       // $data_in['codigo'] = $this->input->post('create_codigo');
         $data_in['nombre'] = $this->input->post('create_nombre');
         $data_in['descripcion'] = $this->input->post('create_descripcion');
-        $data_in['precio_compra'] = $this->input->post('create_precio_compra');
-        $data_in['precio_venta'] = $this->input->post('create_precio_venta');
+        //$data_in['precio_compra'] = $this->input->post('create_precio_compra');
+        //$data_in['precio_venta'] = $this->input->post('create_precio_venta');
         if ($this->input->post('create_perecedero') != "" ) {
             $data_in['perecedero'] =1;
         }else{
             $data_in['perecedero'] =0;
         }
-        
-        $data_in['id_presentacion'] = $this->input->post('create_presentacion');
-        
+        //$data_stock['stock_minimo'] = $this->input->post('create_stock_min');        
+        //$data_in['id_presentacion'] = $this->input->post('create_presentacion');
+
+     
+        //datos para agregar presentaciones del producto
+        $minimo = $this->input->post('create_stock_min');        
+        $presentacion = $this->input->post('presentaciones');
+
+        $id_present = $this->input->post('id_presentacion');
+        $valor_unidades = $this->input->post('cantidad_prese');
+        $P_compra= $this->input->post('precio_compra');
+        $P_venta= $this->input->post('precio_venta');
+        $COD = $this->input->post('codigos_de_barra');
+        $data_stock['stock_minimo'] = 0;
+        for ($i=0; $i < count($id_present); $i++) { 
+           if ($id_present[$i] == $presentacion) {
+            $data_stock['stock_minimo'] = (int)$valor_unidades[$i] * $minimo;
+           }
+        }
         $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
                 if($id != ""){
                     if ($this->Productos_model->updateStock($id_stock,$data_stock)) {
@@ -93,7 +108,23 @@ class Productos extends CI_Controller {
                 }else{
                     $id_stock=$this->Productos_model->addStok($data_stock);
                     $data_in['id_stock'] =$id_stock;
+
                     $producto = $this->Productos_model->add($data_in);
+                            
+
+                    for ($i=0; $i < count($id_present) ; $i++) { 
+                        $data = array(
+                            'id_presentacion' => $id_present[$i],
+                            'id_producto' => $producto,
+                            'valor' => $valor_unidades[$i],
+                            'precio_compra' => $P_compra[$i],
+                            'precio_venta' => $P_venta[$i],
+                            'codigo' => $COD[$i],
+
+                        );
+                        $this->Productos_model->addPresentacionesProducto($data);
+                        
+                    }
                 }
         $this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
 
@@ -294,4 +325,9 @@ class Productos extends CI_Controller {
         $this->load->view("layouts/footer");
     }
     
+    public function getPresentacion(){
+        $valor = $this->input->post("nombre");
+        $nombre = $this->Productos_model->getPresentacion($valor);
+       echo json_encode($nombre);
+    }
 }

@@ -124,4 +124,20 @@ class Productos_model extends CI_Model {
 		$resultados = $this->db->get("productos");
 		return $resultados->row();
 	}
+
+	public function getPresentacion($nom){
+		$array = array(
+			"estado" => 1,
+        );
+			$this->db->select("id_presentacion, nombre");
+			$this->db->from("presentacion");
+			$this->db->where($array);
+			$this->db->like("nombre", $nom);
+			$resultados = $this->db->get();
+			return $resultados->result();
+	 }
+
+	 public function addPresentacionesProducto($data){
+		$this->db->insert("presentaciones_producto",$data);
+	 }
 }

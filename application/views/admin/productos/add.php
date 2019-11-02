@@ -29,31 +29,14 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-                            </li>
-                        </ul>
                             <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data' >
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Producto</a>
+                                    </li>
+                                </ul>
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="input-group">
-                                    <div class="col-md-3  mt-1"> 
-                                                <label>Ingresar código manualmente.</label>                    
-                                                <div class="s-swtich">                          
-                                                    <input type="checkbox" id="activar_cod_manual" name="activar_cod_manual" class="form-check-input">
-                                                    <label for="activar_cod_manual" class="form-check-label">Perecedero.</label>
-                                                </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                                <label for="">Ingrese código.</label>
-                                                <input name='codigo_manual' id='codigo_manual' disabled type='text' class='form-control'>
-                                        </div> 
-                                </div>
-                                <div class="input-group mt-4">
-                                                        
+                                <div class="input-group mt-4">                                  
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>
                                                 <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
@@ -76,14 +59,18 @@
                                                     <?php endforeach;?>
                                                 </select>
                                         </div>
-                                        <div class="col-md-3">
-                                            <input name='create_codigo' id="create_codigo" type='hidden' >
-                                             <svg id="barcode"></svg>  
-                                        </div>            
+                                        <div class="col-md-2 mt-1"> 
+                                            <label>Producto perecedero.</label>                     
+                                            <div class="s-swtich">                          
+                                                <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input">
+                                                <label for="create_perecedero" class="form-check-label">Perecedero.</label>
+                                            </div>
+                                        </div>      
+        
                                         <div class="col-md-12"> 
                                             <br>
                                         </div> 
-                                        <div class="col-md-3">
+                                      <!--  <div class="col-md-3">
                                             <label for="create_stock_min">Stock mínimo.</label>
                                             <input name='create_stock_min' id="create_stock_min" type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Ingrese cantidad.'>
                                         </div>
@@ -114,67 +101,111 @@
                                                 <?php endforeach;?>
                                             </select>
                                         </div>
-
+                                        -->
                                         <div class="col-md-3">
                                         <label>Seleccione una imagen:</label>
                                             <input name='create_img' id='create_img' type='file' class='form-control' ><br>      
-                                        </div>      
-                                        <div class="col-md-2 mt-1"> 
-                                            <label>Producto perecedero.</label>                     
-                                            <div class="s-swtich">                          
-                                                <input type="checkbox" id="create_perecedero" name="create_perecedero" class="form-check-input">
-                                                <label for="create_perecedero" class="form-check-label">Perecedero.</label>
-                                            </div>
-                                        </div>      
-
+                                        </div> 
+                                        <div class="col-md-9">
+                                            <label for="create_descripcion">Descripción.</label>
+                                            <input name='create_descripcion' id="create_descripcion" type='text' class='form-control' placeholder='Ingrese descripción'>
+                                        </div>    
                                         <div class="col-md-12"> 
                                             <br>
-                                        </div>       
+                                        </div>   
                                                 
-                                </div>
-                                
+                                </div>                             
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Presentación</a>
                                     </li>
                                 </ul>
-
-                                <div class="tab-content mt-3" id="myTabContent">
+                                <div class="input-group">
+                                    <div class="col  mt-1"> 
+                                                <label>Utilizar el mismo código para todas las presentaciones.</label>                    
+                                                <div class="s-swtich">                          
+                                                    <input type="checkbox" id="activar_cod_manual" name="activar_cod_manual" class="form-check-input">
+                                                    <label for="activar_cod_manual" class="form-check-label">Perecedero.</label>
+                                                </div>
+                                    </div>
+                                    <div class="col">
+                                                <label for="">Ingrese código.</label>
+                                                <input name='codigo_manual' id='codigo_manual' disabled type='text' class='form-control'>
+                                    </div> 
+                                    <div class="col">
+                                        <input name='create_codigo' id="create_codigo" type='hidden' >
+                                        <svg id="barcode"></svg>  
+                                    </div>  
+                                    </div>
+                                    <div class="tab-content mt-3" id="myTabContent" name="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <label>Agregar</label>
-                                        <table class="table-responsive-lg table-hover" width="100%" id="Circulante">
-                    <thead>
-                        <th>
-                         <div class=" col-md-12"><label>Codigo</label>
-                         <input type="text" id="autocompleteAC" name="autocompleteAC" class="form-control"></div>
-                        </th>
-                        <th> 
-                         <div class=" col-md-12">
-                    <label>Nombre</label>
-                    <input type="text" id="NOMBRE" name="" class="form-control"></div>
-                        </th>
-                        <th>
-                            <div class=" col-md-12">
-                    <label>Monto</label>
-                    <input type="text" name="" class="form-control" id="monto" ></div>
-                    </th>
-                    <th> 
-                <div class="col-md-12"><br>
-                <button type="button" class="btn btn-success " id="btnAgregar" > Agregar <span class="fa fa-plus"></span></button></div>  
-                 </th>
-                    </thead>
-                    <tbody >
-                        
-                    </tbody>
-                </table>
+                                        <table class="table-responsive-lg table-hover" width="100%" id="listaPresentaciones">
+                                            <thead>
+
+                                                <th>
+                                                    <div class="col"><label>Codigo</label>
+                                                    <input type="text" disabled id="codigo_id" name="codigo_id" class="form-control"></div>
+                                                </th>
+                                                <th> 
+                                                    <div class="col">
+                                                    <label>Nombre</label>
+                                                    <input type="text" id="nombre_autocomplete" name="nombre_autocomplete" class="form-control"></div>
+                                                </th>
+                                                <th>
+                                                    <div class="col"><label>Codigo producto</label>
+                                                    <input type="text" id="cod_barra_presentacion" name="cod_barra_presentacion" class="form-control"></div>
+                                                </th>
+
+                                                <th>
+                                                    <div class="col">
+                                                    <label>Cantidad</label>
+                                                    <input  name="cantidad_presentacion"  id="cantidad_presentacion" type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Ingrese cantidad.'></div>
+                                                </th>
+                                                <th>
+                                                    <div class="col">
+                                                    <label>Precio compra</label>
+                                                    <input  name="precio_compra" value=0.00 id="precio_compra" step='0.01' min="0"  type='number' class='form-control' placeholder='$0.00' ></div>
+                                                </th>
+                                                <th>
+                                                    <div class="col">
+                                                    <label>Precio venta</label>
+                                                    <input  name="precio_venta" value=0.00 id="precio_venta" step='0.01' min="0" type='number' class='form-control' placeholder='$0.00'></div>
+                                                </th>
+                                                <th> 
+                                                    <div class=""><br>
+                                                    <button type="button" class="btn btn-success " id="btnAgregar" > Agregar <span class="fa fa-plus"></span></button></div>  
+                                                </th>
+                                            </thead>
+                                            <tbody >
+                                                    
+                                            </tbody>
+                                        </table>
                                     </div>
+                                    <br>
+                                    <br>
+                                </div>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Stock mínimo</a>
+                                    </li>
+                                </ul>
                                 <br>
+                                <div class="input-group">
+                                    <div class="col-md-3 mt-1">
+                                     <select name="presentaciones" id="presentaciones" class="custom-select "></select>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                     <input name='create_stock_min' id="create_stock_min" value=0 type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Cantidad mínima.'>                                    
+                                    </div>
+                                </div>
                                 <br>
-                               <button type="submit" class="btn btn-success" name="btn-create" >Guardar</button>                                 
-                            </form> 
+                                <button type="submit" class="btn btn-success col-md-12" name="btn-create" >Guardar</button>                                 
+                        </div>        
+                    </form> 
 
-                        </div>
-
+                
                     </div>
                 </div>
             </div>
@@ -189,75 +220,24 @@
 
 </script>
 <script>
-    
-//codigo de buarra generador
+        
+    var marca = document.getElementById('create_marca');
+    var categoria = document.getElementById('create_categoria');
+    JsBarcode("#barcode", 0,{height:35});
 
-var marca = document.getElementById('create_marca');
-var categoria = document.getElementById('create_categoria');
-codigoBarra();
-marca.addEventListener('change',
-  function(){
-      codigoBarra();
-  });
-categoria.addEventListener('change',
-function(){
-    codigoBarra();
-});
-var cod_generado;
-function codigoBarra(){
-    var marcaOption = marca.options[marca.selectedIndex];
-    var categoriaOption = categoria.options[categoria.selectedIndex];
-      $.ajax({  
-        url: base_url+"mantenimiento/productos/getSerie",
-        type: "POST",
-        dataType: "json",
-        data:{ marca: marcaOption.value, categoria: categoriaOption.value},
-        success: function(data){
-            var serie = data[0].cuenta;
-            serie++;
-              //fragmento marca
-            var long_marca = marcaOption.value.length ; // conseguimos la longitud de marca
-            var marca_cod = "";
-            if(long_marca <= 1){
-                marca_cod = "000"+marcaOption.value;
-            }else if(long_marca <= 2){
-                marca_cod = "00"+marcaOption.value;
-            }else if(long_marca <= 3){
-                marca_cod = "0"+marcaOption.value;
-            }else{
-                marca_cod = marcaOption.value;
-            }
-            // fragmento categoria
-            var long_marca = categoriaOption.value.length ; // conseguimos la longitud de marca
-            var categoria_cod = "";
-            if(long_marca <= 1){
-                categoria_cod = "000"+categoriaOption.value;
-            }else if(long_marca <= 2){
-                categoria_cod = "00"+categoriaOption.value;
-            }else if(long_marca <= 3){
-                categoria_cod = "0"+categoriaOption.value;
-            }else{
-                categoria_cod = categoriaOption.value;
-            }
-            
-            //fragmento serie
-            var long_serie = serie.length; // conseguimos la longitud de marca
-            var serie_cod = "";
-            
-            if(serie <= 9){
-                serie_cod = "000"+serie;
-            }else if(serie <= 99){
-                serie_cod = "00"+serie;
-            }else if(serie <= 999){
-                serie_cod = "0"+serie;
-            }else{
-                serie_cod = serie;
-            }
-            cod_generado = String(marca_cod)+String(categoria_cod)+String(serie_cod);
-            JsBarcode("#barcode", cod_generado,{height:40});
-            $('#create_codigo').val(cod_generado);
-        },
+    marca.addEventListener('change',
+    function(){
+        if ($("#activar_cod_manual").prop('checked')) {
+            codigoBarra();
+        }
     });
-}
+    categoria.addEventListener('change',
+    function(){
+        if ($("#activar_cod_manual").prop('checked')) {
+            codigoBarra();
+        }
+      //  codigoBarra();
+    });
 
+    var cod_generado;
 </script>
