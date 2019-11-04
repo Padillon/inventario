@@ -315,4 +315,10 @@ class Entradas extends CI_Controller {
 
 		$this->toastr->success('blablaba!');  
 	}
+
+	public function getTipoPresentacion(){
+		$id = $this->input->post("id_producto");
+		$data = $this->Entradas_model->getTipoPresentacion($id);
+		echo json_encode($data);
+	}
 }

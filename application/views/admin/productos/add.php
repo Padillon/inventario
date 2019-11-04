@@ -197,7 +197,7 @@
                                     </div>
                                     
                                     <div class="col-md-3">
-                                     <input name='create_stock_min' id="create_stock_min" value=0 type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Cantidad mínima.'>                                    
+                                    <input name='create_stock_min' id="create_stock_min" value=0 type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Cantidad mínima.'>                                    
                                     </div>
                                 </div>
                                 <br>

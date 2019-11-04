@@ -59,8 +59,9 @@
                                                             <tr class=>
                                                                 <th  WIDTH="15%">Codigo</th>
                                                                 <th  WIDTH="15%">Nombre</th>
+                                                                <th  WIDTH="15%">Presentacion</th>
                                                                 <th  WIDTH="15%">Precio Entrada</th>
-                                                                <th  WIDTH="15%">Precio Salida</th>
+                                                                <!--<th  WIDTH="15%">Precio Salida</th> -->
                                                                 <th  WIDTH="15%">Cantidad</th>
                                                                 <th  WIDTH="15%">Importes</th>
                                                                 <th  WIDTH="15%">Fecha de caducidad</th>

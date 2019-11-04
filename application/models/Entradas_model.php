@@ -46,18 +46,27 @@ class Entradas_model extends CI_Model {
     }
 
     public function getProductos($valor){
-    $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion,s.stock_actual as existencias");
+    $this->db->select("p.*,m.nombre as id_marca,pr.codigo as codigo,pr.precio_compra,pr.id_presentacion_producto as id_presentacion_producto, pre.nombre as nombre_pre");
       $this->db->from("productos p");
       $this->db->join("marcas m","p.id_marca = m.id_marca");
-      $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
-      $this->db->join("stock s","p.id_stock = s.id_stock");
+      $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");
+      $this->db->join("presentacion pre","pr.id_presentacion = pre.id_presentacion");
       $this->db->where("p.estado","1");
       $this->db->like("p.nombre", $valor);
       $this->db->or_like("p.codigo", $valor);
       $resultados = $this->db->get();
       return $resultados->result_array();
     }
-
+    public function getTipoPresentacion($id){
+      $this->db->select("p.*,pr.codigo as codigo,pr.id_presentacion_producto as id_presentacion_producto,pr.valor as valor,pr.precio_compra as compra, pre.nombre as nombre_pre,s.stock_actual as existencias");
+        $this->db->from("productos p");
+        $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");
+        $this->db->join("presentacion pre","pr.id_presentacion = pre.id_presentacion");
+        $this->db->join("stock s","p.id_stock = s.id_stock");
+        $this->db->where("pr.id_producto",$id);
+        $resultados = $this->db->get();
+        return $resultados->result_array();
+      }
     public function save($data){
       return $this->db->insert("entradas", $data);
     }
