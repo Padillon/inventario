@@ -33,15 +33,15 @@ class Salidas_model extends CI_Model {
 
   
       public function getProductos($valor){
-        $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote");
-          $this->db->from("productos p");
-          $this->db->join("marcas m","p.id_marca = m.id_marca");
-          $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
-          $this->db->join("stock s","p.id_stock = s.id_stock");
-          $this->db->join("lotes lt", "p.id_producto = lt.id_producto", 'left');
-          $this->db->where("p.estado","1");
-
-          $this->db->group_start();
+        $this->db->select("p.*,m.nombre as marca,pr.id_presentacion_producto as id_presentacion_producto, pr.precio_venta as precio_venta,pre.nombre as id_presentacion,pr.codigo as codigo,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote");
+        $this->db->from("productos p");
+        $this->db->join("marcas m","p.id_marca = m.id_marca");
+        $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");
+        $this->db->join("presentacion pre","pr.id_presentacion = pre.id_presentacion");
+        $this->db->join("stock s","p.id_stock = s.id_stock");
+        $this->db->join("lotes lt", "p.id_producto = lt.id_producto", 'left');
+        $this->db->where("p.estado","1");
+        $this->db->group_start();
           $this->db->where("lt.cantidad > 0");
           $this->db->or_where("lt.cantidad",null);
           $this->db->group_end();
@@ -49,12 +49,32 @@ class Salidas_model extends CI_Model {
           $this->db->where("lt.estado = 1");
           $this->db->or_where("lt.estado ",null);
           $this->db->group_end();
-        
+          $this->db->like("p.nombre", $valor);
+          $this->db->or_like("p.codigo", $valor);
+        $resultados = $this->db->get();
+        return $resultados->result_array();
+       /* $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote");
+          $this->db->from("productos p");
+          $this->db->join("marcas m","p.id_marca = m.id_marca");
+          $this->db->join("presentacion pre","p.id_presentacion = pre.id_presentacion");
+          $this->db->join("stock s","p.id_stock = s.id_stock");
+          $this->db->join("lotes lt", "p.id_producto = lt.id_producto", 'left');
+          $this->db->where("p.estado","1");
+
+        $this->db->group_start();
+          $this->db->where("lt.cantidad > 0");
+          $this->db->or_where("lt.cantidad",null);
+          $this->db->group_end();
+          $this->db->group_start();
+          $this->db->where("lt.estado = 1");
+          $this->db->or_where("lt.estado ",null);
+          $this->db->group_end();
+          
           $this->db->like("p.nombre", $valor);
           $this->db->or_like("p.codigo", $valor);
           $this->db->order_by("lt.fecha_caducidad", "asc");
           $resultados = $this->db->get();
-          return $resultados->result_array();
+          return $resultados->result_array();*/
         }
     
     public function getLote($id){

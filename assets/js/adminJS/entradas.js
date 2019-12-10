@@ -52,10 +52,7 @@ $(document).ready(function(){
             document.getElementById("btn-agregar-abast").click();     
             estado = 0;
         }
-        if (event.which==13) {
-           alert('interesante');
-        }
-        //alert( String.fromCharCode(event.which) + " es: " + event.which);
+      //  alert( String.fromCharCode(event.which) + " es: " + event.which);
 
     }); 
 });
@@ -138,7 +135,7 @@ $("#btn-agregar-abast").on("click", function(){
             success: function(data){
             cantidadMaxima = 0;
             html = "<tr>";
-            html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]'  value='"+infoProducto[0]+"'><p >"+infoProducto[0]+"</p></td>";//id y codigo
+            html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
             html += "<td><p>"+infoProducto[1]+"</p></td>"; //nombre      
             html += "<td><select name='tipo_presentacion' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
@@ -157,7 +154,6 @@ $("#btn-agregar-abast").on("click", function(){
                 }
             html+= "</select></td>"        
             html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada' value='"+infoProducto[2]+"' required></td>"; //precios
-            //html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]' value='"+infoProducto[3]+"' required'></td>";//precio salida
             html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades' name='cantidades[]' value='0' min='0' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
             html += "<td><input type='hidden' id=importes  name='importes[]' value='"+0+"'><p id='importePresentado'>"+0+"</p></td>"; //immportes
             if (infoProducto[6]==1) {
@@ -199,17 +195,17 @@ $(document).on("change", "#tbCompras #tipo_presentacion", function(){
     precio = $(this).closest("tr").find(".precio-entrada").val();
     importe = cant * precio;
     totalImporte = parseFloat(importe).toFixed(2);
-    cantidadMaxima=0;
+   // cantidadMaxima=0;
     //alert(data[4]+'  '+data[3]);
-    if (data[4] >= data[3] ) {
+    /*if (data[4] >= data[3] ) {
         cantidadMaxima = data[3] / data[4];
         cantidadMaxima = myRoundCero(cantidadMaxima);
 
     }else{
         cantidadMaxima = 0;
-    }
+    }*/
     $(this).closest("tr").find("#importes").val(totalImporte);
-    $(this).closest("tr").find(".cantidades").prop('max',cantidadMaxima);
+   // $(this).closest("tr").find(".cantidades").prop('max',cantidadMaxima);
     $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
     sumarReabastecimiento();
 });
@@ -246,7 +242,6 @@ $(document).on("click", ".btn-view-entrada", function(){
         }
     });
 });
-
 //funcion para sumar el costo total
 function sumarReabastecimiento(){
     total = 0;

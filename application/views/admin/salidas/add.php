@@ -65,7 +65,8 @@
                                                 <thead>
                                                     <tr >
                                                         <th WIDTH="20%">Codigo.</th>
-                                                        <th WIDTH="20%" >Producto.</th>
+                                                        <th WIDTH="20%">Producto.</th>
+                                                        <th WIDTH="20%">Presentación.</th>
                                                         <th WIDTH="20%">Precio Venta.</th>
                                                         <th WIDTH="20%">Cantidad</th>
                                                         <th WIDTH="20%">Importes</th>
