@@ -11,9 +11,9 @@ function validarFormulario(){
     $("#tbCompras tbody tr").each(function(){
         total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
         cantidades =Number($(this).find("td:eq(4)").children('input').val()); // revisamos en la columna que ningun valor sea 0
-        valor_p_caducidad =Number($(this).find("td:eq(4)").children('p').val()); //saber si se agrego un un producto perecedero
+        valor_p_caducidad = $(this).closest("tr").find(".pedecedero").val(); //saber si se agrego un un producto perecedero
         fechaCaducidad =Number($(this).find("td:eq(4)").children('input').val()); // validar que este lleno la fecha de caducidad   
-
+       
         if (fechaCaducidad == 0 & valor_p_caducidad != 0) {
             toastr.warning("Ingrese una fecha de caducidad en la linea: "+total);
             validar_fecha = 1;
@@ -35,7 +35,14 @@ function validarFormulario(){
 
 //borrar el producto si ya ha sido seleccionado alguno
 $(document).ready(function(){
+    /*$("#autocompleteProducto").keydown(function(event){
+        alert('m');
+    });*/
+   
 	$("#autocompleteProducto").keydown(function(event){
+       
+
+
         if (event.which==8) {
             $("#autocompleteProducto").val("");
             $("#btn-agregar-abast").val("");
@@ -45,10 +52,14 @@ $(document).ready(function(){
             document.getElementById("btn-agregar-abast").click();     
             estado = 0;
         }
+        if (event.which==13) {
+           alert('interesante');
+        }
         //alert( String.fromCharCode(event.which) + " es: " + event.which);
 
-	}); 
+    }); 
 });
+
 //borrar proveedor si hay alguno seleccionado
 $(document).ready(function(){
 	$("#autocompleteProveedor").keydown(function(event){
@@ -115,6 +126,7 @@ $("#autocompleteProducto").autocomplete({
 
 //funcion para agregar el producto a comprar.
 $("#btn-agregar-abast").on("click", function(){
+  //  document.getElementById("autocompleteProducto").focus(); 
     data = $(this).val();
     if (data != 0){
         infoProducto = data.split("*");
@@ -126,32 +138,32 @@ $("#btn-agregar-abast").on("click", function(){
             success: function(data){
             cantidadMaxima = 0;
             html = "<tr>";
-            html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><p class='cod_class' >"+infoProducto[0]+"</p></td>";//id y codigo
+            html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]'  value='"+infoProducto[0]+"'><p >"+infoProducto[0]+"</p></td>";//id y codigo
             html += "<td><p>"+infoProducto[1]+"</p></td>"; //nombre      
             html += "<td><select name='tipo_presentacion' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[7]) {
-                    html+= "<option selected value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].existencias+'*'+data[i].valor+"'>"+data[i].nombre_pre+"</option>";
-                    if (data[i].existencias >= data[i].valor ) {
+                    html+= "<option selected name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor+"'>"+data[i].nombre_pre+"</option>";
+                    /*if (data[i].existencias >= data[i].valor ) {
                         cantidadMaxima = data[i].existencias / data[i].valor;
                         cantidadMaxima = myRoundCero(cantidadMaxima);
                     }else{
                         cantidadMaxima = 0;
-                    }
+                    }*/
                   
                 }else{
-                        html+= "<option value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].existencias+'*'+data[i].valor+"'>"+data[i].nombre_pre+"</option>";                 
+                        html+= "<option name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor+"'>"+data[i].nombre_pre+"</option>";                 
                     }             
                 }
             html+= "</select></td>"        
             html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada' value='"+infoProducto[2]+"' required></td>"; //precios
             //html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioSalida[]' value='"+infoProducto[3]+"' required'></td>";//precio salida
-            html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades' name='cantidades[]' value='0' min='0' max='"+cantidadMaxima+"' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
+            html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades' name='cantidades[]' value='0' min='0' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
             html += "<td><input type='hidden' id=importes  name='importes[]' value='"+0+"'><p id='importePresentado'>"+0+"</p></td>"; //immportes
             if (infoProducto[6]==1) {
-                html += "<td>  <input name='fechaCaducidad[]' values='1' type='date' required class='form-control' ></td>";
+                html += "<td><input name='fechaCaducidad[]' type='date' required class='form-control' ><input type='hidden' class='pedecedero' value='"+infoProducto[6]+"'> </td>";
             }else{
-                html += "<td><input name='fechaCaducidad[]'  type='hidden' required class='form-control' ><p value='1' >- - - - - - - - - - - - - -</p></td>";
+                html += "<td><input name='fechaCaducidad[]'  type='hidden' required class='form-control'><input type='hidden' class='pedecedero' value='"+infoProducto[6]+"'><p>- - - - - - - - - - - - - -</p></td>";
             }
 
             html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
@@ -165,6 +177,7 @@ $("#btn-agregar-abast").on("click", function(){
         toastr.info('Seleccione un producto.','Agregar');
     }
 });
+
 //procesamiento al ingresar otra cantidad de compra
 $(document).on("input", "#tbCompras input.precio-entrada", function(){
     pre_compra = $(this).val();
@@ -195,13 +208,10 @@ $(document).on("change", "#tbCompras #tipo_presentacion", function(){
     }else{
         cantidadMaxima = 0;
     }
-
     $(this).closest("tr").find("#importes").val(totalImporte);
     $(this).closest("tr").find(".cantidades").prop('max',cantidadMaxima);
     $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-
     sumarReabastecimiento();
-
 });
 //procedimiento al ingresar cantidades
 $(document).on("input", "#tbCompras input.cantidades", function(){
@@ -245,7 +255,7 @@ function sumarReabastecimiento(){
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
-    document.getElementById("total_sub").innerHTML=total.toFixed(2);
+    document.getElementById("total_sub").innerHTML='$ '+total.toFixed(2);
     
 }
 

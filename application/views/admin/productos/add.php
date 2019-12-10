@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="col">
                                                 <label for="">Ingrese código.</label>
-                                                <input name='codigo_manual' id='codigo_manual' disabled type='text' class='form-control'>
+                                                <input  autofocus name='codigo_manual' id='codigo_manual' disabled type='text' class='form-control'>
                                     </div> 
                                     <div class="col">
                                         <input name='create_codigo' id="create_codigo" type='hidden' >

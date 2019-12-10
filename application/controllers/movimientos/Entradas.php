@@ -77,27 +77,28 @@ class Entradas extends CI_Controller {
 		$fecha_caducidad = $this->input->post('fechaCaducidad');
 		$fecha = $this->input->post("fecha");
 		$idproductos =$this->input->post("idProductos");
-		$nuevoPrecio =$this->input->post("nuevoPrecio");
+		$nuevoPrecio =$this->input->post("nuevoPrecio");//el precio de compra
 		$precioSalida =$this->input->post("precioSalida");
 		$cantidades =$this->input->post("cantidades");
 		$importe =$this->input->post("importes");
 		$total = $this->input->post("total");
 		$idProveedor = $this->input->post("idProveedor");
 		$idusuario = $this->session->userdata('id');
-
+		$infoPresentacion = $this->input->post('tipo_presentacion');
+		$codigo = $this->input->post('codigos');
 		$data = array(
 			'fecha' => $fecha,
 			'total' => $total,
 			'id_usuario' => $idusuario,
 			'id_proveedor' => $idProveedor,
+			'id_movimiento' => 1,
 		);
         $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
 		
 			$this->Entradas_model->save($data);
 			$idEntrada = $this->Entradas_model->lastID(); 
-			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad); //guardando el detalle de la venta
-		
-		$this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
+			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad, $infoPresentacion,$codigo); //guardando el detalle de la venta	
+			$this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
 			
 		if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
 			$this->toastr->success('Registro guardado!');
@@ -111,13 +112,17 @@ class Entradas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad ){
+	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad,$infoPresentacion,$codigo){
+		$infoPre = explode('*',$infoPresentacion);
+		//$infoPre=split("*", $infoPresentacion, 3);
 		for ($i=0; $i < count($productos); $i++) { 
+			$cantTotal =$infoPre[3] * $cantidades[$i];
 				$data = array(
 					'id_entrada' => $idEntrada,
 					'precio' => $nuevoPrecio[$i],
 					'id_producto' => $productos[$i],
 					'cantidad' => $cantidades[$i],
+					'codigo' => $codigo[$i],
 					'subtotal' => $importes[$i],
 				);
 				if ($fecha_caducidad[$i]!=0) {
@@ -132,7 +137,6 @@ class Entradas extends CI_Controller {
 				}
 				
 	//kardex
-				$saldo = $this->Kardex_model->get($productos[$i]) ;
 				
 				$kardex = array(
 					'fecha' =>$fecha , 
@@ -142,25 +146,23 @@ class Entradas extends CI_Controller {
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$nuevoPrecio[$i],
 					'total' =>$importes[$i],
-					'saldo' => $saldo->saldo + $importes[$i],
 					'id_entrada' => $idEntrada,
 					'id_usuario' => $this->session->userdata('id'),					
 				);
+				$data['id_presentacion_producto'] = $infoPre[0];
+			//	array_push($data, 'id_presentacion_producto' => $infoPre[0]);
 				$this->Kardex_model->add($kardex);
 				$this->Entradas_model->save_detalle($data);
-				$this->updateProducto($productos[$i], $nuevoPrecio[$i],$precioSalida[$i], $cantidades[$i], $fecha); //actualizamos el stock del producto
+				$this->updateProducto($productos[$i], $nuevoPrecio[$i],$precioSalida[$i], $cantidades[$i], $fecha,$infoPre[3]); //actualizamos el stock del producto
 			
 		}
 	}
 
-	protected function updateProducto($idProducto, $nuevoPecio,$precioSalida, $cantidad ,$fecha){
+	protected function updateProducto($idProducto, $nuevoPecio,$precioSalida, $cantidad ,$fecha,$ValorCantidades){
 		$productoActual = $this->Productos_model->get($idProducto);
-		$data_in = array(
-			'precio_compra' => $nuevoPecio,
-			'precio_venta' => $precioSalida,
-		);
-		$this->Entradas_model->updatep($idProducto,$data_in);
+
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
+		$cantidad = $cantidad * $ValorCantidades;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(
 			'stock_actual' => $stock->stock_actual + $cantidad,
 		);
@@ -208,7 +210,6 @@ class Entradas extends CI_Controller {
 				'cantidad' =>$entr->cantidad,
 				'precio' =>$entr->precio,
 				'total' =>$entr->total,
-				'saldo' => $entr->saldo - $entr->total,
 				'id_entrada' => $id,
 				'id_usuario' => $this->session->userdata('id'),					
 			);
