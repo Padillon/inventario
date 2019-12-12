@@ -125,7 +125,7 @@ class Productos_model extends CI_Model {
 	  }
 	public function getExistenteCod($nombre){
 		$this->db->where("codigo", $nombre);
-		$resultados = $this->db->get("productos");
+		$resultados = $this->db->get("presentaciones_producto");
 		return $resultados->row();
 	}
 

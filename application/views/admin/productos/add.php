@@ -39,7 +39,7 @@
                                 <div class="input-group mt-4">                                  
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>
-                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' placeholder='Ingrese nombre'>
+                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' required placeholder='Ingrese nombre'>
                                         </div>  
 
                                          <div class="col-md-3 mt-1">
@@ -143,15 +143,25 @@
                                         <table class="table-responsive-lg table-hover" width="100%" id="listaPresentaciones">
                                             <thead>
 
-                                                <th>
+                                              <!--  <th>
                                                     <div class="col"><label>Codigo</label>
                                                     <input type="text" disabled id="codigo_id" name="codigo_id" class="form-control"></div>
+                                                </th> -->
+                                                <th>
+                                                <div>
+                                                <label for="create_presentacion">categoria.</label>      
+                                                <select name='create_presentacion' id='create_presentacion' class='custom-select' required>
+                                                    <?php foreach($presentacion as $cat):?>
+                                                    <option value='<?php echo $cat->id_presentacion.'*'.$cat->nombre;?>'><?php echo $cat->nombre;?></option>
+                                                    <?php endforeach;?>
+                                                </select>
+                                                </div>
                                                 </th>
-                                                <th> 
+                                               <!-- <th> 
                                                     <div class="col">
                                                     <label>Nombre</label>
                                                     <input type="text" id="nombre_autocomplete" name="nombre_autocomplete" class="form-control"></div>
-                                                </th>
+                                                </th> -->
                                                 <th>
                                                     <div class="col"><label>Codigo producto</label>
                                                     <input type="text" id="cod_barra_presentacion" name="cod_barra_presentacion" class="form-control"></div>
@@ -201,7 +211,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-success col-md-12" name="btn-create" >Guardar</button>                                 
+                                <button type="button" onclick="validarFormulario()" id="procesar" class="btn btn-success col-md-12" name="btn-create" >Guardar</button>                                 
                         </div>        
                     </form> 
 

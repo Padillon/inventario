@@ -338,9 +338,9 @@ class Productos extends CI_Controller {
         $this->load->view("layouts/footer");
     }
     
-    public function getPresentacion(){
+  /*  public function getPresentacion(){
         $valor = $this->input->post("nombre");
         $nombre = $this->Productos_model->getPresentacion($valor);
        echo json_encode($nombre);
-    }
+    }*/
 }

@@ -1,3 +1,4 @@
+
 //codigo de barra
 //codigo de buarra generador
     function codigoBarra(){
@@ -57,16 +58,25 @@
             },
         });
     }
-
-
 var producto_existente=undefined;
 var cod_existente=undefined;
 var codBarra_existente=undefined;
-var codBarra_existente2=false;
-
-
-
-
+var codBarra_existente2=undefined;
+//validamos formilario
+function validarFormulario(){
+    validar = 0;
+   // if (producto_existente != "" || codBarra_existente != "" || codBarra_existente2 != "" || cod_existente == "") {
+    if ($('#create_nombre').val() == "") {
+        toastr.warning('Ingrese un nombre.');
+        validar == 1;
+    }else if(producto_existente != undefined || codBarra_existente != undefined || codBarra_existente2 != undefined || cod_existente == undefined){
+        toastr.warning('Nombre o código ya existente.');
+        validar == 1;
+    }else if(validar == 0){
+   // document.getElementById("formularioAgregar").submit();
+        alert('se va');
+    }
+}
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
@@ -97,12 +107,14 @@ $('#codigo_manual').keyup(function(){
         success: function(data){
             if (data != null) {
                 cod_existente = data.codigo;           
+            }else{
+                cod_existente = undefined;
             }
         },
     });
 });
 $('#cod_barra_presentacion').keyup(function(){
-         
+      
     $.ajax({
         url: base_url+"mantenimiento/productos/getExistenteCod",
         type: "POST",
@@ -112,6 +124,9 @@ $('#cod_barra_presentacion').keyup(function(){
             if (data != null) {
                 codBarra_existente = data.codigo;
                 codBarra_existente2 = true;       
+            }else{
+                codBarra_existente = undefined;
+                codBarra_existente2 = undefined;
             }
         },
     });
@@ -126,10 +141,10 @@ $('#cod_barra_presentacion').keyup(function(){
 
 $("#nombre_autocomplete").keydown(function(event){
     if (event.which==8) {
-        $("#nombre_autocomplete").val("");
+    //    $("#nombre_autocomplete").val("");
         $("#btnAgregar").val("");
         $("#codigo_autocomplete").val("");
-        $('#codigo_id').val("");
+    //    $('#codigo_id').val("");
 
     }
     });
@@ -144,6 +159,8 @@ $('#create_nombre').keyup(function(){
             if (data != null) {             
                 producto_existente = data.nombre;
                 
+            }else{
+                producto_existente = undefined;
             }
         },
     });
@@ -274,6 +291,8 @@ $(document).ready(function(){
             $('#cod_barra_presentacion').prop('disabled',true);
            
         }else{
+            codBarra_existente=undefined;
+            codBarra_existente2=undefined;
             $('#codigo_manual').prop('disabled',true);
             $('#codigo_manual').val('');
             JsBarcode("#barcode", 0,{height:35});
@@ -335,7 +354,7 @@ $("#btnelegirStock").on("click", function(){
 });
 
 // ******************* Presentación *************** //
-$("#nombre_autocomplete").autocomplete({
+/*$("#nombre_autocomplete").autocomplete({
     source: function(request, response){
         $.ajax({
             url: base_url+"mantenimiento/productos/getPresentacion",
@@ -358,10 +377,10 @@ $("#nombre_autocomplete").autocomplete({
        info = data.split("*");
 
        $("#btnAgregar").val(data);
-       $("#codigo_id").val(info[0]);
+      // $("#codigo_id").val(info[0]);
     },
   });
-
+*/
   
 $("#btnAgregar").on("click",function(){
     existente = 0;
@@ -370,7 +389,7 @@ $("#btnAgregar").on("click",function(){
     precio_venta = 0;
     cantidad= 0;
     otras_cantidaes= 0;
-    data = $(this).val(); 
+    data = $("#create_presentacion").val().split('*');
     codigo_barra = $("#cod_barra_presentacion").val();
     //verificamos si la presentacion  ingresada ya se encuentra en la lista.
     $("#listaPresentaciones tbody tr").each(function(){
@@ -393,11 +412,15 @@ $("#btnAgregar").on("click",function(){
     cantidad = $("#cantidad_presentacion").val();
 
 if (cantidad<=0 || cantidad == "" || precio_venta == "" ||  precio_compra =="") {
-    toastr.warning('Ingrese correctamente las cantidades');
+    toastr.warning('Ingrese correctamente los precios y cantidades');
     otras_cantidaes= 1;
 }
-   if (data != 0 & existente == 0  & otras_cantidaes==0 & codigo==0 ){
-       infoCuenta = data.split("*");
+if ( codBarra_existente2 != undefined || codBarra_existente1 != undefined ) {
+    toastr.warning('Código de producto ya existe');
+    
+}
+   if (data != 0 & existente == 0  & otras_cantidaes==0 & codigo==0  & codBarra_existente2==undefined & codBarra_existente == undefined){
+       infoCuenta = data;
         var html="";
         html += "<tr>";
         html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+infoCuenta[0]+"' >"+infoCuenta[0]+"</td>";
@@ -423,16 +446,11 @@ if (cantidad<=0 || cantidad == "" || precio_venta == "" ||  precio_compra =="") 
         $("#nombre_autocomplete").val(null);
         $("#codigo_autocomplete").val(null);
         $("#cod_barra_presentacion").val(null);
-        $("#codigo_id").val(null);
+       // $("#codigo_id").val(null);
     }else if(existente==1){
-        alert("Ya existe esta presentación!");
-     /*   $("#btnAgregar").val(null);
-        $("#precio_compra").val(0);         
-        $("#precio_venta").val(null);
-        $("#cantidad_presentacion").val("");
-        $("#nombre_autocomplete").val(null);
-        $("#codigo_autocomplete").val(null); 
-        $("#codigo_id").val(null);*/    
+   
+        toastr.warning('Ya existe esta presentación!');
+
 
     } else if(data==0) {
         toastr.warning('Seleccione una cuenta.');
