@@ -81,7 +81,7 @@
                                         <table id="tbTotal" class="table table-striped  table-responsive table-bordered">
                                              <tr>
                                              <td class="alert alert-success">TOTAL:</td>
-                                             <td id="total_sub" class="alert alert-success">$</td>
+                                             <td class="col alert alert-success"><label id="total_sub" class=" pull-right">$</label></td>
                                              </tr>
                                         </table>
                                     </div>                         

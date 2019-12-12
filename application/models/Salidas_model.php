@@ -50,7 +50,7 @@ class Salidas_model extends CI_Model {
           $this->db->or_where("lt.estado ",null);
           $this->db->group_end();
           $this->db->like("p.nombre", $valor);
-          $this->db->or_like("p.codigo", $valor);
+          $this->db->or_like("pr.codigo", $valor);
         $resultados = $this->db->get();
         return $resultados->result_array();
        /* $this->db->select("p.*,m.nombre as id_marca, pre.nombre as id_presentacion,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote");
