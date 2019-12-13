@@ -24,6 +24,7 @@ function validarFormulario(){
             validar_cantidad = 1;
         }
     });
+
     if ($("#idProveedor").val() != "" & total != 0 & validar_cantidad == 0 & validar_fecha == 0) {
         document.getElementById("FormCompra").submit(); 
     }else if(validar_fecha == 1){
@@ -137,16 +138,10 @@ $("#btn-agregar-abast").on("click", function(){
             html = "<tr>";
             html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
             html += "<td><p>"+infoProducto[1]+"</p></td>"; //nombre      
-            html += "<td><select name='tipo_presentacion' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
+            html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[7]) {
                     html+= "<option selected name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor+"'>"+data[i].nombre_pre+"</option>";
-                    /*if (data[i].existencias >= data[i].valor ) {
-                        cantidadMaxima = data[i].existencias / data[i].valor;
-                        cantidadMaxima = myRoundCero(cantidadMaxima);
-                    }else{
-                        cantidadMaxima = 0;
-                    }*/
                   
                 }else{
                         html+= "<option name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor+"'>"+data[i].nombre_pre+"</option>";                 

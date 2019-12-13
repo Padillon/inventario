@@ -31,7 +31,7 @@
 					<?php foreach($detalle_entrada as $detalle){?>
 					<td><?php echo $detalle->codigo;?></td>
 					<td><?php echo $detalle->nombre;?></td>
-					<td><?php echo $detalle->precio_compra;?></td>
+					<td><?php echo $detalle->precio;?></td>
 					<td><?php echo $detalle->cantidad;?></td>
 					<td><?php echo "$ ".$detalle->subtotal;?></td>
 				</tr>

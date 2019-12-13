@@ -69,12 +69,12 @@ function validarFormulario(){
     if ($('#create_nombre').val() == "") {
         toastr.warning('Ingrese un nombre.');
         validar == 1;
-    }else if(producto_existente != undefined || codBarra_existente != undefined || codBarra_existente2 != undefined || cod_existente == undefined){
+    }else if(producto_existente != undefined || codBarra_existente != undefined || codBarra_existente2 != undefined || cod_existente != undefined){
         toastr.warning('Nombre o código ya existente.');
         validar == 1;
     }else if(validar == 0){
-   // document.getElementById("formularioAgregar").submit();
-        alert('se va');
+        document.getElementById("formularioAgregar").submit();
+     //   alert('se va');
     }
 }
 if($('#create_perecedero').val() > 0){
@@ -391,6 +391,11 @@ $("#btnAgregar").on("click",function(){
     otras_cantidaes= 0;
     data = $("#create_presentacion").val().split('*');
     codigo_barra = $("#cod_barra_presentacion").val();
+    //obtenermos el valor y verificamos que contengan un valor
+    precio_compra = $("#precio_compra").val();
+    precio_venta = $("#precio_venta").val();
+    cantidad = $("#cantidad_presentacion").val();
+
     //verificamos si la presentacion  ingresada ya se encuentra en la lista.
     $("#listaPresentaciones tbody tr").each(function(){
         if (data[0] ==  $(this).find(".id_producto").val()) {
@@ -402,23 +407,23 @@ $("#btnAgregar").on("click",function(){
         if (codigo_barra== "") {
             toastr.warning('Ingrese un código.');
             codigo = 1;
+        }else if(existente==1){
+   
+            toastr.warning('Ya existe esta presentación!');
+    
+    
+        }else if ( codBarra_existente2 != undefined || codBarra_existente != undefined ) {
+            toastr.warning('Código de producto ya existe');
+            
+        }else if (cantidad<=0 || cantidad == "" || precio_venta == "" ||  precio_compra =="") {
+            toastr.warning('Ingrese correctamente las cantidades y precio');
+            otras_cantidaes= 1;
         }
     }else{
         codigo_barra=$("#codigo_manual").val();    
     }
-    //obtenermos el valor y verificamos que contengan un valor
-    precio_compra = $("#precio_compra").val();
-    precio_venta = $("#precio_venta").val();
-    cantidad = $("#cantidad_presentacion").val();
 
-if (cantidad<=0 || cantidad == "" || precio_venta == "" ||  precio_compra =="") {
-    toastr.warning('Ingrese correctamente los precios y cantidades');
-    otras_cantidaes= 1;
-}
-if ( codBarra_existente2 != undefined || codBarra_existente1 != undefined ) {
-    toastr.warning('Código de producto ya existe');
-    
-}
+
    if (data != 0 & existente == 0  & otras_cantidaes==0 & codigo==0  & codBarra_existente2==undefined & codBarra_existente == undefined){
        infoCuenta = data;
         var html="";
@@ -447,13 +452,6 @@ if ( codBarra_existente2 != undefined || codBarra_existente1 != undefined ) {
         $("#codigo_autocomplete").val(null);
         $("#cod_barra_presentacion").val(null);
        // $("#codigo_id").val(null);
-    }else if(existente==1){
-   
-        toastr.warning('Ya existe esta presentación!');
-
-
-    } else if(data==0) {
-        toastr.warning('Seleccione una cuenta.');
     }
 
 

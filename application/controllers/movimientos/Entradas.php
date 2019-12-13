@@ -113,10 +113,9 @@ class Entradas extends CI_Controller {
 
 	//funcion para guardar el detalle de la venta
 	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad,$infoPresentacion,$codigo){
-		$infoPre = explode('*',$infoPresentacion);
 		//$infoPre=split("*", $infoPresentacion, 3);
 		for ($i=0; $i < count($productos); $i++) { 
-			$cantTotal =$infoPre[3] * $cantidades[$i];
+			$infoPre = explode('*',$infoPresentacion[$i]);
 				$data = array(
 					'id_entrada' => $idEntrada,
 					'precio' => $nuevoPrecio[$i],
@@ -153,14 +152,13 @@ class Entradas extends CI_Controller {
 			//	array_push($data, 'id_presentacion_producto' => $infoPre[0]);
 				$this->Kardex_model->add($kardex);
 				$this->Entradas_model->save_detalle($data);
-				$this->updateProducto($productos[$i], $nuevoPrecio[$i],$precioSalida[$i], $cantidades[$i], $fecha,$infoPre[3]); //actualizamos el stock del producto
+				$this->updateProducto($productos[$i],$precioSalida[$i], $cantidades[$i], $fecha,$infoPre[3]); //actualizamos el stock del producto
 			
 		}
 	}
 
-	protected function updateProducto($idProducto, $nuevoPecio,$precioSalida, $cantidad ,$fecha,$ValorCantidades){
+	protected function updateProducto($idProducto,$precioSalida, $cantidad ,$fecha,$ValorCantidades){
 		$productoActual = $this->Productos_model->get($idProducto);
-
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
 		$cantidad = $cantidad * $ValorCantidades;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(

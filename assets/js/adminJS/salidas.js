@@ -145,10 +145,10 @@ $("#btn-agregar-abast").on("click", function(){
                 html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
 
                 html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
-                html += "<td><select name='tipo_presentacion' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
+                html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[10]) {
-                        data_informacion_producto = data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor+"*"+data[i].existencias;
+                        data_informacion_producto = data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias;
                         html+= "<option selected name='presentacion[]' value='"+data_informacion_producto+"'>"+data[i].nombre_pre+"</option>";
                    
                     if (Number(data[i].existencias) >= Number(data[i].valor)) {
@@ -159,7 +159,7 @@ $("#btn-agregar-abast").on("click", function(){
                     }
 
                 }else{
-                        html+= "<option name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor+"*"+data[i].existencias+"'>"+data[i].nombre_pre+"</option>";                 
+                        html+= "<option name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias+"'>"+data[i].nombre_pre+"</option>";                 
                     }             
                 }
                 html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioVenta[]' class='precio-salida' value='"+infoProducto[3]+"'></td>"; //precios

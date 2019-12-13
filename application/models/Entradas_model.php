@@ -58,7 +58,7 @@ class Entradas_model extends CI_Model {
       return $resultados->result_array();
     }
     public function getTipoPresentacion($id){
-      $this->db->select("p.*,pr.codigo as codigo,pr.id_presentacion_producto as id_presentacion_producto,pr.valor as valor,pr.precio_compra as compra, pre.nombre as nombre_pre,s.stock_actual as existencias");
+      $this->db->select("p.*,pr.codigo as codigo,pr.id_presentacion_producto as id_presentacion_producto,pr.valor as valor,pr.precio_compra as compra, pre.nombre as nombre_pre,s.stock_actual as existencias,pr.precio_venta as venta");
         $this->db->from("productos p");
         $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");
         $this->db->join("presentacion pre","pr.id_presentacion = pre.id_presentacion");
@@ -123,7 +123,7 @@ class Entradas_model extends CI_Model {
     }
 
     public function getDetalleEntrada($id){
-            $this->db->select("d.*, p.nombre, p.precio_compra");
+            $this->db->select("d.*, p.nombre");
             $this->db->from("detalle_entrada d");
             $this->db->join("productos p", "d.id_producto = p.id_producto");
             $this->db->where("d.id_entrada", $id);

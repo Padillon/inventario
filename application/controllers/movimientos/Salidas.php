@@ -82,18 +82,21 @@ class Salidas extends CI_Controller {
 		$total = $this->input->post("total");
 		$idusuario = $this->session->userdata('id');
 		$descripcion = 'venta de producto';
+		$infoPresentacion = $this->input->post('tipo_presentacion');
+		$codigo = $this->input->post('codigos');
 		$data = array(
 			'id_usuario' => $idusuario,
 			'id_cliente' => $idCliente,
 			'fecha' => $fecha,
 			'total' => $total,
+			'id_movimiento' => 2,
 			'descripcion' => $descripcion,
 		);
         $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
 
 			$this->Salidas_model->save($data);
 			$idSalida = $this->Salidas_model->lastID(); 
-			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha,$estados,$lotes); //guardando el detalle de la venta
+			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha,$estados,$lotes,$infoPresentacion ); //guardando el detalle de la venta
 
 		$this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
 	
@@ -111,8 +114,9 @@ class Salidas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha,$estados,$lotes){
+	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha,$estados,$lotes,$infoPresentacion,$codigo){
 		for ($i=0; $i < count($productos); $i++) { 
+			$infoPre = explode('*',$infoPresentacion[$i]);
 			$id_lote=0; //variable que contendera el id del estado si es necesario
 				if ($estados[$i] == 1) {
 						$loteActual = $this->Salidas_model->getLote($lotes[$i]);
@@ -136,9 +140,10 @@ class Salidas extends CI_Controller {
 					'id_producto' => $productos[$i],
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
+					'codigo' => $codigo[$i],
 					'id_lote' => $id_lote,
 				);
-				$saldo = $this->Kardex_model->get($productos[$i]) ;
+			//	$saldo = $this->Kardex_model->get($productos[$i]) ;
 				$kardex = array(
 					'fecha' =>$fecha , 
 					'id_movimiento' => 2,
@@ -147,13 +152,14 @@ class Salidas extends CI_Controller {
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$precioVentas[$i],
 					'total' =>$importes[$i],
-					'saldo' => $saldo->saldo - $importes[$i],
+				//	'saldo' => $saldo->saldo - $importes[$i],
 					'id_salida' => $idSalida,
 					'id_usuario' => $this->session->userdata('id'),					
 				);
+				$data['id_presentacion_producto'] = $infoPre[0];
 				$this->Kardex_model->add($kardex);
 				$this->Salidas_model->save_detalle($data);
-				$this->updateProducto($productos[$i], $cantidades[$i]); //actualizamos el stock del producto
+				$this->updateProducto($productos[$i], $cantidades[$i],$infoPre[3]); //actualizamos el stock del producto
 			
 		}
 	}
@@ -161,6 +167,7 @@ class Salidas extends CI_Controller {
 	protected function updateProducto($idProducto,$cantidad){
 		$productoActual = $this->Productos_model->get($idProducto);
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
+		$cantidad = $cantidad * $ValorCantidades;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(
 			'stock_actual' => $stock->stock_actual - $cantidad,
 		);
