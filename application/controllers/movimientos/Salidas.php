@@ -83,7 +83,6 @@ class Salidas extends CI_Controller {
 		$idusuario = $this->session->userdata('id');
 		$descripcion = 'venta de producto';
 		$infoPresentacion = $this->input->post('tipo_presentacion');
-		$codigo = $this->input->post('codigos');
 		$data = array(
 			'id_usuario' => $idusuario,
 			'id_cliente' => $idCliente,
@@ -140,7 +139,6 @@ class Salidas extends CI_Controller {
 					'id_producto' => $productos[$i],
 					'cantidad' => $cantidades[$i],
 					'subtotal' => $importes[$i],
-					'codigo' => $codigo[$i],
 					'id_lote' => $id_lote,
 				);
 			//	$saldo = $this->Kardex_model->get($productos[$i]) ;

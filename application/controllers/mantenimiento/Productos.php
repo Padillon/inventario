@@ -81,20 +81,17 @@ class Productos extends CI_Controller {
         }else{
             $data_in['perecedero'] =0;
         }
-        //$data_stock['stock_minimo'] = $this->input->post('create_stock_min');        
-        $data_in['id_presentacion'] = $this->input->post('presentaciones');
-
      
         //datos para agregar presentaciones del producto
         $minimo = $this->input->post('create_stock_min');        
         $presentacion = $this->input->post('presentaciones');
-
         $id_present = $this->input->post('id_presentacion');
         $valor_unidades = $this->input->post('cantidad_prese');
         $P_compra= $this->input->post('precio_compra');
         $P_venta= $this->input->post('precio_venta');
         $COD = $this->input->post('codigos_de_barra');
         $data_stock['stock_minimo'] = 0;
+
         for ($i=0; $i < count($id_present); $i++) { 
            if ($id_present[$i] == $presentacion) {
             $data_stock['stock_minimo'] = (int)$valor_unidades[$i] * $minimo;
@@ -108,10 +105,9 @@ class Productos extends CI_Controller {
                 }else{
                     $id_stock=$this->Productos_model->addStok($data_stock);
                     $data_in['id_stock'] =$id_stock;
-
                     $producto = $this->Productos_model->add($data_in);
-                            
 
+                        
                     for ($i=0; $i < count($id_present) ; $i++) { 
                         if ($id_present[$i] == $presentacion) {
                             $data = array(
@@ -201,7 +197,7 @@ class Productos extends CI_Controller {
                 'estado' =>0, 
             );
         if ($this->Productos_model->update($id_producto, $data)) {
-            $this->toastr->success('Registro guardado!');
+            $this->toastr->success('Registro eliminado!');
             redirect(base_url()."mantenimiento/productos");
         }
         else{

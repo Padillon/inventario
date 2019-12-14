@@ -123,9 +123,8 @@ if ($permisos->insert == 1) {
                                                                     <button name="edit" id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_update ?> type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
                                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                                     </button>
-                                                                    <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->codigo."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->precio_compra."*". 
-                                                                    $pro->precio_venta."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
-                                                                    .$pro->marca."*".$pro->stock_actual."*".$pro->valor; ?> 
+                                                                    <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
+                                                                    .$pro->marca."*".$pro->stock_actual."*".$pro->valor."*".$pro->compra."*".$pro->venta; ?> 
 
 
                                                                         <button id="viewPro<?php echo $cont;?>" type="button" onclick="viewProducto(<?php echo $cont;?>)" class="btn btn-info" data-toggle="modal" data-target="#modalView" value="<?php echo $data;?>">
@@ -194,6 +193,10 @@ if ($permisos->insert == 1) {
                                     <br>
                                 </div> 
                                 <div class="col-md-2">
+                                    <label for="create_precio_compra">Presentacion preferida:</label>
+                                    <input id="selectEqui"  type='text' class='form-control' disabled> 
+                                </div>
+                                <div class="col-md-2">
                                     <label for="create_stock_min">Stock mínimo:</label>
                                     <input id="viewStock" type='text'class='form-control' disabled>
                                 </div>
@@ -201,24 +204,25 @@ if ($permisos->insert == 1) {
                                     <label for="create_stock_act">Stock actual:</label>
                                     <input id="viewStock_actual" type='text'class='form-control' disabled>
                                 </div>
-                                <div class="col-md-4">
+                             <!--   <div class="col-md-4">
                                     <br>
                                     <label>Presentacion.</label>
                                     <select id="selectEqui" class='custom-select'>
                                     </select>
-                                </div>
-                                <div class="col-md-2">
+                                </div> -->
+                               
+                                <div class="col-md-3 mt-4">
                                     <label for="create_precio_compra">Precio compra:</label>
                                     <input id="viewCompra"  type='text' class='form-control' disabled> 
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3 mt-4">
                                     <label for="create_precio_venta">Precio venta:</label>
                                     <input id="viewVenta" type='text' class='form-control' disabled>
                                 </div>
                                 <div class="col-md-12"> 
                                     <br>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <label for="create_descripcion">Descripción:</label>
                                     <input id="viewDescripcion" type='text' class='form-control' disabled>       
                                 </div>

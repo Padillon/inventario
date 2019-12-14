@@ -85,7 +85,6 @@ class Entradas extends CI_Controller {
 		$idProveedor = $this->input->post("idProveedor");
 		$idusuario = $this->session->userdata('id');
 		$infoPresentacion = $this->input->post('tipo_presentacion');
-		$codigo = $this->input->post('codigos');
 		$data = array(
 			'fecha' => $fecha,
 			'total' => $total,
@@ -121,7 +120,6 @@ class Entradas extends CI_Controller {
 					'precio' => $nuevoPrecio[$i],
 					'id_producto' => $productos[$i],
 					'cantidad' => $cantidades[$i],
-					'codigo' => $codigo[$i],
 					'subtotal' => $importes[$i],
 				);
 				if ($fecha_caducidad[$i]!=0) {

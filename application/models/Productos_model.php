@@ -32,8 +32,7 @@ class Productos_model extends CI_Model {
 
 	public function getProductos(){
 		//$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion, pre.equi_unidad as equivalencia");
-		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo, pr.nombre as presentacion");
-	
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo, pr.nombre as presentacion, pre.precio_compra as compra,pre.precio_venta as venta");
 		$this->db->from("productos p");
 		$this->db->join("marcas m", "p.id_marca = m.id_marca");
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
@@ -124,8 +123,13 @@ class Productos_model extends CI_Model {
 		return $resultados->row();
 	  }
 	public function getExistenteCod($nombre){
-		$this->db->where("codigo", $nombre);
-		$resultados = $this->db->get("presentaciones_producto");
+		$this->db->select("pre.codigo as codigo");
+		$this->db->from("presentaciones_producto pre");
+		$this->db->join("productos p", "p.id_producto = pre.id_producto");
+		$this->db->where("pre.codigo", $nombre);
+		$this->db->where("p.estado", 1);
+		$resultados = $this->db->get();
+	//	$resultados = $this->db->get("presentaciones_producto");
 		return $resultados->row();
 	}
 

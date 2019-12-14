@@ -222,38 +222,38 @@ $("#formularioAgregar").validate({
 function viewProducto(num){
     valores = $("#viewPro"+num).val();
     datos = valores.split("*");
-    stock_actual = datos[14];
-
+    stock_actual = datos[11];
+    total = 0;
+    equi = Number(datos[12]);
     $("#viewCodigo").val(datos[4]);
     $("#viewNombre").val(datos[1]);
-    $("#viewDescripcion").val(datos[6]);
-    $("#viewStock").val(datos[5]);
+    $("#viewDescripcion").val(datos[5]);
+    if (datos[4] != 0) {
+        $("#viewStock").val(datos[4]/equi);
+    }else{
+        $("#viewStock").val(0);
+    }
     
-    $("#viewCompra").val("$ "+datos[7]);
-    $("#viewVenta").val("$ "+datos[8]);
+    $("#viewCompra").val("$ "+datos[13]);
+    $("#viewVenta").val("$ "+datos[14]);
+    alert(stock_actual + '   ' + equi);
+    if (stock_actual != 0) {
+        total = Math.floor(stock_actual / equi);
+    }
 
-    equi = datos[15];
-    total = Math.floor(stock_actual / equi);
-
-    $("#selectEqui").val(datos[11]);
+    $("#selectEqui").val(datos[8]);
     $("#viewStock_actual").val(total);
 
-    $("#viewMarca").val(datos[13]);
+    $("#viewMarca").val(datos[10]);
     $("#viewCategoria").val(datos[3]);
-    if (datos[12] != 1) {
+    if (datos[9] != 1) {
         $("#create_perecedero").prop('checked', false);
         $("#create_perecedero").val('0');
     }else{
         $("#create_perecedero").prop('checked', true);
         $("#create_perecedero").val('1 ');
     }
-    $("#viewImagen").attr("src", base_url+"assets/images/productos/"+datos[9]);
-
-    if(datos[12] = 1){
-        $("#viewPerecedero").prop('checked', true);
-    } else {
-        $("#viewPerecedero").prop('checked', false);
-    }
+    $("#viewImagen").attr("src", base_url+"assets/images/productos/"+datos[6]);
     
     if (datos[2] = 1){
         $("#viewEstado").addClass("form-control alert alert-success");
