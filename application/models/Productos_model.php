@@ -29,6 +29,11 @@ class Productos_model extends CI_Model {
 		$this->db->where("id_stock",$id);		
 		return $this->db->update("stock",$data);
 	}
+	public function getPresentacion_productos($id){
+		$this->db->where("id_producto",$id);
+		$resultado = $this->db->get("presentaciones_producto");
+		return $resultado->result();
+	}
 
 	public function getProductos(){
 		//$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion, pre.equi_unidad as equivalencia");

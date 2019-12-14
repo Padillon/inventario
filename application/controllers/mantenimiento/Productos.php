@@ -167,8 +167,8 @@ class Productos extends CI_Controller {
         $this->load->library('upload',$config);
 
         $this->upload->do_upload('edit_img');
-            $file_info = $this->upload->data();
-            $imagen = $file_info['file_name'];
+        $file_info = $this->upload->data();
+        $imagen = $file_info['file_name'];
 
         $id =$this->input->post('id-pro-edit');
         $data2 = $this->Productos_model->get($id);
@@ -181,6 +181,7 @@ class Productos extends CI_Controller {
             'producto' => $data2, 
             'categoria' => $this->Categorias_model->getCategorias(),
             'presentacion'=> $this->Presentacion_model->getPresentaciones(),
+            'presentaciones_producto' => $this->Productos_model->getPresentacion_productos($id),
             'marcas'=>$this->Marcas_model->getMarcas(),
             'imagen' => $imagen
         );

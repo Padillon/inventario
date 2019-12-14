@@ -77,10 +77,13 @@ function validarFormulario(){
      //   alert('se va');
     }
 }
+
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
-
+if($('#activar_cod_manual').val() > 0){
+    $("#activar_cod_manual").prop('checked', true);
+}
 function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
@@ -280,26 +283,29 @@ $(document).ready(function(){
     });
 
      //Activar entrada de codigo manual
-     $('#activar_cod_manual').on('change', function(e){     
-        if( $("#activar_cod_manual").prop('checked')){
-            codigoBarra();
-            eliminar_presentacion();
-            $('#codigo_manual').val('');
-            $('#codigo_manual').prop('disabled',false);
-            $('#create_codigo').val("");
-            $('#cod_barra_presentacion').val("");
-            $('#cod_barra_presentacion').prop('disabled',true);
-           
-        }else{
-            codBarra_existente=undefined;
-            codBarra_existente2=undefined;
-            $('#codigo_manual').prop('disabled',true);
-            $('#codigo_manual').val('');
-            JsBarcode("#barcode", 0,{height:35});
-            $('#cod_barra_presentacion').prop('disabled',false);
-            eliminar_presentacion();
-           
-        }     
+     $('#activar_cod_manual').on('change', function(e){    
+         alert($("#data_id").val()); 
+         if ($("#data_id").val() == undefined ) { ///evaluamos que no exista ide de producto para saber que es edición
+            if( $("#activar_cod_manual").prop('checked')){
+                codigoBarra();
+                eliminar_presentacion();
+                $('#codigo_manual').val('');
+                $('#codigo_manual').prop('disabled',false);
+                $('#create_codigo').val("");
+                $('#cod_barra_presentacion').val("");
+                $('#cod_barra_presentacion').prop('disabled',true);
+               
+            }else{
+                codBarra_existente=undefined;
+                codBarra_existente2=undefined;
+                $('#codigo_manual').prop('disabled',true);
+                $('#codigo_manual').val('');
+                JsBarcode("#barcode", 0,{height:35});
+                $('#cod_barra_presentacion').prop('disabled',false);
+                eliminar_presentacion();
+               
+            }     
+         }
     });
     //escuchar los cambios del código ingresado
     $('#codigo_manual').on('change',function(){    
