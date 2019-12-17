@@ -55,6 +55,12 @@
                 $('#create_codigo').val(cod_generado);  
                 $('#codigo_manual').val(cod_generado);
 
+                if ( $("#data_id").val() != undefined ){
+                    $("#listaPresentaciones tbody tr").each(function(){
+                        $(this).find(".codBar").val($('#codigo_manual').val());  
+                    });
+                }
+              
             },
         });
     }
@@ -65,7 +71,7 @@ var codBarra_existente2=undefined;
 //validamos formilario
 function validarFormulario(){
     validar = 0;
-   // if (producto_existente != "" || codBarra_existente != "" || codBarra_existente2 != "" || cod_existente == "") {
+    alert('m');
     if ($('#create_nombre').val() == "") {
         toastr.warning('Ingrese un nombre.');
         validar == 1;
@@ -73,8 +79,10 @@ function validarFormulario(){
         toastr.warning('Nombre o código ya existente.');
         validar == 1;
     }else if(validar == 0){
-        document.getElementById("formularioAgregar").submit();
-     //   alert('se va');
+      
+      
+        //  document.getElementById("formularioAgregar").submit();
+        alert('se va');
     }
 }
 
@@ -159,8 +167,10 @@ $('#create_nombre').keyup(function(){
         dataType: "json",
         data:{ getExistente: $('#create_nombre').val()},
         success: function(data){
-            if (data != null) {             
-                producto_existente = data.nombre;
+            if (data != null) {
+                if($('#nproducto').val() != undefined & $('#nproducto').val() != data.nombre ){
+                    producto_existente = data.nombre;
+                }       
                 
             }else{
                 producto_existente = undefined;
@@ -198,7 +208,6 @@ function(value, element) {
     }
     
     }
-    
     ,
     "Código ya existe."
 );
@@ -214,12 +223,20 @@ $("#formularioAgregar").validate({
             codE:'#codigo_manual',
         },
         cod_barra_presentacion:{
-            codEBarra: '#cod_barra_presentacion'
+            codEBarra: '#cod_barra_presentacion',
         }
 
     },
 });
 
+$("#listaPresentaciones").validate({
+    rules: {
+        cod_barra:{
+            codEBarra: '.cod_barra_presentacion',
+        }
+
+    },
+});
 
 
 function viewProducto(num){
@@ -281,10 +298,44 @@ $(document).ready(function(){
         $('#create_perecedero').val('0');
         }      
     });
-
-     //Activar entrada de codigo manual
-     $('#activar_cod_manual').on('change', function(e){    
-         alert($("#data_id").val()); 
+     //Activar entrada de codigo manual si es edición mandamos a traer con ajax las presentaciones
+     if ($("#data_id").val() != undefined ) { ///evaluamos que no exista ide de producto para saber que es edición
+        $.ajax({
+            url: base_url+"mantenimiento/productos/getPresentaciones_producto",
+            type: "POST",
+            dataType: "json",
+            data:{ id: $('#data_id').val()},
+            success: function(data){
+                for (let i = 0; i < data.length; i++) {
+                    var html="";
+                    html += "<tr>";
+                    html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+data[i].id_presentacion+"' >"+data[i].nombre+"</td>";
+                    html += "<td class='col-md-2 '><input type='hidden' value='"+data[i].codigo+"' class='cod_original'><input type='text' name='codigos_de_barra[]' class='form-control codBar codEdit' value='"+data[i].codigo+"'></td>";
+                    html += "<td class='col-md-2 '><input type='number' name='cantidad_prese[]' class='form-control id_producto' value='"+data[i].valor+"' ></td>";
+                    html += "<td class='col-md-2 '><input type='number'  name='precio_compra[]' class='form-control' value='"+data[i].precio_compra+"' ></td>";
+                    html += "<td class='col-md-2 '><input type='number'  name='precio_venta[]' class='form-control' value='"+data[i].precio_venta+"' ></td>";
+                    html += "<td class='col-md-2 '><button type='button' class='btn btn-danger  btn-remove-presentacion'>Eliminar  <span class='fa fa-times' style='color: #fff'></span></button></td>";    
+                    html += "</tr>";
+                    $("#listaPresentaciones tbody").append(html);
+                    
+                    var option = document.createElement("option");
+                    option.text = data[i].nombre;
+                    option.value = data[i].id_presentacion;
+                    if (data[i].equivalencia) {
+                        option.selected = true;
+                        if (data[i].valor != 0) {
+                            $("#create_stock_min").val(data[i].minimo / data[i].valor);
+                        }
+                    }
+                   
+                    var select = document.getElementById("presentaciones");
+                    select.appendChild(option);
+                    
+                }
+            },
+        });
+     }
+     $('#activar_cod_manual').on('change', function(e){
          if ($("#data_id").val() == undefined ) { ///evaluamos que no exista ide de producto para saber que es edición
             if( $("#activar_cod_manual").prop('checked')){
                 codigoBarra();
@@ -302,10 +353,34 @@ $(document).ready(function(){
                 $('#codigo_manual').val('');
                 JsBarcode("#barcode", 0,{height:35});
                 $('#cod_barra_presentacion').prop('disabled',false);
+                $('#cod_barra_presentacion').val('');
                 eliminar_presentacion();
                
-            }     
-         }
+            }    
+         }else{
+            if( $("#activar_cod_manual").prop('checked')){
+                codigoBarra();
+                $('#codigo_manual').val('');
+                $('#codigo_manual').prop('disabled',false);
+                $('#create_codigo').val("");
+                $('#cod_barra_presentacion').val("");
+                $('#cod_barra_presentacion').prop('disabled',true);
+               
+            }else{
+                codBarra_existente=undefined;
+                codBarra_existente2=undefined;
+                $('#codigo_manual').prop('disabled',true);
+                $('#codigo_manual').val('');
+                JsBarcode("#barcode", 0,{height:35});
+                $('#cod_barra_presentacion').prop('disabled',false);
+                $('#cod_barra_presentacion').val('');
+                $("#listaPresentaciones tbody tr").each(function(){
+                    $(this).find(".codBar").val(  $(this).find(".cod_original").val());  
+                });
+
+
+            }
+        }
     });
     //escuchar los cambios del código ingresado
     $('#codigo_manual').on('change',function(){    
@@ -314,6 +389,11 @@ $(document).ready(function(){
         }else{
             JsBarcode("#barcode", $(this).val(),{height:40});
             $('#create_codigo').val($(this).val());
+            if ( $("#data_id").val() != undefined ){
+                $("#listaPresentaciones tbody tr").each(function(){
+                    $(this).find(".codBar").val($('#codigo_manual').val());  
+                });
+            }
         }
     });
 });
@@ -359,34 +439,6 @@ $("#btnelegirStock").on("click", function(){
     window.open(base_url+"mantenimiento/productos/getReporteStock?valorCat="+valorCategoria+"&valorMar="+valorMarca, "_blank");
 });
 
-// ******************* Presentación *************** //
-/*$("#nombre_autocomplete").autocomplete({
-    source: function(request, response){
-        $.ajax({
-            url: base_url+"mantenimiento/productos/getPresentacion",
-            type: "POST",
-            dataType: "json",
-            data:{ nombre: request.term},
-            success: function(data){
-                response($.map(data, function (item) {
-                    return {
-                        label: item.nombre,
-                        id:item.id_presentacion+'*'+item.nombre,
-                    }
-                }))
-            },
-        });
-    }, //indica la informacion a mostrar al momento de comenzar a llenar el campo
-    minLength:1, //caracteres que activan el autocomplete
-    select: function(event, ui){
-       data = ui.item.id;
-       info = data.split("*");
-
-       $("#btnAgregar").val(data);
-      // $("#codigo_id").val(info[0]);
-    },
-  });
-*/
   
 $("#btnAgregar").on("click",function(){
     existente = 0;
@@ -434,7 +486,7 @@ $("#btnAgregar").on("click",function(){
        infoCuenta = data;
         var html="";
         html += "<tr>";
-        html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+infoCuenta[0]+"' >"+infoCuenta[0]+"</td>";
+       // html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+infoCuenta[0]+"' >"+infoCuenta[0]+"</td>";
         html += "<td class='col-md-2 '>"+infoCuenta[1]+"</td>";
         html += "<td class='col-md-2 '><input type='hidden'  name='codigos_de_barra[]' class='form-control codBar' value='"+codigo_barra+"'><input class='form-control codBarEdit' disabled value='"+codigo_barra+"'></td>";
         html += "<td class='col-md-2 '><input type='hidden'  name='cantidad_prese[]' class='form-control' value='"+cantidad+"' >"+cantidad+"</td>";
@@ -457,10 +509,7 @@ $("#btnAgregar").on("click",function(){
         $("#nombre_autocomplete").val(null);
         $("#codigo_autocomplete").val(null);
         $("#cod_barra_presentacion").val(null);
-       // $("#codigo_id").val(null);
     }
-
-
 });
 
 $(document).on("click", ".btn-remove-presentacion", function(){
@@ -470,3 +519,60 @@ $(document).on("click", ".btn-remove-presentacion", function(){
 
     $(this).closest("tr").remove();
 });
+existente=0;
+//Escuchar cuando editemos el código de la presentación
+$(document).on("input", "#listaPresentaciones input.codEdit", function(){
+    //alert($(this).closest("tr").find(".cod_original").val());
+      if ($("#activar_cod_manual").prop('checked')==true){
+       $(this).val($("#codigo_manual").val());
+    }else if($(this).val() != $(this).closest("tr").find(".cod_original").val()) {
+        existente = 0;
+        $.ajax({
+            url: base_url+"mantenimiento/productos/getExistenteCod",
+            type: "POST",
+            dataType: "json",
+            data:{ getExistente: $(this).val()},
+            success: function(data){
+                existente =0;
+                if (data != null) {
+                    if (data.codigo) {
+                        codBarra_existente = data.codigo;
+                        codBarra_existente2 = true;
+                        toastr.warning('El código ya existe en otro producto.');
+                        $("#listaPresentaciones tbody tr").each(function(){
+                            if (data.codigo ==  $(this).find(".codBar").val()) {
+                                toastr.warning('El código ya existe en este producto');
+                                $(this).find(".codBar").addClass('cod-existente');      
+                            }   
+                        });
+
+                    }
+                }else{
+                    codBarra_existente = undefined;
+                    codBarra_existente2 = undefined; 
+                    $("#listaPresentaciones tbody tr").each(function(){
+                        $(this).find(".codBar").removeClass('cod-existente');      
+                       
+                    });        
+                }
+            },
+        });
+
+        $("#listaPresentaciones tbody tr").each(function(){
+            if ($("#cod_barra_presentacion").val() ==  $(this).find(".codBar").val()) {
+                codBarra_existente2 = true;     
+                toastr.warning('El código ya existe en las presentaciones');
+                $(this).find(".codBar").addClass('cod-existente');
+                existente = 1;    
+            }   
+        });
+        if (existente == 0) {
+            $(this).find(".codBar").removeClass('cod-existente');      
+
+        }
+    }
+});
+/*//Escuchar cuando editemos el precio de compra
+$(document).on("input", "#listaPresentaciones input.codEdit", function(){
+   alert('bien');
+});*/

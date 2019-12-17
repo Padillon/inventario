@@ -3,7 +3,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Agregar producto</h4>
+                            <h4 class="page-title pull-left">Editar producto</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
                                 <li><span>mantenimiento</span></li>
@@ -29,7 +29,7 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data' >
+                            <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/update" method='POST' enctype='multipart/form-data' >
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Producto</a>
@@ -40,7 +40,8 @@
                                         <div class="col-md-3">
                                                 <label for="">Nombre del producto.</label>
                                                 <input type="hidden" name="data_id" id="data_id" value="<?php echo $producto->id_producto;?>">
-                                                <input name='create_nombre' id='create_nombre' type='text' class='form-control' required placeholder='Ingrese nombre'>
+                                                <input type="hidden" id="nproducto" value="<?php echo $producto->nombre;?>">
+                                                <input name='create_nombre' id='create_nombre' value="<?php echo $producto->nombre;?>" type='text' class='form-control' required placeholder='Ingrese nombre'>
                                         </div>  
 
                                    
@@ -126,10 +127,6 @@
                                         <table class="table-responsive-lg table-hover" width="100%" id="listaPresentaciones">
                                             <thead>
 
-                                              <!--  <th>
-                                                    <div class="col"><label>Codigo</label>
-                                                    <input type="text" disabled id="codigo_id" name="codigo_id" class="form-control"></div>
-                                                </th> -->
                                                 <th>
                                                 <div>
                                                 <label for="create_presentacion">categoria.</label>      
@@ -140,11 +137,6 @@
                                                 </select>
                                                 </div>
                                                 </th>
-                                               <!-- <th> 
-                                                    <div class="col">
-                                                    <label>Nombre</label>
-                                                    <input type="text" id="nombre_autocomplete" name="nombre_autocomplete" class="form-control"></div>
-                                                </th> -->
                                                 <th>
                                                     <div class="col"><label>Codigo producto</label>
                                                     <input type="text" id="cod_barra_presentacion" name="cod_barra_presentacion" class="form-control"></div>
@@ -194,12 +186,32 @@
                                     </div>
                                 </div>
                                 <br>
-                                <button type="button" onclick="validarFormulario()" id="procesar" class="btn btn-success col-md-12" name="btn-create" >Guardar</button>                                 
+                                <button type="button" data-toggle="modal" data-target="#guardarCambios" id="procesar" class="btn btn-success col-md-12" name="btn-create" >Guardar</button>                                 
                         </div>        
                     </form> 
 
                 
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para asegurar la edicion-->
+    <div class="modal fade" id="guardarCambios">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ti-cabeza">Editar</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form >
+                        <h4>Desea guardar cambios?</H4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="validarFormulario()"  class="btn btn-primary">Guardar</button>
+                    </form> 
                 </div>
             </div>
         </div>

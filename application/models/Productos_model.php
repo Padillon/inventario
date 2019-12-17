@@ -30,8 +30,13 @@ class Productos_model extends CI_Model {
 		return $this->db->update("stock",$data);
 	}
 	public function getPresentacion_productos($id){
-		$this->db->where("id_producto",$id);
-		$resultado = $this->db->get("presentaciones_producto");
+		$this->db->select("pre.*, p.nombre as nombre, s.stock_minimo as minimo");
+		$this->db->from("presentaciones_producto pre");
+		$this->db->join("presentacion p", "p.id_presentacion = pre.id_presentacion");
+		$this->db->join("productos pro", "pro.id_producto = pre.id_producto");
+		$this->db->join("stock s", "s.id_stock = pro.id_stock");
+		$this->db->where("pre.id_producto",$id);
+		$resultado = $this->db->get();
 		return $resultado->result();
 	}
 

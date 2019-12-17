@@ -177,11 +177,11 @@ class Productos extends CI_Controller {
         $stock_minimo = $data3->stock_minimo;
         $data = array(
             'id_stock' => $id_stock,
-            'stock_minimo'=> $stock_minimo,
+          //  'stock_minimo'=> $stock_minimo,
             'producto' => $data2, 
             'categoria' => $this->Categorias_model->getCategorias(),
             'presentacion'=> $this->Presentacion_model->getPresentaciones(),
-            'presentaciones_producto' => $this->Productos_model->getPresentacion_productos($id),
+          //'presentaciones_producto' => $this->Productos_model->getPresentacion_productos($id),
             'marcas'=>$this->Marcas_model->getMarcas(),
             'imagen' => $imagen
         );
@@ -318,6 +318,11 @@ class Productos extends CI_Controller {
 
         echo json_encode($result);
     }
+    public function getPresentaciones_producto(){
+        $id = $this->input->post('id');
+        $result = $this->Productos_model->getPresentacion_productos($id);
+        echo json_encode($result);
+    }
     public function getExistenteCod(){
         $nombre = $this->input->post('getExistente');
         $result = $this->Productos_model->getExistenteCod($nombre);
@@ -334,7 +339,9 @@ class Productos extends CI_Controller {
         $this->load->view("admin/productos/stock",$data);
         $this->load->view("layouts/footer");
     }
-    
+    public function update(){
+        
+    }
   /*  public function getPresentacion(){
         $valor = $this->input->post("nombre");
         $nombre = $this->Productos_model->getPresentacion($valor);
