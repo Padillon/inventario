@@ -98,16 +98,88 @@ class Productos extends CI_Controller {
            }
         }
         $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
-                if($id != ""){
-                    if ($this->Productos_model->updateStock($id_stock,$data_stock)) {
+                if($id != ""){ ///////////////////////zona de update
+                    if ($this->Productos_model->updateStock($id_stock,$data_stock)){
                         $producto = $this->Productos_model->update($id,$data_in);
+                        $prentaciones_producto = $this->Productos_model->getPresentacion_productos($id);
+                        for ($i=0; $i < count($prentaciones_producto) ; $i++) {
+                            $data = array(
+                                'estado' => 0,
+                            );
+                            $this->Productos_model->updatePresentacio_producto($prentaciones_producto[$i]->id_presentacion_producto,$data);
+                        }
+                        
+                        for ($p=0; $p < count($id_present) ; $p++) {
+                            $noExiste = 0;
+                            $idPresentacion = 0;
+                            for ($i=0; $i < count($prentaciones_producto) ; $i++) {
+                                if($prentaciones_producto[$i]->id_presentacion == $id_present[$p]){ 
+                                $noExiste = 1;
+                                $idPresentacion = $prentaciones_producto[$i]->id_presentacion_producto;
+
+                                }
+                            }
+
+                            if($noExiste == 0){ 
+                                    if ($id_present[$p] == $presentacion) {
+                                        $data = array(
+                                            'id_presentacion' => $id_present[$p],
+                                            'id_producto' => $id,
+                                            'valor' => $valor_unidades[$p],
+                                            'precio_compra' => $P_compra[$p],
+                                            'precio_venta' => $P_venta[$p],
+                                            'codigo' => $COD[$p],
+                                            'equivalencia' =>1,
+            
+                                        );
+                                    }else{
+                                        $data = array(
+                                            'id_presentacion' => $id_present[$p],
+                                            'id_producto' => $id,
+                                            'valor' => $valor_unidades[$p],
+                                            'precio_compra' => $P_compra[$p],
+                                            'precio_venta' => $P_venta[$p],
+                                            'codigo' => $COD[$p],
+                                            'equivalencia' =>0,
+                                        );
+                                    }
+                                    $this->Productos_model->addPresentacionesProducto($data);      
+                            }else{
+                                if ($id_present[$p] == $presentacion) {
+                                    $data = array(
+                                    //  'id_presentacion' => $id_present[$p],
+                                        //'id_producto' => $id,
+                                        'valor' => $valor_unidades[$p],
+                                        'precio_compra' => $P_compra[$p],
+                                        'precio_venta' => $P_venta[$p],
+                                        'codigo' => $COD[$p],
+                                        'equivalencia' =>1,
+                                        'estado' =>1,
+        
+                                    );
+                                }else{
+                                    $data = array(
+                                        //'id_presentacion' => $id_present[$p],
+                                    //  'id_producto' => $id,
+                                        'valor' => $valor_unidades[$p],
+                                        'precio_compra' => $P_compra[$p],
+                                        'precio_venta' => $P_venta[$p],
+                                        'codigo' => $COD[$p],
+                                        'equivalencia' =>0,
+                                        'estado' =>1,
+
+                                    );
+                                }
+                                $this->Productos_model->updatePresentacio_producto($idPresentacion,$data);      
+                            }
+                            
+                        }
                     }
-                }else{
+                    
+                }else{ ///////////////////////zona de agregar
                     $id_stock=$this->Productos_model->addStok($data_stock);
                     $data_in['id_stock'] =$id_stock;
-                    $producto = $this->Productos_model->add($data_in);
-
-                        
+                    $producto = $this->Productos_model->add($data_in);         
                     for ($i=0; $i < count($id_present) ; $i++) { 
                         if ($id_present[$i] == $presentacion) {
                             $data = array(

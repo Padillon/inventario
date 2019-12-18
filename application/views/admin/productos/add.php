@@ -43,7 +43,7 @@
                                         </div>  
 
                                          <div class="col-md-3 mt-1">
-                                                <label for="create_categoria">Marca.</label>         
+                                                <label for="create_marca">Marca.</label>         
                                                 <select name='create_marca' id='create_marca' class='custom-select' required >
                                                     <?php foreach($marcas as $marca):?>
                                                     <option value='<?php echo $marca->id_marca;?>'><?php echo $marca->nombre;?></option>

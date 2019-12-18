@@ -29,7 +29,7 @@
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/update" method='POST' enctype='multipart/form-data' >
+                            <form id="formularioAgregar" class="form-control" action="<?php echo base_url();?>mantenimiento/productos/store" method='POST' enctype='multipart/form-data' >
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Producto</a>
@@ -41,10 +41,26 @@
                                                 <label for="">Nombre del producto.</label>
                                                 <input type="hidden" name="data_id" id="data_id" value="<?php echo $producto->id_producto;?>">
                                                 <input type="hidden" id="nproducto" value="<?php echo $producto->nombre;?>">
+                                                <input type="hidden" name="id_stock" value="<?php echo $producto->id_stock;?>">
                                                 <input name='create_nombre' id='create_nombre' value="<?php echo $producto->nombre;?>" type='text' class='form-control' required placeholder='Ingrese nombre'>
                                         </div>  
 
-                                   
+                            
+
+                                        <div class="col-md-3 mt-1">
+                                                <label for="create_marca">Marca.</label>         
+                                                <select name='create_marca' id='create_marca' class='custom-select' required>
+                                                    <?php foreach($marcas as $mar):?>
+                                                        <?php if($mar->id_marca == $producto->id_marca){ ?>
+                                                            <option value='<?php echo $mar->id_marca;?>' selected ><?php echo $mar->nombre;?></option>
+                                                        <?php   
+                                                            }else{
+                                                        ?>
+                                                            <option value='<?php echo $mar->id_mmar;?>'><?php echo $mar->nombre;?></option>
+                                                        <?php }?>
+                                                    <?php endforeach;?>
+                                                </select>
+                                        </div>
                                         <div class="col-md-3">
                                         <label for="create_categoria">Categoria.</label>         
                                         <select name='create_categoria' id='create_categoria' class='form-control' required >
@@ -59,21 +75,6 @@
                                             <?php endforeach;?>
                                         </select>
                                     </div>
-
-                                        <div class="col-md-3 mt-1">
-                                                <label for="create_categoria">Marca.</label>         
-                                                <select name='create_marca' id='create_marca' class='custom-select' required>
-                                                    <?php foreach($marcas as $mar):?>
-                                                        <?php if($mar->id_marca == $producto->id_marca){ ?>
-                                                            <option value='<?php echo $mar->id_marca;?>' selected ><?php echo $mar->nombre;?></option>
-                                                        <?php   
-                                                            }else{
-                                                        ?>
-                                                            <option value='<?php echo $mar->id_mmar;?>'><?php echo $mar->nombre;?></option>
-                                                        <?php }?>
-                                                    <?php endforeach;?>
-                                                </select>
-                                        </div>
                                         <div class="col-md-2 mt-1"> 
                                             <label>Producto perecedero.</label>                     
                                             <div class="s-swtich">                          
@@ -88,7 +89,8 @@
 
                                         <div class="col-md-3">
                                         <label>Seleccione una imagen:</label>
-                                            <input name='create_img' id='create_img' type='file' class='form-control'><br>      
+                                            <input name='create_img' id='create_img' type='file' class='form-control'><br> 
+                                            <div id="lista_imagenes"> </div>
                                         </div> 
                                         <div class="col-md-9">
                                             <label for="create_descripcion">Descripción.</label>
@@ -226,23 +228,22 @@
 </script>
 <script>
         
-    var marca = document.getElementById('create_marca');
-    var categoria = document.getElementById('create_categoria');
-    JsBarcode("#barcode", 0,{height:35});
-
-    marca.addEventListener('change',
-    function(){
-        if ($("#activar_cod_manual").prop('checked')) {
-            codigoBarra();
-        }
-    });
-    categoria.addEventListener('change',
-    function(){
-        if ($("#activar_cod_manual").prop('checked')) {
-            codigoBarra();
-        }
-      //  codigoBarra();
-    });
-
-    var cod_generado;
-</script>
+        var marca = document.getElementById('create_marca');
+        var categoria = document.getElementById('create_categoria');
+        JsBarcode("#barcode", 0,{height:35});
+    
+        marca.addEventListener('change',
+        function(){
+            if ($("#activar_cod_manual").prop('checked')) {
+                codigoBarra();
+            }
+        });
+        categoria.addEventListener('change',
+        function(){
+            if ($("#activar_cod_manual").prop('checked')) {
+                codigoBarra();
+            }
+        });
+    
+        var cod_generado;
+    </script>

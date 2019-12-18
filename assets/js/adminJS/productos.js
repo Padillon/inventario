@@ -71,7 +71,6 @@ var codBarra_existente2=undefined;
 //validamos formilario
 function validarFormulario(){
     validar = 0;
-    alert('m');
     if ($('#create_nombre').val() == "") {
         toastr.warning('Ingrese un nombre.');
         validar == 1;
@@ -79,19 +78,15 @@ function validarFormulario(){
         toastr.warning('Nombre o código ya existente.');
         validar == 1;
     }else if(validar == 0){
-      
-      
-        //  document.getElementById("formularioAgregar").submit();
-        alert('se va');
+          document.getElementById("formularioAgregar").submit();
+        //alert('se va');
     }
 }
 
 if($('#create_perecedero').val() > 0){
     $("#create_perecedero").prop('checked', true);
 }
-if($('#activar_cod_manual').val() > 0){
-    $("#activar_cod_manual").prop('checked', true);
-}
+
 function resete(){
     $('#create_nombre').val('');
     $('#create_categoria').val('');
@@ -321,7 +316,8 @@ $(document).ready(function(){
                     var option = document.createElement("option");
                     option.text = data[i].nombre;
                     option.value = data[i].id_presentacion;
-                    if (data[i].equivalencia) {
+                    alert(data[i].equivalencia);
+                    if (data[i].equivalencia == 1) {
                         option.selected = true;
                         if (data[i].valor != 0) {
                             $("#create_stock_min").val(data[i].minimo / data[i].valor);

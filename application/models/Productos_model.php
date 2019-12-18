@@ -35,14 +35,18 @@ class Productos_model extends CI_Model {
 		$this->db->join("presentacion p", "p.id_presentacion = pre.id_presentacion");
 		$this->db->join("productos pro", "pro.id_producto = pre.id_producto");
 		$this->db->join("stock s", "s.id_stock = pro.id_stock");
+		$this->db->where("pre.estado",1);
 		$this->db->where("pre.id_producto",$id);
 		$resultado = $this->db->get();
 		return $resultado->result();
 	}
-
+	public function updatePresentacio_producto($id,$data){
+		$this->db->where("id_presentacion_producto",$id);		
+		return $this->db->update("presentaciones_producto",$data);
+	}
 	public function getProductos(){
 		//$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion, pre.equi_unidad as equivalencia");
-		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo, pr.nombre as presentacion, pre.precio_compra as compra,pre.precio_venta as venta");
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria,s.id_stock as id_stock, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo, pr.nombre as presentacion, pre.precio_compra as compra,pre.precio_venta as venta");
 		$this->db->from("productos p");
 		$this->db->join("marcas m", "p.id_marca = m.id_marca");
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
