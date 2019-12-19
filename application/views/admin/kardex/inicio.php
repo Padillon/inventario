@@ -88,7 +88,7 @@ if ($permisos->update == 1){
                                                         <td><?php echo $kar->fecha;?></td>
                                                         <td><?php echo $kar->movimiento;?></td> 
                                                         <td><?php echo $kar->descripcion;?></td>
-                                                        <td><?php echo $kar->codigo." ".$kar->nombre;?></td>
+                                                        <td><?php echo $kar->nombre;?></td>
                                                         <td><?php echo $kar->cantidad;?></td>
                                                         <td><?php echo $kar->usuario; ?></td> 
                                                     </tr>
