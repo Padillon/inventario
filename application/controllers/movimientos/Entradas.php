@@ -213,10 +213,9 @@ class Entradas extends CI_Controller {
 		}
 		
 		foreach( $detalle as $det ):
-			$productoActual = $this->Productos_model->get($det->id_producto);
+			$productoActual = $this->Productos_model->get($det->id_producto,$det->id_presentacion_producto);
 			$stock = $this->Productos_model->getStock($productoActual->id_stock);
-			$nuevoValor = $stock->stock_actual - $det->cantidad;
-			print_r($nuevoValor);
+			$nuevoValor = $stock->stock_actual - ($det->cantidad*$productoActual->valor);
 			$data2 = array(
 				'stock_actual' => $nuevoValor,
 			);

@@ -53,7 +53,7 @@ class Entradas_model extends CI_Model {
       $this->db->join("presentacion pre","pr.id_presentacion = pre.id_presentacion");
       $this->db->where("p.estado","1");
       $this->db->like("p.nombre", $valor);
-      $this->db->or_like("p.codigo", $valor);
+      $this->db->or_like("pr.codigo", $valor);
       $resultados = $this->db->get();
       return $resultados->result_array();
     }

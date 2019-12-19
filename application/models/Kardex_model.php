@@ -49,9 +49,10 @@ public function getKardexBuscar($id,$inicio,$fin){
 	}
 
 	public function getKardexDia($fecha){
-		$this->db->select("k.*, t.nombre as movimiento, p.codigo, p.nombre, u.usuario, s.stock_actual,p.perecedero as perecedero");
+		$this->db->select("k.*, t.nombre as movimiento, pre.codigo, p.nombre, u.usuario, s.stock_actual,p.perecedero as perecedero");
 		$this->db->from("kardex k");
 		$this->db->join("productos p" , "p.id_producto = k.id_producto");
+		$this->db->join("presentaciones_producto pre", "p.id_producto = pre.id_producto");
 		$this->db->join("stock s" , "p.id_stock = s.id_stock");
         $this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
         $this->db->join("usuarios u" , "u.id_usuario = k.id_usuario");

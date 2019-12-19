@@ -15,11 +15,12 @@ class Productos_model extends CI_Model {
 		$resultado = $this->db->get("stock");
 		return $resultado->row();
 	}
-	public function get($id){
+	public function get($id,$presen){
 		$this->db->select("p.*, pre.valor as valor");
 		$this->db->from("productos p");
 		$this->db->join("presentaciones_producto pre", "p.id_producto = pre.id_producto");
 		$this->db->where("p.id_producto",$id);
+		$this->db->where("pre.id_presentacion_producto",$presen);
 		$resultado = $this->db->get();
 		return $resultado->row();
 	}
@@ -49,7 +50,7 @@ class Productos_model extends CI_Model {
 	}
 	public function getProductos(){
 		//$this->db->select("p.*, m.nombre as marca, c.nombre as categoria, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual, pre.nombre as presentacion, pre.equi_unidad as equivalencia");
-		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria,s.id_stock as id_stock, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo, pr.nombre as presentacion, pre.precio_compra as compra,pre.precio_venta as venta");
+		$this->db->select("p.*, m.nombre as marca, c.nombre as categoria,s.id_stock as id_stock, s.stock_minimo as stock_minimo, s.stock_actual as stock_actual ,pre.valor as valor,pre.codigo as codigo, pr.nombre as presentacion, pre.precio_compra as compra,pre.precio_venta as venta");
 		$this->db->from("productos p");
 		$this->db->join("marcas m", "p.id_marca = m.id_marca");
 		$this->db->join("categoria c", "p.id_categoria = c.id_categoria");
