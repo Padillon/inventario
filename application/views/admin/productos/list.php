@@ -123,7 +123,7 @@ if ($permisos->insert == 1) {
                                                                     <button name="edit" id="<?php echo $pro->id_producto;?>" <?php echo $habilitado_update ?> type="button" class="btn btn-warning edit_data" data-toggle="modal" data-target="#edit">
                                                                         <span span class="fa fa-pencil" style="color: #fff"></span>
                                                                     </button>
-                                                                    <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->imagen."*".$pro->inventariable."*".$pro->presentacion."*".$pro->perecedero."*" 
+                                                                    <?php $data = $pro->id_producto."*".$pro->nombre."*".$pro->estado."*".$pro->categoria."*".$pro->stock_minimo."*".$pro->descripcion."*".$pro->imagen."*".$pro->presentacion."*".$pro->presentacion."*".$pro->perecedero."*" 
                                                                     .$pro->marca."*".$pro->stock_actual."*".$pro->valor."*".$pro->compra."*".$pro->venta; ?> 
 
 
