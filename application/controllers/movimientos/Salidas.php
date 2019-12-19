@@ -83,6 +83,8 @@ class Salidas extends CI_Controller {
 		$idusuario = $this->session->userdata('id');
 		$descripcion = 'venta de producto';
 		$infoPresentacion = $this->input->post('tipo_presentacion');
+		$codigos = $this->input->post('codigos');
+
 		$data = array(
 			'id_usuario' => $idusuario,
 			'id_cliente' => $idCliente,
@@ -95,7 +97,7 @@ class Salidas extends CI_Controller {
 
 			$this->Salidas_model->save($data);
 			$idSalida = $this->Salidas_model->lastID(); 
-			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha,$estados,$lotes,$infoPresentacion ); //guardando el detalle de la venta
+			$this->save_detalle($idproductos, $precioVenta, $idSalida, $cantidades, $importe,$fecha,$estados,$lotes,$infoPresentacion,$codigos ); //guardando el detalle de la venta
 
 		$this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
 	
@@ -113,7 +115,7 @@ class Salidas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha,$estados,$lotes,$infoPresentacion,$codigo){
+	protected function save_detalle($productos, $precioVentas, $idSalida, $cantidades, $importes,$fecha,$estados,$lotes,$infoPresentacion,$codigos){
 		for ($i=0; $i < count($productos); $i++) { 
 			$infoPre = explode('*',$infoPresentacion[$i]);
 			$id_lote=0; //variable que contendera el id del estado si es necesario
@@ -162,10 +164,10 @@ class Salidas extends CI_Controller {
 		}
 	}
 
-	protected function updateProducto($idProducto,$cantidad){
+	protected function updateProducto($idProducto,$cantidad,$infoPre){
 		$productoActual = $this->Productos_model->get($idProducto);
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
-		$cantidad = $cantidad * $ValorCantidades;// valor cantidades representa la cantidad numerica por presentación
+		$cantidad = $cantidad * $infoPre;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(
 			'stock_actual' => $stock->stock_actual - $cantidad,
 		);
@@ -204,7 +206,7 @@ class Salidas extends CI_Controller {
 				'cantidad' =>$sa->cantidad,
 				'precio' =>$sa->precio,
 				'total' =>$sa->total,
-				'saldo' => $sa->saldo - $sa->total,
+				//'saldo' => $sa->saldo - $sa->total,
 				'id_salida' => $id,
 				'id_usuario' => $this->session->userdata('id'),					
 			);
@@ -214,7 +216,7 @@ class Salidas extends CI_Controller {
 		foreach( $detalle as $det ):
 			$productoActual = $this->Productos_model->get($det->id_producto);
 			$stock = $this->Productos_model->getStock($productoActual->id_stock);
-			$nuevoValor = $stock->stock_actual + $det->cantidad;
+			$nuevoValor = $stock->stock_actual + ($det->cantidad*$productoActual->valor);
 			$data2 = array(
 				'stock_actual' => $nuevoValor,
 			);
@@ -222,7 +224,7 @@ class Salidas extends CI_Controller {
 			if ($det->id_lote != 0) {
 				$loteActual = $this->Salidas_model->getLote($det->id_lote);
 				$data = array(
-					'cantidad' => $loteActual->cantidad + $det->cantidad,
+					'cantidad' => $loteActual->cantidad + ($det->cantidad*$productoActual->valor),
 					'estado' =>1,
 				);
 				$this->Salidas_model->updateLote($det->id_lote, $data);

@@ -251,7 +251,7 @@ function viewProducto(num){
     
     $("#viewCompra").val("$ "+datos[13]);
     $("#viewVenta").val("$ "+datos[14]);
-    alert(stock_actual + '   ' + equi);
+  // alert(stock_actual + '   ' + equi);
     if (stock_actual != 0) {
         total = Math.floor(stock_actual / equi);
     }
@@ -316,7 +316,7 @@ $(document).ready(function(){
                     var option = document.createElement("option");
                     option.text = data[i].nombre;
                     option.value = data[i].id_presentacion;
-                    alert(data[i].equivalencia);
+                    //alert(data[i].equivalencia);
                     if (data[i].equivalencia == 1) {
                         option.selected = true;
                         if (data[i].valor != 0) {
@@ -482,8 +482,8 @@ $("#btnAgregar").on("click",function(){
        infoCuenta = data;
         var html="";
         html += "<tr>";
-       // html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+infoCuenta[0]+"' >"+infoCuenta[0]+"</td>";
-        html += "<td class='col-md-2 '>"+infoCuenta[1]+"</td>";
+      //  html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+infoCuenta[0]+"' >"+infoCuenta[0]+"</td>";
+        html += "<td class='col-md-2 '><input type='hidden' name='id_presentacion[]' class='form-control id_producto' value='"+infoCuenta[0]+"' >"+infoCuenta[1]+"</td>";
         html += "<td class='col-md-2 '><input type='hidden'  name='codigos_de_barra[]' class='form-control codBar' value='"+codigo_barra+"'><input class='form-control codBarEdit' disabled value='"+codigo_barra+"'></td>";
         html += "<td class='col-md-2 '><input type='hidden'  name='cantidad_prese[]' class='form-control' value='"+cantidad+"' >"+cantidad+"</td>";
         html += "<td class='col-md-2 '><input type='hidden'  name='precio_compra[]' class='form-control' value='"+precio_compra+"' >"+precio_compra+"</td>";

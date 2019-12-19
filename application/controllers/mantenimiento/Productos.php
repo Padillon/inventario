@@ -55,27 +55,25 @@ class Productos extends CI_Controller {
         $config['upload_path'] = "assets/images/productos/";
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['overwrite'] = true;
-        $config['max_size'] = '2048';
-        $config['max_width'] = '1080';
-        $config['max_height'] = '720';
+        $config['max_size'] = '4048';
+        $config['max_width'] = '4080';
+      //  $config['max_height'] = '720';
 
         $this->load->library('upload',$config);
-        if ($this->upload->do_upload('create_img')) {
+      //  if ($this->input->post('create_marca')!= "") {
             # code...
+            $this->upload->do_upload('create_img');
             $file_info = $this->upload->data();
             $imagen = $file_info['file_name'];	
             $data_in['imagen'] =$imagen;
-        }
-
+     //   }
+        
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');
         $data_in['id_marca'] = $this->input->post('create_marca');
         $data_in['id_categoria'] = $this->input->post('create_categoria');
-       // $data_in['codigo'] = $this->input->post('create_codigo');
         $data_in['nombre'] = $this->input->post('create_nombre');
         $data_in['descripcion'] = $this->input->post('create_descripcion');
-        //$data_in['precio_compra'] = $this->input->post('create_precio_compra');
-        //$data_in['precio_venta'] = $this->input->post('create_precio_venta');
         if ($this->input->post('create_perecedero') != "" ) {
             $data_in['perecedero'] =1;
         }else{
@@ -96,7 +94,7 @@ class Productos extends CI_Controller {
            if ($id_present[$i] == $presentacion) {
             $data_stock['stock_minimo'] = (int)$valor_unidades[$i] * $minimo;
            }
-        }
+        } 
         $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
                 if($id != ""){ ///////////////////////zona de update
                     if ($this->Productos_model->updateStock($id_stock,$data_stock)){

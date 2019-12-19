@@ -16,8 +16,11 @@ class Productos_model extends CI_Model {
 		return $resultado->row();
 	}
 	public function get($id){
-		$this->db->where("id_producto",$id);
-		$resultado = $this->db->get("productos");
+		$this->db->select("p.*, pre.valor as valor");
+		$this->db->from("productos p");
+		$this->db->join("presentaciones_producto pre", "p.id_producto = pre.id_producto");
+		$this->db->where("p.id_producto",$id);
+		$resultado = $this->db->get();
 		return $resultado->row();
 	}
 

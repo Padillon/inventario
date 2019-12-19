@@ -103,10 +103,13 @@
                                         </div>
                                         -->
                                         <div class="col-md-3">
-                                        <label>Seleccione una imagen:</label>
-                                            <input name='create_img' id='create_img' type='file' class='form-control' ><br>      
+                                            <label>Seleccione una imagen:</label>
+                                            <input name='create_img' size="100" id='create_img' type='file' class='form-control' ><br>      
                                         </div> 
-                                        <div class="col-md-9">
+                                        <div class="col-md-3">
+                                        <div id="lista_imagenes" > </div>
+                                        </div> 
+                                        <div class="col-md-6">
                                             <label for="create_descripcion">Descripción.</label>
                                             <input name='create_descripcion' id="create_descripcion" type='text' class='form-control' placeholder='Ingrese descripción'>
                                         </div>    
@@ -143,10 +146,6 @@
                                         <table class="table-responsive-lg table-hover" width="100%" id="listaPresentaciones">
                                             <thead>
 
-                                              <!--  <th>
-                                                    <div class="col"><label>Codigo</label>
-                                                    <input type="text" disabled id="codigo_id" name="codigo_id" class="form-control"></div>
-                                                </th> -->
                                                 <th>
                                                 <div>
                                                 <label for="create_presentacion">categoria.</label>      
@@ -157,11 +156,6 @@
                                                 </select>
                                                 </div>
                                                 </th>
-                                               <!-- <th> 
-                                                    <div class="col">
-                                                    <label>Nombre</label>
-                                                    <input type="text" id="nombre_autocomplete" name="nombre_autocomplete" class="form-control"></div>
-                                                </th> -->
                                                 <th>
                                                     <div class="col"><label>Codigo producto</label>
                                                     <input type="text" id="cod_barra_presentacion" name="cod_barra_presentacion" class="form-control"></div>
@@ -251,3 +245,29 @@
 
     var cod_generado;
 </script>
+ <script>
+              function archivo(evt) {
+                  var files = evt.target.files; // FileList object
+
+                  // Obtenemos la imagen del campo "file".
+                  for (var i = 0, f; f = files[i]; i++) {
+                    //Solo admitimos imágenes.
+                    if (!f.type.match('image.*')) {
+                        continue;
+                    }
+
+                    var reader = new FileReader();
+
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Insertamos la imagen
+                         document.getElementById("lista_imagenes").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" width="100" height="100"/>'].join('');
+                        };
+                    })(f);
+
+                    reader.readAsDataURL(f);
+                  }
+              }
+
+              document.getElementById('create_img').addEventListener('change', archivo, true);
+      </script>
