@@ -207,6 +207,7 @@ if ($permisos->update == 1){
                     <label class="col-form-control">Buscar Producto:</label>
                     <input class="form-control" type="text" id="autocompleteProducto3">
                     <input type="hidden" id="txtProducto"> 
+                    <input type="hidden" id="txtPresenProducto"> 
                 </div> 
             </div>
             <div class="modal-footer">

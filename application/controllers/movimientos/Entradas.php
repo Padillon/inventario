@@ -96,7 +96,7 @@ class Entradas extends CI_Controller {
 		
 			$this->Entradas_model->save($data);
 			$idEntrada = $this->Entradas_model->lastID(); 
-			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad, $infoPresentacion,$codigo); //guardando el detalle de la venta	
+			$this->save_detalle($idproductos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importe, $fecha,$fecha_caducidad, $infoPresentacion); //guardando el detalle de la venta	
 			$this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
 			
 		if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
@@ -111,7 +111,7 @@ class Entradas extends CI_Controller {
 	}
 
 	//funcion para guardar el detalle de la venta
-	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad,$infoPresentacion,$codigo){
+	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad,$infoPresentacion){
 		//$infoPre=split("*", $infoPresentacion, 3);
 		for ($i=0; $i < count($productos); $i++) { 
 			$infoPre = explode('*',$infoPresentacion[$i]);
@@ -144,7 +144,8 @@ class Entradas extends CI_Controller {
 					'precio' =>$nuevoPrecio[$i],
 					'total' =>$importes[$i],
 					'id_entrada' => $idEntrada,
-					'id_usuario' => $this->session->userdata('id'),					
+					'id_usuario' => $this->session->userdata('id'),
+					'id_presentacion_producto' => $infoPre[3],				
 				);
 				$data['id_presentacion_producto'] = $infoPre[0];
 			//	array_push($data, 'id_presentacion_producto' => $infoPre[0]);
@@ -156,7 +157,7 @@ class Entradas extends CI_Controller {
 	}
 
 	protected function updateProducto($idProducto,$precioSalida, $cantidad ,$fecha,$ValorCantidades){
-		$productoActual = $this->Productos_model->get($idProducto);
+		$productoActual = $this->Productos_model->get($idProducto,0);
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
 		$cantidad = $cantidad * $ValorCantidades;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(
@@ -195,8 +196,8 @@ class Entradas extends CI_Controller {
 
 		$this->Entradas_model->updateEntrada($id, $data);//eliminas la venta en kardex
 		$this->Entradas_model->updateLote($id, $data);//eliminamos del lote si es necesario
-		$entradas = $this->Kardex_model->get_compra($id);
-		foreach($entradas as $entr){
+//		$entradas = $this->Kardex_model->get_compra($id);
+	/*	foreach($entradas as $entr){
 
 			$kardex = array(
 				'fecha' =>date('Y-m-d'),
@@ -207,12 +208,28 @@ class Entradas extends CI_Controller {
 				'precio' =>$entr->precio,
 				'total' =>$entr->total,
 				'id_entrada' => $id,
-				'id_usuario' => $this->session->userdata('id'),					
+				'id_usuario' => $this->session->userdata('id'),
+				'id_presentacion_producto' => $infoPre[3],				
+
 			);
 			$this->Kardex_model->add($kardex);
-		}
+		}*/
 		
 		foreach( $detalle as $det ):
+			$kardex = array(
+				'fecha' =>date('Y-m-d'),
+				'id_movimiento' => 3,
+				'descripcion'=> 'Compra anulada.',
+				'id_producto' => $det->id_producto,
+				'cantidad' =>$det->cantidad,
+				'precio' =>$entr->precio,
+				'total' =>$entr->subtotal,
+				'id_entrada' => $id,
+				'id_usuario' => $this->session->userdata('id'),
+				'id_presentacion_producto' => $det->id_presentacion_producto,			
+
+			);
+			$this->Kardex_model->add($kardex);
 			$productoActual = $this->Productos_model->get($det->id_producto,$det->id_presentacion_producto);
 			$stock = $this->Productos_model->getStock($productoActual->id_stock);
 			$nuevoValor = $stock->stock_actual - ($det->cantidad*$productoActual->valor);

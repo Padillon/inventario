@@ -139,14 +139,15 @@ class Kardex extends CI_Controller {
 		$valor = $this->input->get("prod");
 		$inicio = $this->input->get('fecha1');
 		$final = $this->input->get("fecha2");
+		$pres = $this->input->get("pres");
 		$idusuario = $this->session->userdata('id');
         //trayendo informacion
         $data = array(
             'fecha' => date("d-m-Y"),
             'empresa' => $this->Kardex_model->getAjustes(),
             'nomUsuario' => $this->Kardex_model->getUsuario($idusuario),
-			'kardex' => $this->Kardex_model->getProductoKardex($valor, $inicio, $final),
-            'producto' => $this->Kardex_model->getProducto($valor),
+			'kardex' => $this->Kardex_model->getProductoKardex($valor, $inicio, $final, $pres),
+            'producto' => $this->Kardex_model->getProducto($valor,$pres),
 		);
 
 		//generando pdf

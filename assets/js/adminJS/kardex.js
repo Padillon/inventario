@@ -139,7 +139,7 @@ $("#autocompleteProducto2").autocomplete({
                 response($.map(data, function (item) {
                     return {
                         label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.id_producto,
+                        id: item.id_producto+"*"+item.pre_producto,
                     }
                 }))
             },
@@ -148,7 +148,10 @@ $("#autocompleteProducto2").autocomplete({
     minLength:2, //caracteres que activan el autocomplete
     select: function(event, ui){
        data = ui.item.id;
-       $("#txtProducto").val(data);
+       data = data.split('*');
+       $("#txtProducto").val(data[0]);
+       $("#txtPresenProducto").val(data[1]);
+
     },
   });
   
@@ -224,5 +227,7 @@ $("#btnResumen").on("click", function(){
     fecha1 = $("#fecha1").val();
     fecha2 = $("#fecha2").val();
     prod = $("#txtProducto").val();
-    window.open(base_url+"movimientos/kardex/getProductoKardex?fecha1="+fecha1+"&fecha2="+fecha2+"&prod="+prod, "_blank");
+    pres = $("#txtPresenProducto").val();
+
+    window.open(base_url+"movimientos/kardex/getProductoKardex?fecha1="+fecha1+"&fecha2="+fecha2+"&pres="+pres+"&prod="+prod, "_blank");
 });

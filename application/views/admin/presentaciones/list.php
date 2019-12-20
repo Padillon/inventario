@@ -70,7 +70,7 @@ if ($permisos->insert == 1) {
                                         <tr>
                                             <th>#</th>
                                             <th>Presentacion</th>
-                                            <th>Equivalencia en unidad</th>
+                                          
                                             <th>Estado</th>
                                             <th>Opciones</th>
                                         </tr>
@@ -83,7 +83,7 @@ if ($permisos->insert == 1) {
                                                 <tr> 
                                                     <td><?php echo $cont;?></td>
                                                     <td><?php echo $pre->nombre;?></td>
-                                                    <td><?php echo $pre->equi_unidad;?></td>
+                                                   
                                                     <?php $presentacionData = $pre->id_presentacion."*".$pre->nombre; ?>
                                                     <?php if($pre->estado == 1){?>
                                                     <td>
