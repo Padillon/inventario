@@ -127,9 +127,7 @@ if ($permisos->update == 1){
                                     <label for="id_movimiento">Movimientos: </label>         
                                     <select name='id_movimiento' id='id_movimiento' class='custom-select' required>
                                         <?php foreach($movimientos as $mov):?>
-                                            <?php if ($mov->id_movimiento>4){?>
                                                 <option value='<?php echo $mov->id_movimiento;?>'><?php echo $mov->nombre;?></option>
-                                            <?php } ?>
                                         <?php endforeach;?>
                                     </select>
                                 </div>

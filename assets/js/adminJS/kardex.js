@@ -57,7 +57,7 @@ $("#autocompleteProducto").autocomplete({
             success: function(data){
                 response($.map(data, function (item) {
                     return {
-                        label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
+                        label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
                         id: item.id_producto+"*"+item.codigo+"*"+item.nombre+'*'+ item.id_marca,
                     }
                 }))
@@ -113,7 +113,7 @@ $("#autocompleteProducto2").autocomplete({
             success: function(data){
                 response($.map(data, function (item) {
                     return {
-                        label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
+                        label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
                         id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero,
                     }
                 }))
@@ -138,7 +138,7 @@ $("#autocompleteProducto2").autocomplete({
             success: function(data){
                 response($.map(data, function (item) {
                     return {
-                        label: item.codigo+" - "+item.nombre+' - '+ item.id_marca,
+                        label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
                         id: item.id_producto+"*"+item.pre_producto,
                     }
                 }))
