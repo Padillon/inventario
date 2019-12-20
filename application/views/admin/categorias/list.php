@@ -183,7 +183,7 @@ if ($permisos->update == 1){
                     <button type='button' class='close' data-dismiss='modal'><span>&times;</span></button>
                 </div>
                 <div class='modal-body'>
-                    <label>Nombre de la categoria</label>
+                    <label>¿Desea eliminar la categoría?</label>
                     <input name='nombre' id='nombre' type='text' class='form-control'>
                     <input name='idCategoriaDelete' id='idCategoriaDelete' type='hidden' class='form-control'>
                 </div>
