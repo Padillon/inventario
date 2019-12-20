@@ -192,7 +192,7 @@ if ($permisos->insert == 1) {
                                 <div class="col-md-12"> 
                                     <br>
                                 </div> 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label for="create_precio_compra">Presentacion preferida:</label>
                                     <input id="selectEqui"  type='text' class='form-control' disabled> 
                                 </div>
@@ -204,18 +204,11 @@ if ($permisos->insert == 1) {
                                     <label for="create_stock_act">Stock actual:</label>
                                     <input id="viewStock_actual" type='text'class='form-control' disabled>
                                 </div>
-                             <!--   <div class="col-md-4">
-                                    <br>
-                                    <label>Presentacion.</label>
-                                    <select id="selectEqui" class='custom-select'>
-                                    </select>
-                                </div> -->
-                               
-                                <div class="col-md-3 mt-4">
+                                <div class="col-md-2">
                                     <label for="create_precio_compra">Precio compra:</label>
                                     <input id="viewCompra"  type='text' class='form-control' disabled> 
                                 </div>
-                                <div class="col-md-3 mt-4">
+                                <div class="col-md-2">
                                     <label for="create_precio_venta">Precio venta:</label>
                                     <input id="viewVenta" type='text' class='form-control' disabled>
                                 </div>

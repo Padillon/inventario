@@ -70,7 +70,6 @@ if ($permisos->insert == 1) {
                                         <tr>
                                             <th>#</th>
                                             <th>Presentacion</th>
-                                          
                                             <th>Estado</th>
                                             <th>Opciones</th>
                                         </tr>
@@ -83,7 +82,6 @@ if ($permisos->insert == 1) {
                                                 <tr> 
                                                     <td><?php echo $cont;?></td>
                                                     <td><?php echo $pre->nombre;?></td>
-                                                   
                                                     <?php $presentacionData = $pre->id_presentacion."*".$pre->nombre; ?>
                                                     <?php if($pre->estado == 1){?>
                                                     <td>
@@ -126,9 +124,7 @@ if ($permisos->insert == 1) {
                         <div class="modal-body">
                         <form action="<?php echo base_url();?>mantenimiento/presentaciones/store" method="POST">
                             <div class='form-group'><label >Nombre de la presentacion.</label>
-                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre"></div>
-                            <div class='form-group'><label>Equivalencia en unidades:</label>
-                            <input name='equi' id='equi' type='number' class='form-control' ></div>                               
+                            <input name="name" type="text" class="form-control" placeholder="Ingrese nombre"></div>                               
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -173,8 +169,6 @@ if ($permisos->insert == 1) {
                                 <input id="id_presentacion_update" name="id_presentacion_update" type="hidden" class="form-control" >
                                 <div class='form-group'><label>Nombre:</label>
                                 <input id="nombre_presentacion_update" name="nombre_presentacion_update" class="form-control"></div>
-                                <div class='form-group'><label>Equivalencia en unidades:</label>
-                                <input name='equi_update' id='equi_update' type='number' class='form-control' ></div> 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

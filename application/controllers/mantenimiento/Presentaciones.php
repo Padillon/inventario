@@ -26,11 +26,9 @@ class Presentaciones extends CI_Controller {
     
     public function store(){
         $nombre  = $this->input->post("name");
-        $equi = $this->input->post('equi');
         
         $data  = array(
             'nombre' => $nombre, 
-            'equi_unidad' => $equi,
             'estado' =>1
         );
         //we keep the new brand.
@@ -61,10 +59,8 @@ class Presentaciones extends CI_Controller {
     public function update(){
         $id = $this->input->post("id_presentacion_update");
         $nombre = $this->input->post("nombre_presentacion_update");
-        $equi = $this->input->post("equi_update");
         $data = array(
             'nombre' =>$nombre, 
-            'equi_unidad' => $equi,
         );
         if ($this->Presentacion_model->update($id, $data)) {
             $this->toastr->success('Registro guardado!');
