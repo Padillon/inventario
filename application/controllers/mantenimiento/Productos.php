@@ -57,17 +57,14 @@ class Productos extends CI_Controller {
         $config['overwrite'] = true;
         $config['max_size'] = '4048';
         $config['max_width'] = '4080';
-      //  $config['max_height'] = '720';
+
 
         $this->load->library('upload',$config);
-      //  if ($this->input->post('create_marca')!= "") {
-            # code...
-            $this->upload->do_upload('create_img');
-            $file_info = $this->upload->data();
-            $imagen = $file_info['file_name'];	
-            $data_in['imagen'] =$imagen;
-     //   }
-        
+        $this->upload->do_upload('create_img');
+        $file_info = $this->upload->data();
+        $imagen = $file_info['file_name'];	
+        $data_in['imagen'] =$imagen;
+
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');
         $data_in['id_marca'] = $this->input->post('create_marca');
@@ -241,7 +238,7 @@ class Productos extends CI_Controller {
         $imagen = $file_info['file_name'];
 
         $id =$this->input->post('id-pro-edit');
-        $data2 = $this->Productos_model->get($id);
+        $data2 = $this->Productos_model->get2($id);
         $data3 = $this->Productos_model->getStock($data2->id_stock);
         $id_stock = $data2->id_stock;
         $stock_minimo = $data3->stock_minimo;

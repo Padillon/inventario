@@ -12,7 +12,7 @@ function validarFormulario(){
         total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
         cantidades =Number($(this).find("td:eq(4)").children('input').val()); // revisamos en la columna que ningun valor sea 0
         valor_p_caducidad = $(this).closest("tr").find(".pedecedero").val(); //saber si se agrego un un producto perecedero
-        fechaCaducidad =Number($(this).find("td:eq(4)").children('input').val()); // validar que este lleno la fecha de caducidad   
+        fechaCaducidad =Number($(this).find("td:eq(6)").children('input').val()); // validar que este lleno la fecha de caducidad   
        
         if (fechaCaducidad == 0 & valor_p_caducidad != 0) {
             toastr.warning("Ingrese una fecha de caducidad en la linea: "+total);

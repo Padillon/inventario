@@ -110,9 +110,8 @@ class Entradas extends CI_Controller {
 		
 	}
 
-	//funcion para guardar el detalle de la venta
+	//funcion para guardar el detalle de cimora
 	protected function save_detalle($productos, $nuevoPrecio, $precioSalida, $idEntrada, $cantidades, $importes,$fecha,$fecha_caducidad,$infoPresentacion){
-		//$infoPre=split("*", $infoPresentacion, 3);
 		for ($i=0; $i < count($productos); $i++) { 
 			$infoPre = explode('*',$infoPresentacion[$i]);
 				$data = array(
@@ -126,7 +125,7 @@ class Entradas extends CI_Controller {
 					$lote = array(
 						'id_entrada' => $idEntrada,
 						'id_producto' => $productos[$i],
-						'cantidad' => $cantidades[$i],
+						'cantidad' => $cantidades[$i]*$infoPre[3],
 						'fecha_entrada' => $fecha,
 						'fecha_caducidad' => $fecha_caducidad[$i] 
 					);
@@ -145,7 +144,7 @@ class Entradas extends CI_Controller {
 					'total' =>$importes[$i],
 					'id_entrada' => $idEntrada,
 					'id_usuario' => $this->session->userdata('id'),
-					'id_presentacion_producto' => $infoPre[3],				
+					'id_presentacion_producto' => $infoPre[0],				
 				);
 				$data['id_presentacion_producto'] = $infoPre[0];
 			//	array_push($data, 'id_presentacion_producto' => $infoPre[0]);
@@ -157,7 +156,7 @@ class Entradas extends CI_Controller {
 	}
 
 	protected function updateProducto($idProducto,$precioSalida, $cantidad ,$fecha,$ValorCantidades){
-		$productoActual = $this->Productos_model->get($idProducto,0);
+		$productoActual = $this->Productos_model->get2($idProducto);
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
 		$cantidad = $cantidad * $ValorCantidades;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(
@@ -222,8 +221,8 @@ class Entradas extends CI_Controller {
 				'descripcion'=> 'Compra anulada.',
 				'id_producto' => $det->id_producto,
 				'cantidad' =>$det->cantidad,
-				'precio' =>$entr->precio,
-				'total' =>$entr->subtotal,
+				'precio' =>$det->precio,
+				'total' =>$det->subtotal,
 				'id_entrada' => $id,
 				'id_usuario' => $this->session->userdata('id'),
 				'id_presentacion_producto' => $det->id_presentacion_producto,			

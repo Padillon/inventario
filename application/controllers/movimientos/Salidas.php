@@ -121,15 +121,14 @@ class Salidas extends CI_Controller {
 			$id_lote=0; //variable que contendera el id del estado si es necesario
 				if ($estados[$i] == 1) {
 						$loteActual = $this->Salidas_model->getLote($lotes[$i]);
-						if ($loteActual->cantidad == $cantidades[$i]) {
+						if ($loteActual->cantidad == ($cantidades[$i]*$infoPre[3])) {
 							$data2 = array(
 								'estado' => 0,
-								'cantidad' => $loteActual->cantidad - $cantidades[$i],
-							);
-							
+								'cantidad' => 0,
+							);							
 						}else{
 							$data2 = array(
-								'cantidad' => $loteActual->cantidad - $cantidades[$i],
+								'cantidad' => $loteActual->cantidad - ($cantidades[$i]*$infoPre[3]),
 							);
 						}
 						$this->Salidas_model->updateLote($lotes[$i], $data2);
@@ -143,7 +142,6 @@ class Salidas extends CI_Controller {
 					'subtotal' => $importes[$i],
 					'id_lote' => $id_lote,
 				);
-			//	$saldo = $this->Kardex_model->get($productos[$i]) ;
 				$kardex = array(
 					'fecha' =>$fecha , 
 					'id_movimiento' => 2,
@@ -152,8 +150,8 @@ class Salidas extends CI_Controller {
 					'cantidad' =>$cantidades[$i],
 					'precio' =>$precioVentas[$i],
 					'total' =>$importes[$i],
-				//	'saldo' => $saldo->saldo - $importes[$i],
 					'id_salida' => $idSalida,
+					'id_presentacion_producto' => $infoPre[0],
 					'id_usuario' => $this->session->userdata('id'),					
 				);
 				$data['id_presentacion_producto'] = $infoPre[0];
@@ -165,7 +163,7 @@ class Salidas extends CI_Controller {
 	}
 
 	protected function updateProducto($idProducto,$cantidad,$infoPre){
-		$productoActual = $this->Productos_model->get($idProducto);
+		$productoActual = $this->Productos_model->get2($idProducto);
 		$stock = $this->Productos_model->getStock($productoActual->id_stock);
 		$cantidad = $cantidad * $infoPre;// valor cantidades representa la cantidad numerica por presentación
 		$data2 = array(

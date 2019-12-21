@@ -24,6 +24,13 @@ class Productos_model extends CI_Model {
 		$resultado = $this->db->get();
 		return $resultado->row();
 	}
+	public function get2($id){
+		$this->db->select("p.*");
+		$this->db->from("productos p");
+		$this->db->where("p.id_producto",$id);
+		$resultado = $this->db->get();
+		return $resultado->row();
+	}
 
 	public function update($id,$data){
 		$this->db->where("id_producto",$id);		
