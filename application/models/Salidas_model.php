@@ -33,7 +33,7 @@ class Salidas_model extends CI_Model {
 
   
       public function getProductos($valor){
-        $this->db->select("p.*,m.nombre as marca,pr.id_presentacion_producto as id_presentacion_producto, pr.precio_venta as precio_venta,pre.nombre as id_presentacion,pr.codigo as codigo,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote");
+        $this->db->select("p.*,m.nombre as marca,pr.id_presentacion_producto as id_presentacion_producto, pr.precio_venta as precio_venta,pre.nombre as id_presentacion,pr.codigo as codigo,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote, lt.cantidad as lt_cantidad");
         $this->db->from("productos p");
         $this->db->join("marcas m","p.id_marca = m.id_marca");
         $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");

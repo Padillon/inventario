@@ -110,7 +110,7 @@ $("#autocompleteProducto").autocomplete({
                         }
                     return {
                         label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad+' - '+cantidad,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
                     }
                 }))
             },
@@ -148,25 +148,27 @@ $("#btn-agregar-abast").on("click", function(){
                 html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[10]) {
-                        data_informacion_producto = data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias;
+                        data_informacion_producto = data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias+"*"+infoProducto[9];
                         html+= "<option selected name='presentacion[]' value='"+data_informacion_producto+"'>"+data[i].nombre_pre+"</option>";
-                   
-                    if (Number(data[i].existencias) >= Number(data[i].valor)) {
-                        cantidadMaxima = data[i].existencias / data[i].valor;
-                        cantidadMaxima = myRoundCero(cantidadMaxima);
-                    }else{
-                        cantidadMaxima = 0;
-                    }
+                        if(infoProducto[7]==1 & Number(infoProducto[11]) >= Number(data[i].valor)){
+                            cantidadMaxima = infoProducto[11] / data[i].valor;
+                            cantidadMaxima = myRoundCero(cantidadMaxima);
+                        }else if (Number(data[i].existencias) >= Number(data[i].valor)) {
+                            cantidadMaxima = data[i].existencias / data[i].valor;
+                            cantidadMaxima = myRoundCero(cantidadMaxima);
+                        }else{
+                            cantidadMaxima = 0;
+                        }
 
                 }else{
-                        html+= "<option name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias+"'>"+data[i].nombre_pre+"</option>";                 
+                        html+= "<option name='presentacion[]' value='"+data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias+"*"+infoProducto[9]+"'>"+data[i].nombre_pre+"</option>";                 
                     }             
                 }
                 html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='precioVenta[]' class='precio-salida' value='"+infoProducto[3]+"'></td>"; //precios
                 if (infoProducto[7]==1) {
-                    html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades' name='cantidades[]' value='0' min='1' max='"+cantidadMaxima+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
+                    html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades' name='cantidades[]' value='1' min='1' max='"+cantidadMaxima+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
                 }else{
-                    html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades'name='cantidades[]' value='0' min='1' max='"+infoProducto[6]+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
+                    html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades'name='cantidades[]' value='1' min='1' max='"+cantidadMaxima+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
                 }
                 html += "<td><input type='hidden' id='importes' name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
                 html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
