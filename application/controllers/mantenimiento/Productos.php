@@ -60,10 +60,16 @@ class Productos extends CI_Controller {
 
 
         $this->load->library('upload',$config);
-        $this->upload->do_upload('create_img');
-        $file_info = $this->upload->data();
-        $imagen = $file_info['file_name'];	
-        $data_in['imagen'] =$imagen;
+
+            $this->upload->do_upload('create_img');
+            $file_info = $this->upload->data();
+            $imagen = $file_info['file_name'];
+            if ($imagen != "") {
+                $data_in['imagen'] =$imagen;
+
+            }
+
+     
 
         $id = $this->input->post('data_id');
         $id_stock = $this->input->post('id_stock');

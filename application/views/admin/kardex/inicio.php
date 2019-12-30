@@ -127,10 +127,21 @@ if ($permisos->update == 1){
                                     <label for="id_movimiento">Movimientos: </label>         
                                     <select name='id_movimiento' id='id_movimiento' class='custom-select' required>
                                         <?php foreach($movimientos as $mov):?>
-                                                <option value='<?php echo $mov->id_movimiento;?>'><?php echo $mov->nombre;?></option>
+                                                <?php if ($mov->id_movimiento >4) {?>
+                                                 <option value='<?php echo $mov->id_movimiento."*".$mov->tipo_transaccion;?>'><?php echo $mov->nombre;?></option>
+                                                   
+                                               <?php }?>
                                         <?php endforeach;?>
                                     </select>
                                 </div>
+                                <!--  <div class='col-md-4'>
+                                        <label>Cliente / Proveedor: </label>
+                                        <input name='valorCliente' required id='autocompleteCliente' type='text' class='form-control' >
+                                        <input type="hidden" id="idCliente" name="idCliente" >
+                                        <input name='valorProveedor' required id='autocompleteProveedor' require type='hidden' class='form-control' >
+                                        <input type="hidden" id="idProveedor" name="idProveedor" >
+                                </div>
+                                -->
                                 <div class="col-md-12"> 
                                     <br>
                                 </div>    
@@ -158,17 +169,26 @@ if ($permisos->update == 1){
                                     <table  id="tbCompras" class="table table-responsive">
                                         <thead>
                                             <tr>
-                                                <th class="col-md-1">Código.</th>
-                                                <th class="col-md-2">Nombre.</th>
-                                                <th class="col-md-2">Cantidad.</th>
-                                                <th class="col-md-1">Precio.</th>
-                                                <th class="col-md-1">Fecha caducidad.</th>
+                                                <th class="col-md-1">Código</th>
+                                                <th class="col-md-2">Nombre</th>
+                                                <th class="col-md-2">Presentación</th>
+                                                <th class="col-md-1">Precio</th>
+                                                <th class="col-md-1">Cantidad</th>
+                                                <th class="col-md-1">Importe</th>
+                                                <th class="col-md-1">Fecha de caducidad</th>
+
                                                 <th class="col-md-1">Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>                               
                                         </tbody>
-                                    </table>                       
+                                    </table>
+                                    <table id="tbTotal" class="table table-striped  table-responsive table-bordered">
+                                             <tr>
+                                             <td class="alert alert-success">TOTAL:</td>
+                                             <td class="col alert alert-success"><input type="hidden" id="total" name="total"> <label id="total_sub" class=" pull-right">$</label></td>
+                                             </tr>
+                                        </table>             
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                                         <button type='button' onclick="validarFormulario()" class="btn btn-success">Aceptar</button>

@@ -90,9 +90,12 @@
                                         <div class="col-md-3">
                                         <label>Seleccione una imagen:</label>
                                             <input name='create_img' id='create_img' type='file' class='form-control'><br> 
-                                            <div id="lista_imagenes"> </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                        <img src="<?php echo base_url()?>assets/images/productos/<?php echo $producto->imagen;?>" id='img_actual' width="100" height="100" >              
+                                        <div id="lista_imagenes" > </div>
                                         </div> 
-                                        <div class="col-md-9">
+                                        <div class="col-md-6">
                                             <label for="create_descripcion">Descripción.</label>
                                             <input name='create_descripcion' id="create_descripcion" type='text' value="<?php echo $producto->descripcion; ?>"  class='form-control' placeholder='Ingrese descripción'>
                                         </div>    
@@ -247,3 +250,30 @@
     
         var cod_generado;
     </script>
+    <script>
+              function archivo(evt) {
+                  var files = evt.target.files; // FileList object
+
+                  // Obtenemos la imagen del campo "file".
+                  for (var i = 0, f; f = files[i]; i++) {
+                    //Solo admitimos imágenes.
+                    if (!f.type.match('image.*')) {
+                        continue;
+                    }
+
+                    var reader = new FileReader();
+
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Insertamos la imagen
+                         document.getElementById("lista_imagenes").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '" width="100" height="100"/>'].join('');
+                         $('#img_actual').prop('hidden',true);;
+                        };
+                    })(f);
+
+                    reader.readAsDataURL(f);
+                  }
+              }
+
+              document.getElementById('create_img').addEventListener('change', archivo, true);
+      </script>

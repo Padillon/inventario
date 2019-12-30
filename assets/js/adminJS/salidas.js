@@ -42,10 +42,12 @@ $(document).ready(function(){
                 data:{ autocompleteProducto: $('#autocompleteProducto').val()},
                 success: function(data){  
                     if (data == "") {
-                        $('#autocompleteProducto').val('');                    
+                        $('#autocompleteProducto').val('');
+                        toastr.info('Codigo no existe');                          
+
                     }else{
                         if (data.length > 1) {
-                            toastr.info('Verificar presentación','Producto con mismo código');                          
+                            toastr.info('Verificar presentación','Verifique la presentación del producto códigos iguales o diferentes lotes');                           
                         }
                         fecha_caducidad = "";
                         cantidad ="";
@@ -145,7 +147,7 @@ $("#btn-agregar-abast").on("click", function(){
                 html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
 
                 html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
-                html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
+                html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[10]) {
                         data_informacion_producto = data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].venta+"*"+data[i].valor+"*"+data[i].existencias+"*"+infoProducto[9];

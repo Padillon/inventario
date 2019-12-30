@@ -49,8 +49,11 @@ class Salidas_model extends CI_Model {
           $this->db->where("lt.estado = 1");
           $this->db->or_where("lt.estado ",null);
           $this->db->group_end();
+          $this->db->group_start();
           $this->db->like("p.nombre", $valor);
           $this->db->or_like("pr.codigo", $valor);
+          $this->db->group_end();
+
         $resultados = $this->db->get();
         return $resultados->result_array();
         }

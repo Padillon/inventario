@@ -101,11 +101,11 @@ if ($permisos->insert == 1) {
                                                                 
                                                                     <?php $stock =  floor($pro->stock_actual / $pro->valor)?>
                                                                         <td>
-                                                                        <span class="badge badge-success"><?php echo $stock;?></span>
+                                                                        <span class="badge badge-success"><?php echo floor($pro->stock_actual / $pro->valor);?></span>
                                                                         </td>
                                                                     <?php }else{?>
                                                                         <td>
-                                                                        <span class="badge badge-danger"><?php echo $pro->stock_actual;?></span>
+                                                                        <span class="badge badge-danger"><?php echo floor($pro->stock_actual / $pro->valor);?></span>
                                                                         </td>
                                                                     <?php }?>
                                                                 <?php if($pro->estado == 1){?>
