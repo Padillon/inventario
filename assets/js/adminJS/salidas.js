@@ -41,7 +41,7 @@ $(document).ready(function(){
                 dataType: "json",
                 data:{ autocompleteProducto: $('#autocompleteProducto').val()},
                 success: function(data){  
-                    if (data == "") {
+                    if (data[0] == "") {
                         $('#autocompleteProducto').val('');
                         toastr.info('Codigo no existe');                          
 
@@ -199,7 +199,17 @@ $("#btn-agregar-abast").on("click", function(){
                     }
                 });
                 if (irrepetible == 0) {
-                    $("#tbCompras tbody").append(html);   
+                    $("#tbCompras tbody").append(html);
+                    $("#tbCompras tbody tr").each(function(){ //funcion para aumentar la cantidad dependiendo el producto leido
+                        cant = Number($(this).closest("tr").find("#numCantidades").val()); // obtenemos la cantidad actual
+
+                        precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+                        importe = cant * precio;
+                        totalImporte = parseFloat(importe).toFixed(2);
+                        $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+                        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+                        sumarReabastecimiento();                 
+                    });
                 }
                 $('#btn-agregar-abast').val('');
                 $('#autocompleteProducto').val(null);
