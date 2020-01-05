@@ -79,7 +79,7 @@
                             <?php } ?>
                             <?php $stock_minimos = 0; $arreglo;                                    
                                 foreach( $stock as $sto){
-                                    if($sto->actual <= $sto->minimo){
+                                    if($sto->actual/$sto->valor <= $sto->minimo){
                                         $stock_minimos++;
                                     }
                                 } 

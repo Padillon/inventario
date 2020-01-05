@@ -27,10 +27,12 @@ class Dashboard_model extends CI_Model {
   }
 
   public function stock(){
-    $this->db->select('s.stock_actual as actual, s.stock_minimo minimo, s.id_stock');
+    $this->db->select('s.stock_actual as actual, s.stock_minimo minimo, s.id_stock, pr.valor,p.nombre');
     $this->db->from("stock s");
     $this->db->join("productos p", "p.id_stock = s.id_stock");
+    $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");
     $this->db->where("p.estado",1);
+    $this->db->where("pr.equivalencia",1);
 	$resultados = $this->db->get();
 		return $resultados->result();
 	}
