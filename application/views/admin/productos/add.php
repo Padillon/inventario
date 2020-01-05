@@ -148,7 +148,7 @@
 
                                                 <th>
                                                 <div>
-                                                <label for="create_presentacion">categoria.</label>      
+                                                <label for="create_presentacion">Unidad</label>      
                                                 <select name='create_presentacion' id='create_presentacion' class='custom-select' required>
                                                     <?php foreach($presentacion as $cat):?>
                                                     <option value='<?php echo $cat->id_presentacion.'*'.$cat->nombre;?>'><?php echo $cat->nombre;?></option>
@@ -163,7 +163,7 @@
 
                                                 <th>
                                                     <div class="col">
-                                                    <label>Cantidad</label>
+                                                    <label>Equivalencia en unidad mínima</label>
                                                     <input  name="cantidad_presentacion"  id="cantidad_presentacion" type='number' min='0' pattern='^[0-9]+' class='form-control' placeholder='Ingrese cantidad.'></div>
                                                 </th>
                                                 <th>
