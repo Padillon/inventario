@@ -28,9 +28,28 @@ function validarFormulario(){
         document.getElementById("movimiento_form").submit(); 
     }
 }
+
+function inviarT(){
+
+   if ($('#autcocomplete_origenValue').val() == "" & $('#autocomplete_destinoValue').val() == "") {
+    toastr.error('Ingrese los datos necesarios.');
+       
+   }else if($('#autcocomplete_origenValue').val() === $('#autocomplete_destinoValue').val() ){
+        toastr.error('No puede tranformar el mismo tipo de producto.');
+
+   }else if($('#cant_convert').val() <=0){
+        toastr.error('Ingrese una cantidad válida a converir.');
+
+   }else{
+    document.getElementById("tranformacion_form").submit(); 
+   }
+}
 var estado= 0;
 //borrar el producto si ya ha sido seleccionado alguno
 $(document).ready(function(){
+    if ($('#autcocomplete_origenValue').val() != "") {
+        $('#enviarT').prop('enabled',false);
+    }
 	$("#autocompleteProducto2").keydown(function(event){
         if (event.which==8) {
             $("#autocompleteProducto2").val("");
@@ -45,7 +64,64 @@ $(document).ready(function(){
         //alert( String.fromCharCode(event.which) + " es: " + event.which);
 
     }); 
-    
+    $("#autcocomplete_origen").keydown(function(event){ // escuchamos cuando se elimine el producto seleccionado de tipo origen
+        if (event.which==8) {
+            $("#autcocomplete_origen").val("");
+            $("#autcocomplete_origenValue").val("");
+            $("#can_origen").val(0);
+            document.getElementById("CantidadMax").innerHTML='Cantidad máxima de transformación: ';
+
+        }
+    }); 
+    $(document).on("change", "#can_origen", function(){
+        if ($('#autcocomplete_origenValue').val() == "") {
+            $("#can_origen").val(0);
+            toastr.error('Seleccione un producto de origen.');
+        }else{
+            cantidadMaxima= $("#can_origen").prop('max');
+            if (Number($(this).val()) > cantidadMaxima) {
+                toastr.error('Stock disponible en esta presentacón: '+cantidadMaxima);
+                $("#can_origen").val(cantidadMaxima);
+            }
+            if (cantidadMaxima != 0 & Number($(this).val()) != 0) {
+                cantidadMaxima = myRoundCero(cantidadMaxima / $(this).val());
+                $("#cant_convert").prop('max',cantidadMaxima);
+                document.getElementById("CantidadMax").innerHTML='Cantidad máxima de transformación: '+cantidadMaxima;
+
+            }else{
+                $("#cant_convert").val(0);
+                document.getElementById("CantidadMax").innerHTML='Cantidad máxima de transformación: '+cantidadMaxima;
+               
+
+            }
+            if ($("#cant_convert").val() > $("#cant_convert").prop('max')) {
+                toastr.error('El número de tranforación disponible es de: '+cantidadMaxima);
+                $("#cant_convert").val(cantidadMaxima);
+                document.getElementById("CantidadMax").innerHTML='Cantidad máxima de transformación: '+cantidadMaxima;
+
+
+            }
+           
+        }
+
+    }); 
+    $(document).on("change", "#cant_convert", function(){
+        cantidadMaxima= $("#cant_convert").prop('max');
+        if (Number($(this).val()) > cantidadMaxima) {
+            toastr.error('El número de tranforación disponible es de: '+cantidadMaxima);
+            $("#cant_convert").val(cantidadMaxima);
+            document.getElementById("CantidadMax").innerHTML='Cantidad máxima de transformación: '+cantidadMaxima;
+
+        }
+    }); 
+    $("#autocomplete_destino").keydown(function(event){ // escuchamos cuando se elimine el producto seleccionado de tipo destino
+        if (event.which==8) {
+            $("#autocomplete_destino").val("");
+            $("#autocomplete_destinoValue").val("");
+           
+        }
+    }); 
+
 	$("#autocompleteProducto2").keydown(function(event){
 
     if (event.which==13 & $('#autocompleteProducto2').is(":focus") == true) {
@@ -57,7 +133,7 @@ $(document).ready(function(){
                 data:{ autocompleteProducto: $('#autocompleteProducto2').val()},
                 success: function(data){  
                     presen = $('#id_movimiento').val().split('*');
-                    if (data == "") {
+                    if (data[0].codigo == undefined) {
                         $('#autocompleteProducto').val('');      
                         toastr.info('Código no existe');                          
 
@@ -179,6 +255,89 @@ $("#autocompleteProducto2").autocomplete({
        $("#btn-agregar-abast").val(data); 
     },
   });
+  //autocomplete para el producto de origen
+  $("#autcocomplete_origen").autocomplete({
+    source: function(request, response){
+        $.ajax({
+            url: base_url+"movimientos/kardex/getProductos",
+            type: "POST",
+            dataType: "json",
+            data:{ autocompleteProducto: request.term},
+            success: function(data){
+                response($.map(data, function (item) {
+                    fecha_caducidad = "";
+                    cantidad ="";
+                        if (item.caducidad != null) {
+                            fecha_caducidad = " - "+item.caducidad;
+                            cantidad = item.cantidad;
+                        }else{
+                            cantidad = item.existencias;
+                        }
+                    return {
+                        label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
+                    }
+                }))
+            },
+        });
+    }, //indica la informacion a mostrar al momento de comenzar a llenar el campo
+    minLength:2, //caracteres que activan el autocomplete
+    select: function(event, ui){
+       data = ui.item.id;
+       $("#autcocomplete_origenValue").val(data);
+      data = $('#autcocomplete_origenValue').val().split('*');
+       cantidadMaxima = 0;
+       if(data[7]==1 & Number(data[11]) >= Number(data[12])){
+           cantidadMaxima = data[11] / data[12];
+        
+           cantidadMaxima = myRoundCero(cantidadMaxima);
+       }else if (Number(data[6]) >= Number(data[12])) {
+
+           cantidadMaxima = data[6] / data[12];
+           cantidadMaxima = myRoundCero(cantidadMaxima);
+       }else{
+           cantidadMaxima = 0;
+       }
+       $("#can_origen").prop('max',cantidadMaxima);
+
+    },
+  });
+
+  //autocomplete para el producto de destino
+  $("#autocomplete_destino").autocomplete({
+    source: function(request, response){
+        $.ajax({
+            url: base_url+"movimientos/kardex/getProductos",
+            type: "POST",
+            dataType: "json",
+            data:{ autocompleteProducto: request.term},
+            success: function(data){
+                response($.map(data, function (item) {
+                    fecha_caducidad = "";
+                    cantidad ="";
+                        if (item.caducidad != null) {
+                            fecha_caducidad = " - "+item.caducidad;
+                            cantidad = item.cantidad;
+                        }else{
+                            cantidad = item.existencias;
+                        }
+                        
+                    return {
+                        label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
+                    }
+                }))
+            },
+        });
+    }, //indica la informacion a mostrar al momento de comenzar a llenar el campo
+    minLength:2, //caracteres que activan el autocomplete
+    select: function(event, ui){
+       data = ui.item.id;      
+    
+       $("#autocomplete_destinoValue").val(data); 
+    },
+  });
+
 
   $("#autocompleteProducto3").autocomplete({
     source: function(request, response){

@@ -199,4 +199,105 @@ class Kardex extends CI_Controller {
 		$this->Productos_model->updateStock($productoActual->id_stock, $data2);
 	}
 
+	public function addConversion(){
+		$fecha = $this->input->post('fechaT');
+		$origen =  explode('*',$this->input->post('autcocomplete_origenValue'));
+		$destino =  explode('*',$this->input->post('autocomplete_destinoValue'));
+		$cant_origen = $this->input->post('can_origen');
+		$cant_destino = $this->input->post('can_destino');
+		$can_convert = $this->input->post('cant_convert');
+		$canTotalOrigen = ($cant_origen) * ($can_convert) * ($origen[12]);
+		$canTotalDestino = ($cant_destino) * ($destino[12]);
+
+		$dataOrigen = array(
+			'id_movimiento' =>9,
+			'fecha' => $fecha,
+			'descripcion' =>'Transformación de '.$origen[1].' a '.$destino[1],
+			'id_producto' =>$origen[4],
+			'cantidad' =>$can_convert * $cant_origen,
+			'id_presentacion_producto' =>$origen[10],
+			'id_usuario' => $this->session->userdata('id'),
+		);
+		
+		$dataDestino = array(
+			'id_movimiento' =>9,
+			'fecha' => $fecha,
+			'descripcion' =>'Transformación de '.$origen[1].' a '.$destino[1],
+			'id_producto' => $destino[4],
+			'cantidad' =>$cant_destino *$can_convert,
+			'id_presentacion_producto' =>$destino[10],
+			'id_usuario' => $this->session->userdata('id'),
+		);
+
+	
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+
+		$this->Kardex_model->add($dataOrigen);
+		$this->Kardex_model->add($dataDestino);
+		/// actualizamos el stock del producto origen
+		if ($destino[7] == 1) {
+			$loteActual = $this->Salidas_model->getLote($origen[9]);
+			if ($loteActual->cantidad == $canTotalOrigen) {
+				$data2 = array(
+					'estado' => 0,
+					'cantidad' => 0,
+				);							
+			}else{
+				$data2 = array(
+					'cantidad' => $loteActual->cantidad - $canTotalOrigen,
+				);
+			}
+			$this->Salidas_model->updateLote($data[9], $data2);
+		}
+		/// actualizamos el stock del producto destino
+		if ($origen[7] == 1) {
+			$loteActual = $this->Salidas_model->getLote($destino[9]);
+			if ($loteActual->cantidad == $canTotalDestino) {
+				$data2 = array(
+					'estado' => 0,
+					'cantidad' => 0,
+				);							
+			}else{
+				$data2 = array(
+					'cantidad' => $loteActual->cantidad + $canTotalDestino,
+				);
+			}
+			$this->Salidas_model->updateLote($lotes[$i], $data2);
+		}
+
+		//actualizamos el stock del producto origen
+
+		$stock = $this->Productos_model->getStock($origen[13]);
+		$cantidad = $canTotalOrigen;// valor cantidades representa la cantidad numerica por presentación
+		$data2 = array(
+			'stock_actual' => $stock->stock_actual - $cantidad,
+		//	'stock_actual' => 100,
+
+		);
+		$this->Productos_model->updateStock($origen[13], $data2);
+		//actualizamos el stock del producto destino
+
+		$stock = $this->Productos_model->getStock($destino[13]);
+		$cantidad = $canTotalDestino;// valor cantidades representa la cantidad numerica por presentación
+		$data2 = array(
+			'stock_actual' => $stock->stock_actual + $cantidad,
+		//	'stock_actual' => 200,
+
+		);
+		$this->Productos_model->updateStock($destino[13], $data2);
+		
+
+        $this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
+		$this->db ->trans_complete();// ******************************************************** icompletamos transaccion **************************************
+		if($this->db->trans_status()){ // ******************************************************** iniciamos transaccion **************************************
+            $this->toastr->success('Registro guardado!');
+			redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas      
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+		redirect(base_url()."movimientos/kardex"); //redirigiendo a la lista de ventas
+          
+        }
+
+	}
 }

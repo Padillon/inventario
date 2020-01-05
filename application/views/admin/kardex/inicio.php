@@ -59,6 +59,9 @@ if ($permisos->update == 1){
                                         <a href  calss="btn btn-outline-primary mb-3 movimiento" data-toggle="modal" data-target="#movimiento" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3" onclick="movimientoModal()">Movimiento +</a>
                                         </div>
                                         <div class="col-md-3">
+                                        <a href  calss="btn btn-outline-primary mb-3 convertir" data-toggle="modal" data-target="#converitr" <?php echo $habilitado_insert?> class="btn btn-outline-primary mb-3">Convertir producto </a>
+                                        </div>
+                                        <div class="col-md-3">
                                             <a href="<?php echo base_url();?>movimientos/kardex/buscar" class="btn btn-outline-primary mb-3">Buscar Producto</a>
                                         </div>
                                         <div class="col-md-3">
@@ -74,8 +77,9 @@ if ($permisos->update == 1){
                                                         <th>#</th>
                                                         <th>Fecha</th>
                                                         <th>Tipo</th>
-                                                        <th>Descripción</th>
                                                         <th>Producto</th>
+                                                        <th>Presentación</th>
+                                                        <th>Descripción</th>
                                                         <th>Cantidad</th>
                                                         <th>Encargado</th>
                                                     </tr>
@@ -87,8 +91,9 @@ if ($permisos->update == 1){
                                                         <td><?php echo $kar->id_kardex;?></td>
                                                         <td><?php echo $kar->fecha;?></td>
                                                         <td><?php echo $kar->movimiento;?></td> 
-                                                        <td><?php echo $kar->descripcion;?></td>
                                                         <td><?php echo $kar->nombre;?></td>
+                                                        <td><?php echo $kar->nombre_presentacion;?></td>
+                                                        <td><?php echo $kar->descripcion;?></td>
                                                         <td><?php echo $kar->cantidad;?></td>
                                                         <td><?php echo $kar->usuario; ?></td> 
                                                     </tr>
@@ -192,6 +197,78 @@ if ($permisos->update == 1){
                                     <div class='modal-footer'>
                                         <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                                         <button type='button' onclick="validarFormulario()" class="btn btn-success">Aceptar</button>
+                                    </div>
+                            </div> 
+                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal para conversion-->
+<div id='converitr' class="modal fade bd-example-modal-lg" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+
+            <div class='modal-body'>
+                <form action="<?php echo base_url();?>movimientos/kardex/addConversion" id="tranformacion_form" method="POST">
+                    <div class='row'>  
+                        <div class="col-md-12 mt-4">
+                            <div class='input-group'>
+                                <div class="col-md-4">
+                                    <label>Fecha:</label>
+                                    <input name='fechaT' type="date" value="<?php echo date("Y-m-d");?>" class='form-control' >
+                                </div>
+                                <div class="col-md-12">
+                                <br>
+                                </div>
+                               
+                                <div class="col-md-6">
+                                <label class="col-form-control">Buscar Producto origen:</label>
+                                    <div class="input-group">
+                                        <input name="autcocomplete_origen" required class="form-control" type="text" id="autcocomplete_origen">
+                                        <input name="autcocomplete_origenValue"required class="form-control" type="hidden" id="autcocomplete_origenValue">
+                                        
+                                    </div>                         
+                                </div>
+                                <div class="col-md-6">
+                                <label class="col-form-control">Buscar Producto destino:</label>
+                                    <div class="input-group">
+                                        <input name="autocomplete_destino" required class="form-control" type="text" id="autocomplete_destino">
+                                        <input name="autocomplete_destinoValue" required class="form-control" type="hidden" id="autocomplete_destinoValue">
+                                        
+                                    </div>                         
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-control">Valor de origen:</label>
+                                    <input name="can_origen" pattern='^[0-9]+' min='0' value= 0 required class="form-control" type="number" id="can_origen">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-control">Valor de equivalencia:</label>
+                                    <input name="can_destino" pattern='^[0-9]+' min='0' value= 0  required class="form-control" type="number" id="can_destino">
+                                </div>
+                                <div class="col-md-12">
+                                <br>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <p id="CantidadMax">Cantidad máxima de transformación:</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-form-control">Ingrese la cantidad a convertir:</label>
+                                    <input name="cant_convert" pattern='^[0-9]+' min='0' required class="form-control" type="number" id="cant_convert">
+                                </div>
+                                <div class = "table-responsive-sm col-md-12"> 
+
+                                    <div class='modal-footer'>
+                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                                        <button type='button' onclick=inviarT() class="btn btn-success">Aceptar</button>
                                     </div>
                             </div> 
                          </div>

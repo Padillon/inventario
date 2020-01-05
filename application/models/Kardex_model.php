@@ -53,9 +53,11 @@ public function getKardexBuscar($id,$inicio,$fin){
 	}
 
 	public function getKardexDia($fecha){
-		$this->db->select("k.*, t.nombre as movimiento, p.nombre, u.usuario, s.stock_actual,p.perecedero as perecedero");
+		$this->db->select("k.*, t.nombre as movimiento, p.nombre, u.usuario, s.stock_actual,p.perecedero as perecedero, pr.nombre as nombre_presentacion");
 		$this->db->from("kardex k");
 		$this->db->join("productos p" , "p.id_producto = k.id_producto");
+		$this->db->join("presentaciones_producto pre","k.id_presentacion_producto = pre.id_presentacion_producto");
+		$this->db->join("presentacion pr","pre.id_presentacion = pr.id_presentacion");
 		//$this->db->join("presentaciones_producto pre", "p.id_producto = pre.id_producto");
 		$this->db->join("stock s" , "p.id_stock = s.id_stock");
         $this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
@@ -70,7 +72,7 @@ public function getKardexBuscar($id,$inicio,$fin){
 	}
 
 	public function getProductos($valor){
-		$this->db->select("p.*,m.nombre as marca,pr.id_presentacion_producto as id_presentacion_producto, pr.precio_venta as precio_venta,pre.nombre as id_presentacion,pr.codigo as codigo,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote, lt.cantidad as lt_cantidad");
+		$this->db->select("p.*,m.nombre as marca,pr.id_presentacion_producto as id_presentacion_producto,pr.valor, pr.precio_venta as precio_venta,pre.nombre as id_presentacion,pr.codigo as codigo,s.stock_actual as existencias,lt.fecha_caducidad caducidad,lt.cantidad cantidad,lt.id_lote lote, lt.cantidad as lt_cantidad");
         $this->db->from("productos p");
         $this->db->join("marcas m","p.id_marca = m.id_marca");
         $this->db->join("presentaciones_producto pr", "p.id_producto = pr.id_producto");
