@@ -211,8 +211,8 @@ $("#autocompleteProducto").autocomplete({
                 html += "<td>"+data[i].movimiento+"</td>";//id del producto
                 html += "<td>"+data[i].descripcion+"</td>";//id del producto
                 html += "<td>"+data[i].usuario+"</td>";//id del producto
-                html += "<td>"+data[i].cantidad+"</td>";//id del producto
-                html += "<td>"+saldoK+"</td>";//id del producto
+                html += "<td>"+data[i].cantidad + " "+ data[i].nombre_presentacion+"</td>";//id del producto
+                html += "<td>"+saldoK + " "+ data[i].nombre_presentacion+"</td>";//id del producto
                 html += "</tr>";
                 $("#tabla_kardex tbody").append(html);
             }

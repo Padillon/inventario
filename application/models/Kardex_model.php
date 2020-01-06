@@ -25,15 +25,15 @@ public function update($data,$id){
 }
 
 public function getKardexBuscar($id,$inicio,$fin){
-	//$this->db->select("date_format(k.fecha, '%d-%m-%Y') as fecha, k.descripcion, k.cantidad, u.usuario, t.tipo_transaccion, if(t.tipo_transaccion = 1, 'Entrada', 'Salida') as movimiento, pre.codigo, p.nombre");
-	$this->db->select("date_format(k.fecha, '%d-%m-%Y') as fecha, k.descripcion, k.cantidad, u.usuario, t.tipo_transaccion, t.nombre as movimiento, pre.codigo, p.nombre");
+	$this->db->select("date_format(k.fecha, '%d-%m-%Y') as fecha, pr.nombre as nombre_presentacion, k.descripcion, k.cantidad, u.usuario, t.tipo_transaccion, t.nombre as movimiento, pre.codigo, p.nombre");
 	
 	$this->db->from("kardex k");
 	$this->db->join("productos p" , "p.id_producto = k.id_producto");
 	$this->db->join("stock s" , "p.id_stock = s.id_stock");
 	$this->db->join("tipo_movimiento t", "k.id_movimiento = t.id_movimiento");
 	$this->db->join("usuarios u" , "u.id_usuario = k.id_usuario");
-	$this->db->join("presentaciones_producto pre", "k.id_presentacion_producto = pre.id_presentacion_producto");
+    $this->db->join("presentaciones_producto pre", "k.id_presentacion_producto = pre.id_presentacion_producto");
+    $this->db->join("presentacion pr", "pr.id_presentacion = pre.id_presentacion");
 	$this->db->where("k.id_producto",$id);
 	$this->db->where("k.fecha >='".$inicio."' AND k.fecha <='".$fin."'");
 	//$this->db->where("pre.id_presentacion_producto",$id_presentacion);
