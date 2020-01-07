@@ -138,8 +138,10 @@ $("#btn-agregar-abast").on("click", function(){
                 irrepetible = 0; //si es un producto que existe aumentar la cantidad
             cantidadMaxima = 0;
             html = "<tr>";
-            html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
-            html += "<td><p>"+infoProducto[1]+"</p></td>"; //nombre      
+            if ($('#codigo').val()==1) {
+                html += "<td><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
+            }   
+            html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p>"+infoProducto[1]+"</p></td>"; //nombre      
             html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
                     data_informacion_producto = data[i].id_presentacion_producto+"*"+data[i].codigo+"*"+data[i].compra+"*"+data[i].valor;;
@@ -153,7 +155,7 @@ $("#btn-agregar-abast").on("click", function(){
             html+= "</select></td>"        
             html += "<td><input style='width:100px' step='0.01'  min='0.00' type='number' pattern='^\d*(\.\d{0,2})?$' name='nuevoPrecio[]' class='precio-entrada' value='"+infoProducto[2]+"' required></td>"; //precios
             html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades' name='cantidades[]' value='1' min='0' pattern='^[0-9]+' class='cantidades' required></td>"; //cantidades
-            html += "<td><input type='hidden' id=importes  name='importes[]' value='"+0+"'><p id='importePresentado'>"+0+"</p></td>"; //immportes
+            html += "<td><input type='hidden' id=importes  name='importes[]' value='"+0+"'><p class='importePresentado' id='importePresentado'>"+0+"</p></td>"; //immportes
             if (infoProducto[6]==1) {
                 html += "<td><input name='fechaCaducidad[]' type='date' required class='form-control' ><input type='hidden' class='pedecedero' value='"+infoProducto[6]+"'> </td>";
             }else{
@@ -175,8 +177,12 @@ $("#btn-agregar-abast").on("click", function(){
                         precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
                         importe = cantidad * precio;
                         totalImporte = parseFloat(importe).toFixed(2);
-                        $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-                        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+                       
+                        $(this).closest("tr").find("#importes").val(totalImporte);
+                        $(this).closest("tr").find(".importePresentado").text(totalImporte);
+                        
+
+                       
                         sumarReabastecimiento();
                                   
                 }
@@ -188,8 +194,9 @@ $("#btn-agregar-abast").on("click", function(){
                     precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
                     importe = cant * precio;
                     totalImporte = parseFloat(importe).toFixed(2);
-                    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-                    $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+                    $(this).closest("tr").find("#importes").val(totalImporte);
+                    $(this).closest("tr").find(".importePresentado").text(totalImporte);
+
                     sumarReabastecimiento();                 
                 });
             }
@@ -274,8 +281,10 @@ $(document).on("click", ".btn-view-entrada", function(){
 //funcion para sumar el costo total
 function sumarReabastecimiento(){
     total = 0;
+
     $("#tbCompras tbody tr").each(function(){
-        total = total +  Number($(this).find("td:eq(5)").text());
+        alert($(this).find("#importes").val());
+        total = total +  Number($(this).find("#importes").val());
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);

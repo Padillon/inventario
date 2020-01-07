@@ -57,15 +57,20 @@
                                                     <table id="tbCompras" class=" tabla-contenido table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                         <thead>
                                                             <tr class=>
-                                                                <th  WIDTH="15%">Codigo</th>
-                                                                <th  WIDTH="15%">Nombre</th>
-                                                                <th  WIDTH="15%">Presentacion</th>
-                                                                <th  WIDTH="15%">Precio Entrada</th>
-                                                                <!--<th  WIDTH="15%">Precio Salida</th> -->
-                                                                <th  WIDTH="15%">Cantidad</th>
-                                                                <th  WIDTH="15%">Importes</th>
-                                                                <th  WIDTH="15%">Fecha de caducidad</th>
-                                                                <th  WIDTH="15%">Opciones</th>
+                                                                <?php if($this->session->userdata('codigo') == 1){?>
+                                                                    <th  class="col-md-2">Codigo</th>
+                                                                <?php }else{?>
+                                                                    <input type="hidden" id='cod' value=<?php echo $this->session->userdata('codigo') ?>>
+                                                             <?php   } ?>
+
+                                                                <th  class="col-md-2">Nombre</th>
+                                                                <th  class="col-md-2">Presentacion</th>
+                                                                <th  class="col-md-2">Precio Entrada</th>
+                                                                <!--<th  class="col-md-2">Precio Salida</th> -->
+                                                                <th  class="col-md-2">Cantidad</th>
+                                                                <th  class="col-md-2">Importes</th>
+                                                                <th  class="col-md-2">Fecha de caducidad</th>
+                                                                <th  class="col-md-2">Opciones</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>                               

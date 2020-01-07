@@ -98,7 +98,40 @@
             </div>
             </div>
         </div>
-                                    </div> </div>
+        </div>
+        <div class="main-content-inner">
+                <div class="row">
+                 <!-- data table start -->
+                    <div class="col-12 mt-4">
+                    <div class="card-area">
+                            <div class="card card-bordered">
+                                <div class="card-body">
+                                <form action="<?php echo base_url();?>ajustes/ajustes/impuestoEdit" method='POST'>
+                                    <div class="col-md-3">
+                                        <h4 class="page-title pull-left">Impuestos</h4>
+                                    </div>
+                                        <div class="input-group">                                       
+                                            <div class="col-md-3 mt-5"> 
+                                                <label>Mostrar código de barra.</label>                     
+                                                    <div class="s-swtich">                          
+                                                        <input type="checkbox" id="barra_on" name="barra_on"  value="<?php echo $ajuste->codigo;?>" class="form-check-input" >
+                                                        <label for="barra_on" class="form-check-label">Activo.</label>
+                                                    </div>
+                                            </div>
+                                           
+                                        </div>    
+                                        <div class="col-md-12 mt-5"> 
+                                             <button type="submit" class="btn btn-outline-primary col mb-3" name="btn-create" >Guardar</button>                                 
+                                        </div>   
+                                </form>
+                                         
+                                 </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+        </div>  
+                                     </div>
     <?php
     $this->load->view('layouts/alert');
     ?>

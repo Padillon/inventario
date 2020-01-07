@@ -20,5 +20,9 @@ class Ajustes_model extends CI_Model {
 		$this->db->where("id",$id);
 		return $this->db->update("ajustes",$data);
 	}
+	public function impuestoEdit($nombre, $data){
+		$this->db->where('id',$nombre);
+		return $this->db->update("ajustes",$data);
+	}
 
 }

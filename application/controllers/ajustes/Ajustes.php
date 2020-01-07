@@ -29,6 +29,39 @@ class Ajustes extends CI_Controller {
 		$this->load->view('layouts/footer');
 	}
 
+	public function impuestoEdit(){
+		
+		if ($this->input->post('barra_on') == 1){
+			$data = array(
+				'codigo' => 1,
+				
+			);
+			unset($_SESSION[ 'codigo' ]);
+			$this->session->set_userdata ( 'codigo' , 1);
+		}else{
+			$data = array(
+				'codigo' => 0,
+			);
+			unset($_SESSION[ 'codigo' ]);
+			$this->session->set_userdata ( 'codigo' , 0);
+
+		}
+        $this->db->trans_start(); // ******************************************************** iniciamos transaccion **************************************
+		$this->Ajustes_model->impuestoEdit(1,$data);
+        $this->db ->trans_complete();// ******************************************************** completamos transaccion **************************************
+	
+		  
+        if($this->db->trans_status()){ // ******************************************************** Evaluamos estado **************************************
+            $this->toastr->success('Cambio guardado!');
+            redirect(base_url()."ajustes/ajustes");
+        }
+        else{
+            $this->toastr->error('No se pudo completar la operación.');
+            redirect(base_url()."ajustes/ajustes");
+        }
+
+	}
+
 	public function upload(){
 
         $config['upload_path'] = "assets/images/ajuste/";

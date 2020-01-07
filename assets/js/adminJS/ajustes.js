@@ -1,3 +1,6 @@
+if($('#barra_on').val() > 0){
+    $("#barra_on").prop('checked', true);
+}
 function editAjuste(num){
     valores = $("#ajuste").val();
     datos = valores.split("*");
@@ -42,3 +45,11 @@ function editAjuste(num){
     $("#modalAjuste .modal-footer").html(html3);
 
 };
+
+$('#barra_on').on('change', function(e){     
+    if( $("#barra_on").prop('checked')){
+        $('#barra_on').val('1');
+    }else{
+    $('#barra_on').val('0');
+    }      
+});

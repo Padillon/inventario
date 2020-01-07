@@ -78,7 +78,9 @@ if ($permisos->insert == 1) {
                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                                 <thead  >
                                                     <tr>
+                                                    <?php if($this->session->userdata('codigo') == 1){?>
                                                         <th>Codigo</th>
+                                                    <?php } ?>
                                                         <th>Nombre</th>
                                                         <th>Marca</th>
                                                         <th>Presentacion principal</th>
@@ -93,7 +95,10 @@ if ($permisos->insert == 1) {
                                                         <?php foreach($producto as $pro):?>
                                                         <?php $cont++;?>
                                                             <tr>
+                                                            <?php if($this->session->userdata('codigo') == 1){?>
                                                                 <td><?php echo $pro->codigo;?></td>
+                                                            <?php } ?>
+                                                            
                                                                 <td><?php echo $pro->nombre;?></td>
                                                                 <td><?php echo $pro->marca;?></td>
                                                                 <td><?php echo $pro->presentacion;?></td>
