@@ -10,9 +10,9 @@ function validarFormulario(){
     validar_fecha = 0;
     $("#tbCompras tbody tr").each(function(){
         total++; // si total llega a ser mayor de 0 es porque hay datos en la tabla
-        cantidades =Number($(this).find("td:eq(4)").children('input').val()); // revisamos en la columna que ningun valor sea 0
+        cantidades =Number($(this).find("#numCantidades").val()); // revisamos en la columna que ningun valor sea 0
         valor_p_caducidad = $(this).closest("tr").find(".pedecedero").val(); //saber si se agrego un un producto perecedero
-        fechaCaducidad =Number($(this).find("td:eq(6)").children('input').val()); // validar que este lleno la fecha de caducidad   
+        fechaCaducidad =Number($(this).find(".pedecedero").val()); // validar que este lleno la fecha de caducidad   
        
         if (fechaCaducidad == 0 & valor_p_caducidad != 0) {
             toastr.warning("Ingrese una fecha de caducidad en la linea: "+total);
@@ -30,16 +30,12 @@ function validarFormulario(){
     }else if(validar_fecha == 1){
 
     }else if(validar_cantidad!=1){
-        toastr.warning('!Ingrese un proveedor¡');
+        toastr.warning('¡Ingrese un proveedor!');
     }
 }
 
 //borrar el producto si ya ha sido seleccionado alguno
 $(document).ready(function(){
-    /*$("#autocompleteProducto").keydown(function(event){
-        alert('m');
-    });*/
-   
 	$("#autocompleteProducto").keydown(function(event){
        
 
@@ -106,10 +102,18 @@ $("#autocompleteProducto").autocomplete({
           data:{ autocompleteProducto: request.term},
           success: function(data){
               response($.map(data, function (item) {
-                  return {
-                      label: item.codigo+" - "+item.nombre+' - '+ item.id_marca+' - '+item.nombre_pre,
-                      id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.nombre_pre+'*'+item.perecedero+"*"+item.id_presentacion_producto,
+                  if ($('#codigo').val() ==1) {
+                    return {
+                        label: item.codigo+" - "+item.nombre+' - '+ item.id_marca+' - '+item.nombre_pre,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.nombre_pre+'*'+item.perecedero+"*"+item.id_presentacion_producto,
+                    }
+                  }else{
+                    return {
+                        label:item.nombre+' - '+ item.id_marca+' - '+item.nombre_pre,
+                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.nombre_pre+'*'+item.perecedero+"*"+item.id_presentacion_producto,
+                    } 
                   }
+                  
               }))
           },
       });
@@ -167,14 +171,13 @@ $("#btn-agregar-abast").on("click", function(){
 
             $("#tbCompras tbody tr").each(function(){ //funcion para aumentar la cantidad dependiendo el producto leido
                 cadena_caracteres = $(this).closest("tr").find("#tipo_presentacion").val();
-                alert(cadena_caracteres);
                 if ( cadena_caracteres === data_informacion_producto) {
                     irrepetible = 1;
                     cant = Number($(this).closest("tr").find("#numCantidades").val()); // obtenemos la cantidad actual
                     $(this).closest("tr").find("#numCantidades").val(cant+1); //aumentamos el valor
                     // evaluamos que la cantidad no exeda la capacidad máxima y actualizamos los valores
                         cantidad =cant + 1;
-                        precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+                        precio = $(this).closest("tr").find(".precio-entrada").val();
                         importe = cantidad * precio;
                         totalImporte = parseFloat(importe).toFixed(2);
                        
@@ -191,7 +194,7 @@ $("#btn-agregar-abast").on("click", function(){
                 $("#tbCompras tbody").append(html);
                 $("#tbCompras tbody tr").each(function(){ //funcion para aumentar la cantidad dependiendo el producto leido
                     cant = Number($(this).closest("tr").find("#numCantidades").val()); // obtenemos la cantidad actual
-                    precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+                    precio = $(this).closest("tr").find(".precio-entrada").val();
                     importe = cant * precio;
                     totalImporte = parseFloat(importe).toFixed(2);
                     $(this).closest("tr").find("#importes").val(totalImporte);
@@ -218,31 +221,20 @@ $(document).on("input", "#tbCompras input.precio-entrada", function(){
     importe = pre_compra * cant;
     totalImporte = parseFloat(importe).toFixed(2);
     $(this).closest("tr").find("#importes").val(totalImporte);
-    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+    $(this).closest("tr").find(".importePresentado").text(totalImporte);
     sumarReabastecimiento();
 });
 //es cucharemosa cuando cambien el tipo de presentacion
 $(document).on("change", "#tbCompras #tipo_presentacion", function(){
     data  =  $(this).val().split('*');
     $(this).closest("tr").find(".precio-entrada").val(data[2]);
-    //$(this).closest("tr").find("td:eq(0)").children("p").text($data[1]); primera manera de hacerlo 
     $(this).closest("tr").find(".cod_class").text(data[1]); //segunda manera de hacerlo
     cant = $(this).closest("tr").find("#numCantidades").val();
     precio = $(this).closest("tr").find(".precio-entrada").val();
     importe = cant * precio;
     totalImporte = parseFloat(importe).toFixed(2);
-   // cantidadMaxima=0;
-    //alert(data[4]+'  '+data[3]);
-    /*if (data[4] >= data[3] ) {
-        cantidadMaxima = data[3] / data[4];
-        cantidadMaxima = myRoundCero(cantidadMaxima);
-
-    }else{
-        cantidadMaxima = 0;
-    }*/
     $(this).closest("tr").find("#importes").val(totalImporte);
-   // $(this).closest("tr").find(".cantidades").prop('max',cantidadMaxima);
-    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+    $(this).closest("tr").find(".importePresentado").text(totalImporte);
     sumarReabastecimiento();
 });
 //procedimiento al ingresar cantidades
@@ -252,7 +244,8 @@ $(document).on("input", "#tbCompras input.cantidades", function(){
     importe = cantidad * precio;
     totalImporte = parseFloat(importe).toFixed(2);
     $(this).closest("tr").find("#importes").val(totalImporte);
-    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+    $(this).closest("tr").find(".importePresentado").text(totalImporte);
+   
     sumarReabastecimiento();
 });
 //eliminar articulo
@@ -283,7 +276,6 @@ function sumarReabastecimiento(){
     total = 0;
 
     $("#tbCompras tbody tr").each(function(){
-        alert($(this).find("#importes").val());
         total = total +  Number($(this).find("#importes").val());
     });
     total2 = parseFloat(total).toFixed(2);
