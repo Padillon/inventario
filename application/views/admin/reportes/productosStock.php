@@ -86,10 +86,10 @@ $tabla = <<<EOF
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
                 <th width="15%" align="center" bgcolor="lightgray">C&oacute;digo</th>
-                <th width="10%" align="center" bgcolor="lightgray">Presentaci&oacute;n</th>
                 <th width="15%" align="center" bgcolor="lightgray">Nombre</th>
                 <th width="15%" align="center" bgcolor="lightgray">Marca</th>
                 <th width="15%" align="center" bgcolor="lightgray">Categor&iacute;a</th>
+                <th width="10%" align="center" bgcolor="lightgray">Presentaci&oacute;n Principal</th>
                 <th width="10%" align="center" bgcolor="lightgray">Stock M&iacute;nimo</th>
                 <th width="10%" align="center" bgcolor="lightgray">Stock Actual</th>
             </tr>
@@ -101,10 +101,10 @@ foreach($productos as $pro){
         <tr>
             <td>$cont</td>
             <td>$pro->codigo</td>
-            <td>$pro->presentacion</td>
             <td>$pro->nombre</td>
             <td>$pro->marca</td>
             <td>$pro->categoria</td>
+            <td>$pro->presentacion</td>
             <td>$pro->stock_minimo</td>
             <td>$pro->stock_actual</td>
         </tr>

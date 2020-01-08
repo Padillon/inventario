@@ -257,7 +257,7 @@ if ($permisos->update == 1){
                     <input type="date" class="form-control" id="fecha2Prov" required>
                 </div>
                 <div class="col-md-auto">
-                    <label for="elegirProveedor">Elija la Categoria:</label>        
+                    <label for="elegirProveedor">Elija Proveedor:</label>        
                     <select id='elegirProveedor' class='custom-select' required>
                         <?php foreach($proveedores as $pro):?>
                             <option value='<?php echo $pro->id_proveedor;?>'><?php echo $pro->nombre." - ".$pro->empresa;?></option>

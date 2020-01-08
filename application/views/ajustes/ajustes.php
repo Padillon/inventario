@@ -108,7 +108,7 @@
                                 <div class="card-body">
                                 <form action="<?php echo base_url();?>ajustes/ajustes/impuestoEdit" method='POST'>
                                     <div class="col-md-3">
-                                        <h4 class="page-title pull-left">Impuestos</h4>
+                                        <h4 class="page-title pull-left">Otras configuraciones</h4>
                                     </div>
                                         <div class="input-group">                                       
                                             <div class="col-md-3 mt-5"> 
@@ -131,7 +131,7 @@
                     </div>
                 </div>
         </div>  
-                                     </div>
+                                     </div
     <?php
     $this->load->view('layouts/alert');
     ?>

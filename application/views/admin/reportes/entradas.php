@@ -114,7 +114,7 @@ foreach($entradas as $ent){
             <td align="center">$ent->fecha</td>
             <td>$ent->id_proveedor</td>
             <td>$ent->id_usuario</td>
-            <td align="right">$total</td>
+            <td align="right">$ $total</td>
         </tr>
 EOF;
 }

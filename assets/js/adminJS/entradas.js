@@ -305,8 +305,6 @@ $("#btnelegirFecha").on("click", function(){
 $("#btnelegirProveedor").on("click", function(){
     fecha1 = $("#fecha1Prov").val();
     fecha2 = $("#fecha2Prov").val();
-    fecha1 = $("#fecha1").val();
-    fecha2 = $("#fecha2").val();
     if (fecha1 == "" || fecha2 =="") {
         toastr.warning('Ingrese las fechas.');
     }else{

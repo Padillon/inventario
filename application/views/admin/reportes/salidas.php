@@ -115,7 +115,7 @@ foreach($salidas as $sal){
             <td align="center">$sal->fecha</td>
             <td>$cliente</td>
             <td>$sal->usuario</td>
-            <td align="right">$total</td>
+            <td align="right">$ $total</td>
         </tr>
 EOF;
 }
