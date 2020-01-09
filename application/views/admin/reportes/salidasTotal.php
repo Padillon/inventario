@@ -115,7 +115,7 @@ foreach($salidas as $sal){
             <td align="center">$sal->fecha</td>
             <td>$cliente</td>
             <td>$sal->usuario</td>
-            <td align="right">$total</td>
+            <td align="right">$ $total</td>
         </tr>
 EOF;
 }
@@ -128,7 +128,7 @@ $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 $tablaTotal = <<<EOF
     <table border="1" align="center" cellpadding="2" width="100%">
         <tr>
-            <td>Total de Ventas: $totalVenta->totalTotal</td>
+            <td>Total de Ventas: $ $totalVenta->totalTotal</td>
         </tr>
     </table>
 

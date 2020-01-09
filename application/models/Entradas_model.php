@@ -154,7 +154,7 @@ class Entradas_model extends CI_Model {
   }
 
   public function getEntradasFechas($fecha1, $fecha2){ 
-        $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total, u.usuario as id_usuario, pro.empresa as id_proveedor, e.*");
+        $this->db->select("date_format(e.fecha, '%d-%m-%Y') as fecha, e.total, u.usuario as usuario, pro.empresa as empresa, e.*");
         $this->db->from("entradas e");
         $this->db->join("usuarios u","e.id_usuario = u.id_usuario");  
         $this->db->join("proveedores pro","e.id_proveedor = pro.id_proveedor");  

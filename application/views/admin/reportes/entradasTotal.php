@@ -112,9 +112,9 @@ foreach($entradas as $ent){
         <tr>
             <td align="center">$cont</td>
             <td align="center">$ent->fecha</td>
-            <td>$ent->id_proveedor</td>
-            <td>$ent->id_usuario</td>
-            <td align="right">$total</td>
+            <td>$ent->empresa</td>
+            <td>$ent->usuario</td>
+            <td align="right">$ $total</td>
         </tr>
 EOF;
 }
@@ -127,7 +127,7 @@ $pdf->writeHTML(utf8_decode($tabla), true, false, false, false, '');
 $tablaTotal = <<<EOF
     <table border="1" align="center" cellpadding="2" width="100%">
         <tr>
-            <td>Total de Compras: $totalCompras->totalTotal</td>
+            <td>Total de Compras: $ $totalCompras->totalTotal</td>
         </tr>
     </table>
 

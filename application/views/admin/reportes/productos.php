@@ -87,7 +87,7 @@ $tabla = <<<EOF
             <tr>
                 <th width="10%" align="center" bgcolor="lightgray">#</th>
                 <th width="15%" align="center" bgcolor="lightgray">C&oacute;digo</th>
-                <th width="10%" align="center" bgcolor="lightgray">Presentaci&oacute;n</th>
+                <th width="10%" align="center" bgcolor="lightgray">Presentaci&oacute;n Principal</th>
                 <th width="15%" align="center" bgcolor="lightgray">Nombre</th>
                 <th width="15%" align="center" bgcolor="lightgray">Marca</th>
                 <th width="15%" align="center" bgcolor="lightgray">Categor&iacute;a</th>
