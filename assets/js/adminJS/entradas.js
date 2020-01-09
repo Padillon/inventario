@@ -183,9 +183,6 @@ $("#btn-agregar-abast").on("click", function(){
                        
                         $(this).closest("tr").find("#importes").val(totalImporte);
                         $(this).closest("tr").find(".importePresentado").text(totalImporte);
-                        
-
-                       
                         sumarReabastecimiento();
                                   
                 }

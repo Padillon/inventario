@@ -102,6 +102,7 @@ $("#autocompleteProducto").autocomplete({
             success: function(data){
                 
                 response($.map(data, function (item) {
+
                     fecha_caducidad = "";
                     cantidad ="";
                         if (item.caducidad != null) {
@@ -110,9 +111,16 @@ $("#autocompleteProducto").autocomplete({
                         }else{
                             cantidad = item.existencias;
                         }
-                    return {
-                        label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad+' - '+cantidad,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
+                    if ($('#codigo').val() ==1) {
+                        return {
+                            label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad+' - '+cantidad,
+                            id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
+                        }
+                    }else{
+                        return {
+                            label:  item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad+' - '+cantidad,
+                            id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
+                        }
                     }
                 }))
             },
@@ -143,10 +151,10 @@ $("#btn-agregar-abast").on("click", function(){
                 cantidadMaxima = 0; //almacenaremos el número de producto que se puede vender por presentación
 
                 html = "<tr>";
-               // html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
-                html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
-
-                html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
+            if ($('#codigo').val()==1) {
+                html += "<td><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
+            }   
+                html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
                 html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[10]) {
@@ -172,7 +180,7 @@ $("#btn-agregar-abast").on("click", function(){
                 }else{
                     html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades'name='cantidades[]' value='1' min='1' max='"+cantidadMaxima+"' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
                 }
-                html += "<td><input type='hidden' id='importes' name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
+                html += "<td><input type='hidden' id='importes' name='importes[]' value='"+0+"'><p class='importePresentado'>"+0+"</p></td>"; //immportes
                 html += "<td><button type='button' class='btn btn-danger btn-remove-producto'><span class='fa fa-times' style='color: #fff'></span></button></td>";
                 html += "</tr>";
 
@@ -185,15 +193,17 @@ $("#btn-agregar-abast").on("click", function(){
                         // evaluamos que la cantidad no exeda la capacidad máxima y actualizamos los valores
                         cantidad =cant + 1;
                         max =Number($(this).closest("tr").find("#numCantidades").prop('max'));
+
                         if (cantidad > max) {
                             toastr.warning('¡Cantidad maxima disponible ' + max + ' !');
-                            $(this).closest("tr").find("td:eq(4)").children('input').val(max);
+                            $(this).closest("tr").find("#numCantidades").val(max);
+                            cantidad = max;
                         }else{
-                            precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+                            precio = $(this).closest("tr").find(".precio-salida").val();
                             importe = cantidad * precio;
                             totalImporte = parseFloat(importe).toFixed(2);
-                            $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-                            $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+                            $(this).closest("tr").find(".importePresentado").text(totalImporte);
+                            $(this).closest("tr").find("#importes").val(totalImporte);
                             sumarReabastecimiento();
                         }                   
                     }
@@ -206,8 +216,10 @@ $("#btn-agregar-abast").on("click", function(){
                         precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
                         importe = cant * precio;
                         totalImporte = parseFloat(importe).toFixed(2);
-                        $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-                        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+                        $(this).closest("tr").find(".importePresentado").text(totalImporte);
+                        $(this).closest("tr").find("#importes").val(totalImporte);
+                    /*    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+                        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);*/
                         sumarReabastecimiento();                 
                     });
                 }
@@ -222,17 +234,7 @@ $("#btn-agregar-abast").on("click", function(){
 });
 
 $(document).on("change", "#tbCompras #tipo_presentacion", function(){
-  /*  irrepetible = 0;
-    data  =  $(this).val();
-    $("#tbCompras tbody tr").each(function(){
-        cadena_caracteres = $(this).closest("tr").find("#tipo_presentacion").val();
-        alert('cadena : '+cadena_caracteres + ' a evaluar: '+data);
-        if ( cadena_caracteres === data) {
-            irrepetible = 1;
-        }
-    });*/
 
-   // if(irrepetible == 0){
         data  =  $(this).val().split('*');
         $(this).closest("tr").find(".precio-salida").val(data[2]);
         //$(this).closest("tr").find("td:eq(0)").children("p").text($data[1]); primera manera de hacerlo 
@@ -252,22 +254,21 @@ $(document).on("change", "#tbCompras #tipo_presentacion", function(){
      //   alert(cant+'--'+cantidadMaxima+'--'+precio);
         $(this).closest("tr").find("#importes").val(totalImporte);
         $(this).closest("tr").find(".cantidades").prop('max',cantidadMaxima);
-        $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+        $(this).closest("tr").find(".importePresentado").text(totalImporte);
         sumarReabastecimiento();
-        //}
- //  else{
-  //  toastr.warning('Ya existe este producto con esta presentación');
-  // }
+
 });
 
 //procesamiento al ingresar otra cantidad de compra
 $(document).on("input", "#tbCompras input.precio-salida", function(){
     pre_compra = $(this).val();
-    cant = $(this).closest("tr").find("td:eq(4)").children("input").val();
+    cant =Number($(this).closest("tr").find("#numCantidades").val()); // $(this).closest("tr").find("td:eq(4)").children("input").val();
     importe = pre_compra * cant;
     totalImporte = parseFloat(importe).toFixed(2);
-    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-    $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+    $(this).closest("tr").find(".importePresentado").text(totalImporte);
+    $(this).closest("tr").find("#importes").val(totalImporte);
+   /* $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+    $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);*/
     sumarReabastecimiento();
 });
 //procedimiento al ingresar cantidades
@@ -277,13 +278,16 @@ $(document).on("input", "#tbCompras input.cantidades", function(){
     max =Number($(this).prop('max'));
     if (cantidad > max) {
         toastr.warning('¡Cantidad maxima disponible ' + max + ' !');
-        $(this).closest("tr").find("td:eq(4)").children('input').val(max);
+        $(this).closest("tr").find("#numCantidades").val(max);
+     //   $(this).closest("tr").find("td:eq(4)").children('input').val(max);
     }else{
-        precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+        precio = $(this).closest("tr").find(".precio-salida").val();
         importe = cantidad * precio;
         totalImporte = parseFloat(importe).toFixed(2);
-        $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+        $(this).closest("tr").find(".importePresentado").text(totalImporte);
+        $(this).closest("tr").find("#importes").val(totalImporte);
+     /*   $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
+        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);*/
         sumarReabastecimiento();
     }
 });
@@ -353,10 +357,11 @@ $("#autocompleteCliente").autocomplete({
 function sumarReabastecimiento(){
     total = 0;
     $("#tbCompras tbody tr").each(function(){
-        total = total +  Number($(this).find("td:eq(5)").text());
+        total = total +  Number($(this).find("#importes").val());
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
+    alert(total2);
     document.getElementById("total_sub").innerHTML='$ '+total.toFixed(2);
 
 }

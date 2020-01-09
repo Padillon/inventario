@@ -61,16 +61,20 @@
                                                 </div>
                                             </div>                           
                                             <br>
+                                            <input type="hidden" id='cod' value=<?php echo $this->session->userdata('codigo') ?>>
+
                                             <table id="tbCompras" class="table table-bordered table-striped table-hover table-responsive">
                                                 <thead>
                                                     <tr >
-                                                        <th WIDTH="20%">Codigo.</th>
-                                                        <th WIDTH="20%">Producto.</th>
-                                                        <th WIDTH="20%">Presentación.</th>
-                                                        <th WIDTH="20%">Precio Venta.</th>
-                                                        <th WIDTH="20%">Cantidad</th>
-                                                        <th WIDTH="20%">Importes</th>
-                                                        <th WIDTH="20%">Eliminar</th>
+                                                    <?php if($this->session->userdata('codigo') == 1){?>
+                                                                    <th class="col-md-1">Codigo.</th>
+                                                    <?php } ?>        
+                                                        <th class="col-md-1">Producto.</th>
+                                                        <th class="col-md-1">Presentación.</th>
+                                                        <th class="col-md-1">Precio Venta.</th>
+                                                        <th class="col-md-1">Cantidad</th>
+                                                        <th class="col-md-1">Importes</th>
+                                                        <th class="col-md-1">Eliminar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>                               

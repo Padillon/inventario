@@ -53,17 +53,17 @@
                                                         </div>
                                                     </div>                           
                                                     <br>
+                                                    <input type="hidden" id='cod' value=<?php echo $this->session->userdata('codigo') ?>>
                                                     
                                                     <table id="tbCompras" class=" tabla-contenido table table-bordered table-striped table-hover table-responsive" style="width:100%">
                                                         <thead>
                                                             <tr class=>
                                                                 <?php if($this->session->userdata('codigo') == 1){?>
                                                                     <th  class="col-md-2">Codigo</th>
-                                                                <?php }else{?>
-                                                                    <input type="hidden" id='cod' value=<?php echo $this->session->userdata('codigo') ?>>
-                                                             <?php   } ?>
+                                                                <?php } ?>
+                                                         
 
-                                                                <th  class="col-md-2">Nombre</th>
+                                                                <th  class="col-md-2">Producto</th>
                                                                 <th  class="col-md-2">Presentacion</th>
                                                                 <th  class="col-md-2">Precio Entrada</th>
                                                                 <!--<th  class="col-md-2">Precio Salida</th> -->
