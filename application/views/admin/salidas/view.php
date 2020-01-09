@@ -21,6 +21,7 @@
 				<tr>
 					<th>Codigo</th>
 					<th>Nombre</th>
+					<th>Unidad</th>
 					<th>Precio Venta</th>
 					<th>Cantidad</th>
 					<th>Importe</th>
@@ -31,6 +32,7 @@
 					<?php foreach($detalle_salida as $detalle){?>
 					<td><?php echo $detalle->codigo;?></td>
 					<td><?php echo $detalle->nombre;?></td>
+					<td><?php echo $detalle->nombrePre;?></td>
 					<td><?php echo $detalle->precio_venta;?></td>
 					<td><?php echo $detalle->cantidad;?></td>
 					<td><?php echo "$ ".$detalle->subtotal;?></td>
@@ -39,7 +41,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4" class="text-right"><strong>Total:</strong></td>
+					<td colspan="5" class="text-right"><strong>Total:</strong></td>
 					<td><?php echo "$ ".$salida->total;?></td>
 				</tr>
 			</tfoot>

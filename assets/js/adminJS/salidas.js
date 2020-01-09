@@ -361,7 +361,7 @@ function sumarReabastecimiento(){
     });
     total2 = parseFloat(total).toFixed(2);
     $("#total").val(total2);
-    alert(total2);
+    //alert(total2);
     document.getElementById("total_sub").innerHTML='$ '+total.toFixed(2);
 
 }

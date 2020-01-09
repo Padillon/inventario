@@ -123,10 +123,11 @@ class Entradas_model extends CI_Model {
     }
 
     public function getDetalleEntrada($id){
-            $this->db->select("d.*, p.nombre, pr.codigo as codigo");
+            $this->db->select("d.*, p.nombre, pr.codigo as codigo, pn.nombre as nombrePre");
             $this->db->from("detalle_entrada d");
             $this->db->join("productos p", "d.id_producto = p.id_producto");
             $this->db->join("presentaciones_producto pr", "d.id_presentacion_producto = pr.id_presentacion_producto");
+            $this->db->join("presentacion pn", "pn.id_presentacion = pr.id_presentacion");
             $this->db->where("d.id_entrada", $id);
 		      $resultados = $this->db->get();
 		      return $resultados->result();
