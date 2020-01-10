@@ -118,7 +118,7 @@ if ($permisos->update == 1){
                 <h5 class="modal-title" id="ti-cabeza">Movimiento.</h5>
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
-
+             <input type="hidden"  id="codigo_activo" value="<?php echo $this->session->userdata('codigo'); ?>"> <!-- para saber si el usuario quiere ver los códigos -->
             <div class='modal-body'>
                 <form action="<?php echo base_url();?>movimientos/kardex/addMovimiento" id="movimiento_form" method="POST">
                     <div class='row'>  
@@ -139,14 +139,6 @@ if ($permisos->update == 1){
                                         <?php endforeach;?>
                                     </select>
                                 </div>
-                                <!--  <div class='col-md-4'>
-                                        <label>Cliente / Proveedor: </label>
-                                        <input name='valorCliente' required id='autocompleteCliente' type='text' class='form-control' >
-                                        <input type="hidden" id="idCliente" name="idCliente" >
-                                        <input name='valorProveedor' required id='autocompleteProveedor' require type='hidden' class='form-control' >
-                                        <input type="hidden" id="idProveedor" name="idProveedor" >
-                                </div>
-                                -->
                                 <div class="col-md-12"> 
                                     <br>
                                 </div>    
@@ -174,7 +166,9 @@ if ($permisos->update == 1){
                                     <table  id="tbCompras" class="table table-responsive">
                                         <thead>
                                             <tr>
+                                            <?php if($this->session->userdata('codigo') == 1){?>
                                                 <th class="col-md-1">Código</th>
+                                            <?php } ?>
                                                 <th class="col-md-2">Nombre</th>
                                                 <th class="col-md-2">Presentación</th>
                                                 <th class="col-md-1">Precio</th>

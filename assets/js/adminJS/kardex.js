@@ -163,6 +163,8 @@ $(document).ready(function(){
 function movimientoModal(){
     $("#tbCompras tbody tr").each(function(){
         $(this).remove();
+        $("#total").val(0);
+         document.getElementById("total_sub").innerHTML='$ '+0;
     });
 }
 
@@ -176,10 +178,18 @@ $("#autocompleteProducto").autocomplete({
             data:{ autocompleteProducto: request.term},
             success: function(data){
                 response($.map(data, function (item) {
-                    return {
-                        label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.id_producto+"*"+item.codigo+"*"+item.nombre+'*'+ item.id_marca+'*'+item.id_presentacion_producto,
+                    if ($('#codigo_activo').val()==1) {
+                        return {
+                            label: item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
+                            id: item.id_producto+"*"+item.codigo+"*"+item.nombre+'*'+ item.id_marca+'*'+item.id_presentacion_producto,
+                        }
+                    }else{
+                        return {
+                            label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
+                            id: item.id_producto+"*"+item.codigo+"*"+item.nombre+'*'+ item.id_marca+'*'+item.id_presentacion_producto,
+                        }
                     }
+                   
                 }))
             },
         });
@@ -240,10 +250,17 @@ $("#autocompleteProducto2").autocomplete({
                         }else{
                             cantidad = item.existencias;
                         }
-                    return {
-                        label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
-                    }
+                        if ($('#codigo_activo').val()==1) {
+                            return {
+                                label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                                id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
+                            }
+                        }else{
+                            return {
+                                label:item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                                id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad,
+                            }
+                        }
                 }))
             },
         });
@@ -273,10 +290,18 @@ $("#autocompleteProducto2").autocomplete({
                         }else{
                             cantidad = item.existencias;
                         }
-                    return {
-                        label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
-                    }
+                        if ($('#codigo_activo').val() == 1) {
+                            return {
+                                label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                                id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
+                            }
+                        }else{
+                            return {
+                                label:item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                                id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
+                            }
+                        }
+                    
                 }))
             },
         });
@@ -321,11 +346,17 @@ $("#autocompleteProducto2").autocomplete({
                         }else{
                             cantidad = item.existencias;
                         }
-                        
-                    return {
-                        label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
-                        id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
-                    }
+                        if ($('#codigo_activo').val() == 1) {
+                            return {
+                                label: item.codigo + ' - ' + item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                                id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
+                            }
+                        }else{
+                            return {
+                                label:item.nombre+' - '+item.marca+' - '+ item.id_presentacion+fecha_caducidad,
+                                id: item.codigo+'*'+item.nombre+'*'+item.precio_compra+'*'+item.precio_venta+'*'+item.id_producto+'*'+item.id_presentacion+'*'+item.existencias+'*'+item.perecedero+'*'+cantidad+'*'+item.lote+"*"+item.id_presentacion_producto+"*"+item.lt_cantidad+'*'+item.valor+'*'+item.id_stock,
+                            }
+                        }
                 }))
             },
         });
@@ -348,10 +379,18 @@ $("#autocompleteProducto2").autocomplete({
             data:{ autocompleteProducto: request.term},
             success: function(data){
                 response($.map(data, function (item) {
-                    return {
-                        label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
-                        id: item.id_producto+"*"+item.id_presentacion_producto,
+                    if ($('#codigo_activo').val() == 1) {
+                        return {
+                            label: item.codigo+" - "+item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
+                            id: item.id_producto+"*"+item.id_presentacion_producto,
+                        }
+                    }else{
+                        return {
+                            label:item.id_presentacion+" - "+item.nombre+' - '+ item.id_marca,
+                            id: item.id_producto+"*"+item.id_presentacion_producto,
+                        }
                     }
+                   
                 }))
             },
         });
@@ -382,9 +421,10 @@ $("#autocompleteProducto2").autocomplete({
 
                 html = "<tr>";
                // html += "<td><input type='hidden' name='idProductos[]' value='"+infoProducto[4]+"'>"+infoProducto[0]+"</td>";//id y codigo
-                html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
-
-                html += "<td><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
+               if ($('#codigo_activo').val()==1) {
+                html += "<td><p class='cod_class'>"+infoProducto[0]+"</p></td>";//id y codigo
+               }
+                html += "<td><input type='hidden' name='idProductos[]' class='id_producto' value='"+infoProducto[4]+"'><input type='hidden' name='codigos[]' class='cod_class'  value='"+infoProducto[0]+"'><p>"+infoProducto[1]+" "+infoProducto[5]+"</p></td>"; //nombre
                 html += "<td><select name='tipo_presentacion[]' id='tipo_presentacion' class='custom-select '>";//recordar recortar select y td
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].id_presentacion_producto == infoProducto[10]) {
@@ -401,7 +441,7 @@ $("#autocompleteProducto2").autocomplete({
                 }else{
                     html += "<td><input type='number' style='width:100px' placeholder='Ingrese una cantidad' id='numCantidades'name='cantidades[]' value='1' min='1' pattern='^[0-9]+' class='cantidades'><input type='hidden' name='estados[]' value = '"+infoProducto[7]+"' ><input type='hidden' name='lotes[]' value = '"+infoProducto[9]+"' ></td>"; //cantidades
                 }
-                html += "<td><input type='hidden' id='importes' name='importes[]' value='"+0+"'><p>"+0+"</p></td>"; //immportes
+                html += "<td><input type='hidden' id='importes' name='importes[]' value='"+0+"'><p class='importe_presentado'>"+0+"</p></td>"; //immportes
                 if ( entrasalida[1] == 1) {
                     if (infoProducto[7]==1) {
                         html += "<td><input name='fechaCaducidad[]' type='date' required class='form-control fecha' ><input type='hidden' class='pedecedero' value='"+infoProducto[7]+"'> </td>";
@@ -423,18 +463,12 @@ $("#autocompleteProducto2").autocomplete({
                         $(this).closest("tr").find("#numCantidades").val(cant+1); //aumentamos el valor
                         // evaluamos que la cantidad no exeda la capacidad máxima y actualizamos los valores
                         cantidad =cant + 1;
-                      //  max =Number($(this).closest("tr").find("#numCantidades").prop('max'));
-                      //  if (cantidad > max) {
-                        //    toastr.warning('¡Cantidad maxima disponible ' + max + ' !');
-                        //    $(this).closest("tr").find("td:eq(4)").children('input').val(max);
-                      //  }else{
-                            precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+                            precio = $(this).closest("tr").find(".precio").val();
                             importe = cantidad * precio;
                             totalImporte = parseFloat(importe).toFixed(2);
-                            $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-                            $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);
+                            $(this).closest("tr").find(".importe_presentado").text(totalImporte);
+                            $(this).closest("tr").find("#importes").val(totalImporte);
                             sumarReabastecimiento();
-                      //  }                   
                     }
                 });
                 if (irrepetible == 0) {
@@ -492,7 +526,11 @@ $(document).on("click", ".btn-view-moviiento", function(){
 });
 $("#id_movimiento").on("change", function(){
    $("#tbCompras tbody tr").each(function(){
+       alert('k');
         $(this).remove();
+        $("#total").val(0);
+        document.getElementById("total_sub").innerHTML='$ '+0
+
     });
     //$('#autocompleteProveedor').is('hidden');
     $('#autocompleteCliente').val('')
@@ -537,8 +575,8 @@ $(document).on("input", "#tbCompras input.cantidades", function(){ // escuchamos
     precio = $(this).closest("tr").find(".precio").val();
     importe = cantidad * precio;
     totalImporte = parseFloat(importe).toFixed(2);
+    $(this).closest("tr").find(".importe_presentado").text(totalImporte);
     $(this).closest("tr").find("#importes").val(totalImporte);
-    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
     sumarReabastecimiento();
 });
 $(document).on("input", "#tbCompras input.precio", function(){ // escuchamos cuando ingresen su precio
@@ -546,8 +584,8 @@ $(document).on("input", "#tbCompras input.precio", function(){ // escuchamos cua
     cantidad = $(this).closest("tr").find(".cantidades").val();
     importe = cantidad * precio;
     totalImporte = parseFloat(importe).toFixed(2);
+    $(this).closest("tr").find(".importe_presentado").text(totalImporte);
     $(this).closest("tr").find("#importes").val(totalImporte);
-    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
     sumarReabastecimiento();
 });
 
