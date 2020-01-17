@@ -213,13 +213,11 @@ $("#btn-agregar-abast").on("click", function(){
                     $("#tbCompras tbody tr").each(function(){ //funcion para aumentar la cantidad dependiendo el producto leido
                         cant = Number($(this).closest("tr").find("#numCantidades").val()); // obtenemos la cantidad actual
 
-                        precio = $(this).closest("tr").find("td:eq(3)").children("input").val();
+                        precio = $(this).closest("tr").find(".precio-salida").val();
                         importe = cant * precio;
                         totalImporte = parseFloat(importe).toFixed(2);
                         $(this).closest("tr").find(".importePresentado").text(totalImporte);
                         $(this).closest("tr").find("#importes").val(totalImporte);
-                    /*    $(this).closest("tr").find("td:eq(5)").children("p").text(totalImporte);
-                        $(this).closest("tr").find("td:eq(5)").children("input").val(totalImporte);*/
                         sumarReabastecimiento();                 
                     });
                 }
